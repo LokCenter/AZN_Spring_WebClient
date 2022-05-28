@@ -22,7 +22,7 @@
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#collaborators">License</a></li>
+    <li><a href="#collaborators">Collaborators</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -84,7 +84,6 @@ Other areas of application:
   <li><a href="https://github.com/chfle">chfle</a> - <a href="mailto:christian.lehnert.home@protonmail.com">christian.lehnert.home@protonmail.com</a></li> 
   <li><a href="https://github.com/lszillat">lszillat</a></li> 
 </ul>
-
 
 <!-- CONTACT -->
 ## Contact
