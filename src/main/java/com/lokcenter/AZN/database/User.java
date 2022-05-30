@@ -6,15 +6,23 @@ import javax.persistence.*;
 public class User {
     @Id
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private String authority;
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING) // will use a string
     private Role role;
+    @Column(nullable = false)
+    private int enabled;
+
+    public void setEnabled(int val) {
+        enabled = val;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
 
     // must be set
     public User(){}
@@ -43,14 +51,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
     }
 
     public Role getRole() {
