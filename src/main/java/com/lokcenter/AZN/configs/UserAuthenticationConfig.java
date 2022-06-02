@@ -18,7 +18,7 @@ public class UserAuthenticationConfig {
                 "select username, password, enabled from user where username = ?";
 
         String authsByUserQuery =
-                "select username, authority from azn.authorities where username = ?";
+                "select user_username, authority from azn.authorities where user_username = ?";
 
         var userDetailsManager = new JdbcUserDetailsManager(dataSource);
         userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);

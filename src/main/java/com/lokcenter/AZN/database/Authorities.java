@@ -1,15 +1,16 @@
 package com.lokcenter.AZN.database;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Authorities {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String username; // TODO: Foreign Key
+
+    @ManyToOne
+    @JoinColumn(name="userUsername", nullable = false, referencedColumnName = "username")
+    private User username;
     @Column(nullable = false)
     private String authority;
 
@@ -23,11 +24,11 @@ public class Authorities {
         this.id = id;
     }
 
-    public String getUsername() {
+    public User getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(User username) {
         this.username = username;
     }
 

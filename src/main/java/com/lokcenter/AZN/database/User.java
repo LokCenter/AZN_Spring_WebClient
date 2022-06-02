@@ -1,20 +1,36 @@
 package com.lokcenter.AZN.database;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING) // will use a string
-    private Role role;
-    @Column(nullable = false)
     private int enabled;
+    @Column(nullable = false)
+    private int tokenExpired;
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Collection<Role> roles;
+
+    public int getTokenExpired() {
+        return tokenExpired;
+    }
+
+    public void setTokenExpired(int tokenExpired) {
+        this.tokenExpired = tokenExpired;
+    }
 
     public void setEnabled(int val) {
         enabled = val;
@@ -53,11 +69,4 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }
