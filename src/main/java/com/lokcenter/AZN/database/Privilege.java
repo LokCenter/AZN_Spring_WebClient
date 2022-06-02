@@ -21,6 +21,12 @@ public class Privilege {
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
 
+    public Privilege(String name) {
+        this.name = name;
+    }
+
+    public Privilege() {}
+
     public void setId(Long id) {
         this.id = id;
     }
