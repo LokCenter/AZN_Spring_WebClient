@@ -1,5 +1,8 @@
 package com.lokcenter.AZN.database;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -22,6 +25,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
+    @Fetch(FetchMode.SUBSELECT) // enable_lazy_load_no_trans property
     private Collection<Role> roles;
 
     public int getTokenExpired() {

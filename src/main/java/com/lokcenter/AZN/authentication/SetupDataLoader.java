@@ -60,7 +60,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    Role createRoleIfNotFound(String role_username, List<Privilege> privileges) {
+    public Role createRoleIfNotFound(String role_username, List<Privilege> privileges) {
         Role optionalRole = roleRepository.findByName(role_username);
 
         if (optionalRole == null) {
@@ -75,7 +75,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    Privilege createPrivilegeIfNotFound(String name) {
+    public Privilege createPrivilegeIfNotFound(String name) {
 
         Privilege priv = privilegeRepository.findByName(name);
 

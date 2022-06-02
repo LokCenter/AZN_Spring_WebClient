@@ -1,7 +1,6 @@
 package com.lokcenter.AZN.database.Repository;
 
 import com.lokcenter.AZN.database.Privilege;
-import com.lokcenter.AZN.database.Repository.Custom.RoleRepositoryCustom;
 import com.lokcenter.AZN.database.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
