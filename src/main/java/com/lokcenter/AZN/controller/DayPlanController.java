@@ -12,7 +12,7 @@ import java.util.Date;
 @Controller
 @RequestMapping("/")
 public class DayPlanController {
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping
     String getDayPlan(Model model) {
         //TODO: Add DayPlan data
