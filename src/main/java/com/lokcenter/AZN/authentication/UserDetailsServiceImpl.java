@@ -1,4 +1,4 @@
-package com.lokcenter.AZN.configs;
+package com.lokcenter.AZN.authentication;
 
 import com.lokcenter.AZN.database.Privilege;
 import com.lokcenter.AZN.database.Repository.RoleRepository;
