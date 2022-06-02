@@ -73,11 +73,14 @@ Other areas of application:
 
 - [X] Create Basic Repo
 - [ ] Add Login Authentication 
-  - [ ] Add Login Page
+  - [X] Add Login Page
   - [ ] Add Register Page (Optional)
 - [ ] Add DayPlan Page
 - [ ] Add Overview Page
-- [ ] Add Admin Page
+- [X] Add Admin Page
+  - [ ] Add Admin Panel
+    - [ ] Add/ Remove/ Update User
+    - [ ] Manage Privileges and Roles
 
 ## Collaborators
 <ul>
