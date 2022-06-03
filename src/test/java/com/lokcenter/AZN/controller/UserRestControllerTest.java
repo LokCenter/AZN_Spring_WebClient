@@ -92,14 +92,14 @@ class UserRestControllerTest {
 
     @WithMockUser(username = "PP", password = "sfd", roles = "USER")
     @Test
-    void DeleteUser_should_not_be_allowed_for_non_admins() throws Exception {
+    void DeleteUserByID_should_not_be_allowed_for_non_admins() throws Exception {
         mockMvc.perform(delete("/user/444"))
                 .andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "PP", password = "sfd", roles = "ADMIN")
     @Test
-    void DeleteUser() throws Exception {
+    void DeleteUserByID() throws Exception {
         // insert a user
         mockMvc.perform(post("/user")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -115,8 +115,8 @@ class UserRestControllerTest {
 
     @WithMockUser(username = "PP", password = "sfd", roles = "ADMIN")
     @Test
-    void DeleteUser_should_not_be_found() throws Exception {
-        mockMvc.perform(delete("/user/44"))
+    void DeleteUserByID_should_not_be_found() throws Exception {
+        mockMvc.perform(delete("/user/0"))
                 .andExpect(status().isNotFound());
     }
 }

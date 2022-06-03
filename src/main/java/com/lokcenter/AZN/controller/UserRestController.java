@@ -6,8 +6,6 @@ import com.lokcenter.AZN.database.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -59,7 +57,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> DeleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> DeleteUserByID(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isEmpty()) {
@@ -73,4 +71,5 @@ public class UserRestController {
             }
         }
     }
+
 }
