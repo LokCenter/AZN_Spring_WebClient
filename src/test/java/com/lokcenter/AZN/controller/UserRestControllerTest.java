@@ -4,6 +4,7 @@ import com.lokcenter.AZN.database.Repository.RoleRepository;
 import com.lokcenter.AZN.database.Repository.UserRepository;
 import com.lokcenter.AZN.database.Role;
 import com.lokcenter.AZN.database.User;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
@@ -44,9 +45,7 @@ class UserRestControllerTest {
         this.data.put("password", "password123");
         this.data.put("enabled", 1);
 
-        Role role = roleRepository.findByName("ROLE_USER");
-
-        this.data.put("role", role);
+        this.data.put("role", "ROLE_USER");
     }
 
     @AfterEach
@@ -72,7 +71,7 @@ class UserRestControllerTest {
     void postUser_should_be_created() throws Exception {
         mockMvc.perform(post("/user")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.data.toString()))
+                        .content(String.valueOf(new JSONObject(this.data))))
                 .andExpect(status().isCreated());
     }
 }

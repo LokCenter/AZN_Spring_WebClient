@@ -28,24 +28,26 @@ public class UserRestController {
     // WARNING: DO NOT USE GET MAPPING
 
     @PostMapping
-    public ResponseEntity<?> postUser(@RequestBody JsonNode payload, ServerHttpResponse response) {
+    public ResponseEntity<?> postUser(@RequestBody JsonNode payload) {
         // NOTE: token expired is defaulted to 0;
 
         // check if role is provided and role exists
         if (payload.has("role") && roleRepository.findByName(payload.get("role").textValue()) != null) {
-            String name  = payload.get("username").toString();
-            String password = payload.get("password").toString();
+            String name  = payload.get("username").textValue();
+            String password = payload.get("password").textValue();
             int token = 0; // not expired
             int enabled = payload.get("enabled").asInt();
             var roles = List.of(roleRepository.findByName(payload.get("role").textValue()));
 
             User user = new User(name, password, enabled, token, roles);
 
+            System.out.println(payload);
+
             try {
                 userRepository.save(user);
 
                 // http response with error code CREADTED
-                return new ResponseEntity<>(response, HttpStatus.CREATED);
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
 
             } catch (DataAccessException ignore) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);

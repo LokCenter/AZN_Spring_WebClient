@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class UserAuthenticationConfig {
+public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public UserDetailsService userDetailsService() {
        return new UserDetailsServiceImpl();
@@ -23,15 +23,15 @@ public class UserAuthenticationConfig {
         return NoOpPasswordEncoder.getInstance(); // not secure only for testing
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception {
-        http.httpBasic();
-
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable()
+                .httpBasic();
 
-        return http.build();
     }
 }
