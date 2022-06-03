@@ -74,4 +74,18 @@ class UserRestControllerTest {
                         .content(String.valueOf(new JSONObject(this.data))))
                 .andExpect(status().isCreated());
     }
+
+    @WithMockUser(username = "PP", password = "sdfkljsd", roles = "ADMIN")
+    @Test
+    void postUser_should_be_created_only_once() throws Exception {
+        mockMvc.perform(post("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.valueOf(new JSONObject(this.data))))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(post("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.valueOf(new JSONObject(this.data))))
+                .andExpect(status().isNotAcceptable());
+    }
 }
