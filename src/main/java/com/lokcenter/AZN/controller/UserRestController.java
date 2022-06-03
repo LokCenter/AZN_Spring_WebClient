@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/user")
 public class UserRestController {
-
+    // WARNING: DO NOT USE GET MAPPING
 }
