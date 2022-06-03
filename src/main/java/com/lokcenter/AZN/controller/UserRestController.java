@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -55,5 +56,21 @@ public class UserRestController {
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> DeleteUser(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            try {
+                userRepository.delete(user.get());
+                return new ResponseEntity<>(null, HttpStatus.FOUND);
+            } catch (DataAccessException ignore) {
+                return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
+            }
+        }
     }
 }

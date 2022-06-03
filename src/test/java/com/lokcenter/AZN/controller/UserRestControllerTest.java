@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -87,5 +88,35 @@ class UserRestControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(String.valueOf(new JSONObject(this.data))))
                 .andExpect(status().isNotAcceptable());
+    }
+
+    @WithMockUser(username = "PP", password = "sfd", roles = "USER")
+    @Test
+    void DeleteUser_should_not_be_allowed_for_non_admins() throws Exception {
+        mockMvc.perform(delete("/user/444"))
+                .andExpect(status().isForbidden());
+    }
+
+    @WithMockUser(username = "PP", password = "sfd", roles = "ADMIN")
+    @Test
+    void DeleteUser() throws Exception {
+        // insert a user
+        mockMvc.perform(post("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.valueOf(new JSONObject(this.data))))
+                .andExpect(status().isCreated());
+
+        // get id from user
+        Long id = userRepository.findByUsername(String.valueOf(data.get("username"))).getId();
+
+        mockMvc.perform(delete("/user/" + id))
+                .andExpect(status().isFound());
+    }
+
+    @WithMockUser(username = "PP", password = "sfd", roles = "ADMIN")
+    @Test
+    void DeleteUser_should_not_be_found() throws Exception {
+        mockMvc.perform(delete("/user/44"))
+                .andExpect(status().isNotFound());
     }
 }
