@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // Calendar Site
 @RequestMapping("/overview")
 public class OverviewController {
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping
     String getOverviewPage(Model model) {
         return "overview";

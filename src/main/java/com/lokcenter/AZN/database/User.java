@@ -47,7 +47,13 @@ public class User {
     // must be set
     public User(){}
 
-
+    public User(String username, String password, int enabled, int tokenExpired, Collection<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.tokenExpired = tokenExpired;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

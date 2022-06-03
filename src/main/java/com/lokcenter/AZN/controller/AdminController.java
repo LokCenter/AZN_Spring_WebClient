@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     String getAdminPanel(Model model) {
         return "adminPanel";
