@@ -9,15 +9,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import java.util.Collection;
 
+/**
+ * Privilege database table
+ *
+ * @version 1.02 2022-05-28
+ */
 @Entity
 public class Privilege {
+    /**
+     * Table id
+     *
+     * @implNote Auto generated in mariadb
+     */
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Privilege Name
+     */
     private String name;
 
+    /**
+     * Create a role_privileges table
+     *
+     * @implNote Set privileges for roles
+     */
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
 

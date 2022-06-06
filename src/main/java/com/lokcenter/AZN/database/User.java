@@ -6,25 +6,63 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.Collection;
 
+/**
+ * User table
+ *
+ * @version 1.05 2022-06-04
+ */
 @Entity
 public class User {
+    /**
+     * Table id
+     *
+     * @implNote Auto generated in mariadb
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    /**
+     * username
+     *
+     * @implNote NOT NULL
+     */
     @Column(nullable = false, unique = true)
     private String username;
+    /**
+     * password
+     *
+     * @implNote NOT NULL
+     */
     @Column(nullable = false)
     private String password;
+    /**
+     * Check if user account is enabled
+     *
+     * @implNote must be int
+     * @implNote NOT NULL
+     */
     @Column(nullable = false)
     private int enabled;
+    /**
+     *  check if token is still valid
+     *
+     * @implNote must be int
+     * @implNote NOT NULL
+     */
     @Column(nullable = false)
     private int tokenExpired;
 
+    /**
+     *  Map users to roles to get all roles for a user
+     *
+     * @implNote use lazy_load_no_trans
+     */
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
+
     @Fetch(FetchMode.SUBSELECT) // enable_lazy_load_no_trans property
     private Collection<Role> roles;
 

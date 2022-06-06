@@ -12,6 +12,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * User RestController -> Manage Users
+ * @version 1.05 2022-06-03
+ *
+ * @apiNote NO GET should be set.
+ */
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
@@ -19,13 +25,21 @@ public class UserRestController {
     private final RoleRepository roleRepository;
 
 
+    /**
+     * Init repositories
+     * @param userRepository The UserRepository
+     * @param roleRepository The RoleRepository
+     */
     public UserRestController(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
 
-    // WARNING: DO NOT USE GET MAPPING
-
+    /**
+     * Add new user based on payload
+     * @param payload User data in JSON format
+     * @return A new ResponseEntity with custom error code
+     */
     @PostMapping
     public ResponseEntity<?> postUser(@RequestBody JsonNode payload) {
         // NOTE: token expired is defaulted to 0;
@@ -45,7 +59,6 @@ public class UserRestController {
             try {
                 userRepository.save(user);
 
-                // http response with error code CREADTED
                 return new ResponseEntity<>(null, HttpStatus.CREATED);
 
             } catch (DataAccessException ignore) {
@@ -56,6 +69,11 @@ public class UserRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    /**
+     * Delete user based on his id
+     * @param id User id
+     * @return A new ResponseEntity with custom error code
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> DeleteUserByID(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);

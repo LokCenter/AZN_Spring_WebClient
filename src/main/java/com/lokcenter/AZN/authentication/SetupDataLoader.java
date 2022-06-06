@@ -17,6 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Setup some database entries and other stuff.
+ * @version 1.05 2022-06-01
+ */
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
     boolean setupDone = false;
@@ -33,6 +37,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Add the different permissions to the database when the program is started.
+     *
+     * @param event The EventHandler
+     */
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -59,6 +68,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 //        userRepository.save(user);
     }
 
+    /**
+     * Create a new role if the role does not exist
+     *
+     * @param role_username The role name to search for.
+     * @param privileges The privileges to add.
+     * @return A role found or created
+     */
     @Transactional
     public Role createRoleIfNotFound(String role_username, List<Privilege> privileges) {
         Role optionalRole = roleRepository.findByName(role_username);
@@ -74,6 +90,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return optionalRole;
     }
 
+    /**
+     * Create a privilege if it does not exist
+     *
+     * @param name The privilege name
+     * @return a privilege found or created
+     */
     @Transactional
     public Privilege createPrivilegeIfNotFound(String name) {
 

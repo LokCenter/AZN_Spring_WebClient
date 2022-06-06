@@ -2,6 +2,12 @@ package com.lokcenter.AZN.database;
 
 import javax.persistence.*;
 
+/**
+ * Authorities database table
+ *
+ * @deprecated Do not delete...
+ * @version 1.06 2022-06-03
+ */
 @Entity
 public class Authorities {
     @Id
