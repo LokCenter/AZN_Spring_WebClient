@@ -85,7 +85,7 @@ Other areas of application:
 ## Collaborators
 <ul>
   <li><a href="https://github.com/chfle">chfle</a> - <a href="mailto:christian.lehnert.home@protonmail.com">christian.lehnert.home@protonmail.com</a></li> 
-  <li><a href="https://github.com/lszillat">lszillat</a></li> 
+  <li><a href="https://github.com/lszillat">lszillat</a> - <a href="mailto:leonard.szillat@gmail.com">leonard.szillat@gmail.com</a></li>
 </ul>
 
 <!-- CONTACT -->
