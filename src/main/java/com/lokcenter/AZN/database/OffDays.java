@@ -11,64 +11,68 @@ import java.util.Date;
 @Entity
 @Table(name = "off_days")
 public class OffDays {
+    /**
+     * Primary Key
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long a_id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "date")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date b_date;
 
     @Column(nullable = false, name = "general_vacation")
-    private int generalVacation;
+    private int c_generalVacation;
 
     @Column(nullable = false, name = "official_holiday")
-    private int officialHoliday;
+    private int d_officialHoliday;
 
-    @Column(nullable = true)
-    private String comment;
+    @Column(nullable = true, name = "comment")
+    private String e_comment;
 
     public OffDays() {
 
     }
 
     public Long getId() {
-        return id;
+        return a_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.a_id = id;
     }
 
     public Date getDate() {
-        return date;
+        return b_date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.b_date = date;
     }
 
     public int getGeneralVacation() {
-        return generalVacation;
+        return c_generalVacation;
     }
 
     public void setGeneralVacation(int generalVacation) {
-        this.generalVacation = generalVacation;
+        this.c_generalVacation = generalVacation;
     }
 
     public int getOfficialHoliday() {
-        return officialHoliday;
+        return d_officialHoliday;
     }
 
     public void setOfficialHoliday(int officialHoliday) {
-        this.officialHoliday = officialHoliday;
+        this.d_officialHoliday = officialHoliday;
     }
 
     public String getComment() {
-        return comment;
+        return e_comment;
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.e_comment = comment;
     }
 }

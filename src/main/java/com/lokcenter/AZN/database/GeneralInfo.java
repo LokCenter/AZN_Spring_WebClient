@@ -13,75 +13,92 @@ import java.sql.Time;
 @Entity
 @Table(name = "general_info")
 public class GeneralInfo {
+    /**
+     * Primary Key
+     */
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long a_id;
 
+    /**
+     *  Default vacation days for all users
+     */
     @Column(nullable = false, name = "vacation_normal")
-    private Long vacationNormal;
+    private Long b_vacationNormal;
 
+    /**
+     *  Vacation for handicapped users
+     */
     @Column(nullable = false, name = "vacation_handicap")
-    private Long vacationHandicap;
+    private Long c_vacationHandicap;
 
+    /**
+     * weekend factor
+     */
     @Column(nullable = false, name = "weekend_factor")
-    private double weekendFactor;
+    private double d_weekendFactor;
 
+    /**
+     * Default work time like 8:00 Hours or 7:42
+     */
     @Column(nullable = false, name = "daily_worktime")
-    private Time dailyWorktime;
+    private Time e_dailyWorktime;
 
+    /**
+     * Default pause value
+     */
     @Column(nullable = false, name = "daily_pause")
-    private short dailyPause;
+    private short f_dailyPause;
 
     public GeneralInfo() {}
 
     public Long getId() {
-        return id;
+        return a_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.a_id = id;
     }
 
     public Long getVacationNormal() {
-        return vacationNormal;
+        return b_vacationNormal;
     }
 
     public void setVacationNormal(Long vacationNormal) {
-        this.vacationNormal = vacationNormal;
+        this.b_vacationNormal = vacationNormal;
     }
 
     public Long getVacationHandicap() {
-        return vacationHandicap;
+        return c_vacationHandicap;
     }
 
     public void setVacationHandicap(Long vacationHandicap) {
-        this.vacationHandicap = vacationHandicap;
+        this.c_vacationHandicap = vacationHandicap;
     }
 
     public double getWeekendFactor() {
-        return weekendFactor;
+        return d_weekendFactor;
     }
 
     public void setWeekendFactor(double weekendFactor) {
-        this.weekendFactor = weekendFactor;
+        this.d_weekendFactor = weekendFactor;
     }
 
     public Time getDailyWorktime() {
-        return dailyWorktime;
+        return e_dailyWorktime;
     }
 
     public void setDailyWorktime(Time dailyWorktime) {
-        this.dailyWorktime = dailyWorktime;
+        this.e_dailyWorktime = dailyWorktime;
     }
 
     public short getDailyPause() {
-        return dailyPause;
+        return f_dailyPause;
     }
 
     public void setDailyPause(short dailyPause) {
-        this.dailyPause = dailyPause;
+        this.f_dailyPause = dailyPause;
     }
-
-
 }

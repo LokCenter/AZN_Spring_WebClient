@@ -22,24 +22,42 @@ public class UserDayPlanData {
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private User user_id;
 
+    /**
+     * Workday start time
+     */
     @Column(nullable = true, name = "start_time")
     private Time startTime;
 
+    /**
+     * Workday end time
+     */
     @Column(nullable = true, name = "end_time")
     private Time endTime;
 
     @Column(nullable = true)
     private short pause;
 
+    /**
+     * Mark if day is a school day
+     */
     @Column(nullable = false, name = "school_day")
     private int schoolDay;
 
+    /**
+     * Mark if day is a glaz Day
+     */
     @Column(nullable = false, name = "glaz_day")
     private int glazDay;
 
+    /**
+     * Mark if day is a vacation day
+     */
     @Column(nullable = false, name = "vacation_day")
     private int vacationDay;
 
+    /**
+     * Mark if day is a sick day
+     */
     @Column(nullable = false, name = "sick_day")
     private int sickDay;
 

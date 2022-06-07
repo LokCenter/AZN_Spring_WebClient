@@ -25,20 +25,20 @@ public class UserData {
      * @implNote columnDefinition = "ENUM('NEGATIVE', 'POSITIVE') must be set /
      * for mysql
      */
-    @Column(nullable = false, columnDefinition = "ENUM('NEGATIVE', 'POSITIVE')")
-    private Balance balanceTime;
+    @Column(nullable = false, columnDefinition = "ENUM('NEGATIVE', 'POSITIVE')", name = "balance_time")
+    private Balance a_balanceTime;
 
     @Column(nullable = false, name = "used_vacationDays")
-    private Long usedVacationDays;
+    private Long b_usedVacationDays;
 
-    @Column(nullable = false)
-    private int sickDays;
+    @Column(nullable = false, name = "sick_days")
+    private int c_sickDays;
 
-    @Column(nullable = false)
-    private int glazDays;
+    @Column(nullable = false, name = "glaz_days")
+    private int d_glazDays;
 
-    @Column(nullable = false)
-    private Long vacationWhileSick;
+    @Column(nullable = false, name = "vacation_while_sick")
+    private Long e_vacationWhileSick;
 
     public UserData() {}
 
@@ -59,42 +59,42 @@ public class UserData {
     }
 
     public Balance getBalanceTime() {
-        return balanceTime;
+        return a_balanceTime;
     }
 
     public void setBalanceTime(Balance balanceTime) {
-        this.balanceTime = balanceTime;
+        this.a_balanceTime = balanceTime;
     }
 
     public Long getUsedVacationDays() {
-        return usedVacationDays;
+        return b_usedVacationDays;
     }
 
     public void setUsedVacationDays(Long usedVacationDays) {
-        this.usedVacationDays = usedVacationDays;
+        this.b_usedVacationDays = usedVacationDays;
     }
 
     public int getSickDays() {
-        return sickDays;
+        return c_sickDays;
     }
 
     public void setSickDays(int sickDays) {
-        this.sickDays = sickDays;
+        this.c_sickDays = sickDays;
     }
 
     public int getGlazDays() {
-        return glazDays;
+        return d_glazDays;
     }
 
     public void setGlazDays(int glazDays) {
-        this.glazDays = glazDays;
+        this.d_glazDays = glazDays;
     }
 
     public Long getVacationWhileSick() {
-        return vacationWhileSick;
+        return e_vacationWhileSick;
     }
 
     public void setVacationWhileSick(Long vacationWhileSick) {
-        this.vacationWhileSick = vacationWhileSick;
+        this.e_vacationWhileSick = vacationWhileSick;
     }
 }
