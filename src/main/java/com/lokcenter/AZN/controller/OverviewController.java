@@ -21,6 +21,7 @@ public class OverviewController {
      */
     @GetMapping
     String getOverviewPage(Model model) {
+        model.addAttribute("title", "Calendar");
         return "overview";
     }
 }

@@ -22,6 +22,7 @@ public class AdminController {
      */
     @GetMapping
     String getAdminPanel(Model model) {
+        model.addAttribute("title", "Admin Panel");
         return "adminPanel";
     }
 }
