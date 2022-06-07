@@ -45,6 +45,7 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic().and().formLogin().and().authorizeRequests()
                 .mvcMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/js/***", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

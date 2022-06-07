@@ -2,10 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
-    <div th:fragment="toggle">
-        <h1>Toggle stuff</h1>
+    <div class="home-container1" th:fragment="toggle">
+    <div class="home-container2">
+        <button class="home-button button">
+              <span>
+                <span>Tagesübersicht</span>
+                <span></span>
+              </span>
+        </button>
+        <button class="home-button1 button">
+            <span><span>Übersicht</span></span>
+        </button>
+    </div>
+    <div class="home-container3">
+        <button class="home-button2 Text button">&lt;&lt;</button>
+        <span class="home-text5 Text">dd, DD.MM.YYYY</span>
+        <button class="home-button3 Text button">&gt;&gt;</button>
+    </div>
     </div>
 </body>
 </html>
