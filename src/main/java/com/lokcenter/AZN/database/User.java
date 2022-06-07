@@ -53,6 +53,12 @@ public class User {
     private int tokenExpired;
 
     /**
+     *  set handicap
+     */
+    @Column(nullable = false)
+    private int handicap;
+
+    /**
      *  Map users to roles to get all roles for a user
      *
      * @implNote use lazy_load_no_trans

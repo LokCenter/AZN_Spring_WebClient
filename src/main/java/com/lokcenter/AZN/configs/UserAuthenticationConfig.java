@@ -43,11 +43,10 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().formLogin().and().authorizeRequests()
-                .mvcMatchers("/user/**").hasRole("ADMIN")
+                .mvcMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-
     }
 }
