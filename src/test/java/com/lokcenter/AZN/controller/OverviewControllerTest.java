@@ -27,9 +27,9 @@ class OverviewControllerTest {
 
     @WithMockUser(username = "Huscher", password = "Saubartl", roles = "ADMIN")
     @Test
-    void getOverview_should_allow_admin() throws Exception {
+    void getOverview_should_not_allow_admin() throws Exception {
         // should get 200
-        mockMvc.perform(get("/")).andExpect(status().isOk());
+        mockMvc.perform(get("/")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "gstopft", password = "Jause", roles = "USER")

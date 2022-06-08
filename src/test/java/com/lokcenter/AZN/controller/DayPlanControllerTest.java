@@ -27,9 +27,9 @@ class DayPlanControllerTest {
 
     @WithMockUser(username = "Huscher", password = "Saubartl", roles = "ADMIN")
     @Test
-    void getDayPlan_should_allow_admin() throws Exception {
+    void getDayPlan_should_not_allow_admin() throws Exception {
         // should get 200
-        mockMvc.perform(get("/overview")).andExpect(status().isOk());
+        mockMvc.perform(get("/overview")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "gstopft", password = "Jause", roles = "USER")
