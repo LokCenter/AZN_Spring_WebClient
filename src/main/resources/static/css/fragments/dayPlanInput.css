@@ -59,7 +59,7 @@ input[type="text"]{
 
 input:focus {
     outline:none!important;
-    background-color: #eeeeee;
+    background-color: #d2d2d2;
 }
 
 .input-span {
@@ -69,5 +69,22 @@ input:focus {
     padding: 15px
 }
 
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;
+}
+
+:-ms-input-placeholder {
+    text-align: center;
+}
+
 /*TODO: Add Input Animation*/
 /*TODO: Table should work on smaller laptops*/
+/*TODO: Remove Placeholder on Focus */

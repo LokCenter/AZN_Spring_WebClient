@@ -9,9 +9,9 @@
 
 .daySwitch-button {
     width: 50%;
-    color: #105D97;
+    color: grey;
     text-align: center;
-    border-width: 0px;
+    border-width: 0;
 }
 .dateSwitch-date-text {
     width: 100%;
@@ -22,5 +22,5 @@
 }
 
 .daySwitch-button:hover {
-    color: #0591AF;
+    color: #8c8c8c;
 }
