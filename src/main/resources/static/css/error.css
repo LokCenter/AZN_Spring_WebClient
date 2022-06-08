@@ -31,7 +31,29 @@ body{
     animation: type .5s alternate infinite;
 }
 
-@keyframes type{
+.for_red h1 {
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: error_red .5s alternate infinite;
+}
+
+@keyframes type {
     from{box-shadow: inset -3px 0px 0px #888;}
     to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+@keyframes error_red {
+    from{box-shadow: inset -3px 0px 0px red;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+.error__red {
+    color: red;
+    font-weight: bold;
+}
+
+.noRole-text {
+    color: black;
+    font-size: 16px;
 }

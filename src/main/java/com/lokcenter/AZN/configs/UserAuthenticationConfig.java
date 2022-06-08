@@ -1,6 +1,7 @@
 package com.lokcenter.AZN.configs;
 
 import com.lokcenter.AZN.authentication.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,9 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
        return new UserDetailsServiceImpl();
     }
 
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
+
     /**
      * Setup PasswordEncoder
      * @return PasswordEncoder
@@ -42,9 +46,10 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().formLogin().and().authorizeRequests()
+        http.httpBasic().and().formLogin().successHandler(customSuccessHandler).and().authorizeRequests()
                 .mvcMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                .mvcMatchers(HttpMethod.GET).permitAll()
                 .mvcMatchers("/js/***", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
