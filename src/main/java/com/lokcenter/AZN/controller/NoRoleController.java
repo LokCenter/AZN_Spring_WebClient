@@ -12,7 +12,10 @@ public class NoRoleController {
     @GetMapping
     String getNoRole(Model model, Authentication authentication) {
         model.addAttribute("title", "User has no role");
-        model.addAttribute("username", authentication != null ? authentication.getName() : "");
+        model.addAttribute("username", authentication != null ? authentication.getName() : "null");
+        model.addAttribute("hasRole", authentication != null
+                && authentication.getAuthorities().size() > 0);
+
         return "noRole";
     }
 }
