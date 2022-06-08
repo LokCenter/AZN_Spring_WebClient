@@ -9,6 +9,65 @@
 
 #user-input-table {
     width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
 }
 
-/*TODO: Insert Table style*/
+#user-input-table th,
+#user-input-table td {
+    padding: 12px 15px;
+}
+
+#user-input-table thread tr {
+    background-color: #eeeeee;
+    color: #090707;
+    text-align: left;
+}
+#user-input-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#user-input-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#user-input-table tbody tr:last-of-type {
+    border-bottom: 2px solid #eeeeee;
+}
+#user-input-table tbody tr.active-row {
+    font-weight: bold;
+    color: #090707;
+}
+
+input {
+    border:0;
+    outline:0;
+}
+
+input[type="text"]{
+    background-color : #eeeeee;
+    color: #090707;
+    padding: 15px;
+}
+
+#comment input{
+    padding: 15px 40px;
+}
+
+
+input:focus {
+    outline:none!important;
+    background-color: #eeeeee;
+}
+
+.input-span {
+    width: 100%;
+    background-color: #eeeeee;
+    color: #090707;
+    padding: 15px
+}
+
+/*TODO: Add Input Animation*/
+/*TODO: Table should work on smaller laptops*/
