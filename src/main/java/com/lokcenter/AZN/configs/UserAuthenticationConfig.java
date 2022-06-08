@@ -48,6 +48,8 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().formLogin().successHandler(customSuccessHandler).and().authorizeRequests()
                 .mvcMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .mvcMatchers("/").hasRole("USER")
+                .mvcMatchers("/overview").hasRole("USER")
                 .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.GET).permitAll()
                 .mvcMatchers("/js/***", "/css/**").permitAll()
