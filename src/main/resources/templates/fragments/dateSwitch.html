@@ -6,18 +6,9 @@
 </head>
 <body>
 <div class="daySwitch-container" th:fragment="dateSwitch">
-  <button class="daySwitch-button Text button">&lt;&lt;</button>
+  <button id="left-dayPlan-switch" class="daySwitch-button Text button">&lt;&lt;</button>
   <span id="dateSwitchDate" class="dateSwitch-date-text Text">dd, DD.MM.YYYY</span>
-  <button class="daySwitch-button Text button">&gt;&gt;</button>
-
-  <script>
-
-    // get date html
-    let dateSwitch = document.getElementById("dateSwitchDate");
-
-    // set current date
-    dateSwitch.innerText = moment().format("dddd, D MMMM YYYY");
-  </script>
+  <button id="right-dayPlan-switch" class="daySwitch-button Text button">&gt;&gt;</button>
 </div>
 </body>
 </html>
