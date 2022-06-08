@@ -14,12 +14,15 @@
     font-size: 24px;
     align-self: center;
     text-align: center;
-    transition: 0.3s;
     font-family: Arial, serif;
+
+    background: linear-gradient(to left, #fff 50%, #808080 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
 }
 
 .toggle-button:hover {
-    background: #808080;
+    background: #808080 left;
     color: #FFFAFA;
     font-weight: bold;
 }

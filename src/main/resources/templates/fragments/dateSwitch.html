@@ -2,12 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+
 </head>
 <body>
 <div class="daySwitch-container" th:fragment="dateSwitch">
   <button class="daySwitch-button Text button">&lt;&lt;</button>
-  <span class="dateSwitch-date-text Text">dd, DD.MM.YYYY</span>
+  <span id="dateSwitchDate" class="dateSwitch-date-text Text">dd, DD.MM.YYYY</span>
   <button class="daySwitch-button Text button">&gt;&gt;</button>
+
+  <script>
+
+    // get date html
+    let dateSwitch = document.getElementById("dateSwitchDate");
+
+    // set current date
+    dateSwitch.innerText = moment().format("dddd, D MMMM YYYY");
+  </script>
 </div>
 </body>
 </html>

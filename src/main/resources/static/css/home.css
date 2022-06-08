@@ -31,7 +31,7 @@
   align-self: center;
   text-align: center;
   transition: 0.3s;
-  font-family: Arial;
+  font-family: Arial, serif;
 }
 .home-button1:hover {
   background-color: var(--dl-color-gray-900);
