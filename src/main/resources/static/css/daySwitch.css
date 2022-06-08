@@ -1,0 +1,19 @@
+.daySwitch-container {
+    flex: 0 0 auto;
+    width: 50%;
+    height: 4em;
+    display: flex;
+    align-self: center;
+    align-items: flex-start;
+}
+
+.daySwitch-button {
+    width: 50%;
+    text-align: center;
+    border-width: 0px;
+}
+.dateSwitch-date-text {
+    width: 100%;
+    text-align: center;
+    border-color: rgba(0, 0, 0, 0.1);
+}

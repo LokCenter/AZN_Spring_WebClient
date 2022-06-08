@@ -4,12 +4,17 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}">
+    <link rel="stylesheet" th:href="@{/css/daySwitch.css}">
+    <link rel="stylesheet" th:href="@{/css/toggle.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/clock.ico}">
 </head>
 <body>
 <div>
     <div class="home-container">
-        <div th:replace="fragments/toggle :: toggle"></div>
+        <div class="home-container2">
+            <div th:replace="fragments/toggle :: toggle"></div>
+            <div th:replace="fragments/dateSwitch :: dateSwitch "></div>
+        </div>
     </div>
 </div>
 </body>

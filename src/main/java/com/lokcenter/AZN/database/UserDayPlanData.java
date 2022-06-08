@@ -1,6 +1,7 @@
 package com.lokcenter.AZN.database;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
 
 /**
@@ -18,6 +19,9 @@ public class UserDayPlanData {
     /**
      * id from User table
      */
+
+    @Column(nullable = false)
+    private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private User user_id;
