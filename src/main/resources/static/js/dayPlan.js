@@ -4,6 +4,7 @@
  */
 
 
+/* Date Switch stuff  */
 
 // get date html
 let dateSwitch = document.getElementById("dateSwitchDate");
@@ -32,3 +33,5 @@ rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
     dateSwitch.innerText = currDate.format(format);
 });
+
+/*Input stuff */
