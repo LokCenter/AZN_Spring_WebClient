@@ -5,10 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-<div class="home-container5" th:fragment="dayPlanInput">
-    <form>
-
-    </form>
+<div class="dayPlanInput-container" th:fragment="dayPlanInput">
+    <table id="user-input-table">
+        <thead>
+           <tr>
+               <th>Arbeitsbeginn</th>
+               <th>Arbeitsende</th>
+               <th>Pause</th>
+               <th>Soll-Zeit</th>
+               <th>Ist-Zeit</th>
+               <th>Bemerkung</th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" id="start_time"></td>
+                <td><input type="text" id="end_time"></td>
+                <td><input type="text" id="pause"></td>
+                <!--Soll-Zeit-->
+                <td>...</td>
+                <!--Ist-Zeit-->
+                <td>...</td>
+                <td><input type="text" id="comment"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

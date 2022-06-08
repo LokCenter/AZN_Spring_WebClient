@@ -1,0 +1,14 @@
+.dayPlanInput-container {
+    flex: 0 0 auto;
+    height: 100px;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#user-input-table {
+    width: 100%;
+}
+
+/*TODO: Insert Table style*/

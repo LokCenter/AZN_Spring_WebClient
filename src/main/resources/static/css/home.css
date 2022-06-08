@@ -48,11 +48,3 @@
   align-items: center;
   justify-content: flex-start;
 }
-.home-container5 {
-  flex: 0 0 auto;
-  height: 100px;
-  display: flex;
-  align-self: center;
-  align-items: center;
-  justify-content: flex-start;
-}
