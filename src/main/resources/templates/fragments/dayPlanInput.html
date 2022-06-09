@@ -19,11 +19,34 @@
         </thead>
         <tbody>
         <tr>
-            <td><input data-role="timepicker" data-seconds="false" data-locale="de-DE" data-value="0:0" id="start_time" placeholder="hh:mm"></td>
-            <td><input data-role="timepicker" data-seconds="false" data-locale="de-DE" data-value="0:0" id="end_time" placeholder="hh:mm"></td>
-            <td><input data-role="timepicker" data-seconds="false" data-locale="de-DE" data-value="0" id="pause" placeholder="0"></td>
-            <td><input data-role="timepicker" data-seconds="false" data-locale="de-DE" id="soll" placeholder="hh:mm" disabled></td>
-            <td><input data-role="timepicker" data-seconds="false" data-locale="de-DE" id="ist" disabled placeholder="0"></td>
+            <td><input data-role="timepicker"
+                       data-seconds="false"
+                       data-locale="de-DE"
+                       data-value="0:0"
+                       data-on-close="getData"
+                       id="start_time" placeholder="hh:mm"></td>
+            <td><input
+                    data-role="timepicker"
+                    data-seconds="false"
+                    data-locale="de-DE"
+                    data-value="0:0"
+                    id="end_time" placeholder="hh:mm"></td>
+            <td><input
+                    data-role="timepicker"
+                    data-seconds="false"
+                    data-locale="de-DE"
+                    data-value="0"
+                    id="pause" placeholder="0"></td>
+            <td><input
+                    data-role="timepicker"
+                    data-seconds="false"
+                    data-locale="de-DE"
+                    id="soll" placeholder="hh:mm" disabled></td>
+            <td><input
+                    data-role="timepicker"
+                    data-seconds="false"
+                    data-locale="de-DE"
+                    id="ist" disabled placeholder="0"></td>
             <td><input type="text" id="comment"></td>
         </tr>
         </tbody>

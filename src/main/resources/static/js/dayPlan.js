@@ -36,6 +36,12 @@ rightDaySwitch.addEventListener("click", (e) => {
 
 /*Input stuff */
 
+// get time
+
+// TODO: https://metroui.org.ua/timepicker.html get things from timepicker
+function getData(val, elem, picker) {
+    console.log(val, picker)
+}
 
 /*Popup*/
 
