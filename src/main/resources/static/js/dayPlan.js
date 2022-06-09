@@ -35,3 +35,10 @@ rightDaySwitch.addEventListener("click", (e) => {
 });
 
 /*Input stuff */
+
+
+/*Popup*/
+
+// default value to check if something has changed
+let inputChange = false // default is false
+
