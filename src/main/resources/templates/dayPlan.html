@@ -22,12 +22,14 @@
      <div class="base-container">
          <div class="base-container2">
              <div th:replace="fragments/toggle :: toggle"></div>
-             <div th:replace="fragments/dateSwitch :: dateSwitch "></div>
-             <!--Save and Edit-->
-             <div class="dayPlan-edit-container">
+             <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
-             </div>
              <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
+             <div class="dayPlanInput-container">
+                 <button class="save-button pure-button">
+                     Save
+                 </button>
+             </div>
          </div>
      </div>
 
