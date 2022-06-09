@@ -1,6 +1,6 @@
 .dayPlanInput-container {
     flex: 0 0 auto;
-    height: 100px;
+    height: 200px;
     display: flex;
     align-self: center;
     align-items: center;
@@ -57,9 +57,14 @@ input {
 }
 
 input[type="text"]{
-    background-color : #eeeeee;
-    color: #090707;
-    padding: 15px;
+    background-color : white;
+    color: #212121;
+    padding: 12px 15px;
+    vertical-align: baseline;
+    border: 2px solid #dfdfdf;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.5;
 }
 
 #comment input{
@@ -69,7 +74,7 @@ input[type="text"]{
 
 input:focus {
     outline:none!important;
-    background-color: #d2d2d2;
+    background-color: #eeeeee;
 }
 
 .input-span {

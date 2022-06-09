@@ -1,7 +1,7 @@
 
 .toggle-container {
     width: 75%;
-    height: 50px;
+    height: 90px;
     display: flex;
     align-self: center;
     margin-top: var(--dl-space-space-unit);
@@ -15,6 +15,7 @@
     align-self: center;
     text-align: center;
     font-family: Arial, serif;
+    padding: 2px;
 
     background: linear-gradient(to left, #fff 50%, #808080 50%) right;
     background-size: 200%;
