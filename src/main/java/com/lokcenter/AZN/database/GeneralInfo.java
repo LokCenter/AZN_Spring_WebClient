@@ -1,5 +1,6 @@
 package com.lokcenter.AZN.database;
 
+import com.lokcenter.AZN.helper.UserDepending;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
@@ -10,6 +11,8 @@ import java.sql.Time;
  *
  * @version 1.0 2022-06-07
  */
+
+@UserDepending
 @Entity
 @Table(name = "general_info")
 public class GeneralInfo {

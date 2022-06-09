@@ -1,5 +1,7 @@
 package com.lokcenter.AZN.database;
 
+import com.lokcenter.AZN.helper.UserDepending;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -8,6 +10,7 @@ import java.util.Collection;
  *
  * @version 1.02 2022-05-29
  */
+@UserDepending
 @Entity
 public class Role {
     /**

@@ -1,5 +1,7 @@
 package com.lokcenter.AZN.database;
 
+import com.lokcenter.AZN.helper.UserDepending;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -9,6 +11,7 @@ import java.sql.Time;
  *
  * @version 1.0 2022-06-07
  */
+@UserDepending
 @Entity
 @Table(name = "user_dayPlanData")
 public class UserDayPlanData {

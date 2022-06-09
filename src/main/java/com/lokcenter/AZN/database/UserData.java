@@ -1,10 +1,13 @@
 package com.lokcenter.AZN.database;
 
+import com.lokcenter.AZN.helper.UserDepending;
+
 import javax.persistence.*;
 
 /**
  * Stores user data
  */
+@UserDepending
 @Entity
 @Table(name = "user_data")
 public class UserData {
