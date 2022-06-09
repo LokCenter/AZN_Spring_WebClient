@@ -2,23 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}">
+    <link rel="stylesheet" th:href="@{/css/dayPlan.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/dayPlanInput.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/clock.ico}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"  referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
 </head>
 <body>
  <div>
-     <div class="home-container">
-         <div class="home-container2">
+     <div class="base-container">
+         <div class="base-container2">
              <div th:replace="fragments/toggle :: toggle"></div>
              <div th:replace="fragments/dateSwitch :: dateSwitch "></div>
+             <!--Save and Edit-->
+             <div class="dayPlan-edit-container">
+
+             </div>
              <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
          </div>
      </div>

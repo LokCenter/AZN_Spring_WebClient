@@ -15,6 +15,12 @@
     font-family: sans-serif;
 }
 
+@media only screen and (max-width: 1142px)  {
+    .dayPlanInput-container {
+        width: 70%;
+    }
+}
+
 #user-input-table th,
 #user-input-table td {
     padding: 12px 15px;
@@ -24,6 +30,10 @@
     background-color: #eeeeee;
     color: #090707;
     text-align: left;
+}
+
+#user-input-table th {
+    font-family: 'Inter', sans-serif;
 }
 #user-input-table tbody tr {
     border-bottom: 1px solid #dddddd;
@@ -85,6 +95,6 @@ input:focus {
     text-align: center;
 }
 
-/*TODO: Add Input Animation*/
-/*TODO: Table should work on smaller laptops*/
-/*TODO: Remove Placeholder on Focus */
+input:focus::placeholder {
+    color: transparent;
+}

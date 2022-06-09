@@ -1,0 +1,8 @@
+.dayPlan-edit-container {
+    flex: 0 0 auto;
+    height: 20px;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: flex-start;
+}
