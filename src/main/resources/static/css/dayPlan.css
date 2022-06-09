@@ -8,6 +8,7 @@
 }
 
 .save-button {
+    font-family: Inter, sans-serif;
     background-color: #eeeeee;
     width: 400px;
     height: 50px;

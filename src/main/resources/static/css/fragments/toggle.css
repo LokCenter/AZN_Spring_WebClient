@@ -11,7 +11,6 @@
 }
 .toggle-button {
     width: 100%;
-    font-size: 24px;
     align-self: center;
     text-align: center;
     font-family: Arial, serif;
@@ -26,4 +25,8 @@
     background: #808080 left;
     color: #FFFAFA;
     font-weight: bold;
+}
+
+.toggle-text {
+    font-size: 24px;
 }

@@ -58,19 +58,16 @@ input {
 
 input[type="text"]{
     background-color : white;
+    font-family: sans-serif;
     color: #212121;
-    padding: 12px 15px;
+    padding: 9px 13px;
     vertical-align: baseline;
-    border: 2px solid #dfdfdf;
+    border-bottom: 2px solid #dfdfdf;
     font-weight: 400;
+    font-size: 1.2em;
     font-style: normal;
     line-height: 1.5;
 }
-
-#comment input{
-    padding: 15px 40px;
-}
-
 
 input:focus {
     outline:none!important;
