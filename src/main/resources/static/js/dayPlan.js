@@ -106,12 +106,18 @@ function  onPickerClose(val, elem, picker) {
         (getTime("end_time").getMinutes() - getTime('start_time').getMinutes()) - getTime("pause").getMinutes())
 
     // update map
-    mapTimeData("ist", `${ist_.getHours()}:${ist_.getMinutes()}`)
+    mapTimeData("ist", `${withZero(ist_.getHours())}:${withZero(ist_.getMinutes())}`)
 
+    // set ist
+    let istElem = document.getElementById("ist-cell");
+
+    // set ist values
+    istElem.childNodes[0].childNodes[1].childNodes[0].innerText = `${withZero(ist_.getHours())}`;
+    istElem.childNodes[0].childNodes[1].childNodes[1].innerText = `${withZero(ist_.getMinutes())}`;
 }
 
 // Save button
-let saveButton = document.getElementById("save-btn");
+let saveButton = document.getElementById("ist-cell");
 
 
 // onClick
