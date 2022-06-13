@@ -36,12 +36,49 @@ rightDaySwitch.addEventListener("click", (e) => {
 
 /*Input stuff */
 
-// get time
+// input map
+let userInputData = new Map([
+     ["start_time", "0:00"],
+     ["end_time", "0:00"],
+     ["pause", "0"],
+     ["soll", "0:00"],
+     ["ist", "0:00"]
+]);
 
-// TODO: https://metroui.org.ua/timepicker.html get things from timepicker
-function getData(val, elem, picker) {
-    console.log(val, picker)
+
+
+function mapTimeData(key, value) {
+    switch (key) {
+        case "start_time":
+            userInputData.set("start_time", value);
+            break;
+        case "end_time":
+            userInputData.set("end_time", value);
+            break;
+        case "pause":
+            userInputData.set("pause", value);
+            break
+        case "soll":
+            userInputData.set("soll", value);
+            break;
+        case "ist":
+            userInputData.set("ist", value);
+            break;
+    }
 }
+
+// get time on startup
+function onStartCreate(elem, picker) {
+    mapTimeData(picker.attributes.id.nodeValue, picker.dataset.value);
+}
+
+// get time on change
+function  onPickerClose(val, elem, picker) {
+    let time = `${val[0]}:${val[1]}`
+    mapTimeData(elem.id, time);
+}
+
+// Save button
 
 /*Popup*/
 

@@ -58,7 +58,7 @@ input {
     outline:0;
 }
 
-input[type="text"]{
+input{
     background-color : white;
     font-family: sans-serif;
     color: #212121;
@@ -102,3 +102,4 @@ input:focus {
 input:focus::placeholder {
     color: transparent;
 }
+in
