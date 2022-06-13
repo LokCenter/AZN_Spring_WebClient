@@ -29,6 +29,16 @@
              <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
              <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
+             <div class="dayPlanInput-container inputCheckBox">
+                 <div id="select-radio">
+                     <label>
+                         <input type="checkbox" class="radio" name="check" onclick="onlyOneCheckBox(this)" /><span>GLAZ</span></label>
+                     <label>
+                         <input type="checkbox" class="radio" name="check"  onclick="onlyOneCheckBox(this)"/><span>Krank</span></label>
+                     <label>
+                         <input type="checkbox" class="radio" name="check"  onclick="onlyOneCheckBox(this)"/><span>Urlaub</span></label>
+                 </div>
+             </div>
              <div class="dayPlanInput-container">
                  <button id="save-btn" class="save-button pure-button">
                      Save

@@ -9,6 +9,10 @@
     justify-content: flex-start;
 }
 
+.inputCheckBox {
+    height: 50px;
+}
+
 #user-input-table {
     width: 100%;
     border-collapse: collapse;
@@ -106,4 +110,20 @@ input:focus::placeholder {
 .time-picker.disabled {
     background: #eeeeee;
     color: #1d1d1d !important;
+}
+
+#select-radio label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+#select-radio input {
+    vertical-align: middle;
+    accent-color: #eeeeee
+}
+#select-radio label span {
+    vertical-align: middle;
+    margin-left: 2px;
+    font-family: Inter, Arial, serif;
 }

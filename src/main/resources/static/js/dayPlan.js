@@ -155,8 +155,13 @@ saveButton.addEventListener('click', (e) => {
     console.log(userInputData);
 })
 
-/*Popup*/
-
+//allow only one checkbox
+function onlyOneCheckBox(checkbox) {
+    const checkboxes = document.getElementsByName('check');
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+}
 
 // default value to check if something has changed
 let inputChange = false // default is false
