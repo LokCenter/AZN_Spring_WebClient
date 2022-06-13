@@ -39,10 +39,10 @@ rightDaySwitch.addEventListener("click", (e) => {
 // input map
 let userInputData = new Map([
      ["start_time", "0:00"],
-     ["end_time", "0:00"],
-     ["pause", "0"],
-     ["soll", "0:00"],
-     ["ist", "0:00"]
+     ["end_time", "00:00"],
+     ["pause", "00:00"],
+     ["soll", "00:00"],
+     ["ist", "00:00"]
 ]);
 
 
@@ -72,6 +72,15 @@ function onStartCreate(elem, picker) {
     mapTimeData(picker.attributes.id.nodeValue, picker.dataset.value);
 }
 
+// get time from map => Date
+function getTime(keyValue) {
+    let key = new Date();
+    let keyTime = userInputData.get(keyValue).split(":");
+    key.setHours(parseInt(keyTime[0]), parseInt(keyTime[1]));
+
+    return key;
+}
+
 // get time on change
 function  onPickerClose(val, elem, picker) {
     // create numbers with `00` syntax
@@ -84,8 +93,21 @@ function  onPickerClose(val, elem, picker) {
     }
     let time = `${withZero(val[0])}:${withZero(val[1])}`
 
-    //Todo: Validate time
     mapTimeData(elem.id, time);
+
+    // generate ist time
+    // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
+    let ist_ = getTime("ist");
+
+    ist_.setHours(
+        (getTime("end_time").getHours() - getTime('start_time').getHours()) - getTime("pause").getHours());
+
+    ist_.setMinutes(
+        (getTime("end_time").getMinutes() - getTime('start_time').getMinutes()) - getTime("pause").getMinutes())
+
+    // update map
+    mapTimeData("ist", `${ist_.getHours()}:${ist_.getMinutes()}`)
+
 }
 
 // Save button
@@ -95,17 +117,25 @@ let saveButton = document.getElementById("save-btn");
 // onClick
 saveButton.addEventListener('click', (e) => {
     // check if ab is less than ae
-    let start = new Date();
-    let startTime = userInputData.get("start_time").split(":");
-    start.setHours(parseInt(startTime[0]), parseInt(startTime[1]));
-
-    let end = new Date();
-    let endTime = userInputData.get("end_time").split(":");
-    end.setHours(parseInt(endTime[0]), parseInt(endTime[1]));
-
     // check start and end
-    if (start < end) {
-        // ...
+    if (getTime("start_time") < getTime("end_time")) {
+        // check end - start >= stop
+        let diffTime = new Date().setHours(
+            getTime("end_time").getHours() - getTime("start_time").getHours(),
+            getTime("end_time").getMinutes() - getTime("start_time").getMinutes());
+
+        if (diffTime < getTime("pause")) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Falsche Eingabe',
+                text: 'Pause kann nich größer als Arbeitszeit',
+            })
+
+            // stop
+            return;
+        }
+
+
     } else {
         // start should be smaller than end
         // show error popup
@@ -116,6 +146,7 @@ saveButton.addEventListener('click', (e) => {
         })
     }
 
+    console.log(userInputData);
 })
 
 /*Popup*/
