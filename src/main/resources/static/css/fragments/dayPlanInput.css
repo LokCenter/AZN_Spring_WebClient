@@ -103,7 +103,7 @@ input:focus::placeholder {
     color: transparent;
 }
 
-.disabled {
-    background: white;
-    color: #1d1d1d;
+.time-picker.disabled {
+    background: #eeeeee;
+    color: #1d1d1d !important;
 }

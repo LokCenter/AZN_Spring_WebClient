@@ -117,7 +117,7 @@ function  onPickerClose(val, elem, picker) {
 }
 
 // Save button
-let saveButton = document.getElementById("ist-cell");
+let saveButton = document.getElementById("save-btn");
 
 
 // onClick
