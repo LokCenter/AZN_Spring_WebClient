@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <script src="//cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
@@ -29,7 +30,7 @@
 
              <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
              <div class="dayPlanInput-container">
-                 <button class="save-button pure-button">
+                 <button id="save-btn" class="save-button pure-button">
                      Save
                  </button>
              </div>
@@ -41,9 +42,6 @@
 
      <script th:src="@{/js/dayPlan.js}"></script>
      <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
-
->
-
  </div>
 
 </body>

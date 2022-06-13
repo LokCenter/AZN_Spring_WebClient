@@ -46,7 +46,7 @@ let userInputData = new Map([
 ]);
 
 
-
+// update date
 function mapTimeData(key, value) {
     switch (key) {
         case "start_time":
@@ -74,14 +74,52 @@ function onStartCreate(elem, picker) {
 
 // get time on change
 function  onPickerClose(val, elem, picker) {
-    let time = `${val[0]}:${val[1]}`
+    // create numbers with `00` syntax
+    function withZero(val) {
+        if (val <= 9) {
+            return `0${val}`
+        } else {
+            return `${val}`
+        }
+    }
+    let time = `${withZero(val[0])}:${withZero(val[1])}`
+
+    //Todo: Validate time
     mapTimeData(elem.id, time);
 }
 
 // Save button
+let saveButton = document.getElementById("save-btn");
+
+
+// onClick
+saveButton.addEventListener('click', (e) => {
+    // check if ab is less than ae
+    let start = new Date();
+    let startTime = userInputData.get("start_time").split(":");
+    start.setHours(parseInt(startTime[0]), parseInt(startTime[1]));
+
+    let end = new Date();
+    let endTime = userInputData.get("end_time").split(":");
+    end.setHours(parseInt(endTime[0]), parseInt(endTime[1]));
+
+    // check start and end
+    if (start < end) {
+        // ...
+    } else {
+        // start should be smaller than end
+        // show error popup
+        Swal.fire({
+            icon: 'error',
+            title: 'Falsche Eingabe',
+            text: 'Arbeitsbeginn muss kleiner sein als Arbeitsende',
+        })
+    }
+
+})
 
 /*Popup*/
 
+
 // default value to check if something has changed
 let inputChange = false // default is false
-

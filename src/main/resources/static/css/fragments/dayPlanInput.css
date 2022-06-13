@@ -102,4 +102,8 @@ input:focus {
 input:focus::placeholder {
     color: transparent;
 }
-in
+
+.disabled {
+    background: white;
+    color: #1d1d1d;
+}
