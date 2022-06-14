@@ -42,7 +42,7 @@ let userInputData = new Map([
      ["end_time", "00:00"],
      ["pause", "00:00"],
      ["soll", "00:00"],
-     ["ist", "00:00"]
+     ["ist", "00:00"],
 ]);
 
 
@@ -141,7 +141,6 @@ saveButton.addEventListener('click', (e) => {
             return;
         }
 
-
     } else {
         // start should be smaller than end
         // show error popup
@@ -150,9 +149,30 @@ saveButton.addEventListener('click', (e) => {
             title: 'Falsche Eingabe',
             text: 'Arbeitsbeginn muss kleiner sein als Arbeitsende',
         })
+
+        return;
     }
 
     console.log(userInputData);
+
+
+    // user comment or empty
+    let userComment = document.getElementById("comment").value;
+
+    //get checked checkbox
+    let checked_item = null;
+    const checkboxes = document.getElementsByName("check");
+    checkboxes.forEach((item) => {
+        if (item.checked === true) {
+            checked_item = item.value;
+        }
+    })
+
+    // send data to the backend
+
+
+    //TODO: Send data to rest controller
+    //TODO: Build rest. controller
 })
 
 //allow only one checkbox
@@ -165,3 +185,5 @@ function onlyOneCheckBox(checkbox) {
 
 // default value to check if something has changed
 let inputChange = false // default is false
+
+console.log(document.cookie)
