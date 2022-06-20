@@ -1,6 +1,5 @@
 package com.lokcenter.AZN.configs;
 
-import com.lokcenter.AZN.authentication.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +29,9 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
         http.oauth2Login()
                 .successHandler(customSuccessHandler).and().authorizeRequests()
                 .mvcMatchers("/user/**").hasAnyAuthority("APPROLE_User", "APPROLE_Admin")
-                .mvcMatchers("/").hasRole("APPROLE_User")
-                .mvcMatchers("/overview").hasRole("APPROLE_User")
-                .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("APPROLE_Admin")
+                .mvcMatchers("/").hasAuthority("APPROLE_User")
+                .mvcMatchers("/overview").hasAuthority("APPROLE_User")
+                .mvcMatchers(HttpMethod.GET, "/admin/**").hasAuthority("APPROLE_Admin")
                 .mvcMatchers(HttpMethod.GET).permitAll()
                 .mvcMatchers("/js/***", "/css/**").permitAll()
                 .anyRequest().authenticated();
