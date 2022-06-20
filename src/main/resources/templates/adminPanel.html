@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
 </head>
-<body>
+<body class="unselectable">
     <header class="APheader"><h3>Admin Panel</h3></header>
     <main>
         <table class="pure-table APTable">
@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr onclick="console.log('Test')">
                 <td>Beispiel</td>
                 <td>5h</td>
                 <td>3</td>
