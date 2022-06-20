@@ -60,9 +60,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         // set url for every role
         // USER
-        if (roles.contains("ROLE_USER")) {
+        if (roles.contains("APPROLE_User")) {
             url = "/";
-        } else if (roles.contains("ROLE_ADMIN")) {
+        } else if (roles.contains("APPROLE_Admin")) {
             url = "/admin";
         } else {
             url = "/noRole";

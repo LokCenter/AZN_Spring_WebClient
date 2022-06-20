@@ -18,27 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
-    /**
-     * Use custom UserDetailsService
-     * @return A UserDetailsService
-     */
-    @Bean
-    public UserDetailsService userDetailsService() {
-       return new UserDetailsServiceImpl();
-    }
-
     @Autowired
     CustomSuccessHandler customSuccessHandler;
-
-    /**
-     * Setup PasswordEncoder
-     * @return PasswordEncoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // not secure only for testing
-    }
-
     /**
      * Setup path and authentication rules and roles
      * @param http Servlet paths and http settings
@@ -46,15 +27,14 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().formLogin().successHandler(customSuccessHandler).and().authorizeRequests()
-                .mvcMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                .mvcMatchers("/").hasRole("USER")
-                .mvcMatchers("/overview").hasRole("USER")
-                .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+        http.oauth2Login()
+                .successHandler(customSuccessHandler).and().authorizeRequests()
+                .mvcMatchers("/user/**").hasAnyAuthority("APPROLE_User", "APPROLE_Admin")
+                .mvcMatchers("/").hasRole("APPROLE_User")
+                .mvcMatchers("/overview").hasRole("APPROLE_User")
+                .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("APPROLE_Admin")
                 .mvcMatchers(HttpMethod.GET).permitAll()
                 .mvcMatchers("/js/***", "/css/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable();
+                .anyRequest().authenticated();
     }
 }
