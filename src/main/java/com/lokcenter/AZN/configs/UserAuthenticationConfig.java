@@ -29,7 +29,7 @@ public class UserAuthenticationConfig extends WebSecurityConfigurerAdapter{
         http.oauth2Login()
                 .successHandler(customSuccessHandler).and().authorizeRequests()
                 .mvcMatchers("/user/**").hasAnyAuthority("APPROLE_User", "APPROLE_Admin")
-                .mvcMatchers("/").hasAuthority("APPROLE_User")
+                .mvcMatchers("/").hasAnyAuthority("APPROLE_User", "APPROLE_Admin")
                 .mvcMatchers("/overview").hasAuthority("APPROLE_User")
                 .mvcMatchers(HttpMethod.GET, "/admin/**").hasAuthority("APPROLE_Admin")
                 .mvcMatchers(HttpMethod.GET).permitAll()

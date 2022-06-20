@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.lokcenter.AZN.database.Repository.UserDayPlanDataRepository;
 import com.lokcenter.AZN.database.UserDayPlanData;
 import mjson.Json;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +37,12 @@ public class DayPlanController {
      * @return Html page
      */
     @GetMapping
-    String getDayPlan(Model model) {
+    String getDayPlan(Model model, Authentication authentication) {
         //TODO: Add DayPlan data
+
+        if (authentication.getAuthorities().stream().anyMatch(r ->  r.getAuthority().equals("APPROLE_Admin"))) {
+          return "redirect:/admin";
+        }
 
         // Page title
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
