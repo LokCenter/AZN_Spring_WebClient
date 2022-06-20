@@ -3,10 +3,35 @@
 <head>
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/AdminPanel.css}"/>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
 </head>
 <body>
-    <h1>TODO: Admin Panel</h1>
-<!--    TODO: Admin Panel-->
+    <header class="APheader"><h3>Admin Panel</h3></header>
+    <main>
+        <table class="pure-table APTable">
+            <thead>
+            <tr class="Test">
+                <th>Name</th>
+                <th>Schuld/Guthaben</th>
+                <th>Krankheitstage</th>
+                <th>GLAZ</th>
+                <th>freie Urlaubstage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Beispiel</td>
+                <td>5h</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+            </tr>
+            </tbody>
+            <script th:src="@{/js/AdminPanel.js}"></script>
+        </table>
+    </main>
+    <footer></footer>
 </body>
 </html>
