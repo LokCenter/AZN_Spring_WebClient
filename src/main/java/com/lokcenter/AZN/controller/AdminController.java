@@ -1,7 +1,6 @@
 package com.lokcenter.AZN.controller;
 
 import com.lokcenter.AZN.database.Repository.UserRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
