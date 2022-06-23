@@ -1,3 +1,3 @@
 function redirect(id) {
-    location.href="/admin/dayplan"
+    console.log(id);
 }
