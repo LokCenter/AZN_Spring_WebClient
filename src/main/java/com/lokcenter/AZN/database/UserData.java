@@ -23,6 +23,16 @@ public class UserData {
     private User user_id;
 
     /**
+     * Select if handicapped
+     */
+    private int handicap;
+
+    /**
+     * Job length
+     */
+    private int job_length;
+
+    /**
      * Positive or negative credit based on enum value
      *
      * @implNote columnDefinition = "ENUM('NEGATIVE', 'POSITIVE') must be set /
@@ -99,5 +109,73 @@ public class UserData {
 
     public void setVacationWhileSick(Long vacationWhileSick) {
         this.e_vacationWhileSick = vacationWhileSick;
+    }
+
+    public UserData(Long id, User user_id, int handicap, int job_length, Balance a_balanceTime, Long b_usedVacationDays, int c_sickDays, int d_glazDays, Long e_vacationWhileSick) {
+        this.id = id;
+        this.user_id = user_id;
+        this.handicap = handicap;
+        this.job_length = job_length;
+        this.a_balanceTime = a_balanceTime;
+        this.b_usedVacationDays = b_usedVacationDays;
+        this.c_sickDays = c_sickDays;
+        this.d_glazDays = d_glazDays;
+        this.e_vacationWhileSick = e_vacationWhileSick;
+    }
+
+    public int getHandicap() {
+        return handicap;
+    }
+
+    public void setHandicap(int handicap) {
+        this.handicap = handicap;
+    }
+
+    public double getJob_length() {
+        return job_length;
+    }
+
+    public void setJob_length(int job_length) {
+        this.job_length = job_length;
+    }
+
+    public Balance getA_balanceTime() {
+        return a_balanceTime;
+    }
+
+    public void setA_balanceTime(Balance a_balanceTime) {
+        this.a_balanceTime = a_balanceTime;
+    }
+
+    public Long getB_usedVacationDays() {
+        return b_usedVacationDays;
+    }
+
+    public void setB_usedVacationDays(Long b_usedVacationDays) {
+        this.b_usedVacationDays = b_usedVacationDays;
+    }
+
+    public int getC_sickDays() {
+        return c_sickDays;
+    }
+
+    public void setC_sickDays(int c_sickDays) {
+        this.c_sickDays = c_sickDays;
+    }
+
+    public int getD_glazDays() {
+        return d_glazDays;
+    }
+
+    public void setD_glazDays(int d_glazDays) {
+        this.d_glazDays = d_glazDays;
+    }
+
+    public Long getE_vacationWhileSick() {
+        return e_vacationWhileSick;
+    }
+
+    public void setE_vacationWhileSick(Long e_vacationWhileSick) {
+        this.e_vacationWhileSick = e_vacationWhileSick;
     }
 }

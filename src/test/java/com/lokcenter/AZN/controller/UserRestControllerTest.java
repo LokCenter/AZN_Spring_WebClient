@@ -1,12 +1,8 @@
 package com.lokcenter.AZN.controller;
 
-import com.lokcenter.AZN.database.Repository.RoleRepository;
 import com.lokcenter.AZN.database.Repository.UserRepository;
-import com.lokcenter.AZN.database.Role;
 import com.lokcenter.AZN.database.User;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
