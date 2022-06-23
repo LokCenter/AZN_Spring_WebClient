@@ -21,12 +21,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr onclick="redirect('x')">
-                <td>Beispiel</td>
-                <td>5h</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+            <tr th:each="user: ${users}" onclick="redirect('x')">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.enabled}"></td>
+                <td th:text="${user.tokenExpired}"></td>
             </tr>
             </tbody>
             <script th:src="@{/js/AdminPanel.js}"></script>
