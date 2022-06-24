@@ -61,7 +61,7 @@ Other areas of application:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/chfle/ANZ_Spring.git
+   git clone https://github.com/LokCenter/AZN_Spring.git
    ```
 2. Build Project
    ```sh
