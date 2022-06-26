@@ -45,7 +45,6 @@ Other areas of application:
 
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Spring Security](https://spring.io/projects/spring-security)
-* [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 * [Thymeleaf](https://www.thymeleaf.org/)
 
 <!-- GETTING STARTED -->
@@ -79,8 +78,6 @@ Other areas of application:
 - [ ] Add Overview Page
 - [X] Add Admin Page
   - [ ] Add Admin Panel
-    - [ ] Add/ Remove/ Update User
-    - [ ] Manage Privileges and Roles
 
 ## Collaborators
 <ul>
