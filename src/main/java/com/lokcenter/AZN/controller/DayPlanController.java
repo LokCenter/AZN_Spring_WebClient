@@ -1,6 +1,7 @@
 package com.lokcenter.AZN.controller;
 
 import mjson.Json;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +33,6 @@ public class DayPlanController {
     String getDayPlan(Model model, Authentication authentication) {
         //TODO: Add DayPlan data
 
-        if (authentication.getAuthorities().stream().anyMatch(r ->  r.getAuthority().equals("APPROLE_Admin"))) {
-          return "redirect:/admin";
-        }
 
         // Page title
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

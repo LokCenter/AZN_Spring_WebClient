@@ -30,6 +30,9 @@ public class LoginController {
     @GetMapping("/loginUser")
     String LoginRedirect(@RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                          Authentication authentication) {
+
+        System.out.println(authentication.toString());
+
         try {
             var user = (DefaultOidcUser) authentication.getPrincipal();
 
