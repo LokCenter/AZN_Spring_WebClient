@@ -23,9 +23,6 @@ public class AdminController {
      */
     @GetMapping
     String getAdminPanel(Model model) {
-//        var userdata= userRepository.findAll();
-//        model.addAttribute("title", "Admin Panel");
-//        model.addAttribute("users", userdata);
         return "adminPanel";
     }
 }

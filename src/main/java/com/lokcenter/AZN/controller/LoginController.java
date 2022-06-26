@@ -13,6 +13,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
+/**
+ * Handle Login
+ */
 @Controller
 @RequestMapping("/")
 public class LoginController {
@@ -22,17 +25,20 @@ public class LoginController {
         this.webClient = webClient;
     }
 
+    /**
+     * Login Page
+     */
     @GetMapping("/")
     String login() {
         return "login";
     }
 
+    /**
+     * Redirect user based on AAD Role
+     */
     @GetMapping("/loginUser")
     String LoginRedirect(@RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                          Authentication authentication) {
-
-        System.out.println(authentication.toString());
-
         try {
             var user = (DefaultOidcUser) authentication.getPrincipal();
 
@@ -52,8 +58,14 @@ public class LoginController {
         }
     }
 
+    /**
+     * Basic Route to check Resource Server
+     *
+     * @implNote should not be used in production
+     */
     @GetMapping("/test")
     String LoginRedirect(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
+        // request to the Resource Server backend
         String body = this.webClient
                 .get()
                 .uri("/test")
