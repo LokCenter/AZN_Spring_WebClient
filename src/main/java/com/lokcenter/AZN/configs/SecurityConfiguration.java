@@ -13,14 +13,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // TODO: fix roles
         //super.configure(http);
         http
                 .authorizeRequests((authorize) -> authorize
                         .antMatchers(HttpMethod.GET, "/").permitAll()
-                        .mvcMatchers(HttpMethod.GET, "/dayplan").hasAuthority("ROLE_USER")
-                        .mvcMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        .mvcMatchers(HttpMethod.GET,"/overview").hasAuthority("ROLE_USER")
-                        .mvcMatchers(HttpMethod.GET, "/admin/**").hasAuthority("ROLE_ADMIN")
+                        .mvcMatchers(HttpMethod.GET, "/dayplan").hasAuthority("APPROLE_User")
+                        .mvcMatchers("/user/**").hasAnyAuthority("User", "Admin")
+                        .mvcMatchers(HttpMethod.GET,"/overview").hasAuthority("User")
+                        .mvcMatchers(HttpMethod.GET, "/admin/**").hasAuthority("APPROLE_Admin")
                         .mvcMatchers("/js/***", "/css/**").permitAll()
                         .anyRequest().authenticated()
                 )

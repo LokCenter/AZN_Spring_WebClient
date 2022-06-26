@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfiguration {
-    @Value("${mauth2test-api-base-url}")
+    @Value("${user-api-base-url}")
     String baseUrl;
 
     @Bean
