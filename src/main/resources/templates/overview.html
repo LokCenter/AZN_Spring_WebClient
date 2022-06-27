@@ -3,21 +3,65 @@
 <head>
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
-    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}">
-    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calender.ico}">
-
-
-
+    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script th:src="@{/js/daypilot-all.min.js?v=2022.2.384}"></script>
+    <link rel="stylesheet" th:href="@{/css/themes/month_white.css}"/>
+    <script th:src="@{/js/overview.js}"></script>
 </head>
 <body>
 <div>
     <div class="base-container">
         <div class="base-container2">
             <div th:replace="fragments/toggle :: toggle"></div>
-            <div th:replace="fragments/dateSwitch :: dateSwitch "></div>
+            <div class="daySwitch-container">
+                <button id="left-dayPlan-switch" class="daySwitch-button Text button" onclick="javascript:dp.startDate = dp.startDate.addMonths(-1); dp.update(); updateTime();">&lt;&lt;</button>
+                <a id="start"></a>
+                <button id="right-dayPlan-switch" class="daySwitch-button Text button" onclick="javascript:dp.startDate = dp.startDate.addMonths(1); dp.update(); updateTime();">&gt;&gt;</button>
+            </div>
         </div>
+        <div id="dp"></div>
+        <script>
+            function updateTimeDisplay() {
+            }
+            const dp = new DayPilot.Month("dp", {
+                locale: "de-de",
+                viewType: "Month",
+                showWeekend: true,
+                timeRangeSelectedHandling: "Enabled",
+                onTimeRangeSelected: async (args) => {
+                    const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+                    const dp = args.control;
+                    dp.clearSelection();
+                    if (modal.canceled) { return; }
+                    dp.events.add({
+                        start: args.start,
+                        end: args.end,
+                        id: DayPilot.guid(),
+                        text: modal.result
+                    });
+                },
+                eventDeleteHandling: "Update",
+                onEventDeleted: (args) => {
+                    console.log(args.e.id());
+                },
+                eventMoveHandling: "Update",
+                onEventMoved: (args) => {
+                    console.log(args.e.id());
+                },
+                eventResizeHandling: "Update",
+                onEventResized: (args) => {
+                    console.log(args.e.id());
+                },
+                eventClickHandling: "Disabled",
+                eventHoverHandling: "Disabled",
+            });
+            dp.events.list = [];
+            dp.init();
+        </script>
+        <button th:onclick="test()">Test</button>
     </div>
 </div>
 </body>
