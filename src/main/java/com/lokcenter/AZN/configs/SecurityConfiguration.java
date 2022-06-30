@@ -21,8 +21,14 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,8 +38,10 @@ import java.util.Set;
  * @version 1.03 2022-06-26
  */
 @EnableWebSecurity
+@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
+
     /**
      * HTTP Security configuration with OAuth 2.0 and Microsoft AAD
      * @param http http security instance
@@ -41,9 +49,11 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
-        http
-                .authorizeRequests((authorize) -> {
-                            try {
+        http.csrf();
+        http.cors();
+
+        http.authorizeRequests((authorize) -> {
+                    try {
                                 authorize
                                         // set permissions
                                         .antMatchers(HttpMethod.GET, "/").permitAll()
