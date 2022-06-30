@@ -1,10 +1,34 @@
+const selection = [
+    {name: "Urlaub", id: "#80aeff"},
+    {name: "Krank", id: "#ff7597"},
+    {name: "GLAZ", id: "#9aff8d"},
+];
+
+function checkBackColor(color) {
+    switch (color) {
+        case "#80aeff":
+            return "Urlaub";
+        case "#ff7597":
+            return "Krank";
+        case "#9aff8d":
+            return "GLAZ";
+    }
+}
+const form = [
+    {name: "Test", id: "backColor", options: selection},
+];
+
+const data = {
+    backColor: "#80aeff",
+};
+
 const dp = new DayPilot.Month("dp", {
     locale: "de-de",
     viewType: "Month",
     showWeekend: true,
     timeRangeSelectedHandling: "Enabled",
     onTimeRangeSelected: async (args) => {
-        const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+        const modal = await DayPilot.Modal.form(form, data);
         const dp = args.control;
         dp.clearSelection();
         if (modal.canceled) { return; }
@@ -12,7 +36,8 @@ const dp = new DayPilot.Month("dp", {
             start: args.start,
             end: args.end,
             id: DayPilot.guid(),
-            text: modal.result
+            text: checkBackColor(modal.result.backColor),
+            backColor: modal.result.backColor,
         });
     },
     eventDeleteHandling: "Update",
@@ -27,7 +52,13 @@ const dp = new DayPilot.Month("dp", {
     onEventResized: (args) => {
         console.log(args.e.id());
     },
-    eventClickHandling: "Disabled",
+    eventClickHandling: "Update",
+    onEventClick: async (args) => {
+        const modal = await DayPilot.Modal.form(form, args.e.data);
+        if (!modal) return;
+        args.e.text(checkBackColor(modal.result.backColor));
+        dp.events.update(args.e);
+    },
     eventHoverHandling: "Disabled",
 });
 dp.events.list = [];
