@@ -18,14 +18,8 @@
     json.innerHTML = JSON.stringify(JSON.parse(json.innerHTML), null, 4);
 </script>
 
+<h1>Message: <p th:text="${testMessage}"></p></h1>
 <button id="button">Post to Backend</button>
-<script th:src="@{/response.js}"></script>
-</body>
-</html>
-
-</head>
-<body>
-    <h1>Message: <p th:text="${testMessage}"></p></h1>
-
+<script th:src="@{/js/response.js}"></script>
 </body>
 </html>

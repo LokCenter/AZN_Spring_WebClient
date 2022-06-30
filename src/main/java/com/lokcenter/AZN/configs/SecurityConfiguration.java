@@ -37,8 +37,7 @@ import java.util.Set;
  *
  * @version 1.03 2022-06-26
  */
-@EnableWebSecurity
-@EnableWebMvc
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
 
@@ -51,9 +50,8 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
         //super.configure(http);
         // allow cors
         http.csrf();
-        http.cors();
 
-        http.authorizeRequests((authorize) -> {
+        http.cors().and().authorizeRequests((authorize) -> {
                     try {
                                 authorize
                                         // set permissions
