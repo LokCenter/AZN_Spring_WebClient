@@ -49,6 +49,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
+        // allow cors
         http.csrf();
         http.cors();
 
