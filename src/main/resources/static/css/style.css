@@ -47,7 +47,6 @@ html {
   width: 100%;
   display: flex;
   overflow: auto;
-  min-height: 200vh;
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
