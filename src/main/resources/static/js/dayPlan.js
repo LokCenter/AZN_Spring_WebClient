@@ -38,11 +38,11 @@ rightDaySwitch.addEventListener("click", (e) => {
 
 // input map
 let userInputData = new Map([
-     ["start_time", "0:00"],
-     ["end_time", "00:00"],
-     ["pause", "00:00"],
-     ["soll", "00:00"],
-     ["ist", "00:00"],
+    ["start_time", "0:00"],
+    ["end_time", "00:00"],
+    ["pause", "00:00"],
+    ["soll", "00:00"],
+    ["ist", "00:00"],
 ]);
 
 
@@ -82,7 +82,7 @@ function getTime(keyValue) {
 }
 
 // get time on change
-function  onPickerClose(val, elem, picker) {
+function onPickerClose(val, elem, picker) {
     // create numbers with `00` syntax
     function withZero(val) {
         if (val <= 9) {
@@ -91,6 +91,7 @@ function  onPickerClose(val, elem, picker) {
             return `${val}`
         }
     }
+
     let time = `${withZero(val[0])}:${withZero(val[1])}`
 
     mapTimeData(elem.id, time);

@@ -14,6 +14,7 @@ function checkBackColor(color) {
             return "GLAZ";
     }
 }
+
 const form = [
     {name: "Test", id: "backColor", options: selection},
 ];
@@ -31,7 +32,9 @@ const dp = new DayPilot.Month("dp", {
         const modal = await DayPilot.Modal.form(form, data);
         const dp = args.control;
         dp.clearSelection();
-        if (modal.canceled) { return; }
+        if (modal.canceled) {
+            return;
+        }
         dp.events.add({
             start: args.start,
             end: args.end,
@@ -46,16 +49,20 @@ const dp = new DayPilot.Month("dp", {
     },
     eventMoveHandling: "Update",
     onEventMoved: (args) => {
-        console.log(args.e.id());
+        const data = args.e.data;
+        console.log(data.start + " " + data.end);
     },
     eventResizeHandling: "Update",
     onEventResized: (args) => {
-        console.log(args.e.id());
+        const data = args.e.data;
+        console.log(data);
     },
     eventClickHandling: "Update",
     onEventClick: async (args) => {
         const modal = await DayPilot.Modal.form(form, args.e.data);
-        if (!modal) return;
+        if (modal.canceled) {
+            return;
+        }
         args.e.text(checkBackColor(modal.result.backColor));
         dp.events.update(args.e);
     },
@@ -64,13 +71,13 @@ const dp = new DayPilot.Month("dp", {
 dp.events.list = [];
 dp.init();
 
-function previousMonth() {
+function previousMonth(EventData) {
     dp.startDate = dp.startDate.addMonths(-1);
     dp.update();
     updateTimeDisplay();
 }
 
-function nextMonth() {
+function nextMonth(eventData) {
     dp.startDate = dp.startDate.addMonths(1);
     dp.update();
     updateTimeDisplay();
@@ -79,7 +86,7 @@ function nextMonth() {
 function updateTimeDisplay() {
     let timeDisplay = dp.startDate.value;
     let year = timeDisplay.slice(0, 4);
-    let month = timeDisplay.slice(5,7);
+    let month = timeDisplay.slice(5, 7);
     switch (month) {
         case "01":
             month = "Januar";
