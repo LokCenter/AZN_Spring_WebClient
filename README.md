@@ -71,13 +71,14 @@ Other areas of application:
 ## Roadmap
 
 - [X] Create Basic Repo
-- [ ] Add Login Authentication 
+- [X] Add Login Authentication 
   - [X] Add Login Page
+  - [X] Use OAuth 2.0
   - [ ] Add Register Page (Optional)
-- [ ] Add DayPlan Page
-- [ ] Add Overview Page
+- [X] Add DayPlan Page
+- [X] Add Overview Page
 - [X] Add Admin Page
-  - [ ] Add Admin Panel
+  - [X] Add Admin Panel
 
 ## Collaborators
 <ul>
