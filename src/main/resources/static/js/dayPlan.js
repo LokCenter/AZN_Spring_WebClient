@@ -122,37 +122,6 @@ let saveButton = document.getElementById("save-btn");
 
 // onClick
 saveButton.addEventListener('click', (e) => {
-    // check if ab is less than ae
-    // check start and end
-    if (getTime("start_time") < getTime("end_time")) {
-        // check end - start >= stop
-        let diffTime = new Date().setHours(
-            getTime("end_time").getHours() - getTime("start_time").getHours(),
-            getTime("end_time").getMinutes() - getTime("start_time").getMinutes());
-
-        if (diffTime < getTime("pause")) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Falsche Eingabe',
-                text: 'Pause kann nich größer als Arbeitszeit',
-            })
-
-            // stop
-            return;
-        }
-
-    } else {
-        // start should be smaller than end
-        // show error popup
-        Swal.fire({
-            icon: 'error',
-            title: 'Falsche Eingabe',
-            text: 'Arbeitsbeginn muss kleiner sein als Arbeitsende',
-        })
-
-        return;
-    }
-
     console.log(userInputData);
 
 
@@ -170,9 +139,20 @@ saveButton.addEventListener('click', (e) => {
 
     // send data to the backend
 
+    // Get CSRF token
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
 
-    //TODO: Send data to rest controller
-    //TODO: Build rest. controller
+    const params = JSON.stringify({message: "hello"});
+
+    axios.defaults.headers.post[header] = token
+    axios.post("http://localhost:8880/dayplan", {
+        test: 'test'
+    }).then((res) => {
+        console.log(res)
+    }).catch((error) => {
+        console.log(error)
+    })
 })
 
 //allow only one checkbox
@@ -185,5 +165,3 @@ function onlyOneCheckBox(checkbox) {
 
 // default value to check if something has changed
 let inputChange = false // default is false
-
-console.log(document.cookie)
