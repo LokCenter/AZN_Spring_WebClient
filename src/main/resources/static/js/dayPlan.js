@@ -144,13 +144,18 @@ saveButton.addEventListener('click', (e) => {
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
 
-    const params = JSON.stringify({message: "hello"});
-
+    // csrf to header
     axios.defaults.headers.post[header] = token
     axios.post("http://localhost:8880/dayplan", {
-        test: 'test'
+        "start_time": userInputData.get('start_time'),
+        "end_time": userInputData.get('end_time'),
+        "comment": userComment
     }).then((res) => {
-        console.log(res)
+        if (res.data) {
+            var btn_save = document.getElementById("save-btn");
+
+            btn_save.style.background = "#50C878";
+        }
     }).catch((error) => {
         console.log(error)
     })

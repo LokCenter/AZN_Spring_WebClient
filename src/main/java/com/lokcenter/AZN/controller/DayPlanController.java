@@ -57,7 +57,7 @@ public class DayPlanController {
     @ResponseBody
     boolean postDayPlan(@RequestBody Map<String, Object> payload,
                         @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
-
+        System.out.println(payload.toString());
         // post to backend
         return Boolean.TRUE.equals(this.webClient
                 .post()
