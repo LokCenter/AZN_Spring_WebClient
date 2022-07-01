@@ -1,16 +1,20 @@
+const colorUrlaub = "#80aeff";
+const colorKrank = "#ff7597";
+const colorGLAZ = "#9aff8d";
+
 const selection = [
-    {name: "Urlaub", id: "#80aeff"},
-    {name: "Krank", id: "#ff7597"},
-    {name: "GLAZ", id: "#9aff8d"},
+    {name: "Urlaub", id: colorUrlaub},
+    {name: "Krank", id: colorKrank},
+    {name: "GLAZ", id: colorGLAZ},
 ];
 
 function checkBackColor(color) {
     switch (color) {
-        case "#80aeff":
+        case colorUrlaub:
             return "Urlaub";
-        case "#ff7597":
+        case colorKrank:
             return "Krank";
-        case "#9aff8d":
+        case colorGLAZ:
             return "GLAZ";
     }
 }
@@ -20,7 +24,7 @@ const form = [
 ];
 
 const data = {
-    backColor: "#80aeff",
+    backColor: colorUrlaub,
 };
 
 const dp = new DayPilot.Month("dp", {
@@ -41,6 +45,8 @@ const dp = new DayPilot.Month("dp", {
             id: DayPilot.guid(),
             text: checkBackColor(modal.result.backColor),
             backColor: modal.result.backColor,
+            barColor: modal.result.backColor,
+            borderColor: modal.result.backColor,
         });
     },
     eventDeleteHandling: "Update",
@@ -64,6 +70,9 @@ const dp = new DayPilot.Month("dp", {
             return;
         }
         args.e.text(checkBackColor(modal.result.backColor));
+        args.e.client.backColor(modal.result.backColor);
+        args.e.client.barColor(modal.result.backColor);
+        args.e.client.borderColor(modal.result.backColor);
         dp.events.update(args.e);
     },
     eventHoverHandling: "Disabled",
