@@ -14,7 +14,5 @@
     color: grey;
     text-align: center;
     border-width: 0;
-    padding: 0;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
 }
