@@ -21,6 +21,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#ci">CI</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#collaborators">Collaborators</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -66,6 +67,24 @@ Other areas of application:
    ```sh
    mvn spring-boot:run
    ```
+## CI
+
+This repo uses **GitHub Actions** 
+
+### JUnit + Maven
+
+After every change (commit) to this repo GitHub Action will run all JUnit tests. 
+
+**Pass ✅**
+
+<img src="readme/pass_commit.png">
+
+**Failure 🚫**
+
+<img src="readme/failure.png">
+
+
+> **⚠️ Warning**: Run all tests before running `git commit`
 
 <!-- ROADMAP -->
 ## Roadmap
