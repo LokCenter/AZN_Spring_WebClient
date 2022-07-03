@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import lombok.AllArgsConstructor;
 
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -32,7 +33,6 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @RequestMapping("/dayplan")
 public class DayPlanController {
     private final WebClient webClient;
-
     /**
      * Show "Tagesübersicht"
      * @param model add stuff to the frond-end
@@ -53,7 +53,7 @@ public class DayPlanController {
      * @return boolean value
      */
     @PostMapping
-    @CrossOrigin("*")
+    @CrossOrigin("http://localhost:8880/dayplan")
     @ResponseBody
     boolean postDayPlan(@RequestBody Map<String, Object> payload,
                         @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
