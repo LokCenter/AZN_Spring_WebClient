@@ -2,11 +2,24 @@ const colorUrlaub = "#80aeff";
 const colorKrank = "#ff7597";
 const colorGLAZ = "#9aff8d";
 
-const selection = [
+const selectionUser = [
+    {name: "Krank", id: colorKrank},
+    {name: "GLAZ", id: colorGLAZ},
+];
+
+const selectionAdmin = [
     {name: "Urlaub", id: colorUrlaub},
     {name: "Krank", id: colorKrank},
     {name: "GLAZ", id: colorGLAZ},
 ];
+
+let role = "user";
+let selection = "";
+if (role === "user") {
+    selection = selectionUser;
+} else if (role === "admin") {
+    selection = selectionAdmin;
+}
 
 function checkBackColor(color) {
     switch (color) {
@@ -19,12 +32,20 @@ function checkBackColor(color) {
     }
 }
 
+function tagCheck(type) {
+    if (type === "Urlaub") {
+        return "admin";
+    } else {
+        return "user";
+    }
+}
+
 const form = [
-    {name: "Test", id: "backColor", options: selection},
+    {name: "Auswahl", id: "backColor", options: selection},
 ];
 
 const data = {
-    backColor: colorUrlaub,
+    backColor: colorKrank,
 };
 
 const dp = new DayPilot.Month("dp", {
@@ -47,17 +68,14 @@ const dp = new DayPilot.Month("dp", {
             backColor: modal.result.backColor,
             barColor: modal.result.backColor,
             borderColor: modal.result.backColor,
+            tag: tagCheck(checkBackColor(modal.result.backColor)),
         });
     },
     eventDeleteHandling: "Update",
     onEventDeleted: (args) => {
         console.log(args.e.id());
     },
-    eventMoveHandling: "Update",
-    onEventMoved: (args) => {
-        const data = args.e.data;
-        console.log(data.start + " " + data.end);
-    },
+    eventMoveHandling: "Disabled",
     eventResizeHandling: "Update",
     onEventResized: (args) => {
         const data = args.e.data;
