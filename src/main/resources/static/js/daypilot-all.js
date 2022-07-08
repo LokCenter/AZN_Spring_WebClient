@@ -1813,6 +1813,15 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                                     : r.calendar.eventBackColor
                             : void (r.data.backColor = e);
                     }),
+                    (this.client.barColor = function (e) {
+                        return "undefined" == typeof e
+                            ? r.cache && "undefined" != typeof r.cache.barColor
+                                ? r.cache.barColor
+                                : "undefined" != typeof r.data.barColor
+                                    ? r.data.barColor
+                                    : r.calendar.eventBarColor
+                            : void (r.data.barColor = e);
+                    }),
                     (this.client.borderColor = function (e) {
                         return "undefined" == typeof e
                             ? r.cache && "undefined" != typeof r.cache.borderColor
