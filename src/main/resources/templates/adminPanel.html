@@ -18,6 +18,9 @@
                 <th>Krankheitstage</th>
                 <th>GLAZ</th>
                 <th>freie Urlaubstage</th>
+                <th>Bearbeiten</th>
+                <th>Anfragen</th>
+                <th>Vorheriges Jahr</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +30,26 @@
                 <td th:text="${user.password}" th:onclick="'redirect('+ *{user.id} +')'"></td>
                 <td th:text="${user.enabled}" th:onclick="'redirect('+ *{user.id} +')'"></td>
                 <td th:text="${user.tokenExpired}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+            </tr>
+            <tr>
+                <td>Leonard</td>
+                <td>-2:20 Stunden</td>
+                <td>5</td>
+                <td>1</td>
+                <td>4</td>
+                <td><button>Bearbeiten</button></td>
+                <td>1</td>
+                <td><button>Anzeigen</button></td>
+            </tr>
+            <tr>
+                <td>Christian</td>
+                <td>+4:33 Stunden</td>
+                <td>1</td>
+                <td>2</td>
+                <td>8</td>
+                <td><button>Bearbeiten</button></td>
+                <td>0</td>
+                <td><button>Anzeigen</button></td>
             </tr>
             </tbody>
             <script th:src="@{/js/AdminPanel.js}"></script>
