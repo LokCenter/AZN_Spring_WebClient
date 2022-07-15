@@ -6,6 +6,8 @@ import com.azure.spring.aad.webapp.AADWebSecurityConfigurerAdapter;
 import com.azure.spring.autoconfigure.aad.AADAppRoleStatelessAuthenticationFilter;
 import com.nimbusds.jose.shaded.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
@@ -20,12 +22,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +37,10 @@ import java.util.Set;
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
+    @Bean
+    AfterLoginFilter customFilter() {
+        return new AfterLoginFilter();
+    }
 
     /**
      * HTTP Security configuration with OAuth 2.0 and Microsoft AAD
@@ -50,6 +51,9 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
         //super.configure(http);
         // allow cors
         http.csrf();
+
+        // filter to get the login time
+        http.addFilterAfter(customFilter(), AnonymousAuthenticationFilter.class);
 
         http.cors().and().authorizeRequests((authorize) -> {
                     try {
@@ -65,7 +69,8 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         // set authentication
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service
-                                        .userInfoEndpoint().oidcUserService(this.oidcUserService());
+                                        .userInfoEndpoint().oidcUserService(this.oidcUserService())
+                                        .and().defaultSuccessUrl("/loginUser");
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -88,7 +93,9 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
             Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
             // Delegate to the default implementation for loading a user
             OidcUser oidcUser = delegate.loadUser(userRequest);
-            // find all roles in claim
+
+
+            // find ... in claim
             oidcUser.getAuthorities().forEach(authority -> {
                 if (OidcUserAuthority.class.isInstance(authority)) {
                     OidcUserAuthority oidcUserAuthority = (OidcUserAuthority) authority;
@@ -111,7 +118,9 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
             });
 
             // create new OidUser with AAD role
-            oidcUser = new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
+            oidcUser = new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo(),
+                    // principal name
+                    "preferred_username");
 
             return oidcUser;
         };
