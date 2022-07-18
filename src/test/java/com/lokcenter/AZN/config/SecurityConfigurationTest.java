@@ -95,5 +95,4 @@ public class SecurityConfigurationTest {
     void admin_get_with_role() throws Exception {
         mvc.perform(get("/admin")).andExpect(status().isOk());
     }
-
 }

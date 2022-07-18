@@ -1,5 +1,7 @@
 package com.lokcenter.AZN.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -10,6 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.nimbusds.jose.shaded.json.JSONArray;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -42,6 +50,35 @@ public class LoginController {
         try {
             var user = (DefaultOidcUser) authentication.getPrincipal();
 
+            try {
+                // Microsoft email address e.g. username
+                String username = user.getName();
+
+                // current data without time
+                Date currentDate = new Date();
+                var dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+                String date = dateFormat.format(currentDate);
+
+                // playload
+                Map<String, Object> payload = new HashMap<>();
+
+                payload.put("username", username);
+                payload.put("firstLogin", date);
+
+                this.webClient
+                        .post()
+                        .uri("/login")
+                        .attributes(oauth2AuthorizedClient(authorizedClient))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .body(Mono.just(payload), payload.getClass())
+                        .retrieve()
+                        // res type
+                        .bodyToMono(Boolean.class)
+                        .block();
+
+
+            } catch (Exception ignore){}
+
             var roles = (JSONArray) user.getClaims().get("roles");
 
             System.out.println(roles.toString());
@@ -57,9 +94,6 @@ public class LoginController {
             return "redirect:/noRole";
         }
     }
-
-    // TODO: Controller to send login Date and time
-
     /**
      * Basic Route to check Resource Server
      *

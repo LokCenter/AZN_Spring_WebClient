@@ -37,11 +37,6 @@ import java.util.Set;
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
-    @Bean
-    AfterLoginFilter customFilter() {
-        return new AfterLoginFilter();
-    }
-
     /**
      * HTTP Security configuration with OAuth 2.0 and Microsoft AAD
      * @param http http security instance
@@ -51,9 +46,6 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
         //super.configure(http);
         // allow cors
         http.csrf();
-
-        // filter to get the login time
-        http.addFilterAfter(customFilter(), AnonymousAuthenticationFilter.class);
 
         http.cors().and().authorizeRequests((authorize) -> {
                     try {
