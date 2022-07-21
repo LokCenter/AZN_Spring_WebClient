@@ -86,6 +86,10 @@ After every change (commit) to this repo GitHub Action will run all JUnit tests.
 
 > **⚠️ Warning**: Run all tests before running `git commit`
 
+
+Current status:
+
+[![Java CI with Maven](https://github.com/LokCenter/AZN_Spring_WebClient/actions/workflows/maven.yml/badge.svg)](https://github.com/LokCenter/AZN_Spring_WebClient/actions/workflows/maven.yml)
 <!-- ROADMAP -->
 ## Roadmap
 
