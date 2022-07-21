@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/lokcenter/azn_rserver:$(date +%s)
+      run: docker build . --file Dockerfile --tag ghcr.io/lokcenter/azn_rserver:latest
     - name: Publish package
-      run: docker push ghcr.io/lokcenter/azn_rserver:$(date +%s)
+      run: docker push ghcr.io/lokcenter/azn_rserver:latest
