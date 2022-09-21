@@ -1,60 +1,28 @@
 
 
 .dayPlanInput-container {
-    flex: 0 0 auto;
-    height: 200px;
     display: flex;
-    align-self: center;
+    justify-content: center;
+}
+
+.grid {
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(6, 1fr);
+    text-align: center;
     align-items: center;
-    justify-content: flex-start;
+    gap: 1em;
+    width: 90%;
+    padding: 3em;
 }
 
 .inputCheckBox {
     height: 50px;
 }
 
-#user-input-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-}
-
 @media only screen and (max-width: 1142px)  {
     .dayPlanInput-container {
         width: 70%;
     }
-}
-
-#user-input-table th,
-#user-input-table td {
-    padding: 12px 15px;
-}
-
-#user-input-table thread tr {
-    background-color: #eeeeee;
-    color: #090707;
-    text-align: left;
-}
-
-#user-input-table th {
-    font-family: 'Inter', sans-serif;
-}
-#user-input-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-#user-input-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-#user-input-table tbody tr:last-of-type {
-    border-bottom: 2px solid #eeeeee;
-}
-#user-input-table tbody tr.active-row {
-    font-weight: bold;
-    color: #090707;
 }
 
 input {

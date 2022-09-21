@@ -3,6 +3,9 @@
  * @version 1.05 2022-07-01
  */
 
+const startTime = document.getElementById("start_time");
+const endTime = document.getElementById("end_time");
+const pause = document.getElementById("pause");
 
 /* Date Switch stuff  */
 
@@ -76,15 +79,6 @@ function mapTimeData(key, value) {
     }
 }
 
-/**
- * Get type date on startup
- * @param elem element type
- * @param picker picker
- */
-function onStartCreate(elem, picker) {
-    mapTimeData(picker.attributes.id.nodeValue, picker.dataset.value);
-}
-
 // get time from map => Date
 function getTime(keyValue) {
     let key = new Date();
@@ -95,45 +89,53 @@ function getTime(keyValue) {
 }
 
 /**
- * Get the value of a datepicker on close
- * @param val input value
- * @param elem element type
- * @param picker picker
+ * Get the value of a time on change and calculate ist.
+ * @param {string} key mapTimeData key
+ * @param {string} value mapTimeData value
  */
-function onPickerClose(val, elem, picker) {
+function onTimeChange(key, value) {
     // create numbers with `00` syntax
-    function withZero(val) {
-        if (val <= 9) {
-            return `0${val}`
-        } else {
-            return `${val}`
-        }
+    function withZero(value){
+        if (value <= 9) return `0${value}`;
+        else return `${value}`;
     }
 
-    let time = `${withZero(val[0])}:${withZero(val[1])}`
+    mapTimeData(key, value);
 
-    mapTimeData(elem.id, time);
-
-    // generate ist time
+    // generate ist time if end_time isn't "00:00"
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
-    let ist_ = getTime("ist");
+    if (endTime.value !== "00:00") {
+        let istValue = getTime("ist");
+        istValue.setHours(
+            getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
+        );
+        istValue.setMinutes(
+            getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
+        );
+        // Update map
+        mapTimeData("ist", `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`);
 
-    ist_.setHours(
-        (getTime("end_time").getHours() - getTime('start_time').getHours()) - getTime("pause").getHours());
+        // Set ist
+        const ist = document.getElementById("ist");
+        ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
 
-    ist_.setMinutes(
-        (getTime("end_time").getMinutes() - getTime('start_time').getMinutes()) - getTime("pause").getMinutes())
-
-    // update map
-    mapTimeData("ist", `${withZero(ist_.getHours())}:${withZero(ist_.getMinutes())}`)
-
-    // set ist
-    let istElem = document.getElementById("ist-cell");
-
-    // set ist values
-    istElem.childNodes[0].childNodes[1].childNodes[0].innerText = `${withZero(ist_.getHours())}`;
-    istElem.childNodes[0].childNodes[1].childNodes[1].innerText = `${withZero(ist_.getMinutes())}`;
+        // Display soll
+        const soll = document.getElementById("soll");
+        soll.value = userInputData.get("soll");
+    }
 }
+
+// Event Listeners listening for time input changes
+startTime.addEventListener("change", () => {
+    onTimeChange("start_time", startTime.value);
+});
+endTime.addEventListener("change", () => {
+    onTimeChange("end_time", endTime.value);
+});
+pause.addEventListener("change", () => {
+    onTimeChange("pause", pause.value);
+});
+
 
 // Save button
 let saveButton = document.getElementById("save-btn");
