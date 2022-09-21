@@ -6,7 +6,7 @@
 ![example workflow](https://github.com/LokCenter/AZN_Spring_WebClient/actions/workflows/maven.yml/badge.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/LokCenter/AZN_Spring_WebClient/graphs/commit-activity)
 
-<!-- TABLE OF CONTENTS  -->
+<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
