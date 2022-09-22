@@ -12,9 +12,9 @@ const pause = document.getElementById("pause");
 // get date html
 let dateSwitch = document.getElementById("dateSwitchDate");
 
-// moment format
-
-const format = "dddd, D MMMM, YYYY";
+// moment format & locale
+const format = "dddd, DD.MM.YYYY";
+moment.locale("de");
 
 // set current date
 dateSwitch.innerText = moment().format(format);
@@ -102,7 +102,7 @@ function onTimeChange(key, value) {
 
     mapTimeData(key, value);
 
-    // generate ist time if end_time isn't "00:00"
+    // Generate ist time if end_time isn't "00:00"
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     if (endTime.value !== "00:00") {
         let istValue = getTime("ist");
@@ -138,7 +138,7 @@ pause.addEventListener("change", () => {
 
 
 // Save button
-let saveButton = document.getElementById("save-btn");
+let saveButton = document.getElementById("save-button");
 
 
 /**
@@ -152,7 +152,7 @@ saveButton.addEventListener('click', (e) => {
 
     //get checked checkbox
     let checked_item = null;
-    const checkboxes = document.getElementsByName("check");
+    const checkboxes = document.querySelectorAll(".radio");
     // find checked value
     checkboxes.forEach((item) => {
         if (item.checked === true) {
@@ -178,20 +178,13 @@ saveButton.addEventListener('click', (e) => {
         "checked": checked_item,
         "comment": userComment
     }).then(async (res) => {
-        // change button color if response is ok
+        // Display confirmation message if response is ok
         if (res.data) {
-
-            const btn_save = document.getElementById("save-btn");
-
-            // get the color from the button
-            const default_color = btn_save.style.background;
-
-            btn_save.style.background = "#50C878";
-
+            const saveConfirmation = document.getElementById("save-confirmation");
+            saveConfirmation.innerText = "Änderungen wurden gespeichert";
             // non-blocking sleep
-            await sleep(3000)
-
-            btn_save.style.background = default_color
+            await sleep(2000);
+            saveConfirmation.innerText = "";
         }
     }).catch((error) => {
         console.log(error)
@@ -202,7 +195,7 @@ saveButton.addEventListener('click', (e) => {
  * Allow only one checkbox
  */
 function onlyOneCheckBox(checkbox) {
-    const checkboxes = document.getElementsByName('check');
+    const checkboxes = document.querySelectorAll(".radio");
     checkboxes.forEach((item) => {
         if (item !== checkbox) item.checked = false
     })

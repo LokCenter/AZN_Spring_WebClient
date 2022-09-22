@@ -1,5 +1,3 @@
-
-
 .dayPlanInput-container {
     display: flex;
     justify-content: center;
@@ -15,83 +13,48 @@
     padding: 3em;
 }
 
-.inputCheckBox {
-    height: 50px;
-}
-
-@media only screen and (max-width: 1142px)  {
-    .dayPlanInput-container {
-        width: 70%;
-    }
-}
-
-input {
-    border:0;
-    outline:0;
-}
-
-input{
-    background-color : white;
-    font-family: sans-serif;
-    color: #212121;
-    padding: 9px 13px;
-    vertical-align: baseline;
-    border-bottom: 2px solid #dfdfdf;
-    font-weight: 400;
-    font-size: 1.2em;
-    font-style: normal;
-    line-height: 1.5;
-}
-
-input:focus {
-    outline:none!important;
-    background-color: #eeeeee;
-}
-
-.input-span {
-    width: 100%;
-    background-color: #eeeeee;
-    color: #090707;
-    padding: 15px
-}
-
-::-webkit-input-placeholder {
+.grid {
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(6, 1fr);
     text-align: center;
+    align-items: center;
+    gap: 1em;
+    width: 90%;
+    padding: 3em;
+    border-bottom: 2px solid var(--clr-accent);
 }
 
-:-moz-placeholder { /* Firefox 18- */
-    text-align: center;
+.grid > :nth-child(1),
+.grid > :nth-child(2),
+.grid > :nth-child(3),
+.grid > :nth-child(4),
+.grid > :nth-child(5),
+.grid > :nth-child(6) {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    padding: 0.2em;
+    border-radius: 0.8rem;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
-    text-align: center;
+.grid label {
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
-:-ms-input-placeholder {
-    text-align: center;
+.grid input {
+    font-size: 1.6rem;
+    justify-self: center;
 }
 
-input:focus::placeholder {
-    color: transparent;
+#comment {
+    font-size: 1rem;;
+    padding: 0.5em;
+    border: none;
+    border-bottom: 2px solid var(--clr-dark);
 }
 
-.time-picker.disabled {
-    background: #eeeeee;
-    color: #1d1d1d !important;
-}
-
-#select-radio label {
-    display: inline-block;
-    padding-right: 10px;
-    white-space: nowrap;
-}
-
-#select-radio input {
-    vertical-align: middle;
-    accent-color: #eeeeee
-}
-#select-radio label span {
-    vertical-align: middle;
-    margin-left: 2px;
-    font-family: Inter, Arial, serif;
+#comment:focus {
+    outline: none;
+    border-bottom: 2px solid var(--clr-accent);
+    background-color: var(--clr-mid);
 }

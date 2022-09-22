@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}"></title>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="${title}"></title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <script src="//cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}">
@@ -19,41 +18,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"  referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
- <div>
-     <div class="base-container">
-         <div class="base-container2">
-             <div th:replace="fragments/toggle :: toggle"></div>
-             <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
-             <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
-             <div class="dayPlanInput-container inputCheckBox">
-                 <div id="select-radio">
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="glaz" onclick="onlyOneCheckBox(this)" disabled/><span>GLAZ</span></label>
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="sick"  onclick="onlyOneCheckBox(this)" disabled/><span>Krank</span></label>
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="vacation" onclick="onlyOneCheckBox(this)" disabled/><span>Urlaub</span></label>
-                 </div>
-             </div>
-             <div class="dayPlanInput-container">
-                 <button id="save-btn" class="save-button pure-button">
-                     Save
-                 </button>
-             </div>
-         </div>
-     </div>
-     <script>
-         // get time
-     </script>
 
-     <script th:src="@{/js/dayPlan.js}"></script>
- </div>
+    <div th:replace="fragments/toggle :: toggle"></div>
+    <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
+    <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
+
+    <div class="radio-container">
+        <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" disabled>
+        <label for="radio-glaz">GLAZ</label>
+        <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" disabled>
+        <label for="radio-sick">Krank</label>
+        <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" disabled>
+        <label for="radio-vacation">Urlaub</label>
+    </div>
+
+    <div class="save-button-container">
+        <div class="save-button-wrapper">
+            <button id="save-button">Speichern</button>
+        </div>
+    </div>
+
+    <div class="save-confirmation-container">
+        <div id="save-confirmation"></div>
+    </div>
+
+
+
+    <script>
+     // get time
+    </script>
+    <script th:src="@{/js/dayPlan.js}"></script>
 </body>
 </html>

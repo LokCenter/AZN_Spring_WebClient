@@ -5,9 +5,9 @@
 </head>
 <body>
 <div class="daySwitch-container" th:fragment="dateSwitch">
-  <button id="left-dayPlan-switch" class="daySwitch-button Text button" onclick="javascript:dp.startDate = dp.startDate.addMonths(-1); dp.update();">&lt;&lt;</button>
-  <button id="dateSwitchDate" class="dateSwitch-date-text Text">dd, DD.MM.YYYY</button>
-  <button id="right-dayPlan-switch" class="daySwitch-button Text button" onclick="javascript:dp.startDate = dp.startDate.addMonths(1); dp.update();">&gt;&gt;</button>
+  <button id="left-dayPlan-switch" onclick="javascript:dp.startDate = dp.startDate.addMonths(-1); dp.update();">&lt;&lt;</button>
+  <p id="dateSwitchDate" >dd, DD.MM.YYYY</p>
+  <button id="right-dayPlan-switch" onclick="javascript:dp.startDate = dp.startDate.addMonths(1); dp.update();">&gt;&gt;</button>
 </div>
 </body>
 </html>

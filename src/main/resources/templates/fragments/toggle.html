@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
 </head>
 <body>
-     <div class="toggle-container" th:fragment="toggle">
+     <nav class="toggle-container" th:fragment="toggle">
+         <ul>
+             <li><a href="/dayplan">Tagesübersicht</a></li>
+             <li><a href="/overview">Monatsübersicht</a></li>
+         </ul>
+         <!--
         <button class="toggle-button button" onclick="location.href='/dayplan';">
               <span>
                 <span class="toggle-text Text">Tagesübersicht</span>
@@ -14,7 +19,7 @@
         <button class="toggle-button button" onclick="location.href='/overview';">
             <span><span class="toggle-text Text">Übersicht</span></span>
         </button>
-    </div>
-
+         -->
+    </nav>
 </body>
 </html>
