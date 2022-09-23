@@ -20,8 +20,8 @@ moment.locale("de");
 dateSwitch.innerText = moment().format(format);
 
 // Change date based on button
-let leftDaySwitch = document.getElementById("left-dayPlan-switch");
-let rightDaySwitch = document.getElementById("right-dayPlan-switch");
+const leftDaySwitch = document.getElementById("left-dayPlan-switch");
+const rightDaySwitch = document.getElementById("right-dayPlan-switch");
 
 // to keep track where we are
 let currDate = moment();

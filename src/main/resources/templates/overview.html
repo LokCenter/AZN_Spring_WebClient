@@ -3,32 +3,30 @@
 <head>
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
     <link rel="stylesheet" th:href="@{/css/overview.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}"/>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script th:src="@{/js/daypilot-all.js}"></script>
 </head>
 <body>
-<div>
-    <div class="base-container">
-        <div class="base-container2">
-            <div th:replace="fragments/toggle :: toggle"></div>
-            <div class="overview-container-switch">
-                <div>
-                    <button class="dateSwitch-button Text" onclick="previousMonth()">&lt;&lt;</button>
-                </div>
-                <div class="overview-display">
-                    <a id="start"></a>
-                </div>
-                <div>
-                    <button class="dateSwitch-button Text" onclick="nextMonth()">&gt;&gt;</button>
-                </div>
-            </div>
+
+    <div th:replace="fragments/toggle :: toggle"></div>
+    <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
+
+    <div class="dp-container">
+        <div class="dp-wrapper">
             <div id="dp"></div>
         </div>
+        <div class="overview-wrapper">
+            <p>Guthaben/Schuld:</p>
+            <p>00h 00min</p>
+            <p>Freie Urlaubstage:</p>
+            <p>00 Tage</p>
+        </div>
     </div>
-</div>
+
 <script th:src="@{/js/overview.js}"></script>
 </body>
 </html>

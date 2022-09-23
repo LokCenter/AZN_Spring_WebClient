@@ -209,23 +209,32 @@ dp.events.list = [
 ];
 dp.init();
 
+const leftDaySwitch = document.getElementById("left-dayPlan-switch");
+const rightDaySwitch = document.getElementById("right-dayPlan-switch");
+
 /**
- * remove a month to the startDate of the currently displayed calendar -> previous month will be displayed
+ * Display the previous month
  */
-function previousMonth() {
+leftDaySwitch.addEventListener("click", (e) => {
+    /**
+     * remove a month to the startDate of the currently displayed calendar -> previous month will be displayed
+     */
     dp.startDate = dp.startDate.addMonths(-1);
     dp.update();
     updateTimeDisplay();
-}
+});
 
 /**
- * add a month to the startDate of the currently displayed calendar -> next month will be displayed
+ * Display the next month
  */
-function nextMonth() {
+rightDaySwitch.addEventListener("click", (e) => {
+    /**
+     * add a month to the startDate of the currently displayed calendar -> next month will be displayed
+     */
     dp.startDate = dp.startDate.addMonths(1);
     dp.update();
     updateTimeDisplay();
-}
+});
 
 /**
  * gets the startDateValue of the current visible month and assigns it the correct label with full month name and year
@@ -273,7 +282,7 @@ function updateTimeDisplay() {
             break;
     }
     let finalDisplay = month + " " + year;
-    document.getElementById("start").innerText = finalDisplay;
+    document.getElementById("dateSwitchDate").innerText = finalDisplay;
 }
 
 updateTimeDisplay()
