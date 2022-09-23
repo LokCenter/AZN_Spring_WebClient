@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jahresübersicht</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/yearPlan.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/toggle :: toggle"></div>
+    <div class="container">
+
+        <table class="personal-information">
+            <tr>
+                <th scope="row">Name:</th>
+                <td id="person-name">Max Musterman</td>
+            </tr>
+            <tr>
+                <th scope="row">Abteilung:</th>
+                <td id="person-department">FI</td>
+            </tr>
+            <tr>
+                <th scope="row">Tagesarbeitszeit:</th>
+                <td id="person-daily-time">7h 42min</td>
+            </tr>
+            <tr>
+                <th scope="row">Wochenarbeitszeit:</th>
+                <td id="person-weekly-time">38,5h</td>
+            </tr>
+        </table>
+
+        <table class="current-stats">
+            <tr>
+                <th scope="row">Aktuelles Zeitkonto:</th>
+                <td id="stat-overtime">00h 00min Guthaben</td><!-- Guthaben turns into Schuld if < 0 -->
+            </tr>
+            <tr>
+                <th scope="row">Urlaubsübertrag Vorjahr:</th>
+                <td id="stat-previous-vacation">0 Tage</td>
+            </tr>
+            <tr>
+                <th scope="row">Summe Urlaubstage:</th>
+                <td id="stat-total-vacation">30 Tage</td>
+            </tr>
+            <tr>
+                <th scope="row">Verbrauchte Urlaubstage:</th>
+                <td id="stat-used-vacation">30 Tage</td>
+            </tr>
+            <tr>
+                <th scope="row">Verfügbare Urlaubstage:</th>
+                <td id="stat-available-vacation">0 Tage</td>
+            </tr>
+        </table>
+
+        <table class="year-overview" id="year-overview">
+            <thead>
+                <tr>
+                <th scope="col">Jahr</th>
+                <th scope="col">Arbeit</th>
+                <th scope="col">Krank</th>
+                <th scope="col">Urlaub</th>
+                <th scope="col">GLAZ</th>
+                <th scope="col">Zeitkonto</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <script th:src="@{/js/yearPlan.js}"></script>
+</body>
+</html>

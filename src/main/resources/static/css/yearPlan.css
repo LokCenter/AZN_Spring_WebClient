@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    gap: 2em;
+    justify-content: space-evenly;
+    text-align: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 7em;
+}
+
+table {
+    display: flex;
+    justify-content: center;
+    border-spacing: 2em 0.4em;
+}
+
+table * {
+    padding: 0.3em 0.9em;
+}
+
+th {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    border-radius: 1em;
+}
+
+td {
+    position: relative;
+    background-color: var(--clr-mid);
+    border-radius: 1em;
+}
+
+/* For making the td background look concave on the left hand side
+.personal-information td,
+.current-stats td {
+    padding-left: 1em;
+}
+
+.personal-information td::before,
+.current-stats td::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-color: var(--clr-light);
+    height: 1.6em;
+    width: 1em;
+    top: 0;
+    left: -0.5em;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+*/
+
+.year-overview {
+    grid-column-start: span 2;
+    margin-top: 3em;
+    border-spacing: 4em 0.4em;
+    text-align: center;
+}
