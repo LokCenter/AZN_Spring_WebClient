@@ -102,37 +102,49 @@ function onTimeChange(key, value) {
 
     mapTimeData(key, value);
 
-    // Generate ist time if end_time isn't "00:00"
+    // Generate ist time
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
-    if (endTime.value !== "00:00") {
-        let istValue = getTime("ist");
-        istValue.setHours(
-            getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
-        );
-        istValue.setMinutes(
-            getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
-        );
-        // Update map
-        mapTimeData("ist", `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`);
+    let istValue = getTime("ist");
+    istValue.setHours(
+        getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
+    );
+    istValue.setMinutes(
+        getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
+    );
+    // Update map
+    mapTimeData("ist", `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`);
 
-        // Set ist
-        const ist = document.getElementById("ist");
-        ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
+    // Set ist
+    const ist = document.getElementById("ist");
+    ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
 
-        // Display soll
-        const soll = document.getElementById("soll");
-        soll.value = userInputData.get("soll");
+    // Display soll
+    const soll = document.getElementById("soll");
+    soll.value = userInputData.get("soll");
+}
+
+/**
+ * Checks if the value of a time slot is an empty string and sets it to "00:00" if it is.
+ * @param {Object} time
+ */
+function setEmptyTimeToZero(time) {
+    if (time.value === "") {
+        console.log(time.value)
+        time.value = "00:00";
     }
 }
 
 // Event Listeners listening for time input changes
 startTime.addEventListener("change", () => {
+    setEmptyTimeToZero(startTime);
     onTimeChange("start_time", startTime.value);
 });
 endTime.addEventListener("change", () => {
+    setEmptyTimeToZero(endTime);
     onTimeChange("end_time", endTime.value);
 });
 pause.addEventListener("change", () => {
+    setEmptyTimeToZero(pause);
     onTimeChange("pause", pause.value);
 });
 
