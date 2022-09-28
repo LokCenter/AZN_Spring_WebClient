@@ -5678,7 +5678,7 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                     (this.api = 2),
                     (this.backendUrl = null),
                     (this.cellHeaderHeight = 24),
-                    (this.cellHeight = 100),
+                    (this.cellHeight = 80),
                     (this.cssClassPrefix = "month_default"),
                     (this.eventBarVisible = !0),
                     (this.eventHeight = 25),
