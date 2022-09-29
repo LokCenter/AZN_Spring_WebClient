@@ -1,12 +1,3 @@
-.APheader {
-    text-align: center;
-}
-
-.APTable {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .unselectable {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
@@ -14,3 +5,133 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.APheader {
+    background-color: var(--clr-accent);
+    padding: 0.4em;
+    margin-bottom: 4em;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--clr-light);
+    text-align: center;
+}
+
+.APTable {
+    border-collapse: collapse;
+    border: 0.2em solid var(--clr-accent);
+    text-align: center;
+    margin-bottom: 4em;
+}
+
+.APTable * {
+    padding: 0.3em 0.9em;
+}
+
+.APTable thead tr {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+}
+
+.APTable tbody tr:nth-of-type(even) {
+    background-color: var(--clr-mid);
+}
+
+.APTable tbody tr:nth-of-type(odd) {
+    background-color: var(--clr-light);
+}
+
+a,
+button {
+    background-color: var(--clr-accent);
+    border: 0.1em solid var(--clr-accent);
+    border-radius: 1em;
+    color: var(--clr-light);
+    text-decoration: none;
+}
+
+a:hover,
+button:hover {
+    cursor: pointer;
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+.modal-content {
+    width: 50em;
+    height: 30em;
+    margin: 5em auto;
+    background-color: var(--clr-light);
+    border-radius: 2em;
+    box-shadow: 0 0 1em 0 var(--clr-dark);
+}
+
+.modal-content__header {
+    background-color: var(--clr-accent);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4em 1.4em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    margin-bottom: 1.5em;
+}
+
+h2,
+.close {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.2em;
+    color: var(--clr-light);
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.modal-content__body {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-content table {
+    border-spacing: 2em 0.4em;
+    text-align: center;
+}
+
+.modal-content table * {
+    padding: 0.3em 0.9em;
+}
+
+.modal-content th {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    border-radius: 1em;
+}
+
+.modal-content td {
+    background-color: var(--clr-mid);
+    border-radius: 1em;
+}
+

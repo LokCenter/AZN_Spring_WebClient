@@ -4,57 +4,85 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/AdminPanel.css}"/>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
 </head>
 <body class="unselectable">
-    <header class="APheader"><h3>Admin Panel</h3></header>
+
+    <div class="modal" id="prev-year-modal">
+        <div class="modal-content">
+            <div class="modal-content__header">
+                <h2>USER NAME</h2>
+                <span class="close close-prev-year-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <table id="year-overview-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Jahr</th>
+                            <th scope="col">Arbeit</th>
+                            <th scope="col">Krank</th>
+                            <th scope="col">Urlaub</th>
+                            <th scope="col">GLAZ</th>
+                            <th scope="col">Zeitkonto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <header class="APheader"><h1>Admin Panel</h1></header>
+
     <main>
-        <table class="pure-table APTable">
+        <table class="APTable" id="APTable">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Schuld/Guthaben</th>
-                <th>Krankheitstage</th>
-                <th>GLAZ</th>
-                <th>freie Urlaubstage</th>
-                <th>Bearbeiten</th>
-                <th>Anfragen</th>
-                <th>Vorheriges Jahr</th>
-            </tr>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Zeitkonto</th>
+                    <th scope="col">Krankheitstage</th>
+                    <th scope="col">GLAZ</th>
+                    <th scope="col">Freie Urlaubstage</th>
+                    <th scope="col">Anfragen</th>
+                    <th scope="col">Jahresübersicht</th>
+                    <th scope="col">Bearbeiten</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="user: ${users}">
-                <td th:text="${user.id}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                <td th:text="${user.username}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                <td th:text="${user.password}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                <td th:text="${user.enabled}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                <td th:text="${user.tokenExpired}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-            </tr>
-            <tr>
-                <td>Leonard</td>
-                <td>-2:20 Stunden</td>
-                <td>5</td>
-                <td>1</td>
-                <td>4</td>
-                <td><button>Bearbeiten</button></td>
-                <td>1</td>
-                <td><button>Anzeigen</button></td>
-            </tr>
-            <tr>
-                <td>Christian</td>
-                <td>+4:33 Stunden</td>
-                <td>1</td>
-                <td>2</td>
-                <td>8</td>
-                <td><button>Bearbeiten</button></td>
-                <td>0</td>
-                <td><button>Anzeigen</button></td>
-            </tr>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.id}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                    <td th:text="${user.username}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                    <td th:text="${user.password}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                    <td th:text="${user.enabled}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                    <td th:text="${user.tokenExpired}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                </tr>
+                <tr>
+                    <td>Leonard</td>
+                    <td>2h 20min Schulden</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>4</td>
+                    <td><a href="#">1</a></td>
+                    <td><button class="prev-year-btn">Anzeigen</button></td>
+                    <td><button>Bearbeiten</button></td>
+                </tr>
+                <tr>
+                    <td>Christian</td>
+                    <td>4h 33min Guthaben</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>8</td>
+                    <td><a href="#">0</a></td>
+                    <td><button class="prev-year-btn">Anzeigen</button></td>
+                    <td><button>Bearbeiten</button></td>
+                </tr>
             </tbody>
-            <script th:src="@{/js/AdminPanel.js}"></script>
         </table>
     </main>
-    <footer></footer>
+
+
+    <script th:src="@{/js/AdminPanel.js}"></script>
 </body>
 </html>
