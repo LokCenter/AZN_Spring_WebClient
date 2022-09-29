@@ -32,31 +32,9 @@ th {
 }
 
 td {
-    position: relative;
     background-color: var(--clr-mid);
     border-radius: 1em;
 }
-
-/* For making the td background look concave on the left hand side
-.personal-information td,
-.current-stats td {
-    padding-left: 1em;
-}
-
-.personal-information td::before,
-.current-stats td::before{
-    content: "";
-    display: inline-block;
-    position: absolute;
-    background-color: var(--clr-light);
-    height: 1.6em;
-    width: 1em;
-    top: 0;
-    left: -0.5em;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
-}
-*/
 
 .year-overview {
     grid-column-start: span 2;

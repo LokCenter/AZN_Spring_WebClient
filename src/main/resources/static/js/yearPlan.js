@@ -8,8 +8,8 @@
  * @param {string} overtime Amount of GLAZ days.
  */
 function addYear(year, work, sick, vacation, glaz, overtime) {
-    const yearOverviewTable = document.getElementById("year-overview");
-    let newRow = yearOverviewTable.insertRow();
+    const yearOverviewTableBody = document.getElementById("year-overview").getElementsByTagName("tbody")[0];
+    let newRow = yearOverviewTableBody.insertRow();
     let newYear = newRow.insertCell();
     let newWork = newRow.insertCell();
     let newSick = newRow.insertCell();
