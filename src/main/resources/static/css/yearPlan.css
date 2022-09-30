@@ -9,13 +9,15 @@
     grid-template: 1fr 1fr / 1fr 1fr;
     gap: 2em;
     justify-content: space-evenly;
+    align-items: flex-start;
     text-align: left;
     width: 80%;
     margin-left: 10%;
     margin-top: 7em;
 }
 
-table {
+.personal-information,
+.current-stats {
     display: flex;
     justify-content: center;
     border-spacing: 2em 0.4em;
