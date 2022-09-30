@@ -88,6 +88,10 @@ button:hover {
     box-shadow: 0 0 1em 0 var(--clr-dark);
 }
 
+.modal-content-edit {
+    height: 22em;
+}
+
 .modal-content__header {
     background-color: var(--clr-accent);
     display: flex;
@@ -96,6 +100,10 @@ button:hover {
     border-top-left-radius: 2em;
     border-top-right-radius: 2em;
     margin-bottom: 1.5em;
+}
+
+#edit-modal .modal-content__header {
+    margin-bottom: 4em;
 }
 
 h2,
@@ -135,3 +143,44 @@ h2,
     border-radius: 1em;
 }
 
+.modal-content-edit .personal-info,
+.modal-content-edit .work-info {
+    display:grid;
+    grid-template: 1fr 1fr / 1fr 1fr 10ch;
+    grid-auto-flow: column;
+    gap: 0 2em;
+    margin-bottom: 2em;
+}
+
+.modal-content-edit .personal-info input,
+.modal-content-edit .work-info input {
+    font-size: 1.2rem;
+    border: none;
+    border-bottom: 2px solid var(--clr-accent);
+}
+
+.modal-content-edit .personal-info input:focus,
+.modal-content-edit .work-info input:focus {
+    outline: none;
+    background-color: var(--clr-mid);
+}
+
+.modal-content-edit .personal-info label,
+.modal-content-edit .work-info label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-left: 0.4em;
+}
+
+#save-user-data-button {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    padding: 0.2em;
+    border: 2px solid var(--clr-accent);
+    border-radius: 1em;
+}
+
+#save-user-data-button:hover {
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+}

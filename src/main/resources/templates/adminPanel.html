@@ -9,7 +9,7 @@
 <body class="unselectable">
 
     <div class="modal" id="prev-year-modal">
-        <div class="modal-content">
+        <div class="modal-content modal-content-prev-year">
             <div class="modal-content__header">
                 <h2>USER NAME</h2>
                 <span class="close close-prev-year-modal">&times;</span>
@@ -30,6 +30,37 @@
 
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-modal">
+        <div class="modal-content modal-content-edit">
+            <div class="modal-content__header">
+                <h2>USER NAME</h2>
+                <span class="close close-edit-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <form name="edit-user-data" action="" method="">
+                    <div class="personal-info">
+                        <input type="text" name="first-name" id="first-name">
+                        <label for="first-name">Vorname</label>
+                        <input type="text" name="last-name" id="last-name">
+                        <label for="last-name">Nachname</label>
+                        <input type="text" name="department" id="department">
+                        <label for="department">Abteilung</label>
+                    </div>
+
+                    <div class="work-info">
+                        <input type="time" name="work-start" id="work-start">
+                        <label for="work-start">Arbeitsbeginn</label>
+                        <input type="time" name="work-end" id="work-end">
+                        <label for="work-end">Arbeitsende</label>
+                        <input type="text" name="vacation" id="vacation">
+                        <label for="vacation">Urlaubstage</label>
+                    </div>
+                    <button id="save-user-data-button">Speichern</button>
+                </form>
             </div>
         </div>
     </div>
@@ -66,7 +97,7 @@
                     <td>4</td>
                     <td><a href="#">1</a></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
-                    <td><button>Bearbeiten</button></td>
+                    <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
                 <tr>
                     <td>Christian</td>
@@ -76,7 +107,7 @@
                     <td>8</td>
                     <td><a href="#">0</a></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
-                    <td><button>Bearbeiten</button></td>
+                    <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
             </tbody>
         </table>
