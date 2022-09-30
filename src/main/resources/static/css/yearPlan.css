@@ -41,6 +41,7 @@ td {
 .year-overview {
     grid-column-start: span 2;
     margin-top: 3em;
-    border-spacing: 4em 0.4em;
+    border-spacing: 2em 0.4em;
     text-align: center;
+    justify-self: center;
 }
