@@ -152,6 +152,10 @@ h2,
     margin-bottom: 2em;
 }
 
+form[name="edit-user-data"] {
+    position: relative;
+}
+
 .modal-content-edit .personal-info input,
 .modal-content-edit .work-info input {
     font-size: 1.2rem;
@@ -173,11 +177,11 @@ h2,
 }
 
 #save-user-data-button {
-    background-color: var(--clr-accent);
-    color: var(--clr-light);
-    padding: 0.2em;
-    border: 2px solid var(--clr-accent);
-    border-radius: 1em;
+    padding: 0.3em 0.9em;
+    position: absolute;
+    /*right: 0;*/
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #save-user-data-button:hover {
