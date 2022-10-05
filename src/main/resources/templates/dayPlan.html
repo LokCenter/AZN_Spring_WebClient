@@ -19,38 +19,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
 
 </head>
-<body>
+    <body>
 
+        <div th:replace="fragments/toggle :: toggle"></div>
+        <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
-    <div th:replace="fragments/toggle :: toggle"></div>
-    <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
+        <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
 
-    <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
-
-    <div class="radio-container">
-        <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" disabled>
-        <label for="radio-glaz">GLAZ</label>
-        <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" disabled>
-        <label for="radio-sick">Krank</label>
-        <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" disabled>
-        <label for="radio-vacation">Urlaub</label>
-    </div>
-
-    <div class="save-button-container">
-        <div class="save-button-wrapper">
-            <button id="save-button">Speichern</button>
+        <div class="radio-container">
+            <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" disabled>
+            <label for="radio-glaz">GLAZ</label>
+            <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" disabled>
+            <label for="radio-sick">Krank</label>
+            <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" disabled>
+            <label for="radio-vacation">Urlaub</label>
         </div>
-    </div>
 
-    <div class="save-confirmation-container">
-        <div id="save-confirmation"></div>
-    </div>
+        <div class="save-button-container">
+            <div class="save-button-wrapper">
+                <button id="save-button">Speichern</button>
+            </div>
+        </div>
 
+        <div class="save-confirmation-container">
+            <div id="save-confirmation"></div>
+        </div>
 
-
-    <script>
-     // get time
-    </script>
-    <script th:src="@{/js/dayPlan.js}"></script>
-</body>
+        <script>
+         // get time
+        </script>
+        <script th:src="@{/js/dayPlan.js}"></script>
+    </body>
 </html>

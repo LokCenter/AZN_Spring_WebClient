@@ -1,58 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${title}"></title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <script src="//cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}">
     <link rel="stylesheet" th:href="@{/css/dayPlan.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/dayPlanInput.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/clock.ico}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"  referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
 
 </head>
-<body>
- <div>
-     <div class="base-container">
-         <div class="base-container2">
-             <div th:replace="fragments/AdminToggle :: toggle"></div>
-             <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
+    <body>
 
-             <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
-             <div class="dayPlanInput-container inputCheckBox">
-                 <div id="select-radio">
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="glaz" onclick="onlyOneCheckBox(this)" /><span>GLAZ</span></label>
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="sick"  onclick="onlyOneCheckBox(this)"/><span>Krank</span></label>
-                     <label>
-                         <input type="checkbox" class="radio" name="check" value="vacation" onclick="onlyOneCheckBox(this)"/><span>Urlaub</span></label>
-                 </div>
-             </div>
-             <div class="dayPlanInput-container">
-                 <button id="save-btn" class="save-button pure-button">
-                     Save
-                 </button>
+         <div th:replace="fragments/AdminToggle :: toggle"></div>
+         <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
+
+         <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
+
+         <div class="radio-container">
+             <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" onclick="onlyOneCheckBox(this)">
+             <label for="radio-glaz">GLAZ</label>
+             <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" onclick="onlyOneCheckBox(this)">
+             <label for="radio-sick">Krank</label>
+             <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" onclick="onlyOneCheckBox(this)">
+             <label for="radio-vacation">Urlaub</label>
+         </div>
+
+         <div class="save-button-container">
+             <div class="save-button-wrapper">
+                 <button id="save-button">Speichern</button>
              </div>
          </div>
-     </div>
-     <script>
+
+         <div class="save-confirmation-container">
+             <div id="save-confirmation"></div>
+         </div>
+
+        <script>
          // get time
-     </script>
+        </script>
+        <script th:src="@{/js/dayPlan.js}"></script>
 
-     <script th:src="@{/js/dayPlan.js}"></script>
-     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
- </div>
-
-</body>
+    </body>
 </html>

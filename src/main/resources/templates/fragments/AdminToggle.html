@@ -3,18 +3,13 @@
 <head>
   <meta charset="UTF-8">
 </head>
-<body>
-<div class="toggle-container" th:fragment="toggle">
-  <button class="toggle-button button" onclick="location.href='/admin/dayplan';">
-              <span>
-                <span class="toggle-text Text">Tagesübersicht</span>
-                <span></span>
-              </span>
-  </button>
-  <button class="toggle-button button" onclick="location.href='/admin/overview';">
-    <span><span class="toggle-text Text">Übersicht</span></span>
-  </button>
-</div>
-
-</body>
+    <body>
+        <nav class="toggle-container" th:fragment="toggle">
+            <ul>
+                <li><a href="/admin/dayplan">Tagesübersicht</a></li>
+                <li><a href="/admin/overview">Monatsübersicht</a></li>
+                <li><a href="/admin">Admin Panel</a></li>
+            </ul>
+        </nav>
+    </body>
 </html>
