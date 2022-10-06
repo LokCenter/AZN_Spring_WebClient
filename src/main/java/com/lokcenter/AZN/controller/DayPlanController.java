@@ -1,5 +1,8 @@
 package com.lokcenter.AZN.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AllArgsConstructor;
 
 import lombok.NonNull;
@@ -73,12 +76,19 @@ public class DayPlanController {
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // check if there is any data
+        if (res.block() != null) {
+            JsonNode jsonData = new ObjectMapper().readTree(res.block());
 
-        // Page title
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        model.addAttribute("title", formatter.format(new Date()));
+            // Page title
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-        return "dayPlan";
+            model.addAttribute("title", formatter.format(new Date()));
+            model.addAttribute("data", jsonData);
+
+            return "dayPlan";
+        }
+
+        throw new Exception("Bad request");
     }
 
     /**
