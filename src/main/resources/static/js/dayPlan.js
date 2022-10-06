@@ -36,6 +36,9 @@ leftDaySwitch.addEventListener("click", (e) => {
         params: {
             date: currDate.format("DD-MM-YYYY")
         }
+    }).then(async (res) => {
+    }).catch((error) => {
+        console.log(error)
     });
 });
 
@@ -49,6 +52,9 @@ rightDaySwitch.addEventListener("click", (e) => {
         params: {
             date: currDate.format("DD-MM-YYYY")
         }
+    }).then(async (res) => {
+    }).catch((error) => {
+        console.log(error)
     });
 });
 

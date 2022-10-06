@@ -41,7 +41,7 @@ public class DayPlanController {
     @GetMapping
     String getDayPlan(Model model, @RequestParam(name = "date", required = false) Object obj ) {
         // Page title
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         model.addAttribute("title", formatter.format(new Date()));
 
         return "dayPlan";
