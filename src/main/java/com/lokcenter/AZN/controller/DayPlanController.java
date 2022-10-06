@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -56,7 +59,8 @@ public class DayPlanController {
      */
     @GetMapping
     String getDayPlan(Model model, @RequestParam(name = "date", required = false) String date,
-                      @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
+                      @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                      Authentication authentication) throws Exception {
         Optional<Date> requestedDate = Optional.empty();
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -71,8 +75,18 @@ public class DayPlanController {
         String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
 
 
+        // User roles
+        var roles = authentication.getAuthorities();
+
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+        }
+
+        String role = roles.toArray()[0].toString();
+
+
         // make get request and get data
-        Mono<String> res = webClient.get().uri(String.format("/dayplan?date=%s", dateString)).
+        Mono<String> res = webClient.get().uri(String.format("/dayplan?date=%s&role=%s", dateString, role)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // check if there is any data
