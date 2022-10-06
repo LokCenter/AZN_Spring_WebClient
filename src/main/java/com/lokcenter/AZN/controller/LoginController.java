@@ -81,6 +81,9 @@ public class LoginController {
 
             var roles = (JSONArray) user.getClaims().get("roles");
 
+            // full claim
+            System.out.println(user.getClaims());
+
             System.out.println(roles.toString());
 
             if (roles.toString().contains("Admin")) {

@@ -46,11 +46,11 @@ rightDaySwitch.addEventListener("click", (e) => {
 
 // input map
 let userInputData = new Map([
-    ["start_time", "0:00"],
-    ["end_time", "00:00"],
-    ["pause", "00:00"],
-    ["soll", "00:00"],
-    ["ist", "00:00"],
+    ["start_time", ""],
+    ["end_time", ""],
+    ["pause", ""],
+    ["soll", ""],
+    ["ist", ""],
 ]);
 
 
@@ -187,7 +187,6 @@ saveButton.addEventListener('click', (e) => {
         "pause": userInputData.get('pause'),
         "soll": userInputData.get("soll"),
         "ist": userInputData.get('ist'),
-        "checked": checked_item,
         "comment": userComment
     }).then(async (res) => {
         // Display confirmation message if response is ok

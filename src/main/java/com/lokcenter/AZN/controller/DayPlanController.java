@@ -39,7 +39,7 @@ public class DayPlanController {
      * @return Html page
      */
     @GetMapping
-    String getDayPlan(Model model) {
+    String getDayPlan(Model model, @RequestParam(name = "date", required = false) Object obj ) {
         // Page title
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         model.addAttribute("title", formatter.format(new Date()));
@@ -72,4 +72,5 @@ public class DayPlanController {
                 .bodyToMono(Boolean.class)
                 .block());
     }
+
 }
