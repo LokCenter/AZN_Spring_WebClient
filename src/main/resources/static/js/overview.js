@@ -161,18 +161,7 @@ const dp = new DayPilot.Month("dp", {
             args.preventDefault();
         }
     },
-    eventClickHandling: "Update",
-    onEventClick: async (args) => {
-        const modal = await DayPilot.Modal.form(form, args.e.data);
-        if (modal.canceled) {
-            return;
-        }
-        args.e.text(checkBackColor(modal.result.backColor));
-        args.e.client.backColor(modal.result.backColor);
-        args.e.client.barColor(modal.result.backColor);
-        args.e.client.borderColor(modal.result.backColor);
-        dp.events.update(args.e);
-    },
+    eventClickHandling: "Disabled",
     eventHoverHandling: "Disabled",
 });
 dp.events.list = [
