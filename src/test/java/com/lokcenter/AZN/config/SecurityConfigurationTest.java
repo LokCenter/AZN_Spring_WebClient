@@ -30,28 +30,6 @@ public class SecurityConfigurationTest {
     @Autowired
     private MockMvc mvc;
 
-    // /dayplan (GET)
-    @Test
-    @DisplayName("/dayplan (get) - User should get 403 without role")
-    @WithMockUser
-    void dayplan_get_without_role() throws Exception {
-        mvc.perform(get("/dayplan")).andExpect(status().isForbidden());
-    }
-
-    @Test
-    @DisplayName("/dayplan (get) - User should get 200 with User role")
-    @WithMockUser(roles = {"User"})
-    void dayplan_get_with_user_role() throws Exception {
-        mvc.perform(get("/dayplan")).andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName("/dayplan (get) - User should get 403 with Admin role")
-    @WithMockUser(roles = {"Admin"})
-    void dayplan_get_with_admin_role() throws Exception {
-        mvc.perform(get("/dayplan")).andExpect(status().isForbidden());
-    }
-
     // /overview (GET)
     @Test
     @DisplayName("/overview (get) - User should get 403 without role")
