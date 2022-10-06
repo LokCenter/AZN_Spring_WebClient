@@ -178,7 +178,7 @@ const dp = new DayPilot.Month("dp", {
 dp.events.list = [
     {
         "start": "2022-07-14T00:00:00",
-        "end": "2022-07-16T00:00:00",
+        "end": "2022-11-16T00:00:00",
         "id": "fbfe1a1b-f58f-5e2b-bf9b-03194c164fdf",
         "text": "Urlaub",
         "backColor": "#80aeff",
@@ -186,26 +186,6 @@ dp.events.list = [
         "borderColor": "#80aeff",
         "tag": "admin"
     },
-    {
-        "start": "2022-07-21T00:00:00",
-        "end": "2022-07-23T00:00:00",
-        "id": "161f157b-1e15-1986-96cd-07394b2fe4b0",
-        "text": "Krank",
-        "backColor": "#ff7597",
-        "barColor": "#ff7597",
-        "borderColor": "#ff7597",
-        "tag": "admin"
-    },
-    {
-        "start": "2022-07-28T00:00:00",
-        "end": "2022-07-30T00:00:00",
-        "id": "f65f6d8d-90a2-f7ea-4af4-c6b218615aa3",
-        "text": "GLAZ",
-        "backColor": "#9aff8d",
-        "barColor": "#9aff8d",
-        "borderColor": "#9aff8d",
-        "tag": "admin"
-    }
 ];
 dp.init();
 
@@ -222,6 +202,15 @@ leftDaySwitch.addEventListener("click", (e) => {
     dp.startDate = dp.startDate.addMonths(-1);
     dp.update();
     updateTimeDisplay();
+    axios.get("http://localhost:8880/overview", {
+        params: {
+            start_date: dp.startDate.addDays(-7),
+            end_date: dp.startDate.addDays(40)
+        }
+    }).then(async (res) => {
+    }).catch((error) => {
+        console.log(error)
+    });
 });
 
 /**
@@ -234,6 +223,15 @@ rightDaySwitch.addEventListener("click", (e) => {
     dp.startDate = dp.startDate.addMonths(1);
     dp.update();
     updateTimeDisplay();
+    axios.get("http://localhost:8880/overview", {
+        params: {
+            start_date: dp.startDate.addDays(-7),
+            end_date: dp.startDate.addDays(40)
+        }
+    }).then(async (res) => {
+    }).catch((error) => {
+        console.log(error)
+    });
 });
 
 /**

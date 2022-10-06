@@ -24,7 +24,7 @@
         <div th:replace="fragments/toggle :: toggle"></div>
         <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
-        <div class="dayPlanInput-container" th:fragment="dayPlanInput">
+        <div class="dayPlanInput-container">
             <div class="grid">
                 <label for="start_time">Arbeitsbeginn</label>
                 <label for="end_time">Arbeitsende</label>
@@ -37,7 +37,7 @@
                 <input type="time" name="pause" id="pause" value="00:00">
                 <input type="time" name="ist" id="ist" value="00:00" disabled>
                 <input type="time" name="soll" id="soll" value="00:00" disabled>
-                <input type="text" name="comment" id="comment" maxlength="50">
+                <input type="text" name="comment" id="comment" maxlength="50" th:value="${data.get('comment')}">
             </div>
         </div>
 
