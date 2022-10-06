@@ -44,23 +44,42 @@
             </div>
             <div class="modal-content__body">
                 <form name="edit-user-data" action="" method="">
-                    <div class="personal-info">
-                        <input type="text" name="first-name" id="first-name" required>
-                        <label for="first-name">Vorname</label>
-                        <input type="text" name="last-name" id="last-name" required>
-                        <label for="last-name">Nachname</label>
-                        <input type="text" name="department" id="department" required>
-                        <label for="department">Abteilung</label>
-                    </div>
 
-                    <div class="work-info">
+                    <div class="time-info">
                         <input type="time" name="work-start" id="work-start" required>
                         <label for="work-start">Arbeitsbeginn</label>
                         <input type="time" name="work-end" id="work-end" required>
                         <label for="work-end">Arbeitsende</label>
-                        <input type="text" name="vacation" id="vacation" required>
-                        <label for="vacation">Urlaubstage</label>
+                        <input type="time" name="pause" id="pause" required>
+                        <label for="pause">Pause</label>
                     </div>
+
+                    <div class="duration-container">
+                        <label for="duration">Ausbildungsdauer (Jahre):</label>
+                        <input type="number" min="0" max="5" name="duration" id="duration" required>
+                    </div>
+
+                    <div class="vacation-container">
+                        <table class="vacation-info" id="vacation-info">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Jahr</th>
+                                    <th scope="col">Urlaubstage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="vacation-1">1. Jahr</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="vacation-1" id="vacation-1" max="2">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <button id="save-user-data-button">Speichern</button>
                 </form>
             </div>

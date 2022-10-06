@@ -89,7 +89,8 @@ button:hover {
 }
 
 .modal-content-edit {
-    height: 22em;
+    width: 40em;
+    height: 40em;
 }
 
 .modal-content__header {
@@ -143,45 +144,65 @@ h2,
     border-radius: 1em;
 }
 
-.modal-content-edit .personal-info,
-.modal-content-edit .work-info {
+.modal-content-edit .time-info {
     display:grid;
-    grid-template: 1fr 1fr / 1fr 1fr 10ch;
+    grid-template: 1fr 1fr / repeat(3, 1fr);
     grid-auto-flow: column;
     gap: 0 2em;
-    margin-bottom: 2em;
 }
 
-form[name="edit-user-data"] {
+.modal-content-edit {
     position: relative;
 }
 
-.modal-content-edit .personal-info input,
-.modal-content-edit .work-info input {
-    font-size: 1.2rem;
-    border: none;
-    border-bottom: 2px solid var(--clr-accent);
+form[name="edit-user-data"] > * {
+    margin-bottom: 2em;
 }
 
-.modal-content-edit .personal-info input:focus,
-.modal-content-edit .work-info input:focus {
+.modal-content-edit input {
+    font-size: 1.1rem;
+    border: none;
+    border-bottom: 2px solid var(--clr-accent);
+    min-width: 7em;
+}
+
+.modal-content-edit .duration-container input {
+    min-width: 3em;
+    width: 3em;
+    text-align: center;
+}
+
+.modal-content-edit input:focus {
     outline: none;
     background-color: var(--clr-mid);
 }
 
-.modal-content-edit .personal-info label,
-.modal-content-edit .work-info label {
+.modal-content-edit .duration-container label,
+.modal-content-edit .time-info label {
     font-size: 0.8rem;
     opacity: 0.8;
+}
+
+.modal-content-edit .time-info label {
     margin-left: 0.4em;
+}
+
+.vacation-container {
+    display: flex;
+    justify-content: center;
+}
+
+.vacation-container input {
+    min-width: 10ch;
+    max-width: 10ch;
+    text-align: center;
 }
 
 #save-user-data-button {
     padding: 0.3em 0.9em;
     position: absolute;
-    /*right: 0;*/
-    left: 50%;
-    transform: translateX(-50%);
+    right: 1.5em;
+    bottom: 0;
 }
 
 #save-user-data-button:hover {

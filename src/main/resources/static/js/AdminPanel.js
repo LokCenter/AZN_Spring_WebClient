@@ -156,3 +156,31 @@ function addYear(year, work, sick, vacation, glaz, overtime) {
 addYear(2021, 365, 0, 30, 0, "00h 00min Guthaben");
 addYear(2022, 365, 0, 30, 0, "00h 00min Guthaben");
 
+
+const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
+
+/**
+ * Adds rows to the table allowing the editing of yearly vacation days depending on length of the apprenticeship.
+ */
+function addVacationYearsToTable() {
+    if (duration > 5) duration = 5;
+    for (let i = 0; i <= duration; i++) {
+        const newRow = vacationTableBody.insertRow();
+        const newYear = newRow.insertCell();
+        const newVacation = newRow.insertCell();
+        newYear.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
+        newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
+    }
+}
+
+const durationInput = document.getElementById("duration");
+let duration = 0;
+durationInput.addEventListener("change", () => {
+    // Empty tbody
+    vacationTableBody.innerHTML = "";
+    // Get the amount of years a user is present
+    if (durationInput.value !== "") {
+        duration = durationInput.valueAsNumber;
+    }
+    addVacationYearsToTable();
+})
