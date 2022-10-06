@@ -3,10 +3,14 @@ package com.lokcenter.AZN.controller;
 import lombok.AllArgsConstructor;
 
 import lombok.NonNull;
+import mjson.Json;
+import net.minidev.json.writer.JsonReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -16,9 +20,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 
+import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -39,7 +52,28 @@ public class DayPlanController {
      * @return Html page
      */
     @GetMapping
-    String getDayPlan(Model model, @RequestParam(name = "date", required = false) Object obj ) {
+    String getDayPlan(Model model, @RequestParam(name = "date", required = false) String date,
+                      @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
+        Optional<Date> requestedDate = Optional.empty();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        if (date != null) {
+            try {
+                requestedDate = Optional.of(df.parse(date));
+            } catch (ParseException ignore) {
+               throw new Exception("Bad Request");
+            }
+        }
+
+        String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
+
+
+        // make get request and get data
+        Mono<String> res = webClient.get().uri(String.format("/dayplan?date=%s", dateString)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+
         // Page title
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         model.addAttribute("title", formatter.format(new Date()));
