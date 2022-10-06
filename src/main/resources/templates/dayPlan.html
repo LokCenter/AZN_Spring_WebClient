@@ -29,10 +29,12 @@
         <div class="radio-container">
             <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" disabled>
             <label for="radio-glaz">GLAZ</label>
-            <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" disabled>
+            <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" onclick="onlyOneCheckBox(this)">
             <label for="radio-sick">Krank</label>
             <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" disabled>
             <label for="radio-vacation">Urlaub</label>
+            <input type="checkbox" name="radio-school" id="radio-school" class="radio" value="school" onclick="onlyOneCheckBox(this)">
+            <label for="radio-school">Schule</label>
         </div>
 
         <div class="save-button-container">
