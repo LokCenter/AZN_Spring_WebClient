@@ -32,6 +32,11 @@ let currDate = moment();
 leftDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.subtract(1, "day");
     dateSwitch.innerText = currDate.format(format);
+    axios.get("http://localhost:8880/dayplan", {
+        params: {
+            date: currDate.format("DD-MM-YYYY")
+        }
+    });
 });
 
 /**
@@ -40,6 +45,11 @@ leftDaySwitch.addEventListener("click", (e) => {
 rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
     dateSwitch.innerText = currDate.format(format);
+    axios.get("http://localhost:8880/dayplan", {
+        params: {
+            date: currDate.format("DD-MM-YYYY")
+        }
+    });
 });
 
 /*Input stuff */
