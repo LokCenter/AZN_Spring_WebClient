@@ -21,7 +21,22 @@
          <div th:replace="fragments/AdminToggle :: toggle"></div>
          <div th:replace="fragments/dateSwitch :: dateSwitch"></div>
 
-         <div th:replace="fragments/dayPlanInput ::dayPlanInput"></div>
+         <div class="dayPlanInput-container" th:fragment="dayPlanInput">
+             <div class="grid">
+                 <label for="start_time">Arbeitsbeginn</label>
+                 <label for="end_time">Arbeitsende</label>
+                 <label for="pause">Pause</label>
+                 <label for="ist">Istzeit</label>
+                 <label for="soll">Sollzeit</label>
+                 <label for="comment">Bemerkung</label>
+                 <input type="time" name="start_time" id="start_time" value="00:00">
+                 <input type="time" name="end_time" id="end_time" value="00:00">
+                 <input type="time" name="pause" id="pause" value="00:00">
+                 <input type="time" name="ist" id="ist" value="00:00" disabled>
+                 <input type="time" name="soll" id="soll" value="00:00" disabled>
+                 <input type="text" name="comment" id="comment" maxlength="50">
+             </div>
+         </div>
 
          <div class="radio-container">
              <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" onclick="onlyOneCheckBox(this)">
