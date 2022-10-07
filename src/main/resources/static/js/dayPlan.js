@@ -16,30 +16,45 @@ let dateSwitch = document.getElementById("dateSwitchDate");
 const format = "dddd, DD.MM.YYYY";
 moment.locale("de");
 
-// set current date
-dateSwitch.innerText = moment().format(format);
+// set the right date
+url = new URL(window.location.href);
+
+if (url.searchParams.get('date')) {
+    queryDate = url.searchParams.get('date');
+    dateSwitch.innerText = moment(queryDate, 'DD-MM-YYYY').format(format);
+} else {
+    // set current date
+    dateSwitch.innerText = moment().format(format);
+}
+
+// set the right title
+document.title = dateSwitch.innerText;
+
 
 // Change date based on button
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
 const rightDaySwitch = document.getElementById("right-dayPlan-switch");
 
 // to keep track where we are
-let currDate = moment();
+let currDate = moment(dateSwitch.innerText, format)
 
 /**
  * go to the left day
  */
 leftDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.subtract(1, "day");
-    dateSwitch.innerText = currDate.format(format);
-    axios.get("http://localhost:8880/dayplan", {
-        params: {
-            date: currDate.format("DD-MM-YYYY")
-        }
-    }).then(async (res) => {
-    }).catch((error) => {
-        console.log(error)
-    });
+    // dateSwitch.innerText = currDate.format(format);
+
+    // go to the left date
+    window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+    // axios.get("http://localhost:8880/dayplan", {
+    //     params: {
+    //         date: currDate.format("DD-MM-YYYY")
+    //     }
+    // }).then(async (res) => {
+    // }).catch((error) => {
+    //     console.log(error)
+    // });
 });
 
 /**
@@ -47,15 +62,17 @@ leftDaySwitch.addEventListener("click", (e) => {
  */
 rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
-    dateSwitch.innerText = currDate.format(format);
-    axios.get("http://localhost:8880/dayplan", {
-        params: {
-            date: currDate.format("DD-MM-YYYY")
-        }
-    }).then(async (res) => {
-    }).catch((error) => {
-        console.log(error)
-    });
+    // dateSwitch.innerText = currDate.format(format);
+
+    window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+    // axios.get("http://localhost:8880/dayplan", {
+    //     params: {
+    //         date: currDate.format("DD-MM-YYYY")
+    //     }
+    // }).then(async (res) => {
+    // }).catch((error) => {
+    //     console.log(error)
+    // });
 });
 
 /*Input stuff */
