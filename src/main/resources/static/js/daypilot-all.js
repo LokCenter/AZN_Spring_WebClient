@@ -3879,28 +3879,31 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                     );
                 },
                 a = new i();
-            a.add(".modal_default_main", "border: 10px solid #ccc; max-width: 90%;"),
+            a.add(".modal_default_main", "border: 0.6em solid var(--clr-accent); max-width: 90%;"),
                 a.add(".modal_default_main:focus", "outline: none;"),
                 a.add(".modal_default_content", "padding: 10px 0px;"),
-                a.add(".modal_default_inner", "padding: 20px;"),
-                a.add(".modal_default_input", "padding: 10px 0px;"),
-                a.add(".modal_default_buttons", "margin-top: 10px;"),
-                a.add(".modal_default_buttons", "padding: 10px 0px;"),
+                a.add(".modal_default_inner", "padding: 0.4em;"),
+                a.add(".modal_default_input", "padding: 0em;"),
+                a.add(".modal_default_input > div", "display: flex; flex-wrap: wrap; justify-content: space-evenly;"),
+                a.add(".modal_default_buttons", "margin-top: 1em; display: flex; justify-content: space-evenly;"),
+                a.add(".modal_default_buttons button", "padding: 0.3em; width: 12ch; font-size: 1rem; font-weight: 600; background-color: var(--clr-accent); color: var(--clr-light); border: 0.2em solid var(--clr-accent);"),
+                a.add(".modal_default_buttons button:hover", "background-color: var(--clr-light); color: var(--clr-accent); cursor: pointer;"),
                 a.add(".modal_default_form_item", "padding: 10px 0px; position: relative;"),
                 a.add(".modal_default_form_item_level1", "border-left: 2px solid #ccc; margin-left: 10px; padding-left: 20px;"),
                 a.add(".modal_default_form_item.modal_default_form_title", "font-size: 1.5rem; font-weight: bold;"),
                 a.add(".modal_default_form_item input[type=text]", "width: 100%; box-sizing: border-box;"),
                 a.add(".modal_default_form_item textarea", "width: 100%; height: 200px; box-sizing: border-box;"),
                 a.add(".modal_default_form_item input[type=select]", "width: 100%; box-sizing: border-box;"),
-                a.add(".modal_default_form_item label", "display: block;"),
+                a.add(".modal_default_form_item_radio", "font-size: 1.1rem; font-weight: 600;"),
+                a.add(".modal_default_form_item_radio label", "padding: 0.4em;"),
+                a.add(".modal_default_form_item_radio input", "margin-right: 0.2em;"),
                 a.add(".modal_default_form_item select", "width: 100%; box-sizing: border-box;"),
-                a.add(".modal_default_form_item_label", "margin: 2px 0px;"),
+                a.add(".modal_default_form_item_label", "background-color: var(--clr-accent); color: var(--clr-light); font-size: 1.3rem; font-weight: 600; width: 100%; margin-bottom: 1em;"),
+                a.add(".modal_default_form_item_label > div", "padding-left: 1em; margin-bottom: 0;"),
                 a.add(".modal_default_form_item_image img", "max-width: 100%; height: auto;"),
                 a.add(".modal_default_form_item_invalid", ""),
                 a.add(".modal_default_form_item_invalid_message", "position: absolute; right: 0px; top: 9px; background-color: red; color: #ffffff; padding: 2px; border-radius: 2px;"),
                 a.add(".modal_default_background", "opacity: 0.5; background-color: #000;"),
-                a.add(".modal_default_ok", "padding: 3px; width: 80px;"),
-                a.add(".modal_default_cancel", "padding: 3px; width: 80px;"),
                 a.add(".modal_default_form_item_date", "position: relative;"),
                 a.add(
                     ".modal_default_form_item_date:after",
@@ -4448,8 +4451,8 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                 var s = {};
                 for (var d in a) s[d] = a[d];
                 (s.height = s.height || 40), (s.useIframe = !1);
-                var c = s.okText || "OK",
-                    u = s.cancelText || "Cancel";
+                var c = s.okText || "Einfügen",
+                    u = s.cancelText || "Abbrechen";
                 return DayPilot.getPromise(function (a, n) {
                     s.onClosed = function (t) {
                         if (t.result) {

@@ -36,7 +36,7 @@ function checkBackColor(color) {
 }
 
 const form = [
-    {name: "Auswahl", id: "backColor", options: selection},
+    {name: "Auswahl", id: "backColor", type: "radio", options: selection},
 ];
 
 const data = {
