@@ -1,47 +1,24 @@
 /**
- * temporary variable for role
- */
-let role = "user";
-
-/**
  * set colors for the different occasion
  * @type {string} for hexCode
  */
 const colorUrlaub = "#80aeff";
-const colorUrlaubPending = "#a5c5ff";
 const colorKrank = "#ff7597";
 const colorGLAZ = "#9aff8d";
-const colorGLAZPending = "#a4ff9d";
-
-/**
- * sets the available options of occasions to choose for the user
- */
-const selectionUser = [
-    {name: "Urlaub (wartend)", id: colorUrlaubPending},
-    {name: "GLAZ (wartend)", id: colorGLAZPending},
-];
 
 /**
  * sets the available options of occasions to choose for the admin
  */
-const selectionAdmin = [
+const selection = [
     {name: "Urlaub", id: colorUrlaub},
     {name: "Krank", id: colorKrank},
     {name: "GLAZ", id: colorGLAZ},
 ];
 
 /**
- * set selection of occasions and standart display value (on creation) for user/admin depending of their role
+ * set standard display value (on creation) for admin
  */
-let selection = "";
-let selectionColor = "";
-if (role === "user") {
-    selection = selectionUser;
-    selectionColor = colorUrlaubPending;
-} else if (role === "admin") {
-    selection = selectionAdmin;
-    selectionColor = colorUrlaub;
-}
+let selectionColor = colorUrlaub;
 
 /**
  * returns a description depending on the color given
@@ -50,29 +27,10 @@ function checkBackColor(color) {
     switch (color) {
         case colorUrlaub:
             return "Urlaub";
-        case colorUrlaubPending:
-            return "Urlaub (wartend)";
         case colorKrank:
             return "Krank";
         case colorGLAZ:
             return "GLAZ";
-        case colorGLAZPending:
-            return "GLAZ (wartend)";
-    }
-}
-
-/**
- * checks if item should be assigned the tag admin or user
- */
-function tagCheck(type) {
-    if (type === "Urlaub") {
-        return "admin";
-    } else if (type === "Krank") {
-        return "admin";
-    } else if (type === "GLAZ") {
-        return "admin";
-    } else {
-        return "user";
     }
 }
 
@@ -104,66 +62,36 @@ const dp = new DayPilot.Month("dp", {
             backColor: modal.result.backColor,
             barColor: modal.result.backColor,
             borderColor: modal.result.backColor,
-            tag: tagCheck(checkBackColor(modal.result.backColor)),
         });
     },
     eventDeleteHandling: "Update",
     onEventDelete: (args) => {
-        if (args.e.data.tag === "user") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else if (role === "admin") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else {
+        if (!confirm("Eintrag löschen?")) {
             args.preventDefault();
+        } else {
+            console.log(args.e.id());
         }
     },
     eventMoveHandling: "Update",
     onEventMove: (args) => {
-        if (args.e.data.tag === "user") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else if (role === "admin") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else {
+        if (!confirm("Änderung speicher?")) {
             args.preventDefault();
+        } else {
+            console.log(args.e.id());
         }
     },
     eventResizeHandling: "Update",
     onEventResize: (args) => {
-        if (args.e.data.tag === "user") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else if (role === "admin") {
-            if (!confirm("Save?")) {
-                args.preventDefault();
-            } else {
-                console.log(args.e.id());
-            }
-        } else {
+        if (!confirm("Änderung speicher?")) {
             args.preventDefault();
+        } else {
+            console.log(args.e.id());
         }
     },
     eventClickHandling: "Disabled",
     eventHoverHandling: "Disabled",
 });
+
 dp.events.list = [
     {
         "start": "2022-07-14T00:00:00",
@@ -173,9 +101,9 @@ dp.events.list = [
         "backColor": "#80aeff",
         "barColor": "#80aeff",
         "borderColor": "#80aeff",
-        "tag": "admin"
     },
 ];
+
 dp.init();
 
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
