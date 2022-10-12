@@ -143,7 +143,8 @@ const getDaysAsQuery = () => {
 
     localStorage.setItem('startDate', dp.startDate);
 
-    window.location.href =  window.location.href.split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}`
+    window.location.href =  window.location.href
+        .split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}&month=${dp.startDate.value.slice(5, 7)}`
 }
 
 /**
