@@ -110,18 +110,20 @@ leftDaySwitch.addEventListener("click", (e) => {
     /**
      * remove a month to the startDate of the currently displayed calendar -> previous month will be displayed
      */
-    dp.startDate = dp.startDate.addMonths(-1);
-    dp.update();
+
+
+    //TODO: get first calendar date and last calendar date
+
+    let cells  = document.getElementsByClassName("month_default_cell_inner");
+
+    let firstDay = cells[0].childNodes[0].innerText;
+    let lastDay = cells[cells.length - 1].childNodes[0].innerText;
+
+    window.location.href =  window.location.href.split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}`
+
+    // dp.startDate = dp.startDate.addMonths(-1);
+    // dp.update();
     updateTimeDisplay();
-    axios.get("http://localhost:8880/overview", {
-        params: {
-            start_date: dp.startDate.addDays(-7),
-            end_date: dp.startDate.addDays(40)
-        }
-    }).then(async (res) => {
-    }).catch((error) => {
-        console.log(error)
-    });
 });
 
 /**
@@ -131,18 +133,11 @@ rightDaySwitch.addEventListener("click", (e) => {
     /**
      * add a month to the startDate of the currently displayed calendar -> next month will be displayed
      */
-    dp.startDate = dp.startDate.addMonths(1);
-    dp.update();
+    // dp.startDate = dp.startDate.addMonths(1);
+    // dp.update();
     updateTimeDisplay();
-    axios.get("http://localhost:8880/overview", {
-        params: {
-            start_date: dp.startDate.addDays(-7),
-            end_date: dp.startDate.addDays(40)
-        }
-    }).then(async (res) => {
-    }).catch((error) => {
-        console.log(error)
-    });
+
+    //TODO: get first calendar date and last calendar date
 });
 
 /**
@@ -190,8 +185,7 @@ function updateTimeDisplay() {
             month = "Dezember";
             break;
     }
-    let finalDisplay = month + " " + year;
-    document.getElementById("dateSwitchDate").innerText = finalDisplay;
+    document.getElementById("dateSwitchDate").innerText = month + " " + year;
 }
 
 updateTimeDisplay()
