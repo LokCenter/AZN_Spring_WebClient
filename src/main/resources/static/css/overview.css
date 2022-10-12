@@ -19,8 +19,9 @@
 
 .overview-wrapper {
     display: grid;
-    grid-template: repeat(2, 2.5ch) / 25ch 10ch;
+    grid-template: 2em 2em 3em / 25ch 10ch;
     margin-top: 2.14rem;
+    align-items: center;
 }
 
 /*
