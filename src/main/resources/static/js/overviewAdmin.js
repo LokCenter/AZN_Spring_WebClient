@@ -72,14 +72,6 @@ const dp = new DayPilot.Month("dp", {
             console.log(args.e.id());
         }
     },
-    eventMoveHandling: "Update",
-    onEventMove: (args) => {
-        if (!confirm("Änderung speicher?")) {
-            args.preventDefault();
-        } else {
-            console.log(args.e.id());
-        }
-    },
     eventResizeHandling: "Update",
     onEventResize: (args) => {
         if (!confirm("Änderung speicher?")) {
@@ -88,6 +80,7 @@ const dp = new DayPilot.Month("dp", {
             console.log(args.e.id());
         }
     },
+    eventMoveHandling: "Disabled",
     eventClickHandling: "Disabled",
     eventHoverHandling: "Disabled",
 });
