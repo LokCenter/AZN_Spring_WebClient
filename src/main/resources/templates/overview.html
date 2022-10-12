@@ -31,7 +31,16 @@
             <p>0 Tage</p>
         </div>
     </div>
-
 <script th:src="@{/js/overviewUser.js}"></script>
+<!--
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var events = /*[[${events}]]*/ 'default';
+    dp.update({events});
+
+    /*]]>*/
+</script>
+-->
 </body>
 </html>

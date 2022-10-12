@@ -65,38 +65,12 @@ const dp = new DayPilot.Month("dp", {
             borderColor: modal.result.backColor,
         });
     },
-    eventDeleteHandling: "Update",
-    onEventDelete: (args) => {
-        if (!confirm("Eintrag löschen?")) {
-            args.preventDefault();
-        } else {
-            console.log(args.e.id());
-        }
-    },
-    eventResizeHandling: "Update",
-    onEventResize: (args) => {
-        if (!confirm("Änderung speichern?")) {
-            args.preventDefault();
-        } else {
-            console.log(args.e.id());
-        }
-    },
+    eventDeleteHandling: "Disabled",
+    eventResizeHandling: "Disabled",
     eventMoveHandling: "Disabled",
     eventClickHandling: "Disabled",
     eventHoverHandling: "Disabled",
 });
-
-dp.events.list = [
-    {
-        "start": "2022-07-14T00:00:00",
-        "end": "2022-11-16T00:00:00",
-        "id": "fbfe1a1b-f58f-5e2b-bf9b-03194c164fdf",
-        "text": "Urlaub",
-        "backColor": "#80aeff",
-        "barColor": "#80aeff",
-        "borderColor": "#80aeff",
-    },
-];
 
 dp.init();
 
