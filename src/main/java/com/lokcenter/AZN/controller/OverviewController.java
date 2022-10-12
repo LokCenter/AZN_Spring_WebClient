@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,18 @@ public class OverviewController {
     String getOverviewPage(Model model,
                            @RequestParam(required = false, name = "firstday") String firstDate,
                            @RequestParam(required = false, name = "lastday") String lastDate,
-                           @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient)
+                           @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                           Authentication authentication)
             throws Exception {
+
+        // User roles
+        var roles = authentication.getAuthorities();
+
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+        }
+
+        String role = roles.toArray()[0].toString();
 
         String query;
         // No Query get current month
@@ -49,22 +60,21 @@ public class OverviewController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
 
-            query = "month=" + cal.get(Calendar.MONTH);
+            query = String.format("month=%s&role=%s", cal.get(Calendar.MONTH), role);
 
         } else {
             // use default query
-            query = String.format("firstday=%s&lastday=%s", firstDate, lastDate);
+            query = String.format("firstday=%s&lastday=%s&role=%s", firstDate, lastDate, role);
         }
 
         Mono<String> res = webClient.get().uri("/overview?" + query).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        System.out.println(res.block());
+
         // check if there is any data
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
-
-            // Page title
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
             model.addAttribute("title", "Calendar");
             model.addAttribute("data", jsonData);
