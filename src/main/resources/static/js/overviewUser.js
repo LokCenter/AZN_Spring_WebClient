@@ -1,3 +1,7 @@
+// URL with no queries should not be allowed
+
+
+
 /**
  * set colors for the different occasion
  * @type {string} for hexCode
@@ -119,6 +123,10 @@ const getDaysAsQuery = () => {
 
     window.location.href =  window.location.href
         .split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}&month=${dp.startDate.value.slice(5, 7)}&year=${dp.startDate.value.slice(0, 4)}`
+}
+
+if (!window.location.href.includes("?")) {
+    getDaysAsQuery();
 }
 
 /**
