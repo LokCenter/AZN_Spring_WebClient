@@ -100,6 +100,12 @@ dp.events.list = [
 
 dp.init();
 
+// change on query
+if (window.location.href.indexOf('?' + "firstday" + '=') !== -1) {
+    dp.startDate = localStorage.getItem("startDate")
+    dp.update();
+}
+
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
 const rightDaySwitch = document.getElementById("right-dayPlan-switch");
 
@@ -111,34 +117,34 @@ leftDaySwitch.addEventListener("click", (e) => {
      * remove a month to the startDate of the currently displayed calendar -> previous month will be displayed
      */
 
+    dp.startDate = dp.startDate.addMonths(-1)
+    dp.update();
 
-    //TODO: get first calendar date and last calendar date
-
-    let cells  = document.getElementsByClassName("month_default_cell_inner");
-
-    let firstDay = cells[0].childNodes[0].innerText;
-    let lastDay = cells[cells.length - 1].childNodes[0].innerText;
-
-    window.location.href =  window.location.href.split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}`
-
-    // dp.startDate = dp.startDate.addMonths(-1);
-    // dp.update();
-    updateTimeDisplay();
-});
+    getDaysAsQuery();
+})
 
 /**
  * Display the next month
  */
 rightDaySwitch.addEventListener("click", (e) => {
-    /**
-     * add a month to the startDate of the currently displayed calendar -> next month will be displayed
-     */
-    // dp.startDate = dp.startDate.addMonths(1);
-    // dp.update();
-    updateTimeDisplay();
 
-    //TODO: get first calendar date and last calendar date
+    dp.startDate = dp.startDate.addMonths(1)
+    dp.update();
+
+    getDaysAsQuery();
 });
+
+const getDaysAsQuery = () => {
+    let cells  = document.getElementsByClassName("month_default_cell_inner");
+
+    let firstDay = cells[0].childNodes[0].innerText.replace( /^\D+/g, '');
+    let lastDay = cells[cells.length - 1].childNodes[0].innerText.replace( /^\D+/g, '');
+
+
+    localStorage.setItem('startDate', dp.startDate);
+
+    window.location.href =  window.location.href.split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}`
+}
 
 /**
  * gets the startDateValue of the current visible month and assigns it the correct label with full month name and year
