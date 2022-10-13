@@ -275,6 +275,7 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                         e.add(".month_default_main *, .month_default_main *:before, .month_default_main *:after", "box-sizing: content-box;"),
                         e.add(".month_default_cell_inner", "border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;position: absolute;top: 0px;left: 0px;bottom: 0px;right: 0px;background-color: #f5f5f5;"),
                         e.add(".month_default_cell_business .month_default_cell_inner", "background-color: #fff;"),
+                        e.add(".month_default_cell_business .month_default_cell_inner_colored", "background-color: #D1F3C7;"),
                         e.add(".month_default_cell_header", "text-align: right; padding: 4px; box-sizing: border-box;"),
                         e.add(
                             ".month_default_header_inner",

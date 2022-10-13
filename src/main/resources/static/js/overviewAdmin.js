@@ -99,6 +99,25 @@ dp.events.list = [
 
 dp.init();
 
+/**
+ * When given a date, color the corresponding cell by adding a class.
+ * @param date
+ */
+function colorCell(date) {
+    // const color = "#AFEE9C";
+    const cellArray = document.getElementsByClassName("month_default_cell_inner");
+    const cellCoords = dp.getCellFromDate(date);
+    const cellX = cellCoords.x;
+    const cellY = cellCoords.y;
+
+    // Get the index for cellArray from the coordinates.
+    function getIndex(x, y) { return x * 6 + y; }
+
+    const cellIndex = getIndex(cellX, cellY);
+    const cellToColor = cellArray[cellIndex];
+    cellToColor.classList.add("month_default_cell_inner_colored");
+}
+
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
 const rightDaySwitch = document.getElementById("right-dayPlan-switch");
 
