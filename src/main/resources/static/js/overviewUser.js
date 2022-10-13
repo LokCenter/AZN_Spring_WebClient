@@ -3,12 +3,24 @@
 
 
 /**
+ * import colors with json
+ */
+let colors = {
+    "colorVacationPending": "#a5c5ff",
+    "colorSick": "#ff7597",
+    "colorGLAZPending": "#a4ff9d",
+    "colorVacation": "#80aeff",
+    "colorGLAZ": "#9aff8d",
+    "colorGeneralVacation": "#c600ff"
+}
+
+/**
  * set colors for the different occasion
  * @type {string} for hexCode
  */
-const colorUrlaubPending = "#a5c5ff";
-const colorKrank = "#ff7597";
-const colorGLAZPending = "#a4ff9d";
+const colorUrlaubPending = colors.colorVacationPending;
+const colorKrank = colors.colorSick;
+const colorGLAZPending = colors.colorGLAZPending;
 
 /**
  * sets the available options of occasions to choose for the user

@@ -57,7 +57,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .mvcMatchers(HttpMethod.GET, "/overview").hasRole("User")
                                         .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("Admin")
                                         // allow resources
-                                        .mvcMatchers("/js/***", "/css/**").permitAll()
+                                        .mvcMatchers("/js/***", "/css/**", "/config/**").permitAll()
                                         // set authentication
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service

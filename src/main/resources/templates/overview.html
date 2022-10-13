@@ -50,8 +50,81 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 
-    var events = /*[[${events}]]*/ 'default';
-    dp.update({events});
+    var rawEvent = /*[[${data}]]*/ 'default';
+    events = [];
+    eventCount = rawEvent.length;
+    for (let i = 0; i < eventCount; i++) {
+        event = rawEvent[i];
+        if (event["tag"] == "Urlaub") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        } else if (event["tag"] == "Krank") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        } else if (event["tag"] == "GLAZ") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        } else if (event["tag"] == "gUrlaub") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        } else if (event["tag"] == "rUrlaub") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        } else if (event["tag"] == "rGLAZ") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: "#80aeff",
+                barColor: "#80aeff",
+                borderColor: "#80aeff",
+            })
+        }
+    }
+
+    dp.update({events})
 
     /*]]>*/
 </script>

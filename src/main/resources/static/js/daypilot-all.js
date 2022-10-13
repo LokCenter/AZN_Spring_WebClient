@@ -1813,6 +1813,9 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                                     : r.calendar.eventBackColor
                             : void (r.data.backColor = e);
                     }),
+                    /*
+                    added lines to change barColor
+                     */
                     (this.client.barColor = function (e) {
                         return "undefined" == typeof e
                             ? r.cache && "undefined" != typeof r.cache.barColor
