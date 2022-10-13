@@ -46,7 +46,6 @@
         </div>
     </div>
 <script th:src="@{/js/overviewUser.js}"></script>
-<!--
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -62,9 +61,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorVacation,
+                barColor: colors.colorVacation,
+                borderColor: colors.colorVacation,
             })
         } else if (event["tag"] == "Krank") {
             events.push({
@@ -73,9 +72,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorSick,
+                barColor: colors.colorSick,
+                borderColor: colors.colorSick,
             })
         } else if (event["tag"] == "GLAZ") {
             events.push({
@@ -84,9 +83,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorGLAZ,
+                barColor: colors.colorGLAZ,
+                borderColor: colors.colorGLAZ,
             })
         } else if (event["tag"] == "gUrlaub") {
             events.push({
@@ -95,9 +94,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorGeneralVacation,
+                barColor: colors.colorGeneralVacation,
+                borderColor: colors.colorGeneralVacation,
             })
         } else if (event["tag"] == "rUrlaub") {
             events.push({
@@ -106,9 +105,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorVacationPending,
+                barColor: colors.colorVacationPending,
+                borderColor: colors.colorVacationPending,
             })
         } else if (event["tag"] == "rGLAZ") {
             events.push({
@@ -117,9 +116,9 @@
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
-                backColor: "#80aeff",
-                barColor: "#80aeff",
-                borderColor: "#80aeff",
+                backColor: colors.colorGLAZPending,
+                barColor: colors.colorGLAZPending,
+                borderColor: colors.colorGLAZPending,
             })
         }
     }
@@ -128,6 +127,5 @@
 
     /*]]>*/
 </script>
--->
 </body>
 </html>
