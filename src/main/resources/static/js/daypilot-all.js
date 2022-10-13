@@ -273,12 +273,12 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                         e.add(".navigator_default_cell_text", "cursor: pointer;"),
                         e.add(".month_default_main", "border: 1px solid #c0c0c0;font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size: 13px;color: #333;"),
                         e.add(".month_default_main *, .month_default_main *:before, .month_default_main *:after", "box-sizing: content-box;"),
-                        e.add(".month_default_cell_inner", "border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;position: absolute;top: 0px;left: 0px;bottom: 0px;right: 0px;background-color: #f9f9f9;"),
+                        e.add(".month_default_cell_inner", "border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;position: absolute;top: 0px;left: 0px;bottom: 0px;right: 0px;background-color: #f5f5f5;"),
                         e.add(".month_default_cell_business .month_default_cell_inner", "background-color: #fff;"),
                         e.add(".month_default_cell_header", "text-align: right; padding: 4px; box-sizing: border-box;"),
                         e.add(
                             ".month_default_header_inner",
-                            "position: absolute;top: 0px;left: 0px;bottom: 0px;right: 0px;border-right: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0;cursor: default;color: #333;background: #f3f3f3; overflow:hidden; display: flex; align-items: center; justify-content: center;"
+                            "position: absolute;top: 0px;left: 0px;bottom: 0px;right: 0px;border-right: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0;cursor: default;color: var(--clr-light);background-color: var(--clr-accent); overflow:hidden; display: flex; align-items: center; justify-content: center;"
                         ),
                         e.add(".month_default_message", "padding: 10px;opacity: 0.9; color: #ffffff;background: #ffa216;"),
                         e.add(
