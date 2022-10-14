@@ -195,3 +195,17 @@ function updateTimeDisplay() {
 }
 
 updateTimeDisplay()
+
+// Set color for legend
+const legendColorVacationPending = document.getElementById("colorVacationPending");
+legendColorVacationPending.style.backgroundColor = colors.colorVacationPending;
+const legendColorVacation = document.getElementById("colorVacation");
+legendColorVacation.style.backgroundColor = colors.colorVacation;
+const legendColorGeneralVacation = document.getElementById("colorGeneralVacation");
+legendColorGeneralVacation.style.backgroundColor = colors.colorGeneralVacation;
+const legendColorGLAZPending = document.getElementById("colorGLAZPending");
+legendColorGLAZPending.style.backgroundColor = colors.colorGLAZPending;
+const legendColorGLAZ = document.getElementById("colorGLAZ");
+legendColorGLAZ.style.backgroundColor = colors.colorGLAZ;
+const legendColorSick = document.getElementById("colorSick");
+legendColorSick.style.backgroundColor = colors.colorSick;
