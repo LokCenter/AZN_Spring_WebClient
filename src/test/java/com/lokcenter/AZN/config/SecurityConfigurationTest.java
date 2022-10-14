@@ -1,6 +1,7 @@
 package com.lokcenter.AZN.config;
 
 import lombok.With;
+import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -11,7 +12,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.matchers.JUnitMatchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -29,6 +33,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecurityConfigurationTest {
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private WebApplicationContext wac;
+
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
+
+    @Before
+    public void setup() {
+        this.mvc = MockMvcBuilders.webAppContextSetup(this.wac)
+                .addFilter(springSecurityFilterChain).build();
+    }
 
     // /overview (GET)
     @Test
