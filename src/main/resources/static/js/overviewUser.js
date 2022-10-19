@@ -1,19 +1,5 @@
 // URL with no queries should not be allowed
 
-
-
-/**
- * import colors with json
- */
-let colors = {
-    "colorVacationPending": "#a5c5ff",
-    "colorSick": "#ff7597",
-    "colorGLAZPending": "#a4ff9d",
-    "colorVacation": "#80aeff",
-    "colorGLAZ": "#9aff8d",
-    "colorGeneralVacation": "#c600ff"
-}
-
 /**
  * set colors for the different occasion
  * @type {string} for hexCode
@@ -209,3 +195,17 @@ function updateTimeDisplay() {
 }
 
 updateTimeDisplay()
+
+// Set color for legend
+const legendColorVacationPending = document.getElementById("colorVacationPending");
+legendColorVacationPending.style.backgroundColor = colors.colorVacationPending;
+const legendColorVacation = document.getElementById("colorVacation");
+legendColorVacation.style.backgroundColor = colors.colorVacation;
+const legendColorGeneralVacation = document.getElementById("colorGeneralVacation");
+legendColorGeneralVacation.style.backgroundColor = colors.colorGeneralVacation;
+const legendColorGLAZPending = document.getElementById("colorGLAZPending");
+legendColorGLAZPending.style.backgroundColor = colors.colorGLAZPending;
+const legendColorGLAZ = document.getElementById("colorGLAZ");
+legendColorGLAZ.style.backgroundColor = colors.colorGLAZ;
+const legendColorSick = document.getElementById("colorSick");
+legendColorSick.style.backgroundColor = colors.colorSick;

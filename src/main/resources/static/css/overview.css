@@ -27,40 +27,17 @@
 }
 
 .legend-wrapper {
-    margin-top: 3em;
+    height: 12em;
     display: grid;
     grid-template: repeat(6, 1fr) / 2em 1fr;
     align-items: center;
+    align-self: end;
 }
 
 .color-box {
     width: 1.5em;
     height: 1.5em;
     border: 1px solid black;
-}
-
-.color-box__vacation-pending {
-    background-color: #a5c5ff;
-}
-
-.color-box__vacation {
-    background-color: #80aeff;
-}
-
-.color-box__vacation-universal {
-    background-color: darkgray;
-}
-
-.color-box__overtime-pending {
-    background-color: #a4ff9d;
-}
-
-.color-box__overtime {
-    background-color: #9aff8d;
-}
-
-.color-box__sick {
-    background-color: #ff7597;
 }
 
 /*
