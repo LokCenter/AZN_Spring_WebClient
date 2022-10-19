@@ -55,15 +55,10 @@ public class LoginController {
                 String username = user.getName();
 
                 // current data without time
-                Date currentDate = new Date();
-                var dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
-                String date = dateFormat.format(currentDate);
-
                 // playload
                 Map<String, Object> payload = new HashMap<>();
 
                 payload.put("username", username);
-                payload.put("firstLogin", date);
 
                 this.webClient
                         .post()
