@@ -46,24 +46,7 @@ const dp = new DayPilot.Month("dp", {
     locale: "de-de",
     viewType: "Month",
     showWeekend: true,
-    timeRangeSelectedHandling: "Enabled",
-    onTimeRangeSelected: async (args) => {
-        const modal = await DayPilot.Modal.form(form, data);
-        const dp = args.control;
-        dp.clearSelection();
-        if (modal.canceled) {
-            return;
-        }
-        dp.events.add({
-            start: args.start,
-            end: args.end,
-            id: DayPilot.guid(),
-            text: checkBackColor(modal.result.backColor),
-            backColor: modal.result.backColor,
-            barColor: modal.result.backColor,
-            borderColor: modal.result.backColor,
-        });
-    },
+    timeRangeSelectedHandling: "Disabled",
     eventDeleteHandling: "Update",
     onEventDelete: (args) => {
         if (!confirm("Eintrag löschen?")) {
@@ -104,7 +87,6 @@ dp.init();
  * @param date
  */
 function colorCell(date) {
-    // const color = "#AFEE9C";
     const cellArray = document.getElementsByClassName("month_default_cell_inner");
     const cellCoords = dp.getCellFromDate(date);
     const cellX = cellCoords.x;
@@ -227,3 +209,61 @@ const legendColorGLAZ = document.getElementById("colorGLAZ");
 legendColorGLAZ.style.backgroundColor = colors.colorGLAZ;
 const legendColorSick = document.getElementById("colorSick");
 legendColorSick.style.backgroundColor = colors.colorSick;
+
+const createEventButton = document.getElementById("create-event-button");
+createEventButton.addEventListener("click",() => {
+    const modal = document.body.appendChild(document.createElement("div"));
+    modal.classList.add("modal");
+
+    modal.innerHTML =
+        "<div class='modal__content'>" +
+            "<div class='modal__header'>" +
+                "<h2>Eintrag einfügen</h2>" +
+                "<span id='close'>&times;</span>" +
+            "</div>" +
+            "<div class='modal__body'>" +
+                "<form name='add-new-entry' action='' method=''>" +
+                    "<div class='choice-container'>" +
+                        "<input type='radio' name='radio-choice' id='radio-vacation' value='Urlaub' required>" +
+                        "<label for='radio-vacation'>Urlaub</label>" +
+                        "<input type='radio' name='radio-choice' id='radio-sick' value='Krank' required>" +
+                        "<label for='radio-sick'>Krank</label>" +
+                        "<input type='radio' name='radio-choice' id='radio-overtime' value='GLAZ' required>" +
+                        "<label for='radio-overtime'>GLAZ</label>" +
+                    "</div>" +
+                    "<div class='date-container'>" +
+                        "<input type='date' id='date-start' name='date-start' required>" +
+                        "<label for='date-start'>Startdatum</label>" +
+                        "<input type='date' id='date-end' name='date-end' required>" +
+                        "<label for='date-end'>Enddatum</label>" +
+                    "</div>" +
+                    "<div class='button-container'>" +
+                        "<button type='submit' id='save-button'>Speichern</button>" +
+                        "<button type='button' id='cancel-button'>Abbrechen</button>" +
+                    "</div>" +
+                "</form>" +
+            "</div>" +
+        "</div>";
+
+    const saveButton = document.getElementById("save-button");
+    saveButton.addEventListener("click", () => {
+        console.log("Save");
+    })
+
+    // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+    const closeButton = document.getElementById("close");
+    closeButton.addEventListener("click", () => {
+        modal.remove();
+    });
+
+    const cancelButton = document.getElementById("cancel-button");
+    cancelButton.addEventListener("click", () => {
+        modal.remove();
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.remove();
+        }
+    });
+});
