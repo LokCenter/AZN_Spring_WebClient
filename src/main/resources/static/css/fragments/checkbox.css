@@ -8,6 +8,10 @@ input[type="checkbox"] {
     color: var(--clr-light);
 }
 
+input[type="checkbox"]:hover {
+    filter: brightness(140%);
+}
+
 input[type="checkbox"]::before {
     content: "\2714";
     position: absolute;
@@ -20,6 +24,10 @@ input[type="checkbox"]:disabled {
     background-color: hsla(0, 0%, 0%, 0.25);
     border: 1px solid hsla(0, 0%, 0%, 0.25);
     opacity: 50%;
+}
+
+input[type="checkbox"]:disabled:hover {
+    filter: brightness(100%);
 }
 
 input[type="checkbox"]:checked {
