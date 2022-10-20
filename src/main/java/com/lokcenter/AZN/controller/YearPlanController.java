@@ -34,7 +34,6 @@ public class YearPlanController {
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
 
-
             model.addAttribute("title", "Jahresübersicht");
             model.addAttribute("data", jsonData);
 
