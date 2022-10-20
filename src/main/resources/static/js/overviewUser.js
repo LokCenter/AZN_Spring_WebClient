@@ -220,7 +220,7 @@ createEventButton.addEventListener("click",() => {
                         "<label for='date-end'>Enddatum</label>" +
                     "</div>" +
                     "<div class='button-container'>" +
-                        "<button type='submit' id='save-button'>Speichern</button>" +
+                        "<button type='button' id='save-button'>Speichern</button>" +
                         "<button type='button' id='cancel-button'>Abbrechen</button>" +
                     "</div>" +
                 "</form>" +
@@ -230,6 +230,18 @@ createEventButton.addEventListener("click",() => {
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
         console.log("Save");
+
+        const startDate = document.getElementById("date-start").value;
+        const endDate = document.getElementById("date-end").value;
+        const radioButtons = document.querySelectorAll("input[name='radio-choice']")
+        let tag;
+        for (let radioButton of radioButtons) {
+            if (radioButton.checked) {
+                tag = radioButton.value;
+                break;
+            }
+        }
+
         axios.post(
             '/overview', {
                 startDate: '',
