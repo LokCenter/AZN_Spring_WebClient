@@ -206,11 +206,11 @@ createEventButton.addEventListener("click",() => {
             "<div class='modal__body'>" +
                 "<form name='add-new-entry' action='' method=''>" +
                     "<div class='choice-container'>" +
-                        "<input type='radio' name='radio-choice' id='radio-vacation' value='Urlaub (wartend)' required>" +
+                        "<input type='radio' name='radio-choice' id='radio-vacation' value='rUrlaub' required>" +
                         "<label for='radio-vacation'>Urlaub (wartend)</label>" +
                         "<input type='radio' name='radio-choice' id='radio-sick' value='Krank' required>" +
                         "<label for='radio-sick'>Krank</label>" +
-                        "<input type='radio' name='radio-choice' id='radio-overtime' value='GLAZ (wartend)' required>" +
+                        "<input type='radio' name='radio-choice' id='radio-overtime' value='rGLAZ' required>" +
                         "<label for='radio-overtime'>GLAZ (wartend)</label>" +
                     "</div>" +
                     "<div class='date-container'>" +
@@ -230,6 +230,20 @@ createEventButton.addEventListener("click",() => {
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
         console.log("Save");
+        axios.post(
+            '/overview', {
+                startDate: '',
+                endDate: '',
+                tag: ''
+            }
+        ).then(function (response) {
+                console.log(response);
+            }
+        ).catch(function (error) {
+                console.log(error);
+            }
+        );
+        modal.remove();
     })
 
     // Close/Remove modal when clicking close/abbrechen/outside of modal__content

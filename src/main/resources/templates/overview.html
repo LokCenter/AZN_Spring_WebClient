@@ -128,7 +128,10 @@
     }
 
     dp.update({events})
-
+    let dealtDayplan = /*[[${daydata}]]*/ 'default';
+    if (dealtDayplan !== null) {
+        dealtDayplan.forEach(colorCell);
+    }
     /*]]>*/
 </script>
 </body>

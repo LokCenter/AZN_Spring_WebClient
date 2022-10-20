@@ -13,9 +13,9 @@
     <div class="container">
 
         <table class="personal-information">
-            <tr>
+            <tr> 
                 <th scope="row">Name:</th>
-                <td id="person-name">Max Musterman</td>
+                <td id="person-name" th:text="${data.get('fullName').asText()}"></td>
             </tr>
             <tr>
                 <th scope="row">Tagesarbeitszeit:</th>
@@ -30,15 +30,15 @@
         <table class="current-stats">
             <tr>
                 <th scope="row">Aktuelles Zeitkonto:</th>
-                <td id="stat-overtime">00h 00min Guthaben</td><!-- Guthaben turns into Schuld if < 0 -->
+                <td id="stat-overtime">00h 00min</td>
             </tr>
             <tr>
                 <th scope="row">Urlaubsübertrag Vorjahr:</th>
-                <td id="stat-previous-vacation">0 Tage</td>
+                <td id="stat-previous-vacation">0</td>
             </tr>
             <tr>
                 <th scope="row">Summe Urlaubstage:</th>
-                <td id="stat-total-vacation">30 Tage</td>
+                <td id="stat-total-vacation">30</td>
             </tr>
             <tr>
                 <th scope="row">Verbrauchte Urlaubstage:</th>
@@ -67,5 +67,12 @@
         </table>
     </div>
     <script th:src="@{/js/yearPlan.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    console.log(/*[[${data}]]*/)
+
+    /*]]>*/
+</script>
 </body>
 </html>
