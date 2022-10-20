@@ -124,6 +124,17 @@
                 barColor: colors.colorGLAZPending,
                 borderColor: colors.colorGLAZPending,
             })
+        } else if (event["tag"] == "gFeiertag") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: colors.colorGeneralHoliday,
+                barColor: colors.colorGeneralHoliday,
+                borderColor: colors.colorGeneralHoliday,
+            })
         }
     }
 

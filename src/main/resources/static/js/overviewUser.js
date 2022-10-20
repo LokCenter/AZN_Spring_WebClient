@@ -95,6 +95,7 @@ leftDaySwitch.addEventListener("click", (e) => {
      */
 
     dp.startDate = dp.startDate.addMonths(-1)
+    updateTimeDisplay()
     dp.update();
 
     getDaysAsQuery();
@@ -106,6 +107,7 @@ leftDaySwitch.addEventListener("click", (e) => {
 rightDaySwitch.addEventListener("click", (e) => {
 
     dp.startDate = dp.startDate.addMonths(1)
+    updateTimeDisplay()
     dp.update();
 
     getDaysAsQuery();
@@ -249,12 +251,11 @@ createEventButton.addEventListener("click",() => {
                 tag: ''
             }
         ).then(function (response) {
-                console.log(response);
+                if (response) {
+                    window.location.reload();
+                }
             }
-        ).catch(function (error) {
-                console.log(error);
-            }
-        );
+        ).catch(function (error) {});
         modal.remove();
     })
 

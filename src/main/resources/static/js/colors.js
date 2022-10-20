@@ -7,5 +7,6 @@ let colors = {
     "colorGLAZPending": "#a4ff9d",
     "colorVacation": "#80aeff",
     "colorGLAZ": "#9aff8d",
-    "colorGeneralVacation": "#c600ff"
+    "colorGeneralVacation": "#c600ff",
+    "colorGeneralHoliday": "#dc7eff",
 }
