@@ -237,12 +237,11 @@ createEventButton.addEventListener("click",() => {
                 tag: ''
             }
         ).then(function (response) {
-                console.log(response);
+                if (response) {
+                    window.location.reload();
+                }
             }
-        ).catch(function (error) {
-                console.log(error);
-            }
-        );
+        ).catch(function (error) {});
         modal.remove();
     })
 
