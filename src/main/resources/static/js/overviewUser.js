@@ -95,6 +95,7 @@ leftDaySwitch.addEventListener("click", (e) => {
      */
 
     dp.startDate = dp.startDate.addMonths(-1)
+    updateTimeDisplay()
     dp.update();
 
     getDaysAsQuery();
@@ -106,6 +107,7 @@ leftDaySwitch.addEventListener("click", (e) => {
 rightDaySwitch.addEventListener("click", (e) => {
 
     dp.startDate = dp.startDate.addMonths(1)
+    updateTimeDisplay()
     dp.update();
 
     getDaysAsQuery();
