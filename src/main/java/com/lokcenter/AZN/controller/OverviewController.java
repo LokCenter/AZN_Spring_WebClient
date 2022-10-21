@@ -3,6 +3,8 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -83,7 +85,18 @@ public class OverviewController {
     @CrossOrigin("http://localhost:8880/overview")
     Boolean getPostMapping(@RequestBody Map<String, Object> payload,
                            @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
-        System.out.println(payload);
-        return true;
+
+
+        return Boolean.TRUE.equals(this.webClient
+                .post()
+                .uri("/overview")
+                .attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .body(Mono.just(payload), payload.getClass())
+                .retrieve()
+                // res type
+                .bodyToMono(Boolean.class)
+                .block());
     }
 }
