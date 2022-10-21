@@ -48,7 +48,7 @@ button:hover {
 .legend-wrapper {
     height: 12em;
     display: grid;
-    grid-template: repeat(6, 1fr) / 2em 1fr;
+    grid-template: repeat(7, 1fr) / 2em 1fr;
     align-items: center;
     align-self: end;
 }

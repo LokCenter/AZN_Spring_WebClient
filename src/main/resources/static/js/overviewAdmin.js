@@ -197,6 +197,8 @@ function updateTimeDisplay() {
 updateTimeDisplay()
 
 // Set color for legend
+const legendColorGeneralHoliday = document.getElementById("colorGeneralHoliday");
+legendColorGeneralHoliday.style.backgroundColor = colors.colorGeneralHoliday;
 const legendColorVacationPending = document.getElementById("colorVacationPending");
 legendColorVacationPending.style.backgroundColor = colors.colorVacationPending;
 const legendColorVacation = document.getElementById("colorVacation");
