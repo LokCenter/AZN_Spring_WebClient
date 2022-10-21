@@ -74,6 +74,20 @@
     margin-left: 0.5em;
 }
 
+#reminder {
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 4em;
+    background-color: var(--clr-accent);
+    color: white;
+    padding: 0.2em;
+    visibility: hidden;
+}
+
 .modal .button-container {
     display: flex;
     justify-content: space-evenly;
