@@ -1,50 +1,5 @@
 // URL with no queries should not be allowed
 
-/**
- * set colors for the different occasion
- * @type {string} for hexCode
- */
-const colorUrlaubPending = colors.colorVacationPending;
-const colorKrank = colors.colorSick;
-const colorGLAZPending = colors.colorGLAZPending;
-
-/**
- * sets the available options of occasions to choose for the user
- */
-const selection = [
-    {name: "Urlaub (wartend)", id: colorUrlaubPending},
-    {name: "GLAZ (wartend)", id: colorGLAZPending},
-    {name: "Krank", id: colorKrank},
-];
-
-/**
- * set standard display value (on creation) for user
- */
-let selectionColor = colorUrlaubPending;
-
-
-/**
- * returns a description depending on the color given
- */
-function checkBackColor(color) {
-    switch (color) {
-        case colorUrlaubPending:
-            return "Urlaub (wartend)";
-        case colorKrank:
-            return "Krank";
-        case colorGLAZPending:
-            return "GLAZ (wartend)";
-    }
-}
-
-const form = [
-    {name: "Auswahl", id: "backColor", type: "radio", options: selection},
-];
-
-const data = {
-    backColor: selectionColor,
-};
-
 const dp = new DayPilot.Month("dp", {
     locale: "de-de",
     viewType: "Month",
