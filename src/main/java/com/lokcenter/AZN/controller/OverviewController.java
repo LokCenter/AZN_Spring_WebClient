@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -79,7 +80,10 @@ public class OverviewController {
 
     @PostMapping
     @ResponseBody
-    Boolean getPostMapping() {
+    @CrossOrigin("http://localhost:8880/overview")
+    Boolean getPostMapping(@RequestBody Map<String, Object> payload,
+                           @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
+        System.out.println(payload);
         return true;
     }
 }
