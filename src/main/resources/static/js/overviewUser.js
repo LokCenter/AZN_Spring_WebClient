@@ -207,7 +207,9 @@ createEventButton.addEventListener("click",() => {
         axios.defaults.headers.post[header] = token
         // data
         axios.post("/overview", {
-
+            startDate: startDate,
+            endDate: endDate,
+            tag: tag
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
