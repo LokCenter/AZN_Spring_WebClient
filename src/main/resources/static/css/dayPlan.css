@@ -8,12 +8,13 @@
     font-size: 1.2rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 1.5em;
 }
 
 .radio-container label {
     margin-right: 2em;
-    margin-left: 0.2em;
+    padding-left: 0.2em;
 }
 
 .radio-container label:last-of-type {
