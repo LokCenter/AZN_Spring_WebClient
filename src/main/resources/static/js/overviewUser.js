@@ -184,13 +184,17 @@ createEventButton.addEventListener("click",() => {
             "</div>" +
         "</div>";
 
+    // Set the starting values for the date picker to the date currently being viewed in the calendar
+    document.getElementById("date-start").value = dp.startDate.value.split("T")[0];
+    document.getElementById("date-end").value = dp.startDate.value.split("T")[0];
+
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
         console.log("Save");
 
         const startDate = document.getElementById("date-start").value;
         const endDate = document.getElementById("date-end").value;
-        const radioButtons = document.querySelectorAll("input[name='radio-choice']")
+        const radioButtons = document.querySelectorAll("input[name='radio-choice']");
         let tag;
         for (let radioButton of radioButtons) {
             if (radioButton.checked) {
