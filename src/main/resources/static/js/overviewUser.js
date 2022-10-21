@@ -201,9 +201,9 @@ createEventButton.addEventListener("click",() => {
 
         axios.post(
             '/overview', {
-                startDate: '',
-                endDate: '',
-                tag: ''
+                startDate: startDate,
+                endDate: endDate,
+                tag: tag
             }
         ).then(function (response) {
                 if (response) {
