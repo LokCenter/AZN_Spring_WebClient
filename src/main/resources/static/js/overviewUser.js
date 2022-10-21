@@ -244,18 +244,25 @@ createEventButton.addEventListener("click",() => {
             }
         }
 
-        axios.post(
-            '/overview', {
-                startDate: '',
-                endDate: '',
-                tag: ''
+
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        // csrf to header
+        axios.defaults.headers.post[header] = token
+        // data
+        axios.post("/overview", {
+
+        }).then(async (res) => {
+            // Display confirmation message if response is ok
+            if (res.data) {
+                window.location.reload();
             }
-        ).then(function (response) {
-                if (response) {
-                    window.location.reload();
-                }
-            }
-        ).catch(function (error) {});
+        }).catch((error) => {
+            console.log(error)
+        })
+
         modal.remove();
     })
 
