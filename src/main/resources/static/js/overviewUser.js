@@ -165,8 +165,6 @@ createEventButton.addEventListener("click",() => {
                     "<div class='choice-container'>" +
                         "<input type='radio' name='radio-choice' id='radio-vacation' value='rUrlaub' required>" +
                         "<label for='radio-vacation'>Urlaub (wartend)</label>" +
-                        "<input type='radio' name='radio-choice' id='radio-sick' value='Krank' required>" +
-                        "<label for='radio-sick'>Krank</label>" +
                         "<input type='radio' name='radio-choice' id='radio-overtime' value='rGLAZ' required>" +
                         "<label for='radio-overtime'>GLAZ (wartend)</label>" +
                     "</div>" +
