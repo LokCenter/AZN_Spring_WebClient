@@ -194,6 +194,11 @@ let saveButton = document.getElementById("save-button");
 saveButton.addEventListener('click', (e) => {
     // user comment or empty
     let userComment = document.getElementById("comment").value;
+    let radioGlaz = document.getElementById("radio-glaz").checked;
+    let radioSick = document.getElementById("radio-sick").checked;
+    let radioVacation = document.getElementById("radio-sick").checked;
+    let radioSchool = document.getElementById("radio-school").checked;
+
 
     //get checked checkbox
     let checked_item = null;
@@ -220,7 +225,13 @@ saveButton.addEventListener('click', (e) => {
         "pause": userInputData.get('pause'),
         "soll": userInputData.get("soll"),
         "ist": userInputData.get('ist'),
-        "comment": userComment
+        "comment": userComment,
+        // checked data
+        "school": radioSchool,
+        "sick": radioSick,
+        "vacation": radioVacation,
+        "glaz": radioGlaz
+
     }).then(async (res) => {
         // Display confirmation message if response is ok
         if (res.data) {
