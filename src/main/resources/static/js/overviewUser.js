@@ -164,6 +164,7 @@ createEventButton.addEventListener("click",() => {
             "</div>" +
             "<div class='modal__body'>" +
                 "<form name='add-new-entry' action='' method=''>" +
+                    "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
                     "<div class='choice-container'>" +
                         "<input type='radio' name='radio-choice' id='radio-vacation' value='rUrlaub' required>" +
                         "<label for='radio-vacation'>Urlaub (wartend)</label>" +
@@ -184,13 +185,17 @@ createEventButton.addEventListener("click",() => {
             "</div>" +
         "</div>";
 
+    // Set the starting values for the date picker to the date currently being viewed in the calendar
+    document.getElementById("date-start").value = dp.startDate.value.split("T")[0];
+    document.getElementById("date-end").value = dp.startDate.value.split("T")[0];
+
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
         console.log("Save");
 
         const startDate = document.getElementById("date-start").value;
         const endDate = document.getElementById("date-end").value;
-        const radioButtons = document.querySelectorAll("input[name='radio-choice']")
+        const radioButtons = document.querySelectorAll("input[name='radio-choice']");
         let tag;
         for (let radioButton of radioButtons) {
             if (radioButton.checked) {
@@ -218,7 +223,18 @@ createEventButton.addEventListener("click",() => {
         }).catch((error) => {
             console.log(error)
         })
-        modal.remove();
+        // Close modal only if no event type was selected, otherwise display a message reminding the user to do so.
+        const reminder = document.getElementById("reminder");
+        for (let i = 0; 0 < radioButtons.length; i++) {
+            if (radioButtons[i].checked === true) {
+                reminder.style.visibility = "hidden";
+                modal.remove();
+                break;
+            } else {
+                reminder.style.visibility = "visible";
+            }
+        }
+
     })
 
     // Close/Remove modal when clicking close/abbrechen/outside of modal__content
