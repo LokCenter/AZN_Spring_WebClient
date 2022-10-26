@@ -46,47 +46,4 @@ public class SecurityConfigurationTest {
                 .addFilter(springSecurityFilterChain).build();
     }
 
-    // /overview (GET)
-    @Test
-    @DisplayName("/overview (get) - User should get 403 without role")
-    @WithMockUser
-    void overview_get_without_role() throws Exception {
-        mvc.perform(get("/overview")).andExpect(status().isForbidden());
-    }
-
-    @Test
-    @DisplayName("/overview (get) - User should get 200 with User role")
-    @WithMockUser(roles = {"User"})
-    void overview_get_with_user_role() throws Exception {
-        mvc.perform(get("/overview")).andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName("/overview (get) - User should get 403 with admin role")
-    @WithMockUser(roles = {"Admin"})
-    void overview_get_with_admin_role() throws Exception {
-        mvc.perform(get("/overview")).andExpect(status().isForbidden());
-    }
-
-    // /admin/** (get)
-    @Test
-    @DisplayName("/admin (get) - User should get 403 without role")
-    @WithMockUser()
-    void admin_get_without_role() throws Exception {
-        mvc.perform(get("/admin")).andExpect(status().isForbidden());
-    }
-
-    @Test
-    @DisplayName("/admin (get) - User should get 403 with user  role")
-    @WithMockUser(roles = {"User"})
-    void admin_get_with_user_role() throws Exception {
-        mvc.perform(get("/admin")).andExpect(status().isForbidden());
-    }
-
-    @Test
-    @DisplayName("/admin (get) - User should get 403 with user  role")
-    @WithMockUser(roles = {"Admin"})
-    void admin_get_with_role() throws Exception {
-        mvc.perform(get("/admin")).andExpect(status().isOk());
-    }
 }
