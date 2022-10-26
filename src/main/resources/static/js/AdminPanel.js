@@ -60,6 +60,7 @@ function addUserToTable(name, overtime, sick, glaz, vacation) {
 
 addUserToTable("Bärbel Holland", "1h 18min Guthaben", 2, 1, 2);
 addUserToTable("Richard Alexander Marktdorf", "0h 39min Schuld", 9, 0, 0);
+addUserToTable("Bastian Christoph", "1h 57min Guthaben", 0, 0, 1);
 
 
 // Adds event to each "Anzeigen" button which is hard-coded in the HTML file.
@@ -184,3 +185,46 @@ durationInput.addEventListener("change", () => {
     }
     addVacationYearsToTable();
 })
+
+const searchBar = document.getElementById("filter-input");
+/**
+ * Trigger filterTable() when clearing the input by clicking the "x" in those browser that support it.
+ */
+searchBar.addEventListener("search", () => {
+    if (document.getElementById("filter-input").value === "") filterTable();
+})
+
+/**
+ * Filter "APTable" table by first column (name)
+ */
+function filterTable() {
+    const filter = document.getElementById("filter-input").value.toUpperCase();
+    const tableRow = document.getElementById("APTable").getElementsByTagName("tr");
+
+    // Loop through table rows and hide those that don't match the filter
+    for (let i = 0; i < tableRow.length; i++) {
+        let tableData = tableRow[i].getElementsByTagName("td")[0];
+        if (tableData) {
+            let textValue = tableData.textContent.toUpperCase();
+            if (textValue.indexOf(filter) > -1) {
+                tableRow[i].style.display = "";
+            } else {
+                tableRow[i].style.display = "none";
+            }
+        }
+    }
+
+    // Color the background of the result correctly
+    // counter starts at 1 to keep in line with css nth-child selector
+    let counter = 1;
+    // i = 1 to skip the header row
+    for (let i = 1; i < tableRow.length; i++) {
+        // Continue loop if current row isn't displayed
+        if (tableRow[i].style.display === "none") continue;
+        // Color row's background according to if it's even (0) or odd (1)
+        if (counter % 2 === 0) tableRow[i].style.backgroundColor = "var(--clr-mid)";
+        else if (counter % 2 === 1) tableRow[i].style.backgroundColor = "var(--clr-light)";
+        counter++;
+    }
+
+}
