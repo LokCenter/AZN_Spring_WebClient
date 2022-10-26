@@ -230,7 +230,7 @@ saveButton.addEventListener('click', (e) => {
         "vacation": radioVacation,
         "glaz": radioGlaz,
         //date
-        "date": currDate.format("DD-MM-YYYY")
+        //"date": currDate.format("DD-MM-YYYY")
 
     }).then(async (res) => {
         // Display confirmation message if response is ok
