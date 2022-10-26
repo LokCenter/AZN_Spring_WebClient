@@ -219,18 +219,18 @@ saveButton.addEventListener('click', (e) => {
     // csrf to header
     axios.defaults.headers.post[header] = token
     // data
-    axios.post("http://localhost:8880/dayplan", {
+    axios.post("/dayplan", {
         "start_time": userInputData.get('start_time'),
         "end_time": userInputData.get('end_time'),
         "pause": userInputData.get('pause'),
-        "soll": userInputData.get("soll"),
-        "ist": userInputData.get('ist'),
         "comment": userComment,
         // checked data
         "school": radioSchool,
         "sick": radioSick,
         "vacation": radioVacation,
-        "glaz": radioGlaz
+        "glaz": radioGlaz,
+        //date
+        "date": currDate.format("DD-MM-YYYY")
 
     }).then(async (res) => {
         // Display confirmation message if response is ok
