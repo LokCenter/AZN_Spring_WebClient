@@ -2,7 +2,7 @@ nav {
     display: flex;
     justify-content: space-between;
     background-color: var(--clr-accent);
-    padding: 0 3em;
+    padding: 0 2rem;
     margin-bottom: 3em;
     overflow: hidden;
 }
@@ -11,6 +11,12 @@ nav {
 .nav-aside {
     display: flex;
     gap: 3em;
+}
+
+.nav-aside {
+    width: 3.2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-main a {
