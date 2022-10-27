@@ -34,12 +34,12 @@
                 <label for="ist">Istzeit</label>
                 <label for="soll">Sollzeit</label>
                 <label for="comment">Bemerkung</label>
-                <input type="time" name="start_time" id="start_time" value="00:00">
-                <input type="time" name="end_time" id="end_time" value="00:00">
-                <input type="time" name="pause" id="pause" value="00:00">
-                <input type="time" name="ist" id="ist" value="00:00" disabled>
-                <input type="time" name="soll" id="soll" value="00:00" disabled>
-                <input type="text" name="comment" id="comment" maxlength="50" th:value="${data.get('comment')}">
+                <input type="time" name="start_time" id="start_time">
+                <input type="time" name="end_time" id="end_time">
+                <input type="time" name="pause" id="pause">
+                <input type="time" name="ist" id="ist" disabled>
+                <input type="time" name="soll" id="soll" disabled>
+                <input type="text" name="comment" id="comment" maxlength="50">
             </div>
         </div>
 
@@ -64,11 +64,9 @@
             <div id="save-confirmation"></div>
         </div>
 
-        <script th:src="@{/js/dayPlan.js}"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
             let data = /*[[${data}]]*/ null;
-            console.log(/*[[${data}]]*/)
 
             // check if there is any data
             if (data) {
@@ -85,9 +83,34 @@
                 }
             }
 
-            // TODO: Add Arbeitsbeginn, Arbeitsende, Pause
-            // TODO: Check if value is present (use default value if not)
+            let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/;
+            let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/;
+            let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/;
+            let comment = /*[[${data.get('comment')}]]*/;
+            let istTimeTemp = document.getElementById("ist").value
+            if (startTimeTemp != null) {
+                document.getElementById('start_time').value = startTimeTemp.slice(0,-3);
+            } else {
+                document.getElementById('start_time').value = "00:00";
+            }
+            if (endTimeTemp != null) {
+                document.getElementById('end_time').value = endTimeTemp.slice(0,-3);
+            } else {
+                document.getElementById('end_time').value = "00:00";
+            }
+            if (pauseTimeTemp != null) {
+                document.getElementById('pause').value = pauseTimeTemp.slice(0,-3);
+            } else {
+                document.getElementById('pause').value = "00:00";
+            }
+            if (pauseTimeTemp != null) {
+                document.getElementById('comment').value = comment;
+            } else {
+                document.getElementById('comment').value = "";
+            }
+            document.getElementById('soll').value = "07:42";
             /*]]>*/
         </script>
+        <script th:src="@{/js/dayPlan.js}"></script>
     </body>
 </html>

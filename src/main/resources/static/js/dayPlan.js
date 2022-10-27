@@ -115,9 +115,26 @@ function mapTimeData(key, value) {
 // get time from map => Date
 function getTime(keyValue) {
     let key = new Date();
-    let keyTime = userInputData.get(keyValue).split(":");
-    key.setHours(parseInt(keyTime[0]), parseInt(keyTime[1]));
-
+    let timeTemp;
+    let startTimeTemp = document.getElementById("start_time").value;
+    let endTimeTemp = document.getElementById("end_time").value;
+    let pauseTimeTemp = document.getElementById("pause").value;
+    let istTimeTemp = document.getElementById("ist").value;
+    switch (keyValue) {
+        case "start_time":
+            timeTemp = startTimeTemp;
+            break;
+        case "end_time":
+            timeTemp = endTimeTemp;
+            break;
+        case "pause":
+            timeTemp = pauseTimeTemp;
+            break
+        case "ist":
+            timeTemp = istTimeTemp;
+            break;
+    }
+    key.setHours(parseInt(timeTemp.slice(0,2)), parseInt(timeTemp.slice(3,5)), "00")
     return key;
 }
 
@@ -127,6 +144,7 @@ function getTime(keyValue) {
  * @param {string} value mapTimeData value
  */
 function onTimeChange(key, value) {
+
     // create numbers with `00` syntax
     function withZero(value){
         if (value <= 9) return `0${value}`;
@@ -139,9 +157,11 @@ function onTimeChange(key, value) {
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     let istValue = getTime("ist");
     istValue.setHours(
+        //endTimeTemp.slice(0,2) - startTimeTemp.slice(0,2) - pauseTimeTemp.slice(0,2)
         getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
     );
     istValue.setMinutes(
+        //endTimeTemp.slice(3,5) - startTimeTemp.slice(3,5) - pauseTimeTemp.slice(3,5)
         getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
     );
     // Update map
@@ -150,19 +170,14 @@ function onTimeChange(key, value) {
     // Set ist
     const ist = document.getElementById("ist");
     ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
-
-    // Display soll
-    const soll = document.getElementById("soll");
-    soll.value = userInputData.get("soll");
 }
-
+onTimeChange();
 /**
  * Checks if the value of a time slot is an empty string and sets it to "00:00" if it is.
  * @param {Object} time
  */
 function setEmptyTimeToZero(time) {
     if (time.value === "") {
-        console.log(time.value)
         time.value = "00:00";
     }
 }
