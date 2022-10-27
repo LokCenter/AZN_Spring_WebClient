@@ -134,7 +134,7 @@ function getTime(keyValue) {
             timeTemp = istTimeTemp;
             break;
     }
-    key.setHours(parseInt(timeTemp.slice(0,2)), parseInt(timeTemp.slice(3,5)), "00")
+    key.setHours(parseInt(timeTemp.slice(0,2)), parseInt(timeTemp.slice(3,5)), 00)
     return key;
 }
 
@@ -156,12 +156,11 @@ function onTimeChange(key, value) {
     // Generate ist time
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     let istValue = getTime("ist");
+    console.log(istValue)
     istValue.setHours(
-        //endTimeTemp.slice(0,2) - startTimeTemp.slice(0,2) - pauseTimeTemp.slice(0,2)
         getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
     );
     istValue.setMinutes(
-        //endTimeTemp.slice(3,5) - startTimeTemp.slice(3,5) - pauseTimeTemp.slice(3,5)
         getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
     );
     // Update map
