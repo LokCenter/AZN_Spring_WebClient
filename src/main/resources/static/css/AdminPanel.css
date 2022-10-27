@@ -46,6 +46,8 @@ main {
     background-color: var(--clr-accent);
     padding: 0.4em;
     margin-bottom: 4em;
+    position: relative;
+    overflow: hidden;
 }
 
 h1 {
@@ -53,6 +55,42 @@ h1 {
     font-weight: 600;
     color: var(--clr-light);
     text-align: center;
+}
+
+.logout-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    margin-right: 2rem;
+
+}
+
+.svg-container {
+    position: relative;
+    font-size: 1.8rem;
+    width: 3.2rem
+}
+
+.svg-container svg {
+    fill: var(--clr-light);
+    position: absolute;
+    width: 3.2rem;
+    padding: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.svg-container svg:hover,
+.svg-container svg:focus {
+    fill: var(--clr-accent);
+    background-color: var(--clr-light);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
 }
 
 .APTable {

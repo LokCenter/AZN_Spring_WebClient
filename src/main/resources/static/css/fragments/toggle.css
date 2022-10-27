@@ -1,14 +1,25 @@
-nav ul {
+nav {
     display: flex;
-    list-style-type: none;
+    justify-content: space-between;
     background-color: var(--clr-accent);
-    padding: 0.45em;
-    padding-left: 3em;
-    gap: 3em;
+    padding: 0 2rem;
     margin-bottom: 3em;
+    overflow: hidden;
 }
 
-nav a {
+.nav-main,
+.nav-aside {
+    display: flex;
+    gap: 3em;
+}
+
+.nav-aside {
+    width: 3.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-main a {
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--clr-light);
@@ -16,10 +27,36 @@ nav a {
     padding: 0.25em;
 }
 
-nav a:hover,
-nav a:focus {
+.nav-main a:hover,
+.nav-main a:focus {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     background-color: var(--clr-light);
     color: var(--clr-accent);
+    box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
+}
+
+.svg-container {
+    position: relative;
+    font-size: 1.8rem;
+    width: 1.8rem
+}
+
+.svg-container svg {
+    fill: var(--clr-light);
+    position: absolute;
+    width: 1.8em;
+    padding: 0.3em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.svg-container svg:hover,
+.svg-container svg:focus {
+    fill: var(--clr-accent);
+    background-color: var(--clr-light);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
 }
