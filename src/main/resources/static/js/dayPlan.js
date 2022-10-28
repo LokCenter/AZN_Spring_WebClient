@@ -1,4 +1,13 @@
 /**
+ * Test functions
+ * to be deleted later
+ */
+function testOutput(text) {
+    console.log(text)
+}
+
+
+/**
  * DayPlan JS
  * @version 1.05 2022-07-01
  */
@@ -6,6 +15,7 @@
 const startTime = document.getElementById("start_time");
 const endTime = document.getElementById("end_time");
 const pause = document.getElementById("pause");
+const dateInput = document.getElementById("dateInput")
 
 /* Date Switch stuff  */
 
@@ -21,15 +31,46 @@ url = new URL(window.location.href);
 
 if (url.searchParams.get('date')) {
     queryDate = url.searchParams.get('date');
-    dateSwitch.innerText = moment(queryDate, 'DD-MM-YYYY').format(format);
+    dateSwitch.innerText = moment(queryDate, 'DD-MM-YYYY').format('dddd') + ", ";
+    dateInput.value = moment(queryDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
 } else {
     // set current date
-    dateSwitch.innerText = moment().format(format);
+    dateSwitch.innerText = moment().format('dddd') + ", ";
+    dateInput.value = moment().format("YYYY-MM-DD");
 }
 
 // set the right title
 document.title = dateSwitch.innerText;
 
+function setEmptyDateToDate(date) {
+    if (date.value === "") {
+        if (url.searchParams.get('date')) {
+            dateInput.value = moment(queryDate, 'DD-MM-YYYY').format('YYYY-MM-DD');
+        } else {
+            date.value = moment().format("YYYY-MM-DD");
+        }
+    }
+}
+dateInput.addEventListener("change", () => {
+    setEmptyDateToDate(dateInput);
+});
+
+/**
+ * Set date for value in input Box
+ */
+function setDateFromInput() {
+    let dateVal = dateInput.value
+    let dateTemp = moment(dateVal, 'YYYY-MM-DD')
+    window.location.href =  window.location.href.split('?')[0] + `?date=${dateTemp.format("DD-MM-YYYY")}`
+}
+
+dateInput.addEventListener("focusout", setDateFromInput)
+dateInput.addEventListener("keyup", event => {
+    if (event.key === "Enter") {
+        setDateFromInput();
+    }
+})
+dateInput.addEventListener("c", setDateFromInput)
 
 // Change date based on button
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
@@ -75,44 +116,7 @@ rightDaySwitch.addEventListener("click", (e) => {
     // });
 });
 
-/*Input stuff */
-
-// input map
-let userInputData = new Map([
-    ["start_time", ""],
-    ["end_time", ""],
-    ["pause", ""],
-    ["soll", ""],
-    ["ist", ""],
-]);
-
-
-/**
- * Update the right map entry
- * @param key
- * @param value
- */
-function mapTimeData(key, value) {
-    switch (key) {
-        case "start_time":
-            userInputData.set("start_time", value);
-            break;
-        case "end_time":
-            userInputData.set("end_time", value);
-            break;
-        case "pause":
-            userInputData.set("pause", value);
-            break
-        case "soll":
-            userInputData.set("soll", value);
-            break;
-        case "ist":
-            userInputData.set("ist", value);
-            break;
-    }
-}
-
-// get time from map => Date
+// get time from display => Date
 function getTime(keyValue) {
     let key = new Date();
     let timeTemp;
@@ -151,20 +155,15 @@ function onTimeChange(key, value) {
         else return `${value}`;
     }
 
-    mapTimeData(key, value);
-
     // Generate ist time
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     let istValue = getTime("ist");
-    console.log(istValue)
     istValue.setHours(
         getTime("end_time").getHours() - getTime("start_time").getHours() - getTime("pause").getHours()
     );
     istValue.setMinutes(
         getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
     );
-    // Update map
-    mapTimeData("ist", `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`);
 
     // Set ist
     const ist = document.getElementById("ist");
