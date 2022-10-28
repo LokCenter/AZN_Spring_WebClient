@@ -20,6 +20,21 @@
 
 .daySwitch-container p {
     min-width: 25ch;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.daySwitch-container input[type="date"] {
+    border: 2px solid var(--clr-light);
+}
+
+::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.daySwitch-container ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
 
 .daySwitch-container button:hover {
