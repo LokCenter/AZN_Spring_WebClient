@@ -22,8 +22,7 @@ const dateInput = document.getElementById("dateInput")
 // get date html
 let dateSwitch = document.getElementById("dateSwitchDate");
 
-// moment format & locale
-const format = "dddd, DD.MM.YYYY";
+// moment locale
 moment.locale("de");
 
 // set the right date
@@ -89,18 +88,9 @@ let currDate = moment(dateInput.value, "YYYY-MM-DD")
  */
 leftDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.subtract(1, "day");
-    // dateSwitch.innerText = currDate.format(format);
 
     // go to the left date
     window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
-    // axios.get("http://localhost:8880/dayplan", {
-    //     params: {
-    //         date: currDate.format("DD-MM-YYYY")
-    //     }
-    // }).then(async (res) => {
-    // }).catch((error) => {
-    //     console.log(error)
-    // });
 });
 
 /**
@@ -108,17 +98,7 @@ leftDaySwitch.addEventListener("click", (e) => {
  */
 rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
-    // dateSwitch.innerText = currDate.format(format);
-
     window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
-    // axios.get("http://localhost:8880/dayplan", {
-    //     params: {
-    //         date: currDate.format("DD-MM-YYYY")
-    //     }
-    // }).then(async (res) => {
-    // }).catch((error) => {
-    //     console.log(error)
-    // });
 });
 
 // get time from display => Date
