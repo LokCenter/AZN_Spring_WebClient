@@ -7,7 +7,8 @@
 }
 
 .daySwitch-container button,
-.daySwitch-container p {
+.daySwitch-container p,
+.daySwitch-container input[type="date"] {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--clr-light);

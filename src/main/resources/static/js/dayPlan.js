@@ -40,7 +40,7 @@ if (url.searchParams.get('date')) {
 }
 
 // set the right title
-document.title = dateSwitch.innerText;
+document.title = moment(dateInput.value, 'YYYY-MM-DD').format('dddd, DD.MM.YYYY');
 
 function setEmptyDateToDate(date) {
     if (date.value === "") {
@@ -70,7 +70,6 @@ dateInput.addEventListener("keyup", event => {
         setDateFromInput();
     }
 })
-dateInput.addEventListener("c", setDateFromInput)
 
 // Change date based on button
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
