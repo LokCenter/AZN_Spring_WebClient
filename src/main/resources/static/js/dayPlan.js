@@ -82,7 +82,7 @@ const leftDaySwitch = document.getElementById("left-dayPlan-switch");
 const rightDaySwitch = document.getElementById("right-dayPlan-switch");
 
 // to keep track where we are
-let currDate = moment(dateSwitch.innerText, format)
+let currDate = moment(dateInput.value, "YYYY-MM-DD")
 
 /**
  * go to the left day
