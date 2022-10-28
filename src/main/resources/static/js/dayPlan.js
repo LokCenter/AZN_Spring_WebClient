@@ -143,7 +143,7 @@ function getTime(keyValue) {
             timeTemp = istTimeTemp;
             break;
     }
-    key.setHours(parseInt(timeTemp.slice(0,2)), parseInt(timeTemp.slice(3,5)), 00)
+    key.setHours(parseInt(timeTemp.slice(0,2)), parseInt(timeTemp.slice(3,5)), 0)
     return key;
 }
 
