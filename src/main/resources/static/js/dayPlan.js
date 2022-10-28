@@ -61,7 +61,13 @@ dateInput.addEventListener("change", () => {
 function setDateFromInput() {
     let dateVal = dateInput.value
     let dateTemp = moment(dateVal, 'YYYY-MM-DD')
-    window.location.href =  window.location.href.split('?')[0] + `?date=${dateTemp.format("DD-MM-YYYY")}`
+    if (url.searchParams.get('date')) {
+        if (moment(queryDate, 'DD-MM-YYYY').format('YYYY-MM-DD') !== dateTemp.format('YYYY-MM-DD')) {
+            window.location.href =  window.location.href.split('?')[0] + `?date=${dateTemp.format("DD-MM-YYYY")}`
+        }
+    } else {
+        window.location.href =  window.location.href.split('?')[0] + `?date=${dateTemp.format("DD-MM-YYYY")}`
+    }
 }
 
 dateInput.addEventListener("focusout", setDateFromInput)
