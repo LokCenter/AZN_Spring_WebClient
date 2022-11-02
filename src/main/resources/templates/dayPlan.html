@@ -83,10 +83,10 @@
                 }
             }
 
-            let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/;
-            let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/;
-            let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/;
-            let comment = /*[[${data.get('comment')}]]*/;
+            let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/ null;
+            let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/ null;
+            let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/ null;
+            let comment = /*[[${data.get('comment')}]]*/ null;
             let istTimeTemp = document.getElementById("ist").value
             if (startTimeTemp != null) {
                 document.getElementById('start_time').value = startTimeTemp.slice(0,-3);
