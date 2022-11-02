@@ -218,9 +218,9 @@ saveButton.addEventListener('click', (e) => {
     axios.defaults.headers.post[header] = token
     // data
     axios.post("/dayplan", {
-        "start_time": userInputData.get('start_time'),
-        "end_time": userInputData.get('end_time'),
-        "pause": userInputData.get('pause'),
+        "start_time": document.getElementById("start_time").value,
+        "end_time": document.getElementById("end_time").value,
+        "pause": document.getElementById("pause").value,
         "comment": userComment,
         // checked data
         "school": radioSchool,
