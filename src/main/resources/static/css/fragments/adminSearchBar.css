@@ -1,0 +1,48 @@
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25em;
+}
+
+#search-user {
+    padding: 0 0.5em 0 2em;
+    width: 40ch;
+    height: 2em;
+    border-radius: 1em;
+    font-size: 1rem;
+}
+
+#search-user::placeholder {
+    text-align: left;
+}
+
+#user-list {
+    list-style-type: none;
+    max-height: 8em;
+    overflow-y: scroll;
+    position: absolute;
+    background-color: var(--clr-light);
+    inset: 2.5em 1em auto;
+    z-index: 100;
+    display: none;
+}
+
+#user-list > li {
+    padding: 0.2em;
+}
+
+#user-list > li:hover {
+    color: var(--clr-light);
+    background-color: var(--clr-accent);
+    cursor: default;
+}
+
+.search-container svg {
+    fill: var(--clr-accent);
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    margin-left: 0.5em;
+    transform: scale(-1, 1);
+}
