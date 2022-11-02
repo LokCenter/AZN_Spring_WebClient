@@ -62,7 +62,11 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service
                                         .userInfoEndpoint().oidcUserService(this.oidcUserService())
-                                        .and().defaultSuccessUrl("/loginUser", true);
+                                        .and().defaultSuccessUrl("/loginUser", true)
+                                        .and().logout().invalidateHttpSession(true)
+                                        .clearAuthentication(true).logoutSuccessUrl("/")
+                                        .deleteCookies("JSESSIONID")
+                                        .permitAll();
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
