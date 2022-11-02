@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Access Control Tests
  *
- * @version 1.01 - 02-07-2022
+ * @version 2.0 - 02-11-2022
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -73,5 +73,28 @@ public class SecurityConfigurationTest {
     @WithMockUser(roles = {"Admin"})
     public void getDayPlanWithAdminShouldNotWork() throws Exception {
         mvc.perform(get("/dayplan").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
+    }
+
+    /************************
+     /overview
+     ************************/
+
+    /**
+     * User without role should not be allowed to access /overview
+     */
+    @Test
+    @WithMockUser()
+    public void getOverviewWithoutRole() throws Exception {
+        mvc.perform(get("/overview?firstday=31&lastday=4&month=11&year=2022").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
+    }
+
+
+    /**
+     * User with role ROLE_Admin should not be allowed to access /overview
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void getOverviewWithAdminShouldNotWork() throws Exception {
+        mvc.perform(get("/overview?firstday=31&lastday=4&month=11&year=2022").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
     }
 }
