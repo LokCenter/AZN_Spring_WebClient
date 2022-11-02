@@ -97,4 +97,36 @@ public class SecurityConfigurationTest {
     public void getOverviewWithAdminShouldNotWork() throws Exception {
         mvc.perform(get("/overview?firstday=31&lastday=4&month=11&year=2022").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
     }
+
+    /************************
+     /yearplan
+     ************************/
+    /**
+     * User without role should not be allowed to access /yearplan
+     */
+    @Test
+    @WithMockUser()
+    public void getYearPlanWithoutRole() throws Exception {
+        mvc.perform(get("/yearplan").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
+    }
+
+    /**
+     * user with role ROLE_User should be allowed to access /yearplan
+
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void getYearPlanWithUserShouldWork() throws Exception {
+        mvc.perform(get("/yearplan").with(oauth2Client("userwebapp"))).andExpect(status().isOk());
+    }
+
+    /**
+     * User with role ROLE_Admin should not be allowed to access /yearplan
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void getYearPlanWithAdminShouldNotWork() throws Exception {
+        mvc.perform(get("/yearplan").with(oauth2Client("userwebapp"))).andExpect(status().isForbidden());
+    }
+
 }
