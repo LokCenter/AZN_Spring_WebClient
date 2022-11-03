@@ -254,6 +254,25 @@ function onlyOneCheckBox(checkbox) {
     })
 }
 
+const disabledCheckboxes = Array.from(document.querySelectorAll("input[type='checkbox']:disabled"));
+let isCheckboxChecked = (checkbox) => checkbox.checked;
+const timeInputStart = document.querySelector("input[name='start_time']");
+const timeInputEnd = document.querySelector("input[name='end_time']");
+const timeInputPause = document.querySelector("input[name='pause']");
+
+/**
+ * Disable inputs of type "time" when any disabled checkbox is checked.
+ */
+if (disabledCheckboxes.some(isCheckboxChecked) === true) {
+    timeInputStart.disabled = true;
+    timeInputEnd.disabled = true;
+    timeInputPause.disabled = true;
+} else {
+    timeInputStart.disabled = false;
+    timeInputEnd.disabled = false;
+    timeInputPause.disabled = false;
+}
+
 /**
  * Sleep function wih async
  * @param milli milliseconds as int

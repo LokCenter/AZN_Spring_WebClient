@@ -12,6 +12,7 @@
     <link rel="stylesheet" th:href="@{/css/dayPlan.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/dayPlanInput.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/checkbox.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/clock.ico}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
@@ -46,6 +47,8 @@
              <label for="radio-sick">Krank</label>
              <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" onclick="onlyOneCheckBox(this)">
              <label for="radio-vacation">Urlaub</label>
+             <input type="checkbox" name="radio-holiday" id="radio-holiday" class="radio" value="holiday" onclick="onlyOneCheckBox(this)">
+             <label for="radio-holiday">Feiertag</label>
              <input type="checkbox" name="radio-school" id="radio-school" class="radio" value="school" onclick="onlyOneCheckBox(this)">
              <label for="radio-school">Schule</label>
          </div>
@@ -64,6 +67,8 @@
          // get time
         </script>
         <script th:src="@{/js/dayPlan.js}"></script>
+        <script th:src="@{/js/adminSearchBar.js}"></script>
+         <script th:src="@{/js/adminSearchBar.js}"></script>
 
     </body>
 </html>
