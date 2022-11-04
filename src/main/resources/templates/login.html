@@ -2,18 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AZN - Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-<h2>Login</h2>
+
 <form th:action="@{/loginUser}">
-    <input type="submit" value="Login" />
-</form>
-<form th:action="@{/logout}">
-    <input type="submit" value="Logout" />
-</form>
-<form th:action="@{/test}">
-    <input type="submit" value="Test Resource Server" />
+    <h2 id="login-tile">Login</h2>
+    <div class="block">
+        <button class="btn-absolute bsk-btn bsk-btn-default">
+            <object type="image/svg+xml" data="https://s3-eu-west-1.amazonaws.com/cdn-testing.web.bas.ac.uk/scratch/bas-style-kit/ms-pictogram/ms-pictogram.svg" class="x-icon"></object>
+            Sign in with Microsoft</button>
+    </div>
 </form>
 </body>
 </html>

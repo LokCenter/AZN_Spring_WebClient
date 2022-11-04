@@ -1,0 +1,48 @@
+/**
+Login Page
+ */
+
+#login-tile {
+    text-align: center;
+    margin-top: -160px;
+}
+
+html {
+    background-color: white;
+}
+
+body {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.block {
+    position: relative;
+    width: 400px;
+    height: 50px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.btn-absolute {
+    width:200px;
+    margin: -40px -100px;
+    position:relative;
+    top:30%;
+    left:50%;
+    font-size: 1rem;
+}
+
+.x-icon {
+    height: 1em;
+    width: 1em;
+    top: .125em;
+    position: relative;
+}
+.x-alt {
+    color: #fff;
+}
