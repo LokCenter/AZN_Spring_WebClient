@@ -6,6 +6,9 @@ const userList = document.getElementById("user-list");
 for (let i = 0; i < 15; i++) {
     users.push(`user ${i}`);
 }
+users.push("My User");
+users.push("Michele Michele");
+users.push("Gustav Mieser");
 
 /**
  * Takes an array of users and adds each user to the list.
@@ -51,6 +54,9 @@ function filterUserList() {
         let user = users[i].textContent.toUpperCase();
         if (user.indexOf(filter) > -1) {
             users[i].style.display = "";
+            let regex = new RegExp(`(${filter})`, "gi");
+            let textWithBoldedSubstring = users[i].textContent.replace(regex, "<b>$1</b>");
+            users[i].innerHTML = textWithBoldedSubstring;
         } else {
             users[i].style.display = "none";
         }
