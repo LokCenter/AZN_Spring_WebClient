@@ -1,3 +1,7 @@
+// Variables for the requests modal
+const requestButtons = document.getElementsByClassName("request-btn");
+const requestModal = document.getElementById("request-modal");
+const closeRequestModal = document.getElementsByClassName("close-request-modal")[0];
 // Variable for the previous year overview modal
 const prevYearButtons = document.getElementsByClassName("prev-year-btn");
 const prevYearModal = document.getElementById("prev-year-modal");
@@ -6,15 +10,20 @@ const closePrevYearModal = document.getElementsByClassName("close-prev-year-moda
 const editButtons = document.getElementsByClassName("edit-btn");
 const editModal = document.getElementById("edit-modal");
 const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
+// Save button
 const saveButton = document.getElementById("save-user-data-button");
 
 function redirect(id) {
     console.log(id);
 }
 
+for (let button of requestButtons) {
+    button.addEventListener("click", () => {
+        requestModal.style.display = "block";
+        disableMainWindowScrolling();
+    });
+}
 
-// Adds event to each "Anzeigen" button which is hard-coded in the HTML file.
-// Can be removed once all table entries are added via JS only.
 for (let button of prevYearButtons) {
     button.addEventListener("click", () => {
         prevYearModal.style.display = "block";
@@ -28,22 +37,21 @@ for (let button of editButtons) {
         disableMainWindowScrolling();
     });
 }
+
+/**
+ * Closes request modal when clicking the "x".
+ */
+closeRequestModal.addEventListener("click", () => {
+    requestModal.style.display = "none";
+    enableMainWindowScrolling();
+});
+
 /**
  * Closes prev year modal when clicking the "x".
  */
 closePrevYearModal.addEventListener("click", () => {
     prevYearModal.style.display = "none";
     enableMainWindowScrolling();
-});
-
-/**
- * Closes the prev year modal when clicking outside of it.
- */
-window.addEventListener("click", (event) => {
-    if (event.target === prevYearModal) {
-        prevYearModal.style.display = "none";
-        enableMainWindowScrolling();
-    }
 });
 
 /**
@@ -55,14 +63,20 @@ closeEditModal.addEventListener("click", () => {
 })
 
 /**
- * Closes the edit modal when clicking outside of it.
+ * Closes the current modal when clicking outside of it.
  */
 window.addEventListener("click", (event) => {
-    if (event.target === editModal) {
+    if (event.target === prevYearModal) {
+        prevYearModal.style.display = "none";
+        enableMainWindowScrolling();
+    } else if (event.target === editModal) {
         editModal.style.display = "none";
         enableMainWindowScrolling();
+    } else if (event.target === requestModal) {
+        requestModal.style.display = "none";
+        enableMainWindowScrolling();
     }
-})
+});
 
 function disableMainWindowScrolling() {
     document.body.style.overflow = "hidden";
@@ -74,9 +88,45 @@ function enableMainWindowScrolling() {
     document.body.style.height = "auto";
 }
 
-saveButton.addEventListener("click", () => {
-    // Save data
-})
+/**
+ * Displays the content of the request modal depending on the number of requests
+ * @param {number} numOfRequests
+ * @param {array<string>} eventType
+ * @param {array<string>} startDate
+ * @param {array<string>} endDate
+ */
+function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
+    const requestOverview = document.getElementById("request-overview");
+    requestOverview.innerHTML = "";
+    if (numOfRequests === 0) {
+        requestOverview.innerHTML = "Keine Anfragen vorhanden";
+    } else {
+        for (let i = 0; i < numOfRequests; i++) {
+            requestOverview.innerHTML += `
+                <div class="event-type"><p>${eventType[i]}</p></div>
+                <div><p>${startDate[i]}</p></div>
+                <div><p>&ndash;</p></div>
+                <div><p>${endDate[i]}</p></div>
+                <div><svg class="svg-accept" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg></div>
+                <div><svg class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
+                `;
+            const svgAccept = document.getElementsByClassName("svg-accept")[0];
+            const svgDeny = document.getElementsByClassName("svg-deny")[0];
+            svgAccept.addEventListener("click", () => {
+                // Accept the request
+            })
+            svgDeny.addEventListener("click", () => {
+                // Deny the request
+            })
+        }
+    }
+}
+
+// Testing data for request modal. Delete later
+let typeArray = ["Urlaub", "GLAZ", "Urlaub"];
+let startArray = ["01.11.2022", "23.11.2022", "04.12.2022"];
+let endArray = ["03.11.2022", "23.11.2022", "12.12.2022"];
+setRequestModalContent(typeArray.length, typeArray, startArray, endArray);
 
 const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
@@ -108,7 +158,7 @@ durationInput.addEventListener("change", () => {
 
 const searchBar = document.getElementById("filter-input");
 /**
- * Trigger filterTable() when clearing the input by clicking the "x" in those browser that support it.
+ * Trigger filterTable() when clearing the input by clicking the "x" in those browsers that support it.
  */
 searchBar.addEventListener("search", () => {
     if (document.getElementById("filter-input").value === "") filterTable();
@@ -148,3 +198,7 @@ function filterTable() {
     }
 
 }
+
+saveButton.addEventListener("click", () => {
+    // Save data
+})
