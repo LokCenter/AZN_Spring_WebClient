@@ -126,7 +126,7 @@
                     <td th:text="${user.get('sick')}"></td>
                     <td th:text="${user.get('glaz')}"></td>
                     <td th:text="${user.get('availableVacation')}"></td>
-                    <td><a href="#">No Data</a></td>
+                    <td><a th:text="${user.get('requests')}" href="#">No Data</a></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
