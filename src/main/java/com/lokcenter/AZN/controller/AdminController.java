@@ -72,6 +72,7 @@ public class AdminController {
 
 
             model.addAttribute("data", jsonData);
+
         }
 
         return "adminPanel";
