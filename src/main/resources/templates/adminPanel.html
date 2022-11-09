@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/AdminPanel.css}"/>
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
+    <script th:src="@{/js/helper/yearOverviewTable.js}"></script>
 </head>
 <body class="unselectable">
 
@@ -133,12 +134,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                    <td th:text="${user.username}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                    <td th:text="${user.password}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                    <td th:text="${user.enabled}" th:onclick="'redirect('+ *{user.id} +')'"></td>
-                    <td th:text="${user.tokenExpired}" th:onclick="'redirect('+ *{user.id} +')'"></td>
+                <tr th:each="user: ${data}">
+                    <td th:text="${user.get('name').textValue()}" th:onclick="'redirect('+ *{user.get('userid')} +')'"></td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td><a href="#">No Data</a></td>
+                    <td><button class="prev-year-btn">Anzeigen</button></td>
+                    <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
             </tbody>
         </table>
@@ -148,7 +152,13 @@
             <a href="admin/dayplan">Tagesübersicht (Admin)</a>
             <a href="admin/overview">Monatsübersicht (Admin)</a>
         </div>
+    <script>
 
+        addYear(2021, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
+        addYear(2022, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
+
+
+    </script>
     <script th:src="@{/js/AdminPanel.js}"></script>
 </body>
 </html>

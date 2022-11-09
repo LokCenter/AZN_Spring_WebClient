@@ -1,97 +1,50 @@
-// Variables for the requests modal
-const requestModal = document.getElementById("request-modal");
-const closeRequestModal = document.getElementsByClassName("close-request-modal")[0];
 // Variable for the previous year overview modal
+const prevYearButtons = document.getElementsByClassName("prev-year-btn");
 const prevYearModal = document.getElementById("prev-year-modal");
 const closePrevYearModal = document.getElementsByClassName("close-prev-year-modal")[0];
 // Variables for the edit modal
+const editButtons = document.getElementsByClassName("edit-btn");
 const editModal = document.getElementById("edit-modal");
 const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
-// Save button
 const saveButton = document.getElementById("save-user-data-button");
 
 function redirect(id) {
     console.log(id);
 }
 
-/**
- * Adds a user to the admin panel table.
- * @param name
- * @param overtime
- * @param sick
- * @param glaz
- * @param vacation
- */
-function addUserToTable(name, overtime, sick, glaz, vacation, requestCount) {
-    const APTableBody = document.getElementById("APTable").getElementsByTagName("tbody")[0];
-    const newRow = APTableBody.insertRow();
-    let newName = newRow.insertCell();
-    let newOvertime = newRow.insertCell();
-    let newSick = newRow.insertCell();
-    let newGlaz = newRow.insertCell();
-    let newVacation = newRow.insertCell();
-    newName.innerText = name;
-    newOvertime.innerText = overtime;
-    newSick.innerText = sick;
-    newGlaz.innerText = glaz;
-    newVacation.innerText = vacation;
 
-    let requests = newRow.insertCell();
-    let prevYear = newRow.insertCell();
-    let edit = newRow.insertCell();
-    requests.innerHTML = `<button class=\"request-btn\">${requestCount}</button>`;
-    prevYear.innerHTML = "<button class=\"prev-year-btn\">Anzeigen</button>";
-    edit.innerHTML = "<button class=\"edit-btn\">Bearbeiten</button>";
-
-    /**
-     * Adds a click event to the "Anfragen" button to display the modal showing an overview of pending requests.
-     */
-    requests.children[0].onclick = () => {
-        requestModal.style.display = "block";
-        // Parameters are just testing values for now. Change later.
-        displayRequestModalContent(startArray.length, typeArray, startArray, endArray);
-        disableMainWindowScrolling();
-    };
-
-    /**
-     * Adds a click event to the "Anzeigen" button to display the modal showing an overview of the previous years.
-     */
-    prevYear.children[0].onclick = () => {
+// Adds event to each "Anzeigen" button which is hard-coded in the HTML file.
+// Can be removed once all table entries are added via JS only.
+for (let button of prevYearButtons) {
+    button.addEventListener("click", () => {
         prevYearModal.style.display = "block";
         disableMainWindowScrolling();
-    };
-
-    /**
-     * Adds a click event to the "Bearbeiten" button to display the modal allowing for changes to be made.
-     */
-    edit.children[0].onclick = () => {
-        editModal.style.display = "block";
-        disableMainWindowScrolling();
-    }
+    });
 }
 
-// For testing. Remove later
-addUserToTable("Leonard", "2h 20min Schuld", 5, 1, 4, 1);
-addUserToTable("Christian", "4h 33min Guthaben", 1, 2, 8, 0);
-addUserToTable("Bärbel Holland", "1h 18min Guthaben", 2, 1, 2, 1);
-addUserToTable("Richard Alexander Marktdorf", "0h 39min Schuld", 9, 0, 0, 2);
-addUserToTable("Bastian Christoph", "1h 57min Guthaben", 0, 0, 1, 0);
-
+for (let button of editButtons) {
+    button.addEventListener("click", () => {
+        editModal.style.display = "block";
+        disableMainWindowScrolling();
+    });
+}
 /**
- * Closes the requests modal when clicking the "x".
- */
-closeRequestModal.addEventListener("click", () => {
-    requestModal.style.display = "none";
-    enableMainWindowScrolling();
-})
-
-/**
- * Closes the prev year modal when clicking the "x".
+ * Closes prev year modal when clicking the "x".
  */
 closePrevYearModal.addEventListener("click", () => {
     prevYearModal.style.display = "none";
     enableMainWindowScrolling();
-})
+});
+
+/**
+ * Closes the prev year modal when clicking outside of it.
+ */
+window.addEventListener("click", (event) => {
+    if (event.target === prevYearModal) {
+        prevYearModal.style.display = "none";
+        enableMainWindowScrolling();
+    }
+});
 
 /**
  * Closes the edit modal when clicking the "x".
@@ -102,20 +55,14 @@ closeEditModal.addEventListener("click", () => {
 })
 
 /**
- * Closes the current modal when clicking outside of it.
+ * Closes the edit modal when clicking outside of it.
  */
 window.addEventListener("click", (event) => {
-    if (event.target === prevYearModal) {
-        prevYearModal.style.display = "none";
-        enableMainWindowScrolling();
-    } else if (event.target === editModal) {
+    if (event.target === editModal) {
         editModal.style.display = "none";
         enableMainWindowScrolling();
-    } else if (event.target === requestModal) {
-        requestModal.style.display = "none";
-        enableMainWindowScrolling();
     }
-});
+})
 
 function disableMainWindowScrolling() {
     document.body.style.overflow = "hidden";
@@ -127,75 +74,9 @@ function enableMainWindowScrolling() {
     document.body.style.height = "auto";
 }
 
-/**
- * Displays the content of the request modal depending on the number of requests
- * @param {number} numOfRequests
- * @param {array<string>} eventType
- * @param {array<string>} startDate
- * @param {array<string>} endDate
- */
-function displayRequestModalContent(numOfRequests, eventType, startDate, endDate) {
-    const requestOverview = document.getElementById("request-overview");
-    requestOverview.innerHTML = "";
-    if (numOfRequests === 0) {
-        requestOverview.innerHTML = "Keine Anfragen vorhanden";
-    } else {
-        for (let i = 0; i < numOfRequests; i++) {
-            requestOverview.innerHTML += `
-                <div class="event-type"><p>${eventType[i]}</p></div>
-                <div><p>${startDate[i]}</p></div>
-                <div><p>&ndash;</p></div>
-                <div><p>${endDate[i]}</p></div>
-                <div><svg class="svg-accept" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg></div>
-                <div><svg class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
-                `;
-            const svgAccept = document.getElementsByClassName("svg-accept")[0];
-            const svgDeny = document.getElementsByClassName("svg-deny")[0];
-            svgAccept.addEventListener("click", () => {
-                // Accept the request
-            })
-            svgDeny.addEventListener("click", () => {
-                // Deny the request
-            })
-        }
-    }
-}
-
-// Testing arrays for request modal. Delete later
-let typeArray = ["Urlaub", "GLAZ", "Urlaub"];
-let startArray = ["01.11.2022", "23.11.2022", "04.12.2022"];
-let endArray = ["03.11.2022", "23.11.2022", "12.12.2022"];
-
-/**
- * Adds data to the year overview table in the modal.
- * @param year
- * @param work
- * @param sick
- * @param vacation
- * @param glaz
- * @param overtime
- */
-function addYear(year, work, sick, vacation, glaz, overtime) {
-    const yearOverviewTableBody = document.getElementById("year-overview-table").getElementsByTagName("tbody")[0];
-    let newRow = yearOverviewTableBody.insertRow();
-    let newYear = newRow.insertCell();
-    let newWork = newRow.insertCell();
-    let newSick = newRow.insertCell();
-    let newVacation = newRow.insertCell();
-    let newGLAZ = newRow.insertCell();
-    let newOvertime = newRow.insertCell();
-    newYear.innerText = year;
-    newWork.innerText = work;
-    newSick.innerText = sick;
-    newVacation.innerText = vacation;
-    newGLAZ.innerText = glaz;
-    newOvertime.innerText = overtime;
-}
-
-// For testing. Remove later
-addYear(2021, 365, 0, 30, 0, "00h 00min Guthaben");
-addYear(2022, 365, 0, 30, 0, "00h 00min Guthaben");
-
+saveButton.addEventListener("click", () => {
+    // Save data
+})
 
 const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
@@ -252,6 +133,7 @@ function filterTable() {
             }
         }
     }
+
     // Color the background of the result correctly
     // counter starts at 1 to keep in line with css nth-child selector
     let counter = 1;
@@ -264,8 +146,5 @@ function filterTable() {
         else if (counter % 2 === 1) tableRow[i].style.backgroundColor = "var(--clr-light)";
         counter++;
     }
-}
 
-saveButton.addEventListener("click", () => {
-    // Save data
-})
+}
