@@ -11,6 +11,20 @@
 </head>
 <body class="unselectable">
 
+    <div class="modal" id="request-modal">
+        <div class="modal-content modal-content-request">
+            <div class="modal-content__header">
+                <h2>USER NAME</h2>
+                <span class="close close-request-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <div id="request-overview">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="prev-year-modal">
         <div class="modal-content modal-content-prev-year">
             <div class="modal-content__header">
@@ -126,7 +140,7 @@
                     <td th:text="${user.get('sick')}"></td>
                     <td th:text="${user.get('glaz')}"></td>
                     <td th:text="${user.get('availableVacation')}"></td>
-                    <td><a th:text="${user.get('requests')}" href="#">No Data</a></td>
+                    <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
@@ -136,7 +150,7 @@
                     <td>5</td>
                     <td>1</td>
                     <td>4</td>
-                    <td><a href="#">1</a></td>
+                    <td><button class="request-btn">No Data</button></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
@@ -146,7 +160,7 @@
                     <td>1</td>
                     <td>2</td>
                     <td>8</td>
-                    <td><a href="#">0</a></td>
+                    <td><button class="request-btn">No Data</button></td>
                     <td><button class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
