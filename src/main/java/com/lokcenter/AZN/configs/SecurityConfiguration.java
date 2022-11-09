@@ -56,13 +56,18 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .mvcMatchers(HttpMethod.GET, "/dayplan").hasRole("User")
                                         .mvcMatchers(HttpMethod.GET, "/overview").hasRole("User")
                                         .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("Admin")
+                                        .mvcMatchers(HttpMethod.GET, "/yearplan/**").hasRole("User")
                                         // allow resources
                                         .mvcMatchers("/js/***", "/css/**").permitAll()
                                         // set authentication
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service
                                         .userInfoEndpoint().oidcUserService(this.oidcUserService())
-                                        .and().defaultSuccessUrl("/loginUser", true);
+                                        .and().defaultSuccessUrl("/loginUser", true)
+                                        .and().logout().invalidateHttpSession(true)
+                                        .clearAuthentication(true).logoutSuccessUrl("/")
+                                        .deleteCookies("JSESSIONID")
+                                        .permitAll();
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }

@@ -1,0 +1,38 @@
+input[type="radio"] {
+    appearance: none;
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--clr-accent);
+    border-radius: 50%;
+    color: var(--clr-light);
+}
+
+input[type="radio"]:hover {
+    filter: brightness(140%);
+}
+
+input[type="radio"]::before {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: 15%;
+    top: 15%;
+    border-radius: 50%;
+    visibility: hidden;
+    background-color: var(--clr-accent);
+}
+
+input[type="radio"]:disabled {
+    filter: grayscale(50%);
+    opacity: 50%;
+}
+
+input[type="radio"]:disabled:hover {
+    filter: brightness(100%);
+}
+
+input[type="radio"]:checked::before {
+    visibility: visible;
+}

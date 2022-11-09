@@ -116,6 +116,4 @@ Current status:
 
 Christian Lehnert - [@ChrLehnert](https://twitter.com/ChrLehnert) - <a href="mailto:christian.lehnert.home@protonmail.com">christian.lehnert.home@protonmail.com</a>
 
-<img width="100" src="readme/profile_chle.jpg">
-
 <p align="right">(<a href="#top">back to top</a>)</p>

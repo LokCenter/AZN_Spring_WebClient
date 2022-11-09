@@ -50,6 +50,8 @@
             <label for="radio-sick">Krank</label>
             <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" onclick="return false" disabled>
             <label for="radio-vacation">Urlaub</label>
+            <input type="checkbox" name="radio-holiday" id="radio-holiday" class="radio" value="holiday" onclick="return false" disabled>
+            <label for="radio-holiday">Feiertag</label>
             <input type="checkbox" name="radio-school" id="radio-school" class="radio" value="school">
             <label for="radio-school">Schule</label>
         </div>
@@ -83,10 +85,10 @@
                 }
             }
 
-            let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/;
-            let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/;
-            let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/;
-            let comment = /*[[${data.get('comment')}]]*/;
+            let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/ null;
+            let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/ null;
+            let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/ null;
+            let comment = /*[[${data.get('comment')}]]*/ null;
             let istTimeTemp = document.getElementById("ist").value
             if (startTimeTemp != null) {
                 document.getElementById('start_time').value = startTimeTemp.slice(0,-3);

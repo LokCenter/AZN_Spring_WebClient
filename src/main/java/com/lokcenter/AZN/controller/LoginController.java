@@ -53,10 +53,16 @@ public class LoginController {
             try {
                 // Microsoft email address e.g. username
                 String username = user.getName();
+                var roles = authentication.getAuthorities();
 
                 // current data without time
-                // playload
+                // payload
                 Map<String, Object> payload = new HashMap<>();
+
+                // get roles
+                if (!roles.isEmpty()) {
+                     payload.put("roles", roles);
+                }
 
                 payload.put("username", username);
 

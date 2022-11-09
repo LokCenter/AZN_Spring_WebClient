@@ -218,9 +218,9 @@ saveButton.addEventListener('click', (e) => {
     axios.defaults.headers.post[header] = token
     // data
     axios.post("/dayplan", {
-        "start_time": userInputData.get('start_time'),
-        "end_time": userInputData.get('end_time'),
-        "pause": userInputData.get('pause'),
+        "start_time": document.getElementById("start_time").value,
+        "end_time": document.getElementById("end_time").value,
+        "pause": document.getElementById("pause").value,
         "comment": userComment,
         "school": radioSchool,
         "sick": radioSick,
@@ -250,6 +250,25 @@ function onlyOneCheckBox(checkbox) {
     checkboxes.forEach((item) => {
         if (item !== checkbox) item.checked = false
     })
+}
+
+const disabledCheckboxes = Array.from(document.querySelectorAll("input[type='checkbox']:disabled"));
+let isCheckboxChecked = (checkbox) => checkbox.checked;
+const timeInputStart = document.querySelector("input[name='start_time']");
+const timeInputEnd = document.querySelector("input[name='end_time']");
+const timeInputPause = document.querySelector("input[name='pause']");
+
+/**
+ * Disable inputs of type "time" when any disabled checkbox is checked.
+ */
+if (disabledCheckboxes.some(isCheckboxChecked) === true) {
+    timeInputStart.disabled = true;
+    timeInputEnd.disabled = true;
+    timeInputPause.disabled = true;
+} else {
+    timeInputStart.disabled = false;
+    timeInputEnd.disabled = false;
+    timeInputPause.disabled = false;
 }
 
 /**
