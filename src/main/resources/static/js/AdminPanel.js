@@ -37,7 +37,7 @@ closePrevYearModal.addEventListener("click", () => {
 });
 
 /**
- * Closes the prev year modal when clicking outside of it.
+ * Closes the prev year modal when clicking outside it.
  */
 window.addEventListener("click", (event) => {
     if (event.target === prevYearModal) {
@@ -55,7 +55,7 @@ closeEditModal.addEventListener("click", () => {
 })
 
 /**
- * Closes the edit modal when clicking outside of it.
+ * Closes the edit modal when clicking outside it.
  */
 window.addEventListener("click", (event) => {
     if (event.target === editModal) {
@@ -108,7 +108,7 @@ durationInput.addEventListener("change", () => {
 
 const searchBar = document.getElementById("filter-input");
 /**
- * Trigger filterTable() when clearing the input by clicking the "x" in those browser that support it.
+ * Trigger filterTable() when clearing the input by clicking the "x" in this browser that support it.
  */
 searchBar.addEventListener("search", () => {
     if (document.getElementById("filter-input").value === "") filterTable();
