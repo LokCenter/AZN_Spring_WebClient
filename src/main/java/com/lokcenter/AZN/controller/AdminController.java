@@ -84,7 +84,7 @@ public class AdminController {
      *
      * @return Json Data
      */
-    @GetMapping
+    @GetMapping("/yearplan")
     @ResponseBody
     String getYearPlanOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
@@ -101,7 +101,7 @@ public class AdminController {
      *
      * @return Json Data
      */
-    @GetMapping
+    @GetMapping("/requests")
     @ResponseBody
     String getRequestsOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
