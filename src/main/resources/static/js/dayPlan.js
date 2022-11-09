@@ -2,8 +2,8 @@
  * Test functions
  * to be deleted later
  */
-function testOutput(text) {
-    console.log(text)
+function testOutput() {
+    console.log('test')
 }
 
 
@@ -222,12 +222,10 @@ saveButton.addEventListener('click', (e) => {
         "end_time": userInputData.get('end_time'),
         "pause": userInputData.get('pause'),
         "comment": userComment,
-        // checked data
         "school": radioSchool,
         "sick": radioSick,
         "vacation": radioVacation,
         "glaz": radioGlaz,
-        //date
         "date": currDate.format("DD-MM-YYYY")
 
     }).then(async (res) => {
@@ -263,6 +261,3 @@ function onlyOneCheckBox(checkbox) {
 function sleep(milli) {
     return new Promise(resolve => setTimeout(resolve, milli));
 }
-
-// default value to check if something has changed
-let inputChange = false // default is false
