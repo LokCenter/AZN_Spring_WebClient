@@ -70,6 +70,7 @@ public class AdminController {
                 e.printStackTrace();
             }
 
+
             model.addAttribute("data", jsonData);
         }
 
