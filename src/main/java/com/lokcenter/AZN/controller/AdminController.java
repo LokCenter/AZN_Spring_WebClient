@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -27,7 +29,7 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 /**
  * Admin Controller
  *
- * @version 1.07 2022-05-29
+ * @version 1.09 2022-11-09
  */
 @Controller
 @AllArgsConstructor
@@ -69,13 +71,45 @@ public class AdminController {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-
-
-
             model.addAttribute("data", jsonData);
-
         }
 
         return "adminPanel";
+    }
+
+    /**
+     * Request Year Plan Data from userId
+     *
+     * @param userId requested userId
+     *
+     * @return Json Data
+     */
+    @GetMapping
+    @ResponseBody
+    String getYearPlanOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                             OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                             @RequestParam(name = "userId") String userId) {
+
+        // TODO: Verify if request is made by an Admin
+        // TODO: Request Data by userId
+        // TODO: JSON String
+        return "";
+    }
+
+    /**
+     * Request Request Datafrom userId
+     *
+     * @return Json Data
+     */
+    @GetMapping
+    @ResponseBody
+    String getRequestsOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                             OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                             @RequestParam(name = "userId") String userId) {
+        // TODO: Verify if request is made by an Admin
+        // TODO: Request Data by userId
+        // TODO: JSON String
+
+        return "";
     }
 }
