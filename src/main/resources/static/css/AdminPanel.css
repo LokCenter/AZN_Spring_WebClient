@@ -153,16 +153,16 @@ button:hover {
 
 .modal-content {
     width: 50em;
-    height: 30em;
+    min-height: 8em;
     margin: 5em auto;
     background-color: var(--clr-light);
     border-radius: 2em;
     box-shadow: 0 0 1em 0 var(--clr-dark);
 }
 
-.modal-content-edit {
+.modal-content-edit,
+.modal-content-request {
     width: 40em;
-    height: 40em;
 }
 
 .modal-content__header {
@@ -172,7 +172,7 @@ button:hover {
     padding: 0.4em 1.4em;
     border-top-left-radius: 2em;
     border-top-right-radius: 2em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.5rem;
 }
 
 #edit-modal .modal-content__header {
@@ -199,6 +199,7 @@ h2,
 .modal-content table {
     border-spacing: 2em 0.4em;
     text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .modal-content table * {
@@ -214,6 +215,43 @@ h2,
 .modal-content td {
     background-color: var(--clr-mid);
     border-radius: 1em;
+}
+
+#request-overview {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.2em 2fr 1fr 1fr;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+#request-overview div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 0.2em;
+    border-bottom: 2px solid var(--clr-accent);
+}
+
+#request-overview div.event-type {
+    justify-content: left;
+}
+
+#request-overview > *:nth-last-child(-n+6) {
+    border-bottom: none;
+}
+
+#request-overview svg {
+    width: 1.4em;
+    height: 1.4em;
+    cursor: pointer;
+}
+
+.svg-accept {
+    fill: green;
+}
+
+.svg-deny {
+    fill: red;
 }
 
 .modal-content-edit .time-info {
