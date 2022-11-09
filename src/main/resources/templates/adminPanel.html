@@ -121,7 +121,14 @@
             </thead>
             <tbody>
                 <tr th:each="user: ${data}">
-<!--                    <td th:text="${user.get('name').textValue()}" th:onclick="'redirect('+ *{user.get('userId')} +')'"></td>-->
+                    <td th:text="${user.get('name').textValue()}" th:onclick="'redirect('+ *{user.get('userid')} +')'"></td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td>No Data</td>
+                    <td><a href="#">No Data</a></td>
+                    <td><button class="prev-year-btn">Anzeigen</button></td>
+                    <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
                 <tr>
                     <td>Leonard</td>
@@ -152,11 +159,11 @@
             <a href="admin/overview">Monatsübersicht (Admin)</a>
         </div>
     <script>
+
         addYear(2021, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
         addYear(2022, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
-        /*<![CDATA[*/
-        /**
-        /*]]>*/
+
+
     </script>
     <script th:src="@{/js/AdminPanel.js}"></script>
 </body>

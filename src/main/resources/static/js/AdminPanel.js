@@ -12,56 +12,6 @@ function redirect(id) {
     console.log(id);
 }
 
-/**
- * Adds a user to the admin panel table.
- * @param name
- * @param overtime
- * @param sick
- * @param glaz
- * @param vacation
- */
-function addUserToTable(name, overtime, sick, glaz, vacation) {
-    const APTable = document.getElementById("APTable");
-    const newRow = APTable.insertRow();
-    let newName = newRow.insertCell();
-    let newOvertime = newRow.insertCell();
-    let newSick = newRow.insertCell();
-    let newGlaz = newRow.insertCell();
-    let newVacation = newRow.insertCell();
-    newName.innerText = name;
-    newOvertime.innerText = overtime;
-    newSick.innerText = sick;
-    newGlaz.innerText = glaz;
-    newVacation.innerText = vacation;
-
-    let requests = newRow.insertCell();
-    let prevYear = newRow.insertCell();
-    let edit = newRow.insertCell();
-    requests.innerHTML = "<a href=\"#\">0</a>";
-    prevYear.innerHTML = "<button class=\"prev-year-btn\">Anzeigen</button>";
-    edit.innerHTML = "<button class=\"edit-btn\">Bearbeiten</button>";
-
-    /**
-     * Adds a click event to the "Anzeigen" button to display the modal showing an overview of the previous years.
-     */
-    prevYear.children[0].onclick = () => {
-        prevYearModal.style.display = "block";
-        disableMainWindowScrolling();
-    };
-
-    /**
-     * Adds a click event to the "Bearbeiten" button to display the modal allowing for changes to be made.
-     */
-    edit.children[0].onclick = () => {
-        editModal.style.display = "block";
-        disableMainWindowScrolling();
-    }
-}
-
-addUserToTable("Bärbel Holland", "1h 18min Guthaben", 2, 1, 2);
-addUserToTable("Richard Alexander Marktdorf", "0h 39min Schuld", 9, 0, 0);
-addUserToTable("Bastian Christoph", "1h 57min Guthaben", 0, 0, 1);
-
 
 // Adds event to each "Anzeigen" button which is hard-coded in the HTML file.
 // Can be removed once all table entries are added via JS only.
