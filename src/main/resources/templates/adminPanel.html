@@ -55,7 +55,7 @@
     <div class="modal" id="edit-modal">
         <div class="modal-content modal-content-edit">
             <div class="modal-content__header">
-                <h2>USER NAME</h2>
+                <h2 id="user-name-modal">No Data</h2>
                 <span class="close close-edit-modal">&times;</span>
             </div>
             <div class="modal-content__body">
@@ -142,6 +142,7 @@
                     <td th:text="${user.get('glaz')}"></td>
                     <td th:text="${user.get('availableVacation')}"></td>
                     <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
+                    <!--Todo: user.get('userId').asInt(), user.get('name').textValue(), "admin/yearplan"                       -->
                     <td><button th:onclick="'showYearPlanByUser(\'' + ${user.get('userId').asInt()} + '\', \'admin/yearplan\');'" class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
