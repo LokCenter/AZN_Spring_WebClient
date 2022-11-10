@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/monthPlan.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
+  </head>
+  <body>
+    <div th:replace="fragments/toggle :: toggle"></div>
+    <div th:replace="fragments/dateSwitchMonth :: dateSwitch"></div>
+
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th scope="column">Datum</th>
+            <th scope="column">Arbeitsbeginn</th>
+            <th scope="column">Arbeitsende</th>
+            <th scope="column">Pause</th>
+            <th scope="column">Istzeit</th>
+            <th scope="column">Sollzeit</th>
+            <th scope="column">GLAZ</th>
+            <th scope="column">Krank</th>
+            <th scope="column">Urlaub</th>
+            <th scope="column">Feiertag</th>
+            <th scope="column">Schule</th>
+            <th scope="column">Bemerkung</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </body>
+</html>
