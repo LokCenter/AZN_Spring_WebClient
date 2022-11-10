@@ -136,7 +136,7 @@
             </thead>
             <tbody>
                 <tr th:each="user: ${data}">
-                    <td th:text="${user.get('name').textValue()}" th:onclick="'redirect('+ *{user.get('userid')} +')'"></td>
+                    <td th:text="${user.get('name').textValue()}" th:onclick="'javascript:console.log(' + ${user.get('userId').asInt()} + ')'"></td>
                     <td>No Data</td>
                     <td th:text="${user.get('sick')}"></td>
                     <td th:text="${user.get('glaz')}"></td>
