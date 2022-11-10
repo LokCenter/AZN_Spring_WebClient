@@ -81,9 +81,8 @@ closePrevYearModal.addEventListener("click", () => {
     enableMainWindowScrolling();
 
     // clear table
-    const old_tbody = document.getElementById("year-overview-table-body")
-    const new_tbody = document.createElement('tbody');
-    old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+    const tbody = document.getElementById("year-overview-table-body")
+    tbody.innerHTML = "";
 });
 
 /**
@@ -102,9 +101,8 @@ window.addEventListener("click", (event) => {
         prevYearModal.style.display = "none";
         enableMainWindowScrolling();
         // clear table
-        const old_tbody = document.getElementById("year-overview-table-body")
-        const new_tbody = document.createElement('tbody');
-        old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+        const tbody = document.getElementById("year-overview-table-body")
+        tbody.innerHTML = "";
     } else if (event.target === editModal) {
         editModal.style.display = "none";
         enableMainWindowScrolling();
