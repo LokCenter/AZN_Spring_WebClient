@@ -44,7 +44,7 @@
                             <th scope="col">Zeitkonto</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="year-overview-table-body">
 
                     </tbody>
                 </table>
@@ -134,7 +134,7 @@
                     <th scope="col">Bearbeiten</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr th:each="user: ${data}">
                     <td th:text="${user.get('name').textValue()}" th:onclick="'javascript:console.log(' + ${user.get('userId').asInt()} + ')'"></td>
                     <td>No Data</td>
@@ -142,7 +142,7 @@
                     <td th:text="${user.get('glaz')}"></td>
                     <td th:text="${user.get('availableVacation')}"></td>
                     <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
-                    <td><button th:onclick="'adminRequest(\'' + ${user.get('userId').asInt()} + '\', \'admin/yearplan\');'" class="prev-year-btn">Anzeigen</button></td>
+                    <td><button th:onclick="'showYearPlanByUser(\'' + ${user.get('userId').asInt()} + '\', \'admin/yearplan\');'" class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
             </tbody>
@@ -153,13 +153,6 @@
             <a href="admin/dayplan">Tagesübersicht (Admin)</a>
             <a href="admin/overview">Monatsübersicht (Admin)</a>
         </div>
-    <script>
-
-        addYear(2021, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
-        addYear(2022, 365, 0, 30, 0, "00h 00min Guthaben", "year-overview-table");
-
-
-    </script>
     <script th:src="@{/js/AdminPanel.js}"></script>
 </body>
 </html>

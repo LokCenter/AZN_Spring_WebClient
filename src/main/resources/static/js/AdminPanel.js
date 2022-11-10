@@ -18,14 +18,29 @@ const saveButton = document.getElementById("save-user-data-button");
  * @param userid id from user
  * @param path backend path
  */
-const adminRequest = (userid, path) => {
+const showYearPlanByUser = (userid, path) => {
     // Java Backend request
     // User Session cookie
     axios.defaults.withCredentials = true;
 
     axios.get(path + "?userId=" + userid)
         .then((response) => {
-            console.log(response.data);
+            if (response.data !== '' && response.data.constructor === Object) {
+                let years = response.data;
+
+               for (let year in years) {
+                   work = years[year].workDay !== undefined ? years[year].workDay : 0;
+                   sick = years[year].SickDays !== undefined ? years[year].SickDays : 0;
+                   vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
+                   glaz = years[year].glazDays !== undefined ? years[year].glazDays : 0;
+
+                   addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview-table")
+               }
+
+                prevYearModal.style.display = "block";
+                disableMainWindowScrolling();
+            }
+
         }).catch((e) => {
         console.log("cannot request data")
     })
@@ -38,14 +53,6 @@ function redirect(id) {
 for (let button of requestButtons) {
     button.addEventListener("click", () => {
         requestModal.style.display = "block";
-        disableMainWindowScrolling();
-    });
-}
-
-for (let button of prevYearButtons) {
-    button.addEventListener("click", () => {
-
-        prevYearModal.style.display = "block";
         disableMainWindowScrolling();
     });
 }
@@ -72,6 +79,11 @@ closeRequestModal.addEventListener("click", () => {
 closePrevYearModal.addEventListener("click", () => {
     prevYearModal.style.display = "none";
     enableMainWindowScrolling();
+
+    // clear table
+    const old_tbody = document.getElementById("year-overview-table-body")
+    const new_tbody = document.createElement('tbody');
+    old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
 });
 
 /**
