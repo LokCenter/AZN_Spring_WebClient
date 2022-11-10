@@ -102,7 +102,7 @@ public class AdminController {
         }
 
         // TODO: Request Data by userId
-        Mono<String> res = webClient.get().uri(String.format("/admin/years?userid=", userId)).
+        Mono<String> res = webClient.get().uri(String.format("/admin/years?userid=%s", userId)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // check if there is any data
