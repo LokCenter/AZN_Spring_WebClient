@@ -101,6 +101,10 @@ window.addEventListener("click", (event) => {
     if (event.target === prevYearModal) {
         prevYearModal.style.display = "none";
         enableMainWindowScrolling();
+        // clear table
+        const old_tbody = document.getElementById("year-overview-table-body")
+        const new_tbody = document.createElement('tbody');
+        old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
     } else if (event.target === editModal) {
         editModal.style.display = "none";
         enableMainWindowScrolling();
