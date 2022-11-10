@@ -13,6 +13,24 @@ const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
 // Save button
 const saveButton = document.getElementById("save-user-data-button");
 
+/**
+ *
+ * @param userid id from user
+ * @param path backend path
+ */
+const adminRequest = (userid, path) => {
+    // Java Backend request
+    // User Session cookie
+    axios.defaults.withCredentials = true;
+
+    axios.get(path + "?userId=" + userid)
+        .then((response) => {
+
+        }).catch((e) => {
+        console.log("cannot request data")
+    })
+}
+
 function redirect(id) {
     console.log(id);
 }
@@ -26,6 +44,7 @@ for (let button of requestButtons) {
 
 for (let button of prevYearButtons) {
     button.addEventListener("click", () => {
+
         prevYearModal.style.display = "block";
         disableMainWindowScrolling();
     });
@@ -37,6 +56,7 @@ for (let button of editButtons) {
         disableMainWindowScrolling();
     });
 }
+
 
 /**
  * Closes request modal when clicking the "x".

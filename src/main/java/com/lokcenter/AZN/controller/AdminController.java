@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,10 +13,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -72,6 +70,7 @@ public class AdminController {
                 e.printStackTrace();
             }
             model.addAttribute("data", jsonData);
+            System.out.println(jsonData);
         }
 
         return "adminPanel";
@@ -88,7 +87,9 @@ public class AdminController {
     @ResponseBody
     String getYearPlanOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                             @RequestParam(name = "userId") String userId) {
+                             @RequestParam(name = "userId") String userId, @RequestHeader HttpHeaders headers) {
+
+        System.out.println(headers.entrySet());
 
         // TODO: Verify if request is made by an Admin
         // TODO: Request Data by userId

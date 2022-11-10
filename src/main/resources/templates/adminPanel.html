@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/AdminPanel.css}"/>
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script th:src="@{/js/helper/yearOverviewTable.js}"></script>
 </head>
 <body class="unselectable">
@@ -135,13 +136,13 @@
             </thead>
             <tbody>
                 <tr th:each="user: ${data}">
-                    <td th:text="${user.get('name').textValue()}" th:onclick="'javascript:console.log(' + ${user.get('userId').asInt()} + ')'"></td>
+                    <td th:text="${user.get('name').textValue()}" th:onclick="'redirect('+ *{user.get('userid')} +')'"></td>
                     <td>No Data</td>
                     <td th:text="${user.get('sick')}"></td>
                     <td th:text="${user.get('glaz')}"></td>
                     <td th:text="${user.get('availableVacation')}"></td>
                     <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
-                    <td><button class="prev-year-btn">Anzeigen</button></td>
+                    <td><button th:onclick="'adminRequest(\'' + ${user.get('userId').asInt()} + '\', \'admin/yearplan\');'" class="prev-year-btn">Anzeigen</button></td>
                     <td><button class="edit-btn">Bearbeiten</button></td>
                 </tr>
                 <tr>
