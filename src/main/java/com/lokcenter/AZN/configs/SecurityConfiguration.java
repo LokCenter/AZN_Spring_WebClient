@@ -57,6 +57,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .mvcMatchers(HttpMethod.GET, "/overview").hasRole("User")
                                         .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("Admin")
                                         .mvcMatchers(HttpMethod.GET, "/yearplan/**").hasRole("User")
+                                        .mvcMatchers(HttpMethod.GET, "/monthplan").hasAnyRole("User", "Admin")
                                         // allow resources
                                         .mvcMatchers("/js/***", "/css/**").permitAll()
                                         // set authentication
