@@ -129,4 +129,10 @@ public class AdminController {
 
         return "";
     }
+
+    @GetMapping("/monthplan")
+    String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
+                        OAuth2AuthorizedClient authorizedClient, Authentication authentication) {
+        return "monthPlan";
+    }
 }
