@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lokcenter.AZN.helper.ds.Search;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,6 +22,7 @@ import reactor.core.publisher.Mono;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -87,13 +89,27 @@ public class AdminController {
     @ResponseBody
     String getYearPlanOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                             @RequestParam(name = "userId") String userId, @RequestHeader HttpHeaders headers) {
+                             @RequestParam(name = "userId") String userId) throws Exception {
 
-        System.out.println(headers.entrySet());
+        var roles = authentication.getAuthorities();
 
-        // TODO: Verify if request is made by an Admin
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+
+        } else if (Search.binarySearch(roles.stream()
+                .toList().stream().map(Objects::toString).toList(), "ROLE_Admin") == -1) {
+            throw new Exception("Not Authorized");
+        }
+
         // TODO: Request Data by userId
-        // TODO: JSON String
+        Mono<String> res = webClient.get().uri(String.format("/admin/years?userid=", userId)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+        if (res.block() != null) {
+            return new ObjectMapper().readTree(res.block()).toPrettyString();
+        }
+
         return "";
     }
 

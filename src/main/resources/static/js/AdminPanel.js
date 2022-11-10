@@ -25,7 +25,7 @@ const adminRequest = (userid, path) => {
 
     axios.get(path + "?userId=" + userid)
         .then((response) => {
-
+            console.log(response.data);
         }).catch((e) => {
         console.log("cannot request data")
     })
