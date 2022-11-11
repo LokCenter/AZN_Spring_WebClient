@@ -14,6 +14,28 @@ const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
 const saveButton = document.getElementById("save-user-data-button");
 
 /**
+ * Make Request
+ *
+ * @param path request path
+ * @param userid requested user id
+ * @param res_callback callback func to work with response data
+ */
+const makeRequest = (path, userid, res_callback) => {
+    // User Session cookie
+    axios.defaults.withCredentials = true;
+
+    axios.get(path + "?userId=" + userid)
+        .then((response) => {
+            if (response.data !== '' && response.data.constructor === Object) {
+                res_callback(response.data);
+            }
+
+        }).catch((e) => {
+        console.log("cannot request data")
+    })
+}
+
+/**
  *
  * @param userid id from user
  * @param username
@@ -23,32 +45,20 @@ const showYearPlanByUser = (userid, username, path) => {
     // set username
     document.getElementById("user-name-modal").innerHTML = username;
 
-    // Java Backend request
-    // User Session cookie
-    axios.defaults.withCredentials = true;
+    makeRequest(path, userid, (data) => {
+        let years = data;
 
-    axios.get(path + "?userId=" + userid)
-        .then((response) => {
-            if (response.data !== '' && response.data.constructor === Object) {
-                let years = response.data;
+        for (let year in years) {
+            work = years[year].workDay !== undefined ? years[year].workDay : 0;
+            sick = years[year].SickDays !== undefined ? years[year].SickDays : 0;
+            vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
+            glaz = years[year].glazDays !== undefined ? years[year].glazDays : 0;
 
-               for (let year in years) {
-                   work = years[year].workDay !== undefined ? years[year].workDay : 0;
-                   sick = years[year].SickDays !== undefined ? years[year].SickDays : 0;
-                   vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
-                   glaz = years[year].glazDays !== undefined ? years[year].glazDays : 0;
+            addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview-table")
+        }
 
-                   addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview-table")
-
-
-               }
-
-                prevYearModal.style.display = "block";
-                disableMainWindowScrolling();
-            }
-
-        }).catch((e) => {
-        console.log("cannot request data")
+        prevYearModal.style.display = "block";
+        disableMainWindowScrolling();
     })
 }
 
