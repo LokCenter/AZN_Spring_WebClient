@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -36,6 +38,24 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @RequestMapping("/admin")
 public class AdminController {
     private final WebClient webClient;
+
+    /**
+     * Check if user is admin
+     * @param roles roles collection
+     * @return true if admin
+     * @throws Exception if user is not an admin
+     */
+    private boolean isAdmin(Collection<? extends GrantedAuthority> roles) throws Exception {
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+
+        } else if (Search.binarySearch(roles.stream()
+                .toList().stream().map(Objects::toString).toList(), "ROLE_Admin") == -1) {
+            throw new Exception("Not Authorized");
+        }
+
+        return true;
+    }
 
     /**
      * Return Admin Panel for administration
@@ -91,30 +111,21 @@ public class AdminController {
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
                              @RequestParam(name = "userId") String userId) throws Exception {
 
-        var roles = authentication.getAuthorities();
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri(String.format("/admin/years?userid=%s", userId)).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
-        if (roles.isEmpty()) {
-            throw new Exception("No Role");
-
-        } else if (Search.binarySearch(roles.stream()
-                .toList().stream().map(Objects::toString).toList(), "ROLE_Admin") == -1) {
-            throw new Exception("Not Authorized");
-        }
-
-        // TODO: Request Data by userId
-        Mono<String> res = webClient.get().uri(String.format("/admin/years?userid=%s", userId)).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
-
-        // check if there is any data
-        if (res.block() != null) {
-            return new ObjectMapper().readTree(res.block()).toPrettyString();
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
         }
 
         return "";
     }
 
     /**
-     * Request Request Datafrom userId
+     * Request Request Data from userId
      *
      * @return Json Data
      */
@@ -122,10 +133,17 @@ public class AdminController {
     @ResponseBody
     String getRequestsOfUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                              OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                             @RequestParam(name = "userId") String userId) {
-        // TODO: Verify if request is made by an Admin
-        // TODO: Request Data by userId
-        // TODO: JSON String
+                             @RequestParam(name = "userId") String userId) throws Exception {
+
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri(String.format("/admin/requests?userId=%s", userId)).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
+        }
 
         return "";
     }

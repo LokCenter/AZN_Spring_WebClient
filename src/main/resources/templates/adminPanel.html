@@ -15,7 +15,7 @@
     <div class="modal" id="request-modal">
         <div class="modal-content modal-content-request">
             <div class="modal-content__header">
-                <h2>USER NAME</h2>
+                <h2 id="request-modal-username">USER NAME</h2>
                 <span class="close close-request-modal">&times;</span>
             </div>
             <div class="modal-content__body">
@@ -143,7 +143,14 @@
                 <td th:text="${user.get('sick')}"></td>
                 <td th:text="${user.get('glaz')}"></td>
                 <td th:text="${user.get('availableVacation')}"></td>
-                <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
+                <td>
+                    <button th:data-name="${user.get('name').textValue()}"
+                            th:data-id="${user.get('userId').asInt()}"
+                            th:text="${user.get('requests')}"
+                            onclick="showRequestListByUser(this.getAttribute('data-id'), this.getAttribute('data-name'), 'admin/requests')"
+                            class="request-btn">
+                    </button>
+                </td>
                 <td>
                     <button th:data-name="${user.get('name').textValue()}"
                             th:data-id="${user.get('userId').asInt()}"

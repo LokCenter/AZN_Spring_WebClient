@@ -31,7 +31,7 @@ const makeRequest = (path, userid, res_callback) => {
             }
 
         }).catch((e) => {
-        console.log("cannot request data")
+        console.log("cannot request data", e)
     })
 }
 
@@ -59,6 +59,15 @@ const showYearPlanByUser = (userid, username, path) => {
 
         prevYearModal.style.display = "block";
         disableMainWindowScrolling();
+    })
+}
+
+const showRequestListByUser = (userid, username, path) => {
+    // set username
+    document.getElementById("request-modal-username").innerHTML = username;
+
+    makeRequest(path, userid, (data) => {
+        console.log(data)
     })
 }
 
