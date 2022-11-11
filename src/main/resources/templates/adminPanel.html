@@ -138,7 +138,7 @@
             <tr th:each="user: ${data}">
                 <td th:text="${user.get('name').textValue()}"
                     th:data-id="${user.get('userId').asInt()}"
-                    onclick="console.log(this.getAttribute('data-id'))"></td>
+                    onclick="window.location.href = `/admin/dayplan?userid=${this.getAttribute('data-id')}`"></td>
                 <td>No Data</td>
                 <td th:text="${user.get('sick')}"></td>
                 <td th:text="${user.get('glaz')}"></td>
