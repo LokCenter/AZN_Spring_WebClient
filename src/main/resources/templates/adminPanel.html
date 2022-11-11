@@ -12,155 +12,156 @@
 </head>
 <body class="unselectable">
 
-<div class="modal" id="request-modal">
-    <div class="modal-content modal-content-request">
-        <div class="modal-content__header">
-            <h2>USER NAME</h2>
-            <span class="close close-request-modal">&times;</span>
-        </div>
-        <div class="modal-content__body">
-            <div id="request-overview">
+    <div class="modal" id="request-modal">
+        <div class="modal-content modal-content-request">
+            <div class="modal-content__header">
+                <h2>USER NAME</h2>
+                <span class="close close-request-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <div id="request-overview">
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal" id="prev-year-modal">
-    <div class="modal-content modal-content-prev-year">
-        <div class="modal-content__header">
-            <h2>USER NAME</h2>
-            <span class="close close-prev-year-modal">&times;</span>
-        </div>
-        <div class="modal-content__body">
-            <table id="year-overview-table">
-                <thead>
-                <tr>
-                    <th scope="col">Jahr</th>
-                    <th scope="col">Arbeit</th>
-                    <th scope="col">Krank</th>
-                    <th scope="col">Urlaub</th>
-                    <th scope="col">GLAZ</th>
-                    <th scope="col">Zeitkonto</th>
-                </tr>
-                </thead>
-                <tbody id="year-overview-table-body">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="edit-modal">
-    <div class="modal-content modal-content-edit">
-        <div class="modal-content__header">
-            <h2 id="user-name-modal">No Data</h2>
-            <span class="close close-edit-modal">&times;</span>
-        </div>
-        <div class="modal-content__body">
-            <form name="edit-user-data" action="" method="">
-
-                <div class="time-info">
-                    <input type="time" name="work-start" id="work-start" required>
-                    <label for="work-start">Arbeitsbeginn</label>
-                    <input type="time" name="work-end" id="work-end" required>
-                    <label for="work-end">Arbeitsende</label>
-                    <input type="time" name="pause" id="pause" required>
-                    <label for="pause">Pause</label>
-                </div>
-
-                <div class="duration-container">
-                    <label for="duration">Ausbildungsdauer (Jahre):</label>
-                    <input type="number" min="0" max="5" name="duration" id="duration" required>
-                </div>
-
-                <div class="vacation-container">
-                    <table class="vacation-info" id="vacation-info">
-                        <thead>
+    <div class="modal" id="prev-year-modal">
+        <div class="modal-content modal-content-prev-year">
+            <div class="modal-content__header">
+                <h2 id="user-name-modal">NO DATA</h2>
+                <span class="close close-prev-year-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <table id="year-overview-table">
+                    <thead>
                         <tr>
                             <th scope="col">Jahr</th>
-                            <th scope="col">Urlaubstage</th>
+                            <th scope="col">Arbeit</th>
+                            <th scope="col">Krank</th>
+                            <th scope="col">Urlaub</th>
+                            <th scope="col">GLAZ</th>
+                            <th scope="col">Zeitkonto</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <label for="vacation-1">1. Jahr</label>
-                            </td>
-                            <td>
-                                <input type="text" name="vacation-1" id="vacation-1" max="2">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </thead>
+                    <tbody id="year-overview-table-body">
 
-                <button id="save-user-data-button">Speichern</button>
-            </form>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<header class="APheader">
-    <h1>Admin Panel</h1>
-    <div class="logout-container">
-        <a href="#" class="svg-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                <path d="M160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128V384c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32h64zM504.5 273.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32H320v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z"/>
-            </svg>
-        </a>
+    <div class="modal" id="edit-modal">
+        <div class="modal-content modal-content-edit">
+            <div class="modal-content__header">
+                <h2 id="user-name-modal-edit">No Data</h2>
+                <span class="close close-edit-modal">&times;</span>
+            </div>
+            <div class="modal-content__body">
+                <form name="edit-user-data" action="" method="">
+
+                    <div class="time-info">
+                        <input type="time" name="work-start" id="work-start" required>
+                        <label for="work-start">Arbeitsbeginn</label>
+                        <input type="time" name="work-end" id="work-end" required>
+                        <label for="work-end">Arbeitsende</label>
+                        <input type="time" name="pause" id="pause" required>
+                        <label for="pause">Pause</label>
+                    </div>
+
+                    <div class="duration-container">
+                        <label for="duration">Ausbildungsdauer (Jahre):</label>
+                        <input type="number" min="0" max="5" name="duration" id="duration" required>
+                    </div>
+
+                    <div class="vacation-container">
+                        <table class="vacation-info" id="vacation-info">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Jahr</th>
+                                    <th scope="col">Urlaubstage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="vacation-1">1. Jahr</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="vacation-1" id="vacation-1" max="2">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button id="save-user-data-button">Speichern</button>
+                </form>
+            </div>
+        </div>
     </div>
-</header>
+
+    <header class="APheader">
+        <h1>Admin Panel</h1>
+        <div class="logout-container">
+            <a href="#" class="svg-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128V384c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32h64zM504.5 273.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32H320v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
 
 
-<main>
-    <div class="filter-container">
-        <input type="search" name="filter-input" id="filter-input" placeholder="Nach Teilnehmern suchen..." spellcheck="false" onkeyup="filterTable()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg>
-    </div>
-    <table class="APTable" id="APTable">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Zeitkonto</th>
-            <th scope="col">Krankheitstage</th>
-            <th scope="col">GLAZ</th>
-            <th scope="col">Freie Urlaubstage</th>
-            <th scope="col">Anfragen</th>
-            <th scope="col">Jahresübersicht</th>
-            <th scope="col">Bearbeiten</th>
-        </tr>
-        </thead>
-        <tbody >
-        <tr th:each="user: ${data}">
-            <td th:text="${user.get('name').textValue()}"
-                th:data-id="${user.get('userId').asInt()}"
-                onclick="console.log(this.getAttribute('data-id'))"></td>
-            <td>No Data</td>
-            <td th:text="${user.get('sick')}"></td>
-            <td th:text="${user.get('glaz')}"></td>
-            <td th:text="${user.get('availableVacation')}"></td>
-            <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
-            <td>
-                <button th:data-name="${user.get('name').textValue()}"
-                        th:data-id="${user.get('userId').asInt()}"
-                        onclick="showYearPlanByUser(this.getAttribute('data-id'), this.getAttribute('data-name'), 'admin/yearplan')" class="prev-year-btn">
-                    Anzeigen
-                </button>
-            </td>
-            <td><button class="edit-btn">Bearbeiten</button></td>
-        </tr>
-        </tbody>
-    </table>
-</main>
+    <main>
+        <div class="filter-container">
+            <input type="search" name="filter-input" id="filter-input" placeholder="Nach Teilnehmern suchen..." spellcheck="false" onkeyup="filterTable()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg>
+        </div>
 
-<div class="temporary">
-    <a href="admin/dayplan">Tagesübersicht (Admin)</a>
-    <a href="admin/monthplan">Monatsübersicht (Admin)</a>
-    <a href="admin/overview">Kalender (Admin)</a>
-</div>
-<script th:src="@{/js/AdminPanel.js}"></script>
+        <table class="APTable" id="APTable">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Zeitkonto</th>
+                    <th scope="col">Krankheitstage</th>
+                    <th scope="col">GLAZ</th>
+                    <th scope="col">Freie Urlaubstage</th>
+                    <th scope="col">Anfragen</th>
+                    <th scope="col">Jahresübersicht</th>
+                    <th scope="col">Bearbeiten</th>
+                </tr>
+            </thead>
+            <tbody >
+            <tr th:each="user: ${data}">
+                <td th:text="${user.get('name').textValue()}"
+                    th:data-id="${user.get('userId').asInt()}"
+                    onclick="console.log(this.getAttribute('data-id'))"></td>
+                <td>No Data</td>
+                <td th:text="${user.get('sick')}"></td>
+                <td th:text="${user.get('glaz')}"></td>
+                <td th:text="${user.get('availableVacation')}"></td>
+                <td><button th:text="${user.get('requests')}" class="request-btn"></button></td>
+                <td>
+                    <button th:data-name="${user.get('name').textValue()}"
+                            th:data-id="${user.get('userId').asInt()}"
+                            onclick="showYearPlanByUser(this.getAttribute('data-id'), this.getAttribute('data-name'), 'admin/yearplan')" class="prev-year-btn">
+                        Anzeigen
+                    </button>
+                </td>
+                <td><button class="edit-btn">Bearbeiten</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+        <div class="temporary">
+            <a href="admin/dayplan">Tagesübersicht (Admin)</a>
+            <a href="admin/monthplan">Monatsübersicht (Admin)</a>
+            <a href="admin/overview">Kalender (Admin)</a>
+        </div>
+    <script th:src="@{/js/AdminPanel.js}"></script>
 </body>
 </html>

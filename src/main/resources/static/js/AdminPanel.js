@@ -20,6 +20,9 @@ const saveButton = document.getElementById("save-user-data-button");
  * @param path backend path
  */
 const showYearPlanByUser = (userid, username, path) => {
+    // set username
+    document.getElementById("user-name-modal").innerHTML = username;
+
     // Java Backend request
     // User Session cookie
     axios.defaults.withCredentials = true;
@@ -37,8 +40,7 @@ const showYearPlanByUser = (userid, username, path) => {
 
                    addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview-table")
 
-                   // set username
-                   document.getElementById("user-name-modal").innerHTML = username;
+
                }
 
                 prevYearModal.style.display = "block";
