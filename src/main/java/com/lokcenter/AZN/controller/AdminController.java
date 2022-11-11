@@ -31,7 +31,7 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 /**
  * Admin Controller
  *
- * @version 1.11 2022-11-09
+ * @version 1.14 2022-11-11
  */
 @Controller
 @AllArgsConstructor
@@ -146,6 +146,39 @@ public class AdminController {
         }
 
         return "";
+    }
+
+    /**
+     * Delete request from user by request id
+     * @param requestId id from request
+     *
+     * @return true or false
+     */
+    @PutMapping("/requests/delete")
+    @ResponseBody
+    Boolean deleteRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                                OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                                @RequestParam(name = "requestId") String requestId){
+
+        // TODO: ...
+
+        return true;
+    }
+
+    /**
+     * Accept request from user by request id
+     * @param requestId id from request to accept
+     *
+     * @return true or false
+     */
+    @PutMapping("/requests/accept")
+    @ResponseBody
+    Boolean AcceptRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                                OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                                @RequestParam(name = "requestId") String requestId){
+
+        // TODO: ...
+        return true;
     }
 
     @GetMapping("/monthplan")

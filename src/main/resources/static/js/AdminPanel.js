@@ -187,8 +187,6 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
     }
 }
 
-
-
 const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
 /**
