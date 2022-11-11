@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -158,13 +159,27 @@ public class AdminController {
     @ResponseBody
     Boolean deleteRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                                 OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                                @RequestParam(name = "startDate") String startDate,
-                                @RequestParam(name = "endDate") String endDate,
-                                @RequestParam(name = "userid") String userId){
+                                @RequestParam(name = "startDate", required = true) String startDate,
+                                @RequestParam(name = "endDate", required = true) String endDate,
+                                @RequestParam(name = "userid", required = true) String userId) throws Exception {
 
-        // TODO: ...
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient
+                    .delete()
+                    .uri(String.format("/admin/requests/delete?startDate=%s&endDate=%s&userid=%s",
+                            startDate, endDate, userId))
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
 
-        return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -177,12 +192,27 @@ public class AdminController {
     @ResponseBody
     Boolean AcceptRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                                   OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                                  @RequestParam(name = "startDate") String startDate,
-                                  @RequestParam(name = "endDate") String endDate,
-                                  @RequestParam(name = "userid") String userId){
+                                  @RequestParam(name = "startDate", required = true) String startDate,
+                                  @RequestParam(name = "endDate", required = true) String endDate,
+                                  @RequestParam(name = "userid", required = true) String userId) throws Exception {
 
-        // TODO: ...
-        return true;
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient
+                    .put()
+                    .uri(String.format("/admin/requests/accept?startDate=%s&endDate=%s&userid=%s",
+                            startDate, endDate, userId))
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
     }
 
     @GetMapping("/monthplan")
