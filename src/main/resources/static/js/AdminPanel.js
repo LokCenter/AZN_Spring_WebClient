@@ -26,7 +26,7 @@ const makeRequest = (path, userid, res_callback) => {
 
     axios.get(path + "?userId=" + userid)
         .then((response) => {
-            if (response.data !== '' && response.data.constructor === Object) {
+            if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
                 res_callback(response.data);
             }
 
@@ -67,19 +67,26 @@ const showRequestListByUser = (userid, username, path) => {
     document.getElementById("request-modal-username").innerHTML = username;
 
     makeRequest(path, userid, (data) => {
-        console.log(data)
+        let typeArray = [];
+        let startArray = [];
+        let endArray = [];
+
+        for (let request in data) {
+            // tag should start with 'r'
+            typeArray.push(data[request].tag.substring(1))
+            startArray.push(data[request].startdate)
+            endArray.push(data[request].enddate)
+        }
+
+        setRequestModalContent(typeArray.length, typeArray, startArray, endArray);
+
+        requestModal.style.display = "block";
+        disableMainWindowScrolling();
     })
 }
 
 function redirect(id) {
     console.log(id);
-}
-
-for (let button of requestButtons) {
-    button.addEventListener("click", () => {
-        requestModal.style.display = "block";
-        disableMainWindowScrolling();
-    });
 }
 
 for (let button of editButtons) {
@@ -88,7 +95,6 @@ for (let button of editButtons) {
         disableMainWindowScrolling();
     });
 }
-
 
 /**
  * Closes request modal when clicking the "x".
@@ -181,11 +187,7 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
     }
 }
 
-// Testing data for request modal. Delete later
-let typeArray = ["Urlaub", "GLAZ", "Urlaub"];
-let startArray = ["01.11.2022", "23.11.2022", "04.12.2022"];
-let endArray = ["03.11.2022", "23.11.2022", "12.12.2022"];
-setRequestModalContent(typeArray.length, typeArray, startArray, endArray);
+
 
 const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
@@ -255,7 +257,6 @@ function filterTable() {
         else if (counter % 2 === 1) tableRow[i].style.backgroundColor = "var(--clr-light)";
         counter++;
     }
-
 }
 
 saveButton.addEventListener("click", () => {
