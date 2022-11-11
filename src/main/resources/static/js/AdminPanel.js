@@ -78,7 +78,7 @@ const showRequestListByUser = (userid, username, path) => {
             endArray.push(data[request].enddate)
         }
 
-        setRequestModalContent(typeArray.length, typeArray, startArray, endArray);
+        setRequestModalContent(typeArray.length, typeArray, startArray, endArray, userid);
 
         requestModal.style.display = "block";
         disableMainWindowScrolling();
@@ -153,14 +153,32 @@ function enableMainWindowScrolling() {
     document.body.style.height = "auto";
 }
 
+const putRequestsChange = (startDate, endDate, userId, path, res_callback) => {
+   console.log(startDate, endDate, userId, path)
+}
+
+
+const acceptRequest = (startDate, endDate, userId, path) => {
+    putRequestsChange(startDate, endDate, userId, path,() => {
+
+    });
+}
+
+const deleteRequest = (startDate, endDate, userId, path) => {
+    putRequestsChange(startDate, endDate, userId, path,() => {
+
+    });
+}
+
 /**
  * Displays the content of the request modal depending on the number of requests
  * @param {number} numOfRequests
  * @param {array<string>} eventType
  * @param {array<string>} startDate
  * @param {array<string>} endDate
+ * @param {number} userid
  */
-function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
+function setRequestModalContent(numOfRequests, eventType, startDate, endDate, userid) {
     const requestOverview = document.getElementById("request-overview");
     requestOverview.innerHTML = "";
     if (numOfRequests === 0) {
@@ -175,17 +193,10 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
                 <div><p>${startDate[i]}</p></div>
                 <div><p>&ndash;</p></div>
                 <div><p>${endDate[i]}</p></div>
-                <div><svg class="svg-accept" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg></div>
-                <div><svg class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
-                `;
-            const svgAccept = document.getElementsByClassName("svg-accept")[0];
-            const svgDeny = document.getElementsByClassName("svg-deny")[0];
-            svgAccept.addEventListener("click", () => {
-                // Accept the request
-            })
-            svgDeny.addEventListener("click", () => {
-                // Deny the request
-            })
+                <div><svg 
+                onclick="acceptRequest('${startDate[i]}', '${endDate[i]}', ${userid}, 'admin/requests/accept')" class="svg-accept" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg></div>
+                <div><svg onclick="deleteRequest('${startDate[i]}', '${endDate[i]}', ${userid}, 'admin/requests/accept')" class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
+                `
         }
     }
 }
