@@ -48,17 +48,17 @@ searchBar.addEventListener("keyup", () => {
  */
 function filterUserList() {
     let filter = document.getElementById("search-user").value.toUpperCase();
-    let users = document.getElementById("user-list").getElementsByTagName("li");
+    let userListContent = userList.getElementsByTagName("li");
 
-    for (let i = 0; i < users.length; i++) {
-        let user = users[i].textContent.toUpperCase();
+    for (let i = 0; i < userListContent.length; i++) {
+        let user = userListContent[i].textContent.toUpperCase();
         if (user.indexOf(filter) > -1) {
-            users[i].style.display = "";
+            userListContent[i].style.display = "";
             let regex = new RegExp(`(${filter})`, "gi");
-            let textWithBoldedSubstring = users[i].textContent.replace(regex, "<b>$1</b>");
-            users[i].innerHTML = textWithBoldedSubstring;
+            let textWithBoldedSubstring = userListContent[i].textContent.replace(regex, "<b>$1</b>");
+            userListContent[i].innerHTML = textWithBoldedSubstring;
         } else {
-            users[i].style.display = "none";
+            userListContent[i].style.display = "none";
         }
     }
 }
