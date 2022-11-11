@@ -8,12 +8,14 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    margin-top: 3em;
+    margin: 3em 0;
 }
 
 table {
+    table-layout: fixed;
     border-collapse: collapse;
-    border: 0.2em solid var(--clr-accent);
+    border: 3px solid var(--clr-accent);
+    text-align: center;
 }
 
 table * {
@@ -31,4 +33,32 @@ tbody tr:nth-of-type(even) {
 
 tbody tr:nth-of-type(odd) {
     background-color: var(--clr-light);
+}
+
+/* Date, start, end, ist, soll*/
+th:nth-of-type(1),
+th:nth-of-type(2),
+th:nth-of-type(3),
+th:nth-of-type(5),
+th:nth-of-type(6) {
+    width: 14ch;
+}
+
+/* Pause, GLAZ, sick, vacation, holiday, school */
+th:nth-of-type(4),
+th:nth-of-type(7),
+th:nth-of-type(8),
+th:nth-of-type(9),
+th:nth-of-type(10),
+th:nth-of-type(11){
+    width: 8ch;
+}
+
+/* Comment */
+th:nth-of-type(12) {
+    width: 25ch;
+}
+
+td {
+    border-right: 1px solid var(--clr-dark);
 }
