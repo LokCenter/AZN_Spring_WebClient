@@ -17,6 +17,6 @@ public class AdminOverviewController {
     @GetMapping
     String getAdminOverview(Model model) {
         model.addAttribute("title", "Admin Overview");
-        return "adminOverview";
+        return "AdminOverview";
     }
 }
