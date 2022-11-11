@@ -215,9 +215,36 @@ public class AdminController {
         }
     }
 
+    /**
+     *  get user month plan by user id
+
+     * @return model
+     */
     @GetMapping("/monthplan")
     String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
                         OAuth2AuthorizedClient authorizedClient, Authentication authentication) {
         return "adminMonthPlan";
+    }
+
+    /**
+     * Get User dayplan by userid
+
+     * @return model
+     */
+    @GetMapping("/dayplan")
+    String getAdminDayPlan(Model model) {
+        model.addAttribute("title", "Admin Day Plan");
+        return "AdminDayPlan";
+    }
+
+    /**
+     * Get user calendar by id
+
+     * @return model
+     */
+    @GetMapping("/overview")
+    String getAdminOverview(Model model) {
+        model.addAttribute("title", "Admin Overview");
+        return "adminOverview";
     }
 }
