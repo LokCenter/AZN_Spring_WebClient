@@ -125,7 +125,7 @@ public class AdminController {
     }
 
     /**
-     * Request Request Data from userId
+     * Request Request Data from user
      *
      * @return Json Data
      */
@@ -149,16 +149,18 @@ public class AdminController {
     }
 
     /**
-     * Delete request from user by request id
-     * @param requestId id from request
-     *
+     * Delete request from user
+
      * @return true or false
      */
     @PutMapping("/requests/delete")
+    @CrossOrigin("/admin")
     @ResponseBody
     Boolean deleteRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
                                 OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                                @RequestParam(name = "requestId") String requestId){
+                                @RequestParam(name = "startDate") String startDate,
+                                @RequestParam(name = "endDate") String endDate,
+                                @RequestParam(name = "userid") String userId){
 
         // TODO: ...
 
@@ -166,16 +168,18 @@ public class AdminController {
     }
 
     /**
-     * Accept request from user by request id
-     * @param requestId id from request to accept
+     * Accept request from user
      *
      * @return true or false
      */
     @PutMapping("/requests/accept")
+    @CrossOrigin("/admin")
     @ResponseBody
     Boolean AcceptRequestFromUser(@RegisteredOAuth2AuthorizedClient("userwebapp")
-                                OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                                @RequestParam(name = "requestId") String requestId){
+                                  OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                                  @RequestParam(name = "startDate") String startDate,
+                                  @RequestParam(name = "endDate") String endDate,
+                                  @RequestParam(name = "userid") String userId){
 
         // TODO: ...
         return true;

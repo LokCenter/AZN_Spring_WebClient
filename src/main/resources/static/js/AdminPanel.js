@@ -24,6 +24,8 @@ const makeRequest = (path, userid, res_callback) => {
     // User Session cookie
     axios.defaults.withCredentials = true;
 
+
+
     axios.get(path + "?userId=" + userid)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
@@ -154,7 +156,19 @@ function enableMainWindowScrolling() {
 }
 
 const putRequestsChange = (startDate, endDate, userId, path, res_callback) => {
-   console.log(startDate, endDate, userId, path)
+    axios.defaults.withCredentials = true;
+
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    // csrf to header
+    axios.defaults.headers.put[header] = token
+
+    axios.put(`${path}?startDate=${startDate}&endDate=${endDate}&userid=${userId}`)
+        .then(res => {})
+        .catch(e => {
+            console.log(e);
+        });
 }
 
 
@@ -195,7 +209,7 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate, us
                 <div><p>${endDate[i]}</p></div>
                 <div><svg 
                 onclick="acceptRequest('${startDate[i]}', '${endDate[i]}', ${userid}, 'admin/requests/accept')" class="svg-accept" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg></div>
-                <div><svg onclick="deleteRequest('${startDate[i]}', '${endDate[i]}', ${userid}, 'admin/requests/accept')" class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
+                <div><svg onclick="deleteRequest('${startDate[i]}', '${endDate[i]}', ${userid}, 'admin/requests/delete')" class="svg-deny" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>
                 `
         }
     }
