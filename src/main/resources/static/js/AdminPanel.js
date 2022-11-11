@@ -165,7 +165,10 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate) {
     requestOverview.innerHTML = "";
     if (numOfRequests === 0) {
         requestOverview.innerHTML = "Keine Anfragen vorhanden";
+        requestOverview.style.display = "flex";
+        requestOverview.style.justifyContent = "center";
     } else {
+        requestOverview.style.display = "grid";
         for (let i = 0; i < numOfRequests; i++) {
             requestOverview.innerHTML += `
                 <div class="event-type"><p>${eventType[i]}</p></div>
