@@ -194,19 +194,8 @@ saveButton.addEventListener('click', (e) => {
     let userComment = document.getElementById("comment").value;
     let radioGlaz = document.getElementById("radio-glaz").checked;
     let radioSick = document.getElementById("radio-sick").checked;
-    let radioVacation = document.getElementById("radio-sick").checked;
+    let radioVacation = document.getElementById("radio-vacation").checked;
     let radioSchool = document.getElementById("radio-school").checked;
-
-
-    //get checked checkbox
-    let checked_item = null;
-    const checkboxes = document.querySelectorAll(".radio");
-    // find checked value
-    checkboxes.forEach((item) => {
-        if (item.checked === true) {
-            checked_item = item.value;
-        }
-    })
 
     // send data to the backend
 
