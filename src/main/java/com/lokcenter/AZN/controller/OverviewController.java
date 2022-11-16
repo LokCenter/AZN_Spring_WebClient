@@ -81,7 +81,7 @@ public class OverviewController {
 
             model.addAttribute("title", "Calendar");
             model.addAttribute("data", jsonData);
-            model.addAttribute("daydata", jsonData);
+            model.addAttribute("daydata", jsonDayDate);
 
             return "overview";
         }
