@@ -45,7 +45,6 @@ searchBar.addEventListener("focus", () => {
 window.addEventListener("click", (event) => {
     // Makes the user list invisible if the search input loses focus, but only if you aren't targeting a list item.
     // Checks for "B" tag as well to account for the filter
-    console.log(event.target.tagName);
     if (document.activeElement !== searchBar && (event.target.tagName !== "LI" || event.target.tagName !== "B")) {
         userList.style.display = "none";
     }

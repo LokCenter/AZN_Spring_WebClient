@@ -106,3 +106,20 @@ function displayTable(date) {
         let commentCell = row.insertCell();
     }
 }
+
+// Scroll to top
+const htmlElement = document.getElementsByTagName("html")[0]
+const scroller = document.getElementById("jump-to-top");
+htmlElement.addEventListener("scroll", () => {
+    console.log("Here");
+    console.log(htmlElement.scrollTop);
+    if (htmlElement.scrollTop <= 100) {
+        scroller.style.visibility = "hidden";
+    } else {
+        scroller.style.visibility = "visible";
+    }
+})
+
+scroller.addEventListener("click", () => {
+    htmlElement.scrollTo(0, 0);
+})

@@ -4,11 +4,15 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .container {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    margin: 3em 0;
+    margin: 3rem 0;
 }
 
 table {
@@ -61,4 +65,21 @@ th:nth-of-type(12) {
 
 td {
     border-right: 1px solid var(--clr-dark);
+}
+
+#jump-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 3rem;
+    background-color: var(--clr-accent);
+    border-radius: 20%;
+    padding: 0.5em;
+    /*visibility: hidden;*/
+    cursor: pointer;
+}
+
+#jump-to-top svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--clr-light);
 }
