@@ -201,18 +201,21 @@ createEventButton.addEventListener("click",() => {
 
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
-        console.log("Save");
-
         const startDate = document.getElementById("date-start").value;
         const endDate = document.getElementById("date-end").value;
         const radioButtons = document.querySelectorAll("input[name='radio-choice']");
+        const reminderDefaultText = document.getElementById("reminder").innerText;
         let tag;
+        // set checked radio button
         for (let radioButton of radioButtons) {
             if (radioButton.checked) {
                 tag = radioButton.value;
                 break;
             }
         }
+
+        // show message if nothing was selected
+        const reminder = document.getElementById("reminder");
 
         // Get CSRF token
         const token = $("meta[name='_csrf']").attr("content");
@@ -229,34 +232,18 @@ createEventButton.addEventListener("click",() => {
             // Display confirmation message if response is ok
             if (res.data) {
                 window.location.reload();
+            } else {
+                reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
+                reminder.style.visibility = "visible"
             }
         }).catch((error) => {
             console.log(error)
         })
-        // Close modal only if no event type was selected, otherwise display a message reminding the user to do so.
-        const reminder = document.getElementById("reminder");
-        for (let i = 0; 0 < radioButtons.length; i++) {
-            if (radioButtons[i].checked === true) {
-                reminder.style.visibility = "hidden";
-                modal.remove();
-                break;
-            } else {
-                reminder.style.visibility = "visible";
-            }
-        }
-
     })
 
     // Close/Remove modal when clicking close/abbrechen/outside of modal__content
-    const closeButton = document.getElementById("close");
-    closeButton.addEventListener("click", () => {
-        modal.remove();
-    });
-
-    const cancelButton = document.getElementById("cancel-button");
-    cancelButton.addEventListener("click", () => {
-        modal.remove();
-    });
+    document.getElementById("close").addEventListener("click", () => {modal.remove();});
+    document.getElementById("cancel-button").addEventListener("click", () => {modal.remove();});
 
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
