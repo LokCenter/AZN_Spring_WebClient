@@ -62,6 +62,7 @@
     eventCount = rawEvent.length;
     for (let i = 0; i < eventCount; i++) {
         event = rawEvent[i];
+        event["end"] = event["end"] + 1
         if (event["tag"] == "Urlaub") {
             events.push({
                 start: new DayPilot.Date(event["start"]),
@@ -144,7 +145,6 @@
 
     dp.update({events})
     let dealtDayplan = /*[[${daydata}]]*/ 'default';
-    //let dealtDayplan = ["2022-11-25", "2022-11-23", "2022-11-01"]
     if (dealtDayplan !== null) {
         dealtDayplan.forEach(colorCell);
     }
