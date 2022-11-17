@@ -12,6 +12,7 @@ users.push("Gustav Mieser");
 
 /**
  * Takes an array of users and adds each user to the list.
+ * Adds event listeners for displaying the selected user's name and redirecting to their page.
  * @param users
  */
 function createUserList(users) {
@@ -20,6 +21,15 @@ function createUserList(users) {
         datalistContent += `<li>${users[i]}</li>`;
     }
     userList.innerHTML = datalistContent;
+
+    const userListItems = userList.getElementsByTagName("li");
+    for (let user of userListItems) {
+        user.addEventListener("click", () => {
+            searchBar.value = user.textContent;
+            userList.style.display = "none";
+            // Redirect to selected user's page
+        })
+    }
 }
 
 /**
@@ -30,10 +40,15 @@ searchBar.addEventListener("focus", () => {
 })
 
 /**
- * Make user list invisible when search bar isn't focused
+ * Roundabout way of making the user list invisible, but needed that way to make the user list's event work
  */
-searchBar.addEventListener("blur", () => {
-    userList.style.display = "none";
+window.addEventListener("click", (event) => {
+    // Makes the user list invisible if the search input loses focus, but only if you aren't targeting a list item.
+    // Checks for "B" tag as well to account for the filter
+    console.log(event.target.tagName);
+    if (document.activeElement !== searchBar && (event.target.tagName !== "LI" || event.target.tagName !== "B")) {
+        userList.style.display = "none";
+    }
 })
 
 /**
@@ -62,5 +77,12 @@ function filterUserList() {
         }
     }
 }
+
+/**
+ * Trigger filterTable() when clearing the input by clicking the "x" in those browsers that support it.
+ */
+searchBar.addEventListener("search", () => {
+    if (document.getElementById("filter-input").value === "") filterTable();
+})
 
 createUserList(users);
