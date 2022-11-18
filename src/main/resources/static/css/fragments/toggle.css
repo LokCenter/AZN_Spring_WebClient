@@ -28,6 +28,7 @@ nav {
     padding: 0.25em;
 }
 
+.nav-active,
 .nav-main a:hover,
 .nav-main a:focus {
     border-top-left-radius: 1rem;
