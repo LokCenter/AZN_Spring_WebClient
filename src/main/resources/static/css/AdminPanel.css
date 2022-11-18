@@ -114,7 +114,7 @@ h1 {
     min-width: 25ch;
 }
 
-.APTable thead th:nth-of-type(2) {
+.APTable thead th:nth-of-type(3) {
     min-width: 20ch;
 }
 

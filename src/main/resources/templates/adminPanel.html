@@ -128,6 +128,7 @@
             <thead>
                 <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">Abteilung</th>
                     <th scope="col">Zeitkonto</th>
                     <th scope="col">Krankheitstage</th>
                     <th scope="col">GLAZ</th>
@@ -142,6 +143,7 @@
                 <td th:text="${user.get('name').textValue()}"
                     th:data-id="${user.get('userId').asInt()}"
                     onclick="window.location.href = `/admin/dayplan?userid=${this.getAttribute('data-id')}`"></td>
+                <td>No Data</td>
                 <td>No Data</td>
                 <td th:text="${user.get('sick')}"></td>
                 <td th:text="${user.get('glaz')}"></td>
