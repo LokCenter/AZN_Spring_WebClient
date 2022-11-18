@@ -106,11 +106,3 @@ function displayTable(date) {
         let commentCell = row.insertCell();
     }
 }
-
-// Scroll to top
-const htmlElement = document.getElementsByTagName("html")[0]
-const scroller = document.getElementById("jump-to-top");
-
-scroller.addEventListener("click", () => {
-    htmlElement.scrollTo(0, 0);
-})

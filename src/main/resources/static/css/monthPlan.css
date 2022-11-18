@@ -4,12 +4,7 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 .container {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     margin: 3rem 0;
@@ -20,10 +15,18 @@ table {
     border-collapse: collapse;
     border: 3px solid var(--clr-accent);
     text-align: center;
+    max-height: 70vh;
+    display: block;
+    overflow-y: scroll;
 }
 
 table * {
     padding: 0.3em 0.9em;
+}
+
+thead {
+    position: sticky;
+    top: 0;
 }
 
 thead tr {
