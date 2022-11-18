@@ -148,49 +148,54 @@ createEventButton.addEventListener("click",() => {
         "</div>";
 
     // Set the starting values for the date picker to the date currently being viewed in the calendar
-    document.getElementById("date-start").value = dp.startDate.value.split("T")[0];
-    document.getElementById("date-end").value = dp.startDate.value.split("T")[0];
+    const startDateElement = document.getElementById("date-start");
+    startDateElement.value = dp.startDate.value.split("T")[0];
+    const endDateElement = document.getElementById("date-end");
+    endDateElement.value = dp.startDate.value.split("T")[0];
 
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
-        const startDate = document.getElementById("date-start").value;
-        const endDate = document.getElementById("date-end").value;
-        const radioButtons = document.querySelectorAll("input[name='radio-choice']");
-        const reminderDefaultText = document.getElementById("reminder").innerText;
-        let tag;
-        // set checked radio button
-        for (let radioButton of radioButtons) {
-            if (radioButton.checked) {
-                tag = radioButton.value;
-                break;
-            }
-        }
-
-        // show message if nothing was selected
         const reminder = document.getElementById("reminder");
-
-        // Get CSRF token
-        const token = $("meta[name='_csrf']").attr("content");
-        const header = $("meta[name='_csrf_header']").attr("content");
-
-        // csrf to header
-        axios.defaults.headers.post[header] = token
-        // data
-        axios.post("/overview", {
-            startDate: startDate,
-            endDate: endDate,
-            tag: tag
-        }).then(async (res) => {
-            // Display confirmation message if response is ok
-            if (res.data) {
-                window.location.reload();
-            } else {
-                reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
-                reminder.style.visibility = "visible"
+        if (startDateElement.valueAsNumber <= endDateElement.valueAsNumber) {
+            const startDate = startDateElement.value;
+            const endDate = endDateElement.value;
+            const radioButtons = document.querySelectorAll("input[name='radio-choice']");
+            let tag;
+            // set checked radio button
+            for (let radioButton of radioButtons) {
+                if (radioButton.checked) {
+                    tag = radioButton.value;
+                    break;
+                }
             }
-        }).catch((error) => {
-            console.log(error)
-        })
+
+            // Get CSRF token
+            const token = $("meta[name='_csrf']").attr("content");
+            const header = $("meta[name='_csrf_header']").attr("content");
+
+            // csrf to header
+            axios.defaults.headers.post[header] = token
+            // data
+            axios.post("/overview", {
+                startDate: startDate,
+                endDate: endDate,
+                tag: tag
+            }).then(async (res) => {
+                // Display confirmation message if response is ok
+                if (res.data) {
+                    window.location.reload();
+                } else {
+                    // show message if nothing was selected
+                    reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
+                    reminder.style.visibility = "visible"
+                }
+            }).catch((error) => {
+                console.log(error)
+            })
+        } else {
+            reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
+            reminder.style.visibility = "visible"
+        }
     })
 
     // Close/Remove modal when clicking close/abbrechen/outside of modal__content
