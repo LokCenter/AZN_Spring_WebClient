@@ -247,4 +247,35 @@ public class AdminController {
         model.addAttribute("title", "Admin Overview");
         return "adminOverview";
     }
+
+    /**
+     * Accept AZN Submit
+     */
+    @PutMapping("/azn/accept")
+    Boolean acceptAzn(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                      OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                      @RequestParam(name = "month", required = true) String month,
+                      @RequestParam(name = "userid", required = true) String userId) {
+
+        // Todo: Get month and user id
+        // Todo: RServer put request
+        // Todo: check role
+        return true;
+    }
+
+    /**
+     * Deny AZN Submit
+     */
+    @PutMapping("/azn/deny")
+    Boolean denyAzn(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                    OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                    @RequestParam(name = "month", required = true) String month,
+                    @RequestParam(name = "userid", required = true) String userId) {
+
+        // Todo: Get month and user id
+        // Todo: RServer put request
+        // Todo: check role
+
+        return true;
+    }
 }
