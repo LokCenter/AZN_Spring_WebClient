@@ -143,7 +143,7 @@
             <tr th:each="user: ${data}">
                 <td th:text="${user.get('name').textValue()}"
                     th:data-id="${user.get('userId').asInt()}"
-                    onclick="window.location.href = `/admin/dayplan?userid=${this.getAttribute('data-id')}`"></td>
+                    onclick="adminRedirect(this.getAttribute('data-id'))"></td>
                 <td th:text="${user.get('department').textValue()}"></td>
                 <td>No Data</td>
                 <td th:text="${user.get('sick')}"></td>

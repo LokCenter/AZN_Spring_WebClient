@@ -288,3 +288,10 @@ function filterTable() {
 saveButton.addEventListener("click", () => {
     // Save data
 })
+
+function adminRedirect(id) {
+    if (id.length > 0) {
+        localStorage.setItem('id', id);
+        window.location.href = `/admin/dayplan?userid=${id}`
+    }
+}
