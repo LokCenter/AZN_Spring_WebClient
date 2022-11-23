@@ -24,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.lokcenter.AZN.helper.ControllerHelper.getAdminRole;
+import static com.lokcenter.AZN.helper.ControllerHelper.isAdmin;
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
 /**
@@ -36,42 +38,6 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @RequestMapping("/admin")
 public class AdminController {
     private final WebClient webClient;
-
-    /**
-     * Check if user is admin
-     * @param roles roles collection
-     * @return true if admin
-     * @throws Exception if user is not an admin
-     */
-    private boolean isAdmin(Collection<? extends GrantedAuthority> roles) throws Exception {
-        if (roles.isEmpty()) {
-            throw new Exception("No Role");
-
-        } else if (Search.binarySearch(roles.stream()
-                .toList().stream().map(Objects::toString).toList(), "ROLE_Admin") == -1) {
-            throw new Exception("Not Authorized");
-        }
-
-        return true;
-    }
-
-    private String getAdminRole(Authentication authentication) throws Exception {
-        var roles = authentication.getAuthorities();
-
-        if (roles.isEmpty()) {
-            throw new Exception("No Role");
-        }
-
-        // find admin role
-        Optional<? extends GrantedAuthority> role =  roles.stream().filter((e) ->
-                e.toString().equals("ROLE_Admin")).findFirst();
-
-        if (role.isEmpty()) {
-            throw new Exception("User has no admin role");
-        }
-
-        return role.get().toString();
-    }
 
     /**
      * Get admin related data with ROLE_Admin
@@ -253,7 +219,10 @@ public class AdminController {
     @GetMapping("/monthplan")
     String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                         Authentication authentication,
+                        @RequestParam(name = "month", required = false) String month,
+                        @RequestParam(name = "year", required = false) String year,
                         @RequestParam(name = "userid", required = true) String userid) {
+
         return "adminMonthPlan";
     }
 
