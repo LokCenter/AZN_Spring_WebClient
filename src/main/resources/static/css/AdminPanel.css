@@ -221,29 +221,34 @@ h2,
 }
 
 #request-overview {
-    display: grid;
-    grid-template-columns: 2fr 2fr 1.2em 2fr 1fr 1fr;
+
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
-#request-overview div {
+
+.event-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.2em 2fr 1fr 1fr;
+    border-bottom: 2px solid var(--clr-accent);
+}
+
+.event-container:last-of-type {
+    border-bottom: none;
+}
+
+.event-container > div {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0.4em 0.2em;
-    border-bottom: 2px solid var(--clr-accent);
 }
 
-#request-overview div.event-type {
+.event-container div.event-type {
     justify-content: left;
 }
 
-#request-overview > *:nth-last-child(-n+6) {
-    border-bottom: none;
-}
-
-#request-overview svg {
+.event-container svg {
     width: 1.4em;
     height: 1.4em;
     cursor: pointer;
