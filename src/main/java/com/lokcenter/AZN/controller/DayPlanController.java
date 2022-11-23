@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
 import lombok.AllArgsConstructor;
 
@@ -80,13 +81,7 @@ public class DayPlanController {
 
 
             // User roles
-            var roles = authentication.getAuthorities();
-
-            if (roles.isEmpty()) {
-                throw new Exception("No Role");
-            }
-
-            String role = roles.toArray()[0].toString();
+           String role = ControllerHelper.getUserOrAdminRole(authentication);
 
 
             // make get request and get data

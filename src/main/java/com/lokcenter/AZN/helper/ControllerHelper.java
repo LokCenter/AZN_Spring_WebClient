@@ -50,6 +50,53 @@ public class ControllerHelper {
         }
 
         return role.get().toString();
+    }
 
+    /**
+     * Get admin role as string
+     * @param authentication Spring authentication
+     *
+     * @return user role
+     */
+    public static String getUserRole(Authentication authentication) throws Exception {
+        var roles = authentication.getAuthorities();
+
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+        }
+
+        // find admin role
+        Optional<? extends GrantedAuthority> role = roles.stream().filter((e) ->
+                e.toString().equals("ROLE_User")).findFirst();
+
+        if (role.isEmpty()) {
+            throw new Exception("User has no user role");
+        }
+
+        return role.get().toString();
+    }
+
+    /**
+     * Get User or admin role
+     *
+     * @implNote Admin role should be checked first than user role!!!
+     */
+    public static String getUserOrAdminRole(Authentication authentication) throws Exception {
+        Optional<String> role = Optional.empty();
+        // try to get admin role
+        try {
+           role = Optional.ofNullable(getAdminRole(authentication));
+        }catch (Exception ignore) {}
+
+        // try to get user role
+        try {
+            role  = Optional.ofNullable(getUserRole(authentication));
+        } catch (Exception ignore){}
+
+        if (role.isEmpty()) {
+            throw new Exception("No Role");
+        }
+
+        return role.get();
     }
 }
