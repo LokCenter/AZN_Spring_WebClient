@@ -290,6 +290,32 @@ function filterTable() {
     }
 }
 
+// Sort table by name (1st column)
+const APTableBody = document.getElementById("APTable").tBodies[0];
+const APTableRows = APTableBody.rows;
+let switching = true;
+let shouldSwitch = false;
+let i;
+
+while (switching) {
+    switching = false;
+    for (i = 0; i < APTableRows.length - 1; i++) {
+        shouldSwitch = false;
+        let x = APTableRows[i].cells[0].innerText;
+        let y = APTableRows[i + 1].cells[0].innerText;
+        if (x.toLowerCase() > y.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+        }
+    }
+    if (shouldSwitch) {
+        APTableRows[i].parentNode.insertBefore(APTableRows[i + 1], APTableRows[i]);
+        switching = true;
+    }
+}
+
+
+
 saveButton.addEventListener("click", () => {
     // Save data
 })
