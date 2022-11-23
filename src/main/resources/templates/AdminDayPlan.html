@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title th:text="${title}"></title>
     <script src="//cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -13,62 +13,110 @@
     <link rel="stylesheet" th:href="@{/css/fragments/dayPlanInput.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/checkbox.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
-    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/clock.ico}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
+    <link rel="icon" th:href="@{/images/fav/clock.ico}" type="image/x-icon">
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 
 </head>
-    <body>
+<body>
 
-         <div th:replace="fragments/AdminToggle :: toggle"></div>
-         <div th:replace="fragments/dateSwitchDay :: dateSwitch"></div>
+<div th:replace="fragments/AdminToggle :: toggle"></div>
+<div th:replace="fragments/dateSwitchDay :: dateSwitch"></div>
 
-         <div class="dayPlanInput-container">
-             <div class="grid">
-                 <label for="start_time">Arbeitsbeginn</label>
-                 <label for="end_time">Arbeitsende</label>
-                 <label for="pause">Pause</label>
-                 <label for="ist">Istzeit</label>
-                 <label for="soll">Sollzeit</label>
-                 <label for="comment">Bemerkung</label>
-                 <input type="time" name="start_time" id="start_time" value="00:00">
-                 <input type="time" name="end_time" id="end_time" value="00:00">
-                 <input type="time" name="pause" id="pause" value="00:00">
-                 <input type="time" name="ist" id="ist" value="00:00" disabled>
-                 <input type="time" name="soll" id="soll" value="00:00" disabled>
-                 <input type="text" name="comment" id="comment" maxlength="50">
-             </div>
-         </div>
+<div class="dayPlanInput-container">
+    <div class="grid">
+        <label for="start_time">Arbeitsbeginn</label>
+        <label for="end_time">Arbeitsende</label>
+        <label for="pause">Pause</label>
+        <label for="ist">Istzeit</label>
+        <label for="soll">Sollzeit</label>
+        <label for="comment">Bemerkung</label>
+        <input id="start_time" name="start_time" type="time" value="00:00">
+        <input id="end_time" name="end_time" type="time" value="00:00">
+        <input id="pause" name="pause" type="time" value="00:00">
+        <input disabled id="ist" name="ist" type="time" value="00:00">
+        <input disabled id="soll" name="soll" type="time" value="00:00">
+        <input id="comment" maxlength="50" name="comment" type="text">
+    </div>
+</div>
 
-         <div class="radio-container">
-             <input type="checkbox" name="radio-glaz" id="radio-glaz" class="radio" value="glaz" onclick="onlyOneCheckBox(this)">
-             <label for="radio-glaz">GLAZ</label>
-             <input type="checkbox" name="radio-sick" id="radio-sick" class="radio" value="sick" onclick="onlyOneCheckBox(this)">
-             <label for="radio-sick">Krank</label>
-             <input type="checkbox" name="radio-vacation" id="radio-vacation" class="radio" value="vacation" onclick="onlyOneCheckBox(this)">
-             <label for="radio-vacation">Urlaub</label>
-             <input type="checkbox" name="radio-holiday" id="radio-holiday" class="radio" value="holiday" onclick="onlyOneCheckBox(this)">
-             <label for="radio-holiday">Feiertag</label>
-             <input type="checkbox" name="radio-school" id="radio-school" class="radio" value="school" onclick="onlyOneCheckBox(this)">
-             <label for="radio-school">Sollzeit</label>
-         </div>
+<div class="radio-container">
+    <input class="radio" id="radio-glaz" name="radio-glaz" onclick="onlyOneCheckBox(this)" type="checkbox" value="glaz">
+    <label for="radio-glaz">GLAZ</label>
+    <input class="radio" id="radio-sick" name="radio-sick" onclick="onlyOneCheckBox(this)" type="checkbox" value="sick">
+    <label for="radio-sick">Krank</label>
+    <input class="radio" id="radio-vacation" name="radio-vacation" onclick="onlyOneCheckBox(this)" type="checkbox"
+           value="vacation">
+    <label for="radio-vacation">Urlaub</label>
+    <input class="radio" id="radio-holiday" name="radio-holiday" onclick="onlyOneCheckBox(this)" type="checkbox"
+           value="holiday">
+    <label for="radio-holiday">Feiertag</label>
+    <input class="radio" id="radio-school" name="radio-school" onclick="onlyOneCheckBox(this)" type="checkbox"
+           value="school">
+    <label for="radio-school">Sollzeit</label>
+</div>
 
-         <div class="save-button-container">
-             <div class="save-button-wrapper">
-                 <button id="save-button">Speichern</button>
-             </div>
-         </div>
+<div class="save-button-container">
+    <div class="save-button-wrapper">
+        <button id="save-button">Speichern</button>
+    </div>
+</div>
 
-         <div class="save-confirmation-container">
-             <div id="save-confirmation"></div>
-         </div>
+<div class="save-confirmation-container">
+    <div id="save-confirmation"></div>
+</div>
 
-        <script>
-         // get time
-        </script>
-        <script th:src="@{/js/dayPlan.js}"></script>
-        <script th:src="@{/js/adminSearchBar.js}"></script>
-        <script th:src="@{/js/adminCurrentPage.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let data = /*[[${data}]]*/ null;
 
-    </body>
+    // check if there is any data
+    if (data) {
+        // Radio buttons
+        // 1. Krank 2. Schule 3. Urlaub 4. Glaz
+        if (data.sick != null && data.sick) {
+            document.getElementById("radio-sick").checked = true;
+        } else if (data.school != null && data.school) {
+            document.getElementById("radio-school").checked = true;
+        } else if (data.vacation != null && data.vacation) {
+            document.getElementById("radio-vacation").checked = true;
+        } else if (data.glaz != null && data.glaz) {
+            document.getElementById("radio-glaz").checked = true;
+        }
+    }
+
+    let startTimeTemp = /*[[${data.get('workTime').get('start')}]]*/ null;
+    let endTimeTemp = /*[[${data.get('workTime').get('end')}]]*/ null;
+    let pauseTimeTemp = /*[[${data.get('workTime').get('pause')}]]*/ null;
+    let comment = /*[[${data.get('comment')}]]*/ null;
+    let istTimeTemp = document.getElementById("ist").value
+    if (startTimeTemp != null) {
+        document.getElementById('start_time').value = startTimeTemp.slice(0, -3);
+    } else {
+        document.getElementById('start_time').value = "00:00";
+    }
+    if (endTimeTemp != null) {
+        document.getElementById('end_time').value = endTimeTemp.slice(0, -3);
+    } else {
+        document.getElementById('end_time').value = "00:00";
+    }
+    if (pauseTimeTemp != null) {
+        document.getElementById('pause').value = pauseTimeTemp.slice(0, -3);
+    } else {
+        document.getElementById('pause').value = "00:00";
+    }
+    if (pauseTimeTemp != null) {
+        document.getElementById('comment').value = comment;
+    } else {
+        document.getElementById('comment').value = "";
+    }
+    document.getElementById('soll').value = "07:42";
+    /*]]>*/
+</script>
+<script th:src="@{/js/dayPlan.js}"></script>
+<script th:src="@{/js/adminSearchBar.js}"></script>
+<script th:src="@{/js/adminCurrentPage.js}"></script>
+
+</body>
 </html>
