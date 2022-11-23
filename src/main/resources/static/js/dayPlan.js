@@ -89,8 +89,17 @@ let currDate = moment(dateInput.value, "YYYY-MM-DD")
 leftDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.subtract(1, "day");
 
+    let url = new URL(window.location.href);
+
     // go to the left date
-    window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+    if (url.searchParams.has('userid')) {
+        window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}&userid=${getQueryByName("userid")}`
+    } else {
+        window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+    }
+
+
+
 });
 
 /**
@@ -98,7 +107,15 @@ leftDaySwitch.addEventListener("click", (e) => {
  */
 rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
-    window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+
+    let url = new URL(window.location.href);
+
+    // go to the left date
+    if (url.searchParams.has('userid')) {
+        window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}&userid=${getQueryByName("userid")}`
+    } else {
+        window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
+    }
 });
 
 // get time from display => Date
