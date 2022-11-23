@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
@@ -51,11 +55,7 @@ public class AdminController {
         return true;
     }
 
-    /**
-     * Get admin related data with ROLE_Admin
-     */
-    private void getAdminData(String url, Authentication authentication,
-                                  OAuth2AuthorizedClient authorizedClient, Model model) throws Exception {
+    private String getAdminRole(Authentication authentication) throws Exception {
         var roles = authentication.getAuthorities();
 
         if (roles.isEmpty()) {
@@ -70,16 +70,35 @@ public class AdminController {
             throw new Exception("User has no admin role");
         }
 
-        String role_admin = role.get().toString();
+        return role.get().toString();
+    }
 
-        System.out.println(role_admin);
+    /**
+     * Get admin related data with ROLE_Admin
+     */
+    private void getAdminData(String url, Authentication authentication,
+                              OAuth2AuthorizedClient authorizedClient, Model model, Boolean asPayload) throws Exception {
+
+        String role_admin = getAdminRole(authentication);
+
+        Mono<String> body;
 
         // get data
-        Mono<String> body = webClient.method(HttpMethod.GET)
-                .uri(url)
-                .body(Mono.just(Map.of("role", role_admin)), Map.class)
-                .attributes(oauth2AuthorizedClient(authorizedClient))
-                .retrieve().bodyToMono(String.class);
+        if (asPayload) {
+            body = webClient.method(HttpMethod.GET)
+                    .uri(url)
+                    .body(Mono.just(Map.of("role", role_admin)), Map.class)
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    .retrieve().bodyToMono(String.class);
+        } else {
+            body = webClient.method(HttpMethod.GET)
+                    .uri(url)
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    .retrieve().bodyToMono(String.class);
+        }
+
+
+
 
         if (body.block() != null) {
             JsonNode jsonData = null;
@@ -105,7 +124,7 @@ public class AdminController {
     String getAdminPanel(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
     OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
         // make get request and get data
-        getAdminData("/admin", authentication, authorizedClient, model);
+        getAdminData("/admin", authentication, authorizedClient, model, true);
 
         return "adminPanel";
     }
@@ -246,9 +265,25 @@ public class AdminController {
     @GetMapping("/dayplan")
     String getAdminDayPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                            Authentication authentication,
-                           @RequestParam(name = "userid", required = true) String userid) {
+                           @RequestParam(name = "userid", required = true) String userid,
+                           @RequestParam(name = "date", required = false) String date) throws Exception {
         model.addAttribute("title", "Admin Day Plan");
 
+        Optional<Date> requestedDate = Optional.empty();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        if (date != null) {
+            try {
+                requestedDate = Optional.of(df.parse(date));
+            } catch (ParseException ignore) {
+                throw new Exception("Bad Request");
+            }
+        }
+
+        String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
+
+        getAdminData(String.format("/dayplan?date=%s&role=%s&userid=%s", dateString, getAdminRole(authentication), userid),
+                authentication, authorizedClient, model, false);
 
         return "AdminDayPlan";
     }
