@@ -7,9 +7,7 @@ import com.lokcenter.AZN.helper.ds.Search;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -17,15 +15,10 @@ import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2Aut
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -59,27 +52,32 @@ public class AdminController {
     }
 
     /**
-     * Return Admin Panel for administration
-     *
-     * @param model The model to give our frond-end data
-     * @return a html page
+     * Get admin related data with ROLE_Admin
      */
-    @GetMapping
-    String getAdminPanel(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
-    OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
+    private void getAdminData(String url, Authentication authentication,
+                                  OAuth2AuthorizedClient authorizedClient, Model model) throws Exception {
         var roles = authentication.getAuthorities();
 
         if (roles.isEmpty()) {
             throw new Exception("No Role");
         }
 
-        String role = roles.toArray()[0].toString();
+        // find admin role
+        Optional<? extends GrantedAuthority> role =  roles.stream().filter((e) ->
+                e.toString().equals("ROLE_Admin")).findFirst();
 
+        if (role.isEmpty()) {
+            throw new Exception("User has no admin role");
+        }
 
-        // make get request and get data
+        String role_admin = role.get().toString();
+
+        System.out.println(role_admin);
+
+        // get data
         Mono<String> body = webClient.method(HttpMethod.GET)
-                .uri("/admin")
-                .body(Mono.just(Map.of("role", role)), Map.class)
+                .uri(url)
+                .body(Mono.just(Map.of("role", role_admin)), Map.class)
                 .attributes(oauth2AuthorizedClient(authorizedClient))
                 .retrieve().bodyToMono(String.class);
 
@@ -92,9 +90,22 @@ public class AdminController {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+
             model.addAttribute("data", jsonData);
-            System.out.println(jsonData);
         }
+
+    }
+    /**
+     * Return Admin Panel for administration
+     *
+     * @param model The model to give our frond-end data
+     * @return a html page
+     */
+    @GetMapping
+    String getAdminPanel(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
+    OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
+        // make get request and get data
+        getAdminData("/admin", authentication, authorizedClient, model);
 
         return "adminPanel";
     }
@@ -237,6 +248,8 @@ public class AdminController {
                            Authentication authentication,
                            @RequestParam(name = "userid", required = true) String userid) {
         model.addAttribute("title", "Admin Day Plan");
+
+
         return "AdminDayPlan";
     }
 

@@ -1,5 +1,6 @@
 package com.lokcenter.AZN.helper.ds;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,4 +35,12 @@ public class Search {
     public static <T extends Comparable<T>> int binarySearch(List<T> array, T value) {
         return Search.binarySearch(array, value, 0, array.size());
     }
+
+    /**
+     * Get Index of element in Array
+     */
+    public static <T> int indexOf(T[] arr, T val) {
+        return Arrays.asList(arr).indexOf(val);
+    }
+
 }
