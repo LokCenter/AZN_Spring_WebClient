@@ -221,8 +221,9 @@ public class AdminController {
      * @return model
      */
     @GetMapping("/monthplan")
-    String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp")
-                        OAuth2AuthorizedClient authorizedClient, Authentication authentication) {
+    String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                        Authentication authentication,
+                        @RequestParam(name = "userid", required = true) String userid) {
         return "adminMonthPlan";
     }
 
@@ -232,7 +233,9 @@ public class AdminController {
      * @return model
      */
     @GetMapping("/dayplan")
-    String getAdminDayPlan(Model model) {
+    String getAdminDayPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                           Authentication authentication,
+                           @RequestParam(name = "userid", required = true) String userid) {
         model.addAttribute("title", "Admin Day Plan");
         return "AdminDayPlan";
     }
@@ -243,7 +246,9 @@ public class AdminController {
      * @return model
      */
     @GetMapping("/overview")
-    String getAdminOverview(Model model) {
+    String getAdminOverview(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                            Authentication authentication,
+                            @RequestParam(name = "userid", required = true) String userid) {
         model.addAttribute("title", "Admin Overview");
         return "adminOverview";
     }
