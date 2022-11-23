@@ -6,9 +6,9 @@
     <body>
         <nav class="toggle-container" th:fragment="toggle">
             <div class="nav-main">
-                <a href="/admin/dayplan">Tagesübersicht</a>
-                <a href="/admin/monthplan">Monatsübersicht</a>
-                <a href="/admin/overview">Kalender</a>
+                <a href="javascript:window.location.href='/admin/dayplan?userid='+ localStorage.getItem('id')">Tagesübersicht</a>
+                <a href="javascript:window.location.href='/admin/monthplan?userid='+ localStorage.getItem('id')">Monatsübersicht</a>
+                <a href="javascript:window.location.href='/admin/overview?userid='+ localStorage.getItem('id')">Kalender</a>
                 <a href="/admin">Admin Panel</a>
             </div>
             <div th:replace="fragments/adminSearchBar :: search-user"></div>
@@ -21,5 +21,14 @@
                 </a>
             </div>
         </nav>
+        <script>
+            function go() {
+                if (localStorage.getItem("id") === null) {
+                    return  "/admin"
+                } else {
+                    return `/admin/dayplan?userid=${localStorage.getItem('id')}`
+                }
+            }
+        </script>
     </body>
 </html>
