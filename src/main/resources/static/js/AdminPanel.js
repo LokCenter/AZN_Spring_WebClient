@@ -104,6 +104,7 @@ for (let button of editButtons) {
 closeRequestModal.addEventListener("click", () => {
     requestModal.style.display = "none";
     enableMainWindowScrolling();
+    window.location.reload();
 });
 
 /**
@@ -142,6 +143,7 @@ window.addEventListener("click", (event) => {
     } else if (event.target === requestModal) {
         requestModal.style.display = "none";
         enableMainWindowScrolling();
+        window.location.reload();
     }
 });
 
