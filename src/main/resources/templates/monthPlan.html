@@ -35,8 +35,34 @@
         <tbody></tbody>
       </table>
     </div>
-
     <script th:src="@{/js/monthPlan.js}"></script>
     <script th:src="@{/js/userCurrentPage.js}"></script>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      let data = /*[[${data}]]*/ null;
+
+
+      // Initially set viewedDate to the current date
+      let viewedDate = new Date();
+
+      // check if query is set
+      url = new URL(window.location.href);
+
+      if (url.searchParams.has('year') && url.searchParams.has('month')) {
+        // url query's
+        year = getQueryByName('year');
+        month = getQueryByName('month');
+
+        viewedDate = new Date(Number(year), Number(month), 1);
+      }
+
+      dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
+
+      displayTable(viewedDate, data);
+
+      /*]]>*/
+    </script>
   </body>
 </html>

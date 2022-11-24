@@ -55,6 +55,7 @@ public class MonthPlanController {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
 
             model.addAttribute("data", jsonData);
+            model.addAttribute("title", "Monatsübersicht");
 
             return "monthPlan";
         }

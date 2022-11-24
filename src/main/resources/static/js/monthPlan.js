@@ -1,22 +1,6 @@
 const dateSwitchDate = document.getElementById("dateSwitchDateMonthPlan");
 
-// Initially set viewedDate to the current date
-let viewedDate = new Date();
 
-// check if query is set
-url = new URL(window.location.href);
-
-if (url.searchParams.has('year') && url.searchParams.has('month')) {
-    // url query's
-   year = getQueryByName('year');
-   month = getQueryByName('month');
-
-   viewedDate = new Date(Number(year), Number(month), 1);
-}
-
-
-dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
-displayTable(viewedDate);
 
 const prevMonthButton = document.getElementById("left-monthPlan-switch");
 const nextMonthButton = document.getElementById("right-monthPlan-switch");
@@ -86,7 +70,7 @@ function getWeekdayString(day) {
     }
 }
 
-function displayTable(date) {
+function displayTable(date, data) {
     let totalDaysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     let datesOfMonth = [];
     for (let i = 1; i <= totalDaysInMonth; i++) {
@@ -111,15 +95,24 @@ function displayTable(date) {
 
         // Creating the other cells
         let startCell = row.insertCell();
+        startCell.textContent = data[i].start;
         let endCell = row.insertCell();
+        endCell.textContent = data[i].end;
         let pauseCell = row.insertCell();
+        pauseCell.textContent = data[i].pause
         let istCell = row.insertCell();
         let sollCell = row.insertCell();
         let glazCell = row.insertCell();
+        glazCell.textContent = data[i].glaz === true? 'x': ''
         let sickCell = row.insertCell();
+        sickCell.textContent = data[i].sick === true? 'x': ''
         let vacationCell = row.insertCell();
+        vacationCell.textContent = data[i].vacation === true ? 'x': ''
         let holidayCell = row.insertCell();
+        holidayCell.textContent = data[i].holiday === true? 'x': ''
         let schoolCell = row.insertCell();
+        schoolCell.textContent = data[i].school === true? 'x': ''
         let commentCell = row.insertCell();
+        commentCell.textContent = data[i].comment === true? 'x': ''
     }
 }
