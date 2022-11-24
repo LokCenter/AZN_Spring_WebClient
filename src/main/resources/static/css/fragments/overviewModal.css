@@ -9,7 +9,7 @@
 
 .modal__content {
     width: 30em;
-    height: 20em;
+    height: 22em;
     margin: 5em auto;
     background-color: var(--clr-light);
     border-radius: 2em;
@@ -43,7 +43,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5em;
     font-size: 1.1rem;
     font-weight: 500;
 }
@@ -86,6 +85,17 @@
     color: white;
     padding: 0.2em;
     visibility: hidden;
+}
+
+.fieldset-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5em;
+}
+
+fieldset {
+    padding: 0.5em;
+    border-color: var(--clr-accent);
 }
 
 .modal .button-container {

@@ -176,13 +176,18 @@ createEventButton.addEventListener("click",() => {
             "</div>" +
             "<div class='modal__body'>" +
                 "<form name='add-new-entry' action='' method=''>" +
-                    "<div class='choice-container'>" +
-                        "<input type='radio' name='radio-choice' id='radio-vacation' value='Urlaub' required>" +
-                        "<label for='radio-vacation'>Urlaub</label>" +
-                        "<input type='radio' name='radio-choice' id='radio-sick' value='Krank' required>" +
-                        "<label for='radio-sick'>Krank</label>" +
-                        "<input type='radio' name='radio-choice' id='radio-overtime' value='GLAZ' required>" +
-                        "<label for='radio-overtime'>GLAZ</label>" +
+                    "<div class='fieldset-container'>" +
+                        "<fieldset>" +
+                            "<legend>Art des Eintrags</legend>" +
+                            "<div class='choice-container'>" +
+                                "<input type='radio' name='radio-choice' id='radio-vacation' value='Urlaub' required>" +
+                                "<label for='radio-vacation'>Urlaub</label>" +
+                                "<input type='radio' name='radio-choice' id='radio-sick' value='Krank' required>" +
+                                "<label for='radio-sick'>Krank</label>" +
+                                "<input type='radio' name='radio-choice' id='radio-overtime' value='GLAZ' required>" +
+                                "<label for='radio-overtime'>GLAZ</label>" +
+                            "</div>" +
+                        "</fieldset>" +
                     "</div>" +
                     "<div class='date-container'>" +
                         "<input type='date' id='date-start' name='date-start' required>" +
