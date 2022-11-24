@@ -12,6 +12,8 @@ const editModal = document.getElementById("edit-modal");
 const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
 // Save button
 const saveButton = document.getElementById("save-user-data-button");
+// Rows of APTable
+const tableRows = document.getElementById("APTable").tBodies[0].rows;
 
 /**
  * Make Request
@@ -261,33 +263,33 @@ searchBar.addEventListener("search", () => {
  */
 function filterTable() {
     const filter = document.getElementById("filter-input").value.toUpperCase();
-    const tableRow = document.getElementById("APTable").getElementsByTagName("tr");
 
     // Loop through table rows and hide those that don't match the filter
-    for (let i = 0; i < tableRow.length; i++) {
-        let tableData = tableRow[i].getElementsByTagName("td")[0];
+    for (let i = 0; i < tableRows.length; i++) {
+        let tableData = tableRows[i].getElementsByTagName("td")[0];
         if (tableData) {
             let textValue = tableData.textContent.toUpperCase();
             if (textValue.indexOf(filter) > -1) {
-                tableRow[i].style.display = "";
+                tableRows[i].style.display = "";
             } else {
-                tableRow[i].style.display = "none";
+                tableRows[i].style.display = "none";
             }
         }
     }
 
-    // Color the background of the result correctly
-    // counter starts at 1 to keep in line with css nth-child selector
-    let counter = 1;
-    // i = 1 to skip the header row
-    for (let i = 1; i < tableRow.length; i++) {
-        // Continue loop if current row isn't displayed
-        if (tableRow[i].style.display === "none") continue;
-        // Color row's background according to if it's even (0) or odd (1)
-        if (counter % 2 === 0) tableRow[i].style.backgroundColor = "var(--clr-mid)";
-        else if (counter % 2 === 1) tableRow[i].style.backgroundColor = "var(--clr-light)";
-        counter++;
+    colorFilteredResults();
+}
+
+/**
+ * Filter table by selected department
+ */
+function filterDept(elem) {
+    for (let row of tableRows) {
+        // Display the row if its department matches the selected filter
+        if (elem.value.includes(row.cells[1].innerText)) row.style.display = "";
+        else row.style.display = "none";
     }
+    colorFilteredResults();
 }
 
 // Sort table by name (1st column)
@@ -314,6 +316,22 @@ while (switching) {
     }
 }
 
+/**
+ * Color the background of the result correctly
+ */
+function colorFilteredResults() {
+    // counter starts at 1 to keep in line with css nth-child selector
+    let counter = 1;
+    // i = 1 to skip the header row
+    for (let i = 0; i < tableRows.length; i++) {
+        // Continue loop if current row isn't displayed
+        if (tableRows[i].style.display === "none") continue;
+        // Color row's background according to if it's even (0) or odd (1)
+        if (counter % 2 === 0) tableRows[i].style.backgroundColor = "var(--clr-mid)";
+        else if (counter % 2 === 1) tableRows[i].style.backgroundColor = "var(--clr-light)";
+        counter++;
+    }
+}
 
 
 saveButton.addEventListener("click", () => {
