@@ -6,21 +6,25 @@
 
 .container {
     display: grid;
-    grid-template: 1fr 1fr / 1fr 1fr;
-    gap: 2em;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    grid-auto-flow: column;
+    grid-template: 1fr 1fr / 2fr 3fr;
+    align-items: start;
     text-align: left;
-    width: 80%;
-    margin-left: 10%;
     margin-top: 7em;
 }
 
 .personal-information,
 .current-stats {
     display: flex;
-    justify-content: center;
     border-spacing: 2em 0.4em;
+    justify-self: right;
+}
+
+.personal-information th,
+.personal-information td,
+.current-stats th,
+.current-stats td {
+    min-width: 15em;
 }
 
 table * {
@@ -39,9 +43,17 @@ td {
 }
 
 .year-overview {
-    grid-column-start: span 2;
-    margin-top: 3em;
+    grid-row-start: span 2;
     border-spacing: 2em 0.4em;
     text-align: center;
     justify-self: center;
+}
+
+.year-overview th,
+.year-overview td {
+    min-width: 6em;
+}
+
+.year-overview tr :last-child {
+    min-width: 12em;
 }
