@@ -40,9 +40,9 @@ public class MonthPlanController {
 
             month = String.valueOf(currDate.getMonthValue());
             year = String.valueOf(currDate.getYear());
+        } else {
+            month = String.valueOf(Integer.parseInt(month) + 1);
         }
-
-        month = String.valueOf(Integer.parseInt(month)+1);
 
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
