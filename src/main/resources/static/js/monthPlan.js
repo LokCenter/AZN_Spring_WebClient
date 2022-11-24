@@ -1,11 +1,11 @@
-const dateSwitchDate = document.getElementById("dateSwitchDate");
+const dateSwitchDate = document.getElementById("dateSwitchDateMonthPlan");
 // Initially set viewedDate to the current date
 let viewedDate = new Date();
 dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 displayTable(viewedDate);
 
-const prevMonthButton = document.getElementById("left-dayPlan-switch");
-const nextMonthButton = document.getElementById("right-dayPlan-switch");
+const prevMonthButton = document.getElementById("left-monthPlan-switch");
+const nextMonthButton = document.getElementById("right-monthPlan-switch");
 prevMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() - 1);
     dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
