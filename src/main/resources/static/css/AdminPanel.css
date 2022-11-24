@@ -338,7 +338,3 @@ form[name="edit-user-data"] > * {
     background-color: var(--clr-light);
     color: var(--clr-accent);
 }
-
-.temporary * {
-    padding: 0.3em;
-}
