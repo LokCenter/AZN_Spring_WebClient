@@ -2084,13 +2084,13 @@ if ("undefined" == typeof DayPilot) var DayPilot = {};
                         (this.h = navigator && navigator.userAgent && navigator.userAgent.indexOf("Firefox") !== -1),
                         (this.i = (function () {
                             if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
-                                return new Number(RegExp.$1) >= 10.5;
+                                return Number(RegExp.$1) >= 10.5;
                             }
                             return !1;
                         })()),
                         (this.j = (function () {
                             if (/AppleWebKit[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
-                                return new Number(RegExp.$1) >= 522;
+                                return Number(RegExp.$1) >= 522;
                             }
                             return !1;
                         })()),

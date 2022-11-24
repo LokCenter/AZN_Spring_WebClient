@@ -1,20 +1,37 @@
 const dateSwitchDate = document.getElementById("dateSwitchDateMonthPlan");
+
 // Initially set viewedDate to the current date
 let viewedDate = new Date();
+
+// check if query is set
+url = new URL(window.location.href);
+
+if (url.searchParams.has('year') && url.searchParams.has('month')) {
+    // url query's
+   year = getQueryByName('year');
+   month = getQueryByName('month');
+
+   viewedDate = new Date(Number(year), Number(month), 1);
+}
+
+
 dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 displayTable(viewedDate);
 
 const prevMonthButton = document.getElementById("left-monthPlan-switch");
 const nextMonthButton = document.getElementById("right-monthPlan-switch");
+
 prevMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() - 1);
-    dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
-    displayTable(viewedDate);
+
+    // go one month left
+    window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 nextMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() + 1);
-    dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
-    displayTable(viewedDate);
+
+    // go one month right
+    window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 
 function getFullMonth(month) {

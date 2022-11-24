@@ -26,8 +26,6 @@ const makeRequest = (path, userid, res_callback) => {
     // User Session cookie
     axios.defaults.withCredentials = true;
 
-
-
     axios.get(path + "?userId=" + userid)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
@@ -83,15 +81,11 @@ const showRequestListByUser = (userid, username, path) => {
         }
 
         setRequestModalContent(typeArray.length, typeArray, startArray, endArray, userid);
-
         requestModal.style.display = "block";
         disableMainWindowScrolling();
     })
 }
 
-function redirect(id) {
-    console.log(id);
-}
 
 for (let button of editButtons) {
     button.addEventListener("click", () => {
@@ -174,7 +168,6 @@ const putRequestsChange = (startDate, endDate, userId, path, res_callback) => {
             console.log(e);
         });
 }
-
 
 const acceptRequest = (startDate, endDate, userId, path, elem) => {
     putRequestsChange(startDate, endDate, userId, path,() => {

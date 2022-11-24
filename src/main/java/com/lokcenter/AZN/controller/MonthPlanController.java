@@ -42,6 +42,8 @@ public class MonthPlanController {
             year = String.valueOf(currDate.getYear());
         }
 
+        month = String.valueOf(Integer.parseInt(month)+1);
+
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
         // make get request and get data

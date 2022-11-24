@@ -95,7 +95,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
 
             // find ... in claim
             oidcUser.getAuthorities().forEach(authority -> {
-                if (OidcUserAuthority.class.isInstance(authority)) {
+                if (authority instanceof OidcUserAuthority) {
                     OidcUserAuthority oidcUserAuthority = (OidcUserAuthority) authority;
                     Map<String, Object> userInfo = oidcUserAuthority.getAttributes();
                     JSONArray roles = null;
@@ -105,7 +105,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                             roles = (JSONArray) userInfo.get("roles");
                             roles.forEach(s -> {
                                 // add role to Spring Security with ROLE_ prefix
-                                mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + (String) s));
+                                mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + s));
                             });
                         } catch (Exception e) {
                             // TODO: Replace this with logger during implementation
