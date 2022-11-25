@@ -1,7 +1,4 @@
 const dateSwitchDate = document.getElementById("dateSwitchDateMonthPlan");
-
-
-
 const prevMonthButton = document.getElementById("left-monthPlan-switch");
 const nextMonthButton = document.getElementById("right-monthPlan-switch");
 
@@ -17,58 +14,6 @@ nextMonthButton.addEventListener("click", () => {
     // go one month right
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
-
-function getFullMonth(month) {
-    switch (month) {
-        case 0:
-            return "Januar";
-        case 1:
-            return "Februar";
-        case 2:
-            return "März";
-        case 3:
-            return "April";
-        case 4:
-            return "Mai";
-        case 5:
-            return "Juni";
-        case 6:
-            return "Juli";
-        case 7:
-            return "August";
-        case 8:
-            return "September";
-        case 9:
-            return "Oktober";
-        case 10:
-            return "November";
-        case 11:
-            return "Dezember";
-        default:
-            return "?";
-    }
-}
-
-function getWeekdayString(day) {
-    switch (day) {
-        case 0:
-            return "So";
-        case 1:
-            return "Mo";
-        case 2:
-            return "Di";
-        case 3:
-            return "Mi";
-        case 4:
-            return "Do";
-        case 5:
-            return "Fr";
-        case 6:
-            return "Sa";
-        default:
-            return "?";
-    }
-}
 
 function displayTable(date, data) {
     let totalDaysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -88,6 +33,28 @@ function displayTable(date, data) {
     const tableBody = document.getElementsByTagName("tbody")[0];
     tableBody.innerHTML = "";
     for (let i = 0; i < totalDaysInMonth; i++) {
+        let start = new Date();
+        let end = new Date();
+        let pause = new Date();
+        let ist = null;
+
+        let starttime = data[i].start;
+        let endtime =   data[i].end;
+        let pausetime =  data[i].pause;
+
+        if (starttime && endtime && pausetime) {
+            ist = new Date();
+            start.setHours(parseInt(starttime.slice(0, 2)), parseInt(starttime.slice(3, 5)), 0)
+            end.setHours(parseInt(endtime.slice(0, 2)), parseInt(endtime.slice(3, 5)), 0)
+            pause.setHours(parseInt(pausetime.slice(0, 2)), parseInt(pausetime.slice(3, 5)), 0)
+
+            ist.setHours(
+                end.getHours() - start.getHours() - pause.getHours()
+            );
+            ist.setMinutes(
+                end.getMinutes() - start.getMinutes() - pause.getMinutes()
+            );
+        }
         // Creating the date cell
         let row = tableBody.insertRow();
         let dateCell = row.insertCell();
@@ -101,6 +68,7 @@ function displayTable(date, data) {
         let pauseCell = row.insertCell();
         pauseCell.textContent = data[i].pause
         let istCell = row.insertCell();
+        istCell.textContent = ist !== null? `${withZero(ist.getHours())}:${withZero(ist.getMinutes())}` : "";
         let sollCell = row.insertCell();
         let glazCell = row.insertCell();
         glazCell.textContent = data[i].glaz === true? 'x': ''

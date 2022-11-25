@@ -1,13 +1,4 @@
 /**
- * Test functions
- * to be deleted later
- */
-function testOutput() {
-    console.log('test')
-}
-
-
-/**
  * DayPlan JS
  * @version 1.05 2022-07-01
  */
@@ -97,9 +88,6 @@ leftDaySwitch.addEventListener("click", (e) => {
     } else {
         window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}`
     }
-
-
-
 });
 
 /**
@@ -151,12 +139,6 @@ function getTime(keyValue) {
  */
 function onTimeChange(key, value) {
 
-    // create numbers with `00` syntax
-    function withZero(value){
-        if (value <= 9) return `0${value}`;
-        else return `${value}`;
-    }
-
     // Generate ist time
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     let istValue = getTime("ist");
@@ -172,15 +154,6 @@ function onTimeChange(key, value) {
     ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
 }
 onTimeChange();
-/**
- * Checks if the value of a time slot is an empty string and sets it to "00:00" if it is.
- * @param {Object} time
- */
-function setEmptyTimeToZero(time) {
-    if (time.value === "") {
-        time.value = "00:00";
-    }
-}
 
 // Event Listeners listening for time input changes
 startTime.addEventListener("change", () => {
@@ -196,10 +169,8 @@ pause.addEventListener("change", () => {
     onTimeChange("pause", pause.value);
 });
 
-
 // Save button
 let saveButton = document.getElementById("save-button");
-
 
 /**
  * Save Button
