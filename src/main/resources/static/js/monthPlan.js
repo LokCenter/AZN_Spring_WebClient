@@ -5,11 +5,25 @@ const nextMonthButton = document.getElementById("right-monthPlan-switch");
 prevMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() - 1);
 
+    url = new URL(window.location.href);
+
+    if (url.searchParams.has('userid')) {
+        window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
+        return;
+    }
+
     // go one month left
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 nextMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() + 1);
+
+    url = new URL(window.location.href);
+
+    if (url.searchParams.has('userid')) {
+        window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
+        return;
+    }
 
     // go one month right
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`

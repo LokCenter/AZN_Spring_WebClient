@@ -9,10 +9,11 @@
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
+    <script th:src="@{/js/helper/helper.js}"></script>
   </head>
   <body>
     <div th:replace="fragments/AdminToggle :: toggle"></div>
-    <div th:replace="fragments/dateSwitchMonth :: dateSwitch "></div>
+    <div th:replace="fragments/dateSwitchMonthPlan :: dateSwitch "></div>
 
     <div class="container">
       <table>
@@ -39,6 +40,31 @@
     <script th:src="@{/js/monthPlan.js}"></script>
     <script th:src="@{/js/adminSearchBar.js}"></script>
     <script th:src="@{/js/adminCurrentPage.js}"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
 
+      let data = /*[[${data}]]*/ null;
+
+
+      // Initially set viewedDate to the current date
+      let viewedDate = new Date();
+
+      // check if query is set
+      url = new URL(window.location.href);
+
+      if (url.searchParams.has('year') && url.searchParams.has('month')) {
+        // url query's
+        year = getQueryByName('year');
+        month = getQueryByName('month');
+
+        viewedDate = new Date(Number(year), Number(month), 1);
+      }
+
+      dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
+
+      displayTable(viewedDate, data);
+
+      /*]]>*/
+    </script>
   </body>
 </html>

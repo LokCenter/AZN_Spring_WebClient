@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.ds.Search;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.lokcenter.AZN.helper.ControllerHelper.getAdminRole;
@@ -221,9 +223,36 @@ public class AdminController {
                         Authentication authentication,
                         @RequestParam(name = "month", required = false) String month,
                         @RequestParam(name = "year", required = false) String year,
-                        @RequestParam(name = "userid", required = true) String userid) {
+                        @RequestParam(name = "userid", required = true) String userid) throws Exception {
 
-        return "adminMonthPlan";
+        // generate date if no date
+        if (year == null || month == null) {
+            LocalDate currDate = LocalDate.now();
+
+            month = String.valueOf(currDate.getMonthValue());
+            year = String.valueOf(currDate.getYear());
+        } else {
+            month = String.valueOf(Integer.parseInt(month) + 1);
+        }
+
+        String role = ControllerHelper.getAdminRole(authentication);
+
+        // make get request and get data
+        Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s&userid=%s", month, year, role, userid)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+        if (res.block() != null) {
+            JsonNode jsonData = new ObjectMapper().readTree(res.block());
+
+            model.addAttribute("data", jsonData);
+            model.addAttribute("title", "Monatsübersicht - Admin");
+
+            return "adminMonthPlan";
+        }
+
+        throw new Exception("Bad request");
+
     }
 
     /**

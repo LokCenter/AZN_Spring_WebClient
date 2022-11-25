@@ -146,3 +146,13 @@ function getFullMonth(month) {
             return "?";
     }
 }
+
+/**
+ * Sleep function wih async
+ * @param milli milliseconds as int
+ *
+ * NOTE: async needed inside functions
+ */
+function sleep(milli) {
+    return new Promise(resolve => setTimeout(resolve, milli));
+}
