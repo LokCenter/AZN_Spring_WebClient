@@ -86,7 +86,7 @@ After every change (commit) to this repo GitHub Action will run all JUnit tests.
 <img src="readme/failure.png">
 
 
-> **⚠️ Warning**: Run all tests before running `git commit`
+> **⚠️ Warning**: Run all tests and pull incoming changes before running `git commit`
 
 
 Current status:
