@@ -174,9 +174,12 @@ button:hover {
     box-shadow: 0 0 1em 0 var(--clr-dark);
 }
 
-.modal-content-edit,
 .modal-content-request {
     width: 40em;
+}
+
+.modal-content-edit {
+    min-width: 64em;
 }
 
 .modal-content__header {
@@ -237,7 +240,6 @@ h2,
     margin-bottom: 1.5rem;
 }
 
-
 .event-container {
     display: grid;
     grid-template-columns: 2fr 2fr 1.2em 2fr 1fr 1fr;
@@ -273,6 +275,21 @@ h2,
     fill: red;
 }
 
+form[name="edit-user-data"] {
+    display: grid;
+    grid-template: 2em 2fr 3fr / 2fr 2fr;
+    align-items: start;
+}
+
+#vacation-info th {
+    min-width: 7rem;
+    margin-bottom: 0;
+}
+
+.duration-container {
+    margin-left: 3em;
+}
+
 .modal-content-edit .time-info {
     display:grid;
     grid-template: 1fr 1fr / repeat(3, 1fr);
@@ -280,12 +297,54 @@ h2,
     gap: 0 2em;
 }
 
-.modal-content-edit {
-    position: relative;
+.modal-content-edit .time-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 2em;
 }
 
-form[name="edit-user-data"] > * {
-    margin-bottom: 2em;
+.modal-content-edit fieldset {
+    padding: 1em;
+    border-color: var(--clr-accent);
+    grid-row-start: span 2;
+    margin: 0 2em 0 3em;
+}
+
+.modal-content-edit legend {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+#time-history {
+    grid-row-start: 3;
+    margin-left: 1em;
+}
+
+#time-history p {
+    font-size: 1.2em;
+    margin: 1rem 2rem 0.5rem;
+    border-left: 2px solid var(--clr-accent);
+    padding-left: 0.2em;
+}
+
+#time-history table {
+    display: block;
+    overflow-y: scroll;
+    max-height: 9em;
+}
+
+#time-history thead {
+    position: sticky;
+    top: 0;
+}
+
+#time-history th:first-of-type {
+    min-width: 8rem;
+}
+
+.modal-content-edit {
+    position: relative;
 }
 
 .modal-content-edit input {
@@ -307,24 +366,27 @@ form[name="edit-user-data"] > * {
 }
 
 .modal-content-edit .duration-container label,
-.modal-content-edit .time-info label {
+.modal-content-edit fieldset label {
     font-size: 0.8rem;
     opacity: 0.8;
 }
 
-.modal-content-edit .time-info label {
+.modal-content-edit fieldset label {
     margin-left: 0.4em;
 }
 
 .vacation-container {
     display: flex;
     justify-content: center;
+    grid-row-start: span 2;
 }
 
 .vacation-container input {
     min-width: 10ch;
     max-width: 10ch;
     text-align: center;
+    background-color: var(--clr-mid);
+    padding: 0;
 }
 
 #save-user-data-button {
@@ -332,6 +394,7 @@ form[name="edit-user-data"] > * {
     position: absolute;
     right: 1.5em;
     bottom: 0;
+    margin-bottom: 1em;
 }
 
 #save-user-data-button:hover {

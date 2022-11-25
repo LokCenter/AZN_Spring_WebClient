@@ -64,15 +64,21 @@
             </div>
             <div class="modal-content__body">
                 <form name="edit-user-data" action="" method="">
-
-                    <div class="time-info">
-                        <input type="time" name="work-start" id="work-start" required>
-                        <label for="work-start">Arbeitsbeginn</label>
-                        <input type="time" name="work-end" id="work-end" required>
-                        <label for="work-end">Arbeitsende</label>
-                        <input type="time" name="pause" id="pause" required>
-                        <label for="pause">Pause</label>
-                    </div>
+                    <fieldset>
+                        <legend>Arbeitszeiten anpassen</legend>
+                        <div class="time-info">
+                            <input type="time" name="work-start" id="work-start" required>
+                            <label for="work-start">Arbeitsbeginn</label>
+                            <input type="time" name="work-end" id="work-end" required>
+                            <label for="work-end">Arbeitsende</label>
+                            <input type="time" name="pause" id="pause" required>
+                            <label for="pause">Pause</label>
+                        </div>
+                        <div class="time-date">
+                            <input type="date" name="work-time-date" id="work-time-date" required>
+                            <label for="work-time-date">Gültig ab</label>
+                        </div>
+                    </fieldset>
 
                     <div class="duration-container">
                         <label for="duration">Ausbildungsdauer (Jahre):</label>
@@ -95,6 +101,51 @@
                                     <td>
                                         <input type="text" name="vacation-1" id="vacation-1" max="2">
                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="time-history">
+                        <p>Arbeitszeitverlauf</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Gültig ab</th>
+                                    <th scope="col">Arbeitsbeginn</th>
+                                    <th scope="col">Arbeitsende</th>
+                                    <th scope="col">Pause</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01.09.2022</td>
+                                    <td>7:15</td>
+                                    <td>16:00</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>01.09.2022</td>
+                                    <td>7:15</td>
+                                    <td>16:00</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>01.09.2022</td>
+                                    <td>7:15</td>
+                                    <td>16:00</td>
+                                    <td>1h</td>
+                                </tr>
+                                    <td>01.09.2022</td>
+                                    <td>7:15</td>
+                                    <td>16:00</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>01.09.2022</td>
+                                    <td>7:15</td>
+                                    <td>16:00</td>
+                                    <td>1h</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -38,7 +38,7 @@
 
   --clr-accent: hsl(347, 67%, 34%);
   --clr-light: hsl(0, 0%, 100%);
-  --clr-mid: hsla(230, 30%, 50%, 0.2);
+  --clr-mid: hsl(232,29.4%,90%);
   --clr-dark: hsl(230, 15%, 15%);
 }
 
