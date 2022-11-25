@@ -47,9 +47,9 @@ function displayTable(date, data) {
     const tableBody = document.getElementsByTagName("tbody")[0];
     tableBody.innerHTML = "";
     for (let i = 0; i < totalDaysInMonth; i++) {
-        let start = new Date();
-        let end = new Date();
-        let pause = new Date();
+        let start = null
+        let end = null
+        let pause = null
         let ist = null;
 
         let starttime = data[i].start;
@@ -57,6 +57,10 @@ function displayTable(date, data) {
         let pausetime =  data[i].pause;
 
         if (starttime && endtime && pausetime) {
+            start = new Date();
+            end = new Date();
+            pause = new Date();
+
             ist = new Date();
             start.setHours(parseInt(starttime.slice(0, 2)), parseInt(starttime.slice(3, 5)), 0)
             end.setHours(parseInt(endtime.slice(0, 2)), parseInt(endtime.slice(3, 5)), 0)
@@ -76,11 +80,11 @@ function displayTable(date, data) {
 
         // Creating the other cells
         let startCell = row.insertCell();
-        startCell.textContent = data[i].start;
+        startCell.textContent = start !== null? `${withZero(start.getHours())}:${withZero(start.getMinutes())}` : "";
         let endCell = row.insertCell();
-        endCell.textContent = data[i].end;
+        endCell.textContent = end !== null? `${withZero(end.getHours())}:${withZero(end.getMinutes())}` : "";
         let pauseCell = row.insertCell();
-        pauseCell.textContent = data[i].pause
+        pauseCell.textContent = pause !== null? `${withZero(pause.getHours())}:${withZero(pause.getMinutes())}` : "";
         let istCell = row.insertCell();
         istCell.textContent = ist !== null? `${withZero(ist.getHours())}:${withZero(ist.getMinutes())}` : "";
         let sollCell = row.insertCell();
