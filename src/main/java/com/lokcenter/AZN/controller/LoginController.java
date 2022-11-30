@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2Aut
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.nimbusds.jose.shaded.json.JSONArray;
@@ -37,7 +38,10 @@ public class LoginController {
      * Login Page
      */
     @GetMapping("/")
-    String login() {
+    String login(@CookieValue(value = "JSESSIONID", required = false) String session) {
+        if (session != null) {
+            return "redirect:/loginUser";
+        }
         return "login";
     }
 
