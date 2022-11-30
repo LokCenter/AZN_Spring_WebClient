@@ -10,7 +10,38 @@
 <form th:action="@{/mclogout}" method="post">
     <h2 class="form-signin-heading">Sind Sie sicher, dass Sie sich abmelden wollen?</h2>
     <input th:name="_csrf" type="hidden" th:value="${_csrf.token}">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Log Out</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"></button>
 </form>
+<style>
+    body {
+        text-align: center;
+        font-family: 'Lato', sans-serif;
+    }
+
+    button {
+        background: #911D36;
+        border: none;
+        min-width: 150px;
+        padding: 5px 21px;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 1rem;
+        text-decoration: none;
+        vertical-align: middle;
+        letter-spacing: 2px;
+    }
+
+    button::after {
+        content: "Log Out";
+    }
+
+    button:hover::after {
+        content: "Bye";
+    }
+
+    form {
+        display: inline-block;
+    }
+</style>
 </body>
 </html>
