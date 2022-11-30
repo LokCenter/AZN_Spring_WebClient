@@ -1,81 +1,51 @@
-*{
-    transition: all 0.6s;
-}
-
-html {
-    height: 100%;
-}
-
-body{
-    font-family: 'Lato', sans-serif;
-    color: #888;
-    margin: 0;
-}
-
-#main{
-    display: table;
+#error {
+    background: linear-gradient(-45deg, rgba(145, 29, 54, 0.91), rgba(145, 29, 54, 0.91));
+    position: fixed;
+    left: 0px;
+    top: 0;
     width: 100%;
     height: 100%;
-    text-align: center;
+    line-height: 1.5em;
+    z-index: 9999;
+}
+#error #error-text {
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    color: #000;
+    direction: rtl;
+}
+#error #error-text img {
+    margin: 85px auto 20px;
+    height: 342px;
+}
+#error #error-text span {
+    position: relative;
+    font-size: 3.3em;
+    font-weight: 900;
+    margin-bottom: 50px;
+}
+#error #error-text p.p-a {
+    font-size: 1.65rem;
+    font-weight: 600;
+    margin: 30px 0 15px 0;
 }
 
-.fof{
-    display: table-cell;
-    vertical-align: middle;
+#error #error-text .back {
+    background: #fff;
+    color: #000;
+    font-size: 30px;
+    text-decoration: none;
+    padding: .7em 2em;
+    margin-top: -1.0rem;
+    border-radius: 500px;
+    font-weight: 900;
+    transition: all 300ms ease;
 }
-
-.fof h1{
-    font-size: 50px;
-    display: inline-block;
-    padding-right: 12px;
-    animation: type .5s alternate infinite;
-}
-
-.for_red h1 {
-    font-size: 50px;
-    display: inline-block;
-    padding-right: 12px;
-    animation: error_red .5s alternate infinite;
-}
-
-@keyframes type {
-    from{box-shadow: inset -3px 0px 0px #888;}
-    to{box-shadow: inset -3px 0px 0px transparent;}
-}
-
-@keyframes error_red {
-    from{box-shadow: inset -3px 0px 0px red;}
-    to{box-shadow: inset -3px 0px 0px transparent;}
-}
-
-.error__red {
-    color: red;
-    font-weight: bold;
-}
-
-.error__green {
-    color: darkgreen;
-    font-weight: bold;
-}
-
-.for_green h1 {
-    font-size: 50px;
-    display: inline-block;
-    padding-right: 12px;
-    animation: error_green .5s alternate infinite;
-}
-
-@keyframes error_green {
-    from {
-        box-shadow: inset -3px 0px 0px darkgreen;
-    }
-    to {
-        box-shadow: inset -3px 0px 0px transparent;
-    }
-
-}
-
-.noRole-text {
-    color: black;
-    font-size: 16px;
+#error #error-text .back:hover {
+    -webkit-transform: translateY(-13px);
+    transform: translateY(-13px);
+    box-shadow: 0 35px 90px 4px rgba(0, 0, 0, 0.3), inset 0px 0 0 3px #000;
 }
