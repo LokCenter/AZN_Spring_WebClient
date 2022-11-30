@@ -12,6 +12,22 @@
     box-sizing: border-box;
 }
 
+#set-standard-values {
+    position: absolute;
+    top: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.3em;
+    border: 2px solid var(--clr-light);
+}
+
+#set-standard-values:hover,
+#set-standard-values:focus {
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+    cursor: pointer;
+}
+
 main {
     display: grid;
     justify-content: center;
@@ -400,4 +416,99 @@ form[name="edit-user-data"] {
 #save-user-data-button:hover {
     background-color: var(--clr-light);
     color: var(--clr-accent);
+}
+
+/*
+    Modal for setting default values
+ */
+
+.standard-values-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.standard-values-modal .modal-content__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.standard-values-modal table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    display: block;
+    overflow-y: scroll;
+    border: 0.2em solid var(--clr-accent);
+    text-align: center;
+    max-height: 10.5em;
+}
+
+.standard-values-modal table * {
+    padding: 0.3em 0.9em;
+    border-radius: 0;
+}
+
+.standard-values-modal thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.standard-values-modal tbody tr:nth-of-type(even) td {
+    background-color: var(--clr-mid);
+}
+
+.standard-values-modal tbody tr:nth-of-type(odd) td {
+    background-color: var(--clr-light);
+}
+
+.svg-delete-container {
+    display: flex;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.svg-delete {
+    transform: scale(2);
+    fill: red;
+}
+
+.standard-values-modal fieldset {
+    padding: 0.8em 0.5em 0.5em;
+    margin-bottom: 1.5rem;
+    border-color: var(--clr-accent);
+}
+
+.standard-values-modal legend {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.standards-input-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template: 1fr 1em / repeat(6, 1fr);
+    column-gap: 0.5em;
+    width: min-content;
+}
+
+.standards-input-container input {
+    min-width: 7em;
+}
+
+.standards-input-container input:first-of-type {
+    min-width: 8em;
+}
+
+.standards-input-container label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-left: 0.4em;
+}
+
+#add-default-values {
+    grid-row-start: span 2;
+    padding: 0.3em;
+    align-self: start;
 }

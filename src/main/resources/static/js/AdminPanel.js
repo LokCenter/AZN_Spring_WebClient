@@ -37,6 +37,84 @@ const makeRequest = (path, userid, res_callback) => {
     })
 }
 
+const standardValuesButton = document.getElementById("set-standard-values");
+standardValuesButton.addEventListener("click", () => {
+    const modal = document.body.appendChild(document.createElement("div"));
+    modal.classList.add("modal");
+    modal.classList.add("standard-values-modal");
+    modal.style.display = "block";
+
+    modal.innerHTML =
+        "<div class='modal-content'>" +
+            "<div class='modal-content__header'>" +
+                "<h2>Standardwerte festlegen</h2>" +
+                "<span class='close' id='close-standard-values'>&times;</span>" +
+            "</div>" +
+            "<div class='modal-content__body'>" +
+                "<table id='default-values-table'>" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th>Startdatum</th>" +
+                            "<th>Arbeitsbeginn</th>" +
+                            "<th>Arbeitsende</th>" +
+                            "<th>Pause</th>" +
+                            "<th>Urlaubstage</th>" +
+                            "<th>Löschen</th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    "<tbody></tbody>" +
+                "</table>" +
+                "<form action='' id='standard-values-form'>" +
+                    "<fieldset>" +
+                        "<legend>Standardwerte hinzufügen</legend>" +
+                            "<div class='standards-input-container'>" +
+                                "<input type='date' name='standard-start-date' id='standard-start-date'>" +
+                                "<label for='standard-start-date'>Startdatumn</label>" +
+                                "<input type='time' name='standard-start-time' id='standard-start-time'>" +
+                                "<label for='standard-start-time'>Arbeitsbeginn</label>" +
+                                "<input type='time' name='standard-end-time' id='standard-end-time'>" +
+                                "<label for='standard-end-time'>Arbeitsende</label>" +
+                                "<input type='time' name='standard-pause' id='standard-pause'>" +
+                                "<label for='standard-pause'>Pause</label>" +
+                                "<input type='number' min='0' name='standard-vacation' id='standard-vacation'>" +
+                                "<label for='standard-vacation'>Urlaubstage</label>" +
+                                "<button type='button' id='add-default-values' onclick='addDefault()'>Hinzufügen</button>" +
+                            "</div>" +
+                    "</fieldset>" +
+                "</form>" +
+            "</div>" +
+        "</div>";
+
+    document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.remove();
+        }
+    });
+
+})
+
+function deleteDefault(row) {
+    row.remove();
+}
+
+function addDefault() {
+    const defaultStartDate = document.getElementById("standard-start-date");
+    const defaultStartTime = document.getElementById("standard-start-time");
+    const defaultEndTime = document.getElementById("standard-end-time");
+    const defaultPause = document.getElementById("standard-pause");
+    const defaultVacation = document.getElementById("standard-vacation");
+    if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value && defaultPause.value && defaultVacation.value) {
+        const newDefaultRow = document.getElementById("default-values-table").tBodies[0].insertRow();
+        newDefaultRow.insertCell().innerText = defaultStartDate.valueAsDate.toLocaleDateString("de-DE");
+        newDefaultRow.insertCell().innerText = defaultStartTime.value;
+        newDefaultRow.insertCell().innerText = defaultEndTime.value;
+        newDefaultRow.insertCell().innerText = defaultPause.value;
+        newDefaultRow.insertCell().innerText = defaultVacation.value;
+        newDefaultRow.insertCell().innerHTML = "<div class='svg-delete-container' onclick='deleteDefault(this.parentNode.parentNode)'><svg class=\"svg-delete\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 512\"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d=\"M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z\"/></svg></div>";
+    }
+}
+
 /**
  *
  * @param userid id from user
