@@ -19,8 +19,6 @@ public class ErrorController {
      */
     @GetMapping
     String getErrorPage(Model model) {
-        // title
-        model.addAttribute("title", "Error");
         return "error";
     }
 }
