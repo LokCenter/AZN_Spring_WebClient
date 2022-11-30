@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/css/error.css}"/>
+    <link rel="stylesheet" th:href="@{/css/noRole.css}"/>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
 <div id="main">
-       <div th:if="${hasRole}" class="fof for_green">
-           <h1 class="error__green">User has a role</h1>
+       <div th:if="${hasRole}" class="fof for_green role_text">
+           <h1 class=>User has a role</h1>
        </div>
-       <div th:unless="${hasRole}" class="fof for_red">
-           <h1 class="error__red">User <span th:text="${username}"></span> has no role</h1>
+       <div th:unless="${hasRole}" class="fof for_red role_text">
+           <h1>User <span th:text="${username}"></span> has no role</h1>
            <p class="noRole-text">Please contact your administrator</p>
        </div>
 </div>
