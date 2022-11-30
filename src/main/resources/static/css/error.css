@@ -1,12 +1,15 @@
+body {
+    background: #911D36;
+}
+
 #error {
-    background: linear-gradient(-45deg, rgba(145, 29, 54, 0.91), rgba(145, 29, 54, 0.91));
     position: fixed;
     left: 0px;
     top: 0;
     width: 100%;
-    height: 100%;
     line-height: 1.5em;
     z-index: 9999;
+    height: 80%;
 }
 #error #error-text {
     font-size: 40px;
@@ -38,14 +41,16 @@
     color: #000;
     font-size: 30px;
     text-decoration: none;
+    font-family: 'Lato', sans-serif;
     padding: .7em 2em;
     margin-top: -1.0rem;
     border-radius: 500px;
+    border: none;
     font-weight: 900;
     transition: all 300ms ease;
 }
 #error #error-text .back:hover {
     -webkit-transform: translateY(-13px);
     transform: translateY(-13px);
-    box-shadow: 0 35px 90px 4px rgba(0, 0, 0, 0.3), inset 0px 0 0 3px #000;
+    border: 4px solid black;
 }
