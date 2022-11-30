@@ -66,8 +66,11 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .userInfoEndpoint().oidcUserService(this.oidcUserService())
                                         .and().defaultSuccessUrl("/loginUser", true)
                                         .and().logout().invalidateHttpSession(true)
+                                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
                                         .clearAuthentication(true).logoutSuccessUrl("/")
                                         .deleteCookies("JSESSIONID")
+                                        .invalidateHttpSession(true)
+                                        .clearAuthentication(true)
                                         .permitAll();
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
