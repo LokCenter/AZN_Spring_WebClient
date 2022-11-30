@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<form th:action="@{/mclogout}" method="post">
+    <h2 class="form-signin-heading">Sind Sie sicher, dass Sie sich abmelden wollen?</h2>
+    <input th:name="_csrf" type="hidden" th:value="${_csrf.token}">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log Out</button>
+</form>
+</body>
+</html>

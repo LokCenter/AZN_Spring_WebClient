@@ -60,14 +60,16 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                                         .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("Admin")
                                         .mvcMatchers(HttpMethod.GET, "/yearplan/**").hasRole("User")
                                         .mvcMatchers(HttpMethod.GET, "/monthplan").hasRole("User")
+                                        .mvcMatchers("/logout").denyAll()
                                         // allow resources
-                                        .mvcMatchers("/js/***", "/css/**").permitAll()
+                                        .mvcMatchers(HttpMethod.GET,"/js/***", "/css/**").permitAll()
                                         // set authentication
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service
                                         .userInfoEndpoint().oidcUserService(this.oidcUserService())
                                         .and().defaultSuccessUrl("/loginUser", true)
-                                        .and().logout().invalidateHttpSession(true)
+                                        .and().logout().logoutUrl("/mclogout")
+                                        .invalidateHttpSession(true)
                                         .logoutSuccessHandler(oidcLogoutSuccessHandler())
                                         .clearAuthentication(true)
                                         .deleteCookies("JSESSIONID")
@@ -100,8 +102,7 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
 
             // find ... in claim
             oidcUser.getAuthorities().forEach(authority -> {
-                if (authority instanceof OidcUserAuthority) {
-                    OidcUserAuthority oidcUserAuthority = (OidcUserAuthority) authority;
+                if (authority instanceof OidcUserAuthority oidcUserAuthority) {
                     Map<String, Object> userInfo = oidcUserAuthority.getAttributes();
                     JSONArray roles = null;
                     // check for roles
