@@ -329,4 +329,12 @@ public class AdminController {
 
         return true;
     }
+
+    @PostMapping("defaults/add")
+    @ResponseBody
+    Boolean addDefaults(@RequestBody Map<String, Object> payload) {
+        System.out.println(payload);
+
+        return true;
+    }
 }
