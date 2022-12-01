@@ -370,4 +370,13 @@ public class AdminController {
 
         return "";
     }
+
+    @PutMapping("/defaults/delete")
+    @ResponseBody
+    Boolean deleteDefaults(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
+    OAuth2AuthorizedClient authorizedClient, Authentication authentication) {
+        System.out.println(payload);
+
+        return true;
+    }
 }

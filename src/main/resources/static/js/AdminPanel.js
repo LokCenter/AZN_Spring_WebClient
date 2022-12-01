@@ -92,7 +92,6 @@ standardValuesButton.addEventListener("click", () => {
     axios.get("/admin/defaults/get")
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
-                console.log(response.data)
                 for (let data in response.data) {
                     let deD = new Intl.DateTimeFormat("de")
                     const newDefaultRow = document.getElementById("default-values-table").tBodies[0].insertRow();
@@ -123,7 +122,24 @@ standardValuesButton.addEventListener("click", () => {
  * Delete default value row
  */
 function deleteDefault(row) {
-    row.remove();
+    let deleteDate = row.children[0].innerText;
+    // Get CSRF token
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    // csrf to header
+    axios.defaults.headers.put[header] = token
+    // data
+    axios.put("admin/defaults/delete", {
+        "start_date": deleteDate
+    }).then(async (res) => {
+        if (res.data) {
+            row.remove();
+        }
+    }).catch((error) => {
+        console.log(error)
+    })
+
 }
 
 /**
