@@ -7,7 +7,7 @@
 .container {
     display: grid;
     justify-content: center;
-    margin: 3rem 0;
+    margin-top: 3rem;
 }
 
 table {
@@ -70,12 +70,16 @@ td {
     border-right: 1px solid var(--clr-dark);
 }
 
-.submit-button-container {
+.azn-submit-container,
+.azn-response-container {
     display: flex;
     justify-content: flex-end;
+    column-gap: 1em;
 }
 
-#submit-azn {
+#submit-azn,
+#accept-azn,
+#deny-azn {
     font-size: 1.2rem;
     font-weight: 600;
     padding: 0.3em;
@@ -86,8 +90,22 @@ td {
     border-radius: 0.8rem;
 }
 
-#submit-azn:hover {
+#submit-azn:hover,
+#accept-azn:hover,
+#deny-azn:hover {
     cursor: pointer;
     background-color: var(--clr-light);
     color: var(--clr-accent);
+}
+
+#submit-azn:disabled,
+#accept-azn:disabled,
+#deny-azn:disabled,
+#submit-azn:disabled:hover,
+#accept-azn:disabled:hover,
+#deny-azn:disabled:hover {
+    cursor: default;
+    color: #8e8e8e;
+    background-color: #dedede;
+    border-color: #8e8e8e;
 }
