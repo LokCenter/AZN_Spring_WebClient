@@ -352,4 +352,22 @@ public class AdminController {
 
         return false;
     }
+
+    @GetMapping("/defaults/get")
+    @ResponseBody
+    String getDefaults(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                       OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
+
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri("/admin/defaults/get").
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
+        }
+
+        return "";
+    }
 }

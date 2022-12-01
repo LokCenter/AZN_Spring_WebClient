@@ -88,6 +88,28 @@ standardValuesButton.addEventListener("click", () => {
             "</div>" +
         "</div>";
 
+    // get data
+    axios.get("/admin/defaults/get")
+        .then((response) => {
+            if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+                console.log(response.data)
+                for (let data in response.data) {
+                    let deD = new Intl.DateTimeFormat("de")
+                    const newDefaultRow = document.getElementById("default-values-table").tBodies[0].insertRow();
+                    newDefaultRow.insertCell().innerText = deD.format(new Date(response.data[data].defaultStartDate))
+                    newDefaultRow.insertCell().innerText = response.data[data].defaultStartTime;
+                    newDefaultRow.insertCell().innerText = response.data[data].defaultEndTime;
+                    newDefaultRow.insertCell().innerText = response.data[data].defaultPause;
+                    newDefaultRow.insertCell().innerText = response.data[data].defaultVacationDays;
+                    newDefaultRow.insertCell().innerHTML = "<div class='svg-delete-container' onclick='deleteDefault(this.parentNode.parentNode)'><svg class=\"svg-delete\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 512\"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d=\"M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z\"/></svg></div>";
+                }
+            }
+
+        }).catch((e) => {
+        console.log("cannot request data", e)
+    })
+
+
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
