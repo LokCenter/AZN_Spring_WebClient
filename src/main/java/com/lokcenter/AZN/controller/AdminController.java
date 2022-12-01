@@ -374,9 +374,22 @@ public class AdminController {
     @PutMapping("/defaults/delete")
     @ResponseBody
     Boolean deleteDefaults(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
-    OAuth2AuthorizedClient authorizedClient, Authentication authentication) {
-        System.out.println(payload);
+    OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
+                    .uri("admin/defaults/delete")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
 
-        return true;
+        } else {
+            return false;
+        }
     }
 }
