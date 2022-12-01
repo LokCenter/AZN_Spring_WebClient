@@ -4,13 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lokcenter.AZN.helper.ControllerHelper;
-import com.lokcenter.AZN.helper.ds.Search;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -297,6 +294,36 @@ public class AdminController {
                             @RequestParam(name = "userid", required = true) String userid) {
         model.addAttribute("title", "Admin Overview");
         return "adminOverview";
+    }
+
+    /**
+     * Show users
+     */
+    @ResponseBody
+    @GetMapping("/usernameList")
+    String showUserNameList() {
+        // TODO: Get username list
+        return "";
+    }
+
+    /**
+     * Calendar delete calendar range
+     */
+    @PutMapping("/calendar/delete")
+    @ResponseBody
+    Boolean deleteCalendarRange() {
+        // TODO: delete calendar range with user id
+        return true;
+    }
+
+    /**
+     * Show AZN-Abgaben
+     */
+    @ResponseBody
+    @GetMapping("azn/get")
+    String getAZNSubmitted() {
+        // TODO: Show submited azn data
+        return "";
     }
 
     /**

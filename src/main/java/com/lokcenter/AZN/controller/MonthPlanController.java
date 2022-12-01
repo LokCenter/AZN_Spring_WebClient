@@ -9,16 +9,11 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.net.ContentHandler;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -61,5 +56,15 @@ public class MonthPlanController {
         }
 
         throw new Exception("Bad request");
+    }
+
+    /**
+     * Submit Monthplan
+     */
+    @ResponseBody
+    @PutMapping("/submit")
+    Boolean SubmitMonthPlan() {
+        // TODO: Submit Month plan
+       return true;
     }
 }
