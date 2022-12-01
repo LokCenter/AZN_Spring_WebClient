@@ -6,7 +6,7 @@
 
 .dp-container {
     display: grid;
-    grid-template: 11em 3em 1fr / 3fr 1fr;
+    grid-template: 9em 3em 1fr / 3fr 1fr;
     justify-content: center;
     padding: 0 3em;
     gap: 0 3em;
@@ -22,7 +22,6 @@
 .overview-wrapper {
     display: grid;
     grid-template: 2em 2em 3em / 25ch 10ch;
-    margin-top: 2.14rem;
     align-items: center;
 }
 button {
@@ -65,9 +64,5 @@ button:hover {
 @media screen and (max-width: 1536px) {
     .dp-container {
         margin-top: 3em;
-    }
-
-    .overview-wrapper {
-        margin-top: 1.93rem;
     }
 }
