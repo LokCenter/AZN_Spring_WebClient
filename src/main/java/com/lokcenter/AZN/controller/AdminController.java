@@ -332,9 +332,24 @@ public class AdminController {
 
     @PostMapping("defaults/add")
     @ResponseBody
-    Boolean addDefaults(@RequestBody Map<String, Object> payload) {
-        System.out.println(payload);
+    Boolean addDefaults(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
+    OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
+        // user must be admin
+        if (ControllerHelper.isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient
+                    .post()
+                    .uri("admin/defaults/add")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+        }
 
-        return true;
+        return false;
     }
 }
