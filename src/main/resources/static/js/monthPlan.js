@@ -108,10 +108,11 @@ function displayTable(date, data) {
     }
 }
 
+const submitButton = document.getElementById("submit-azn");
 /**
  * Submit month
  */
-document.getElementById("submit-azn").addEventListener("click", (e) => {
+submitButton.addEventListener("click", (e) => {
     // Get CSRF token
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
@@ -132,4 +133,34 @@ document.getElementById("submit-azn").addEventListener("click", (e) => {
     }).catch((error) => {
         console.log(error)
     })
+})
+
+const aznStatus = document.getElementById("azn-status");
+
+/**
+ * Display AZN status
+ */
+function updateStatus() {
+    if (aznStatus.dataset.status === "0") {
+        aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
+        submitButton.disabled = false;
+    }
+    else if (aznStatus.dataset.status === "1") {
+        aznStatus.innerHTML = "Angenommen <span>&check;</span>";
+        submitButton.disabled = true;
+    }
+    else if (aznStatus.dataset.status === "2") {
+        aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
+        submitButton.disabled = true;
+    }
+    else {
+        aznStatus.innerHTML = "";
+        submitButton.disabled = false;
+    }
+}
+
+aznStatus.addEventListener("click", () => {
+    if (aznStatus.dataset.status === "0") {
+        // Display admins message
+    }
 })
