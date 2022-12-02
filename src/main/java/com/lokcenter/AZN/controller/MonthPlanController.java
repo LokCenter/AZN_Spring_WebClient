@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lokcenter.AZN.helper.ControllerHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -48,11 +49,20 @@ public class MonthPlanController {
         Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s", month, year, role)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
+                attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .body(Mono.just(Map.of("month", month, "year", year)), Map.class)
+                .retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null) {
+        if (res.block() != null && resStatus.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            JsonNode jsonDataStatus = new ObjectMapper().readTree(resStatus.block());
 
             model.addAttribute("data", jsonData);
+            model.addAttribute("status", jsonDataStatus);
             model.addAttribute("title", "Monatsübersicht");
 
             return "monthPlan";

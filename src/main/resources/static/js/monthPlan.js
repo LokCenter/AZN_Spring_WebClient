@@ -121,8 +121,8 @@ submitButton.addEventListener("click", (e) => {
     axios.defaults.headers.put[header] = token
     // data
     axios.put("monthplan/submit", {
-        "month": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-        "year": getNumberFromFullMonth(document.
+        "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+        "month": getNumberFromFullMonth(document.
         getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
 
     }).then(async (res) => {

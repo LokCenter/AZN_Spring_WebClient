@@ -40,7 +40,7 @@
       </table>
       <div class="azn-submit-container">
         <p id="azn-status" data-status="unknown"></p>
-        <button id="submit-azn" onclick="submitAZN()">Arbeitszeitnachweis abgeben</button>
+        <button id="submit-azn">Arbeitszeitnachweis abgeben</button>
       </div>
     </div>
     <script th:src="@{/js/monthPlan.js}"></script>
@@ -50,6 +50,7 @@
       /*<![CDATA[*/
 
       let data = /*[[${data}]]*/ null;
+      let status = /*[[${status}]]*/ null;
 
 
       // Initially set viewedDate to the current date
@@ -69,6 +70,8 @@
       dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 
       displayTable(viewedDate, data);
+
+      console.log(status)
 
       /*]]>*/
     </script>
