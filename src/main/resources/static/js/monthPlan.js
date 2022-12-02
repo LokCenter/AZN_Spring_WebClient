@@ -104,7 +104,7 @@ function displayTable(date, data) {
         let schoolCell = row.insertCell();
         schoolCell.textContent = data[i].school === true? 'x': ''
         let commentCell = row.insertCell();
-        commentCell.textContent = data[i].comment === true? 'x': ''
+        commentCell.textContent = data[i].comment != null ? data[i].comment: ''
     }
 }
 
