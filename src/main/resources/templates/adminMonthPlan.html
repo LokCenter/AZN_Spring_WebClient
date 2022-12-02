@@ -48,6 +48,12 @@
       /*<![CDATA[*/
 
       let data = /*[[${data}]]*/ null;
+      let statusData = /*[[${status}]]*/ null;
+
+      if ((statusData.accepted == null && statusData.submitted == null)  || !statusData.submitted) {
+        document.getElementById("deny-azn").style.display = 'none';
+        document.getElementById("accept-azn").style.display = 'none';
+      }
 
 
       // Initially set viewedDate to the current date

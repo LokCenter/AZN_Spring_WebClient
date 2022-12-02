@@ -238,12 +238,25 @@ public class AdminController {
         Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s&userid=%s", month, year, role, userid)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
+                attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .body(Mono.just(Map.of(
+                        "month", month,
+                        "year", year,
+                        "role", role,
+                        "userId", userid)), Map.class)
+                .retrieve().bodyToMono(String.class);
+
         // check if there is any data
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            JsonNode jsonDataStatus = new ObjectMapper().readTree(resStatus.block());
 
             model.addAttribute("data", jsonData);
             model.addAttribute("title", "Monatsübersicht - Admin");
+            model.addAttribute("status", jsonDataStatus);
 
             return "adminMonthPlan";
         }
