@@ -128,7 +128,7 @@ submitButton.addEventListener("click", (e) => {
     }).then(async (res) => {
         // Display confirmation message if response is ok
         if (res.data) {
-
+            submitButton.setAttribute("disabled", "")
         }
     }).catch((error) => {
         console.log(error)
@@ -137,27 +137,7 @@ submitButton.addEventListener("click", (e) => {
 
 const aznStatus = document.getElementById("azn-status");
 
-/**
- * Display AZN status
- */
-function updateStatus() {
-    if (aznStatus.dataset.status === "0") {
-        aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
-        submitButton.disabled = false;
-    }
-    else if (aznStatus.dataset.status === "1") {
-        aznStatus.innerHTML = "Angenommen <span>&check;</span>";
-        submitButton.disabled = true;
-    }
-    else if (aznStatus.dataset.status === "2") {
-        aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
-        submitButton.disabled = true;
-    }
-    else {
-        aznStatus.innerHTML = "";
-        submitButton.disabled = false;
-    }
-}
+
 
 aznStatus.addEventListener("click", () => {
     if (aznStatus.dataset.status === "0") {

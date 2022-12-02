@@ -51,6 +51,25 @@
 
       let data = /*[[${data}]]*/ null;
       let status = /*[[${status}]]*/ null;
+      let statusText = document.getElementById("azn-status")
+      const submitButtonC = document.getElementById("submit-azn");
+
+      aznStatus.innerHTML = "";
+      submitButtonC.disabled = false;
+
+      if (status.accepted === null || status.submitted == null) {
+        aznStatus.innerHTML = "";
+        submitButtonC.disabled = false;
+      }else if (status.accepted) {
+        aznStatus.innerHTML = "Angenommen <span>&check;</span>";
+        submitButtonC.disabled = true;
+      } else if (status.submitted) {
+        aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
+        submitButtonC.disabled = true;
+      } else if (!status && !status.submitted) {
+        aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
+        submitButtonC.disabled = false;
+      }
 
 
       // Initially set viewedDate to the current date
@@ -69,9 +88,10 @@
 
       dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 
-      displayTable(viewedDate, data);
+     if (data) {
+       displayTable(viewedDate, data);
+     }
 
-      console.log(status)
 
       /*]]>*/
     </script>
