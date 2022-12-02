@@ -51,7 +51,6 @@
 
       let data = /*[[${data}]]*/ null;
       let status = /*[[${status}]]*/ null;
-      let statusText = document.getElementById("azn-status")
       const submitButtonC = document.getElementById("submit-azn");
 
       aznStatus.innerHTML = "";
@@ -66,7 +65,7 @@
       } else if (status.submitted) {
         aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
         submitButtonC.disabled = true;
-      } else if (!status && !status.submitted) {
+      } else if (!status.accepted && !status.submitted) {
         aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
         submitButtonC.disabled = false;
       }

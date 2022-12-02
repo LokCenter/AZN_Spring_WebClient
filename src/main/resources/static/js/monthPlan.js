@@ -129,6 +129,7 @@ submitButton.addEventListener("click", (e) => {
         // Display confirmation message if response is ok
         if (res.data) {
             submitButton.setAttribute("disabled", "")
+            aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
         }
     }).catch((error) => {
         console.log(error)
