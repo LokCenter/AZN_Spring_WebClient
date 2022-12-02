@@ -39,10 +39,10 @@ function displayTable(date, data) {
     let datesOfMonth = [];
     for (let i = 1; i <= totalDaysInMonth; i++) {
         date.setDate(i);
-        let dateToPush = `${getWeekdayString(date.getDay())}, ${date.toLocaleDateString()}`;
+        let dateToPush = `${getWeekdayString(date.getDay())}, ${date.toLocaleDateString('de-de')}`;
         // Add leading zero if date is in single digits
         if (i < 10) {
-            dateToPush = `${getWeekdayString(date.getDay())}, 0${date.toLocaleDateString()}`;
+            dateToPush = `${getWeekdayString(date.getDay())}, 0${date.toLocaleDateString('de-de')}`;
         }
         datesOfMonth.push(dateToPush);
     }
