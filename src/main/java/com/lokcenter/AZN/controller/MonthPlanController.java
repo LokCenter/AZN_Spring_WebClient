@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lokcenter.AZN.helper.ControllerHelper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -14,6 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -63,8 +66,19 @@ public class MonthPlanController {
      */
     @ResponseBody
     @PutMapping("/submit")
-    Boolean SubmitMonthPlan() {
-        // TODO: Submit Month plan
-       return true;
+    Boolean SubmitMonthPlan(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
+    OAuth2AuthorizedClient authorizedClient) {
+        return Boolean.TRUE.equals(this.webClient
+                .put()
+                .uri("/monthplan/submit")
+                .attributes(oauth2AuthorizedClient(authorizedClient))
+                // send
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .body(Mono.just(payload), Map.class)
+                .retrieve()
+                // res type
+                .bodyToMono(Boolean.class)
+                .block());
     }
 }

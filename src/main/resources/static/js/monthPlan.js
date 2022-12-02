@@ -29,6 +29,11 @@ nextMonthButton.addEventListener("click", () => {
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 
+/**
+ * Show monthplan content
+ * @param date month date
+ * @param data month java data
+ */
 function displayTable(date, data) {
     let totalDaysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     let datesOfMonth = [];
@@ -102,3 +107,29 @@ function displayTable(date, data) {
         commentCell.textContent = data[i].comment === true? 'x': ''
     }
 }
+
+/**
+ * Submit month
+ */
+document.getElementById("submit-azn").addEventListener("click", (e) => {
+    // Get CSRF token
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    // csrf to header
+    axios.defaults.headers.put[header] = token
+    // data
+    axios.put("monthplan/submit", {
+        "month": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+        "year": getNumberFromFullMonth(document.
+        getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+
+    }).then(async (res) => {
+        // Display confirmation message if response is ok
+        if (res.data) {
+
+        }
+    }).catch((error) => {
+        console.log(error)
+    })
+})
