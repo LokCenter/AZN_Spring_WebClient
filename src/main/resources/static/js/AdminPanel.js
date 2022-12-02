@@ -50,7 +50,7 @@ standardValuesButton.addEventListener("click", () => {
     modal.innerHTML =
         "<div class='modal-content'>" +
             "<div class='modal-content__header'>" +
-                "<h2>Standardwerte festlegen</h2>" +
+                "<h2>Standardwerte für neue Benutzer</h2>" +
                 "<span class='close' id='close-standard-values'>&times;</span>" +
             "</div>" +
             "<div class='modal-content__body'>" +
@@ -85,6 +85,7 @@ standardValuesButton.addEventListener("click", () => {
                             "</div>" +
                     "</fieldset>" +
                 "</form>" +
+                "<p id='default-modal-message'></p>" +
             "</div>" +
         "</div>";
 
@@ -151,6 +152,7 @@ function addDefault() {
     const defaultEndTime = document.getElementById("standard-end-time");
     const defaultPause = document.getElementById("standard-pause");
     const defaultVacation = document.getElementById("standard-vacation");
+    const defaultModalMessage = document.getElementById("default-modal-message");
     if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value &&
         defaultPause.value && defaultVacation.value) {
 
@@ -178,11 +180,20 @@ function addDefault() {
                 newDefaultRow.insertCell().innerText = defaultPause.value;
                 newDefaultRow.insertCell().innerText = defaultVacation.value;
                 newDefaultRow.insertCell().innerHTML = "<div class='svg-delete-container' onclick='deleteDefault(this.parentNode.parentNode)'><svg class=\"svg-delete\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 512\"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d=\"M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z\"/></svg></div>";
+                defaultModalMessage.innerText = "";
+                defaultModalMessage.style.display = "none";
             }
         }).catch((error) => {
             console.log(error)
+            defaultModalMessage.innerText = "Daten konnten nicht gespeichert werden. Eingabe überprüfen.";
+            defaultModalMessage.style.display = "block";
         })
     }
+    else {
+        defaultModalMessage.innerText = "Daten konnten nicht gespeichert werden. Eingabe überprüfen.";
+        defaultModalMessage.style.display = "block";
+    }
+;
 }
 
 /**

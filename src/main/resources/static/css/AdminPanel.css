@@ -512,3 +512,14 @@ form[name="edit-user-data"] {
     padding: 0.3em;
     align-self: start;
 }
+
+#default-modal-message {
+    margin-bottom: 1.5rem;
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    padding: 0.2em;
+    display: none;
+}
