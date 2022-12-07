@@ -370,17 +370,28 @@ public class AdminController {
     /**
      * Deny AZN Submit
      */
+    @ResponseBody
     @PutMapping("/azn/deny")
     Boolean denyAzn(@RegisteredOAuth2AuthorizedClient("userwebapp")
                     OAuth2AuthorizedClient authorizedClient, Authentication authentication,
-                    @RequestParam(name = "month", required = true) String month,
-                    @RequestParam(name = "userid", required = true) String userId) {
+                    @RequestBody Map<String, Object> payload) throws Exception {
 
-        // Todo: Get month and user id
-        // Todo: RServer put request
-        // Todo: check role
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient
+                    .put()
+                    .uri("/admin/azn/deny")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), Map.class)
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+        }
 
-        return true;
+        return false;
     }
 
     @PostMapping("defaults/add")

@@ -68,17 +68,41 @@
           "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
           "month": getNumberFromFullMonth(document.
           getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
-          "userid": getQueryByName("userid")
+          "userid": getQueryByName("userid").toString()
 
         }).then(async (res) => {
           // Display confirmation message if response is ok
           if (res.data) {
-
+            // TODO: show accepted message
           }
         }).catch((error) => {
           console.log(error)
         })
       })
+
+     azn_deny.addEventListener("click", (e) => {
+       // Get CSRF token
+       const token = $("meta[name='_csrf']").attr("content");
+       const header = $("meta[name='_csrf_header']").attr("content");
+
+       // csrf to header
+       axios.defaults.headers.put[header] = token
+       // data
+       axios.put("azn/deny", {
+         "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+         "month": getNumberFromFullMonth(document.
+         getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+         "userid": getQueryByName("userid").toString()
+
+       }).then(async (res) => {
+         // Display confirmation message if response is ok
+         if (res.data) {
+           // TODO: remove buttons
+         }
+       }).catch((error) => {
+         console.log(error)
+       })
+     })
 
       let data = /*[[${data}]]*/ null;
       let statusData = /*[[${status}]]*/ null;
