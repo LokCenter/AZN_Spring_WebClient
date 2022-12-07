@@ -351,7 +351,7 @@ public class AdminController {
         if (isAdmin(authentication.getAuthorities())) {
             return Boolean.TRUE.equals(this.webClient
                     .put()
-                    .uri("/monthplan/submit")
+                    .uri("/admin/azn/accept")
                     .attributes(oauth2AuthorizedClient(authorizedClient))
                     // send
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

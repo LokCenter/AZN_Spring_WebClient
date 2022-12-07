@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${title}"></title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"  referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/monthPlan.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <script th:src="@{/js/helper/helper.js}"></script>
   </head>
   <body>
@@ -46,6 +52,33 @@
     <script th:src="@{/js/adminCurrentPage.js}"></script>
     <script th:inline="javascript">
       /*<![CDATA[*/
+
+      let azn_accept = document.getElementById("accept-azn");
+      let azn_deny = document.getElementById("deny-azn");
+
+      azn_accept.addEventListener("click", (e) => {
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        // csrf to header
+        axios.defaults.headers.put[header] = token
+        // data
+        axios.put("azn/accept", {
+          "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+          "month": getNumberFromFullMonth(document.
+          getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+          "userid": getQueryByName("userid")
+
+        }).then(async (res) => {
+          // Display confirmation message if response is ok
+          if (res.data) {
+
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      })
 
       let data = /*[[${data}]]*/ null;
       let statusData = /*[[${status}]]*/ null;
