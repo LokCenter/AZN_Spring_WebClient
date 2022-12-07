@@ -43,6 +43,7 @@
           <tbody></tbody>
       </table>
       <div id="anz-response" class="azn-response-container">
+        <p id="azn-status-admin"></p>
         <button id="deny-azn">Arbeitszeitnachweis ablehnen</button>
         <button id="accept-azn">Arbeitszeitnachweis annehmen</button>
       </div>
@@ -56,6 +57,7 @@
 
       let azn_accept = document.getElementById("accept-azn");
       let azn_deny = document.getElementById("deny-azn");
+      let aznStatusAdmin = document.getElementById("azn-status-admin");
 
       azn_accept.addEventListener("click", (e) => {
         // Get CSRF token
@@ -111,7 +113,9 @@
       if ((statusData.accepted == null && statusData.submitted == null)  || !statusData.submitted) {
         document.getElementById("deny-azn").style.display = 'none';
         document.getElementById("accept-azn").style.display = 'none';
+        aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
       }
+      else if (statusData.accepted && statusData.submitted) aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde angenommen";
 
 
       // Initially set viewedDate to the current date
