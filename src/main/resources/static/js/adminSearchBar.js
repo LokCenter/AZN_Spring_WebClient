@@ -84,4 +84,24 @@ searchBar.addEventListener("search", () => {
     if (document.getElementById("filter-input").value === "") filterTable();
 })
 
-createUserList(users);
+/**
+ * Request all user names and id's
+ */
+axios.get("/admin/usernameList")
+    .then((response) => {
+        if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+            console.log(response.data)
+            for (let data in response.data) {
+                // go over each user
+                // response.data[data].username/.id
+                // TODO: insert users to user array
+                // TODO: check if there is any user
+                // createUserList(users);
+            }
+        } else {
+            // TODO: show no userdata message
+        }
+
+    }).catch((e) => {
+    console.log("cannot request data", e)
+})

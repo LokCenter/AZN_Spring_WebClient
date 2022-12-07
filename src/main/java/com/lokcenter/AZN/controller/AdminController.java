@@ -314,8 +314,17 @@ public class AdminController {
      */
     @ResponseBody
     @GetMapping("/usernameList")
-    String showUserNameList() {
-        // TODO: Get username list
+    String showUserNameList( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                             Authentication authentication) throws JsonProcessingException {
+        Mono<String> res = webClient.get().uri("admin/userlist").
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+
+        if (res.block() != null) {
+            System.out.println(res.block());
+            return res.block();
+        }
+
         return "";
     }
 
