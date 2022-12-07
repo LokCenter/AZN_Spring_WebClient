@@ -41,7 +41,7 @@
         </thead>
           <tbody></tbody>
       </table>
-      <div class="azn-response-container">
+      <div id="anz-response" class="azn-response-container">
         <button id="deny-azn">Arbeitszeitnachweis ablehnen</button>
         <button id="accept-azn">Arbeitszeitnachweis annehmen</button>
       </div>
@@ -97,7 +97,7 @@
        }).then(async (res) => {
          // Display confirmation message if response is ok
          if (res.data) {
-           // TODO: remove buttons
+           document.getElementById('anz-response').style.display = 'none';
          }
        }).catch((error) => {
          console.log(error)
