@@ -130,6 +130,10 @@ submitButton.addEventListener("click", (e) => {
         if (res.data) {
             submitButton.setAttribute("disabled", "")
             aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
+            aznStatus.getElementsByTagName("span")[0].style.color = "blue";
+            aznStatus.removeEventListener("click", showMessage);
+            aznStatus.style.textDecoration = "none";
+            aznStatus.style.cursor = "default";
         }
     }).catch((error) => {
         console.log(error)
@@ -138,10 +142,31 @@ submitButton.addEventListener("click", (e) => {
 
 const aznStatus = document.getElementById("azn-status");
 
+function showMessage() {
+    const messageBox = document.body.appendChild(document.createElement("div"));
+    messageBox.id = "message-box";
 
+    messageBox.innerHTML =
+        "<div class='message-box-content'>" +
+            "<div class='message-box-content__header'>" +
+                "<h2>Ablehnungsgrund</h2>" +
+                "<span id='close'>&times;</span>" +
+            "</div>" +
+            "<div class='message-box-content__body'>" +
+                "<div>" +
+                    "<p id='sender'>Von: <span id='sender-name'>ADMIN</span></p>" +
+                    "<p class='message-label'>Nachricht des Admins:</p>" +
+                    "<p id='message-for-user'>pkfaeop ap fosefe posek we vfdji ps pfskepo eqa. efkpw eedpf0bm bmier.</p>" +
+                    "<button id='acknowledge-message'>OK</button>" +
+                "</div>" +
+            "</div>" +
+        "</div>"
 
-aznStatus.addEventListener("click", () => {
-    if (aznStatus.dataset.status === "0") {
-        // Display admins message
-    }
-})
+    const header = document.getElementsByClassName("message-box-content__header")[0];
+    header.style.display = "flex";
+    header.style.justifyContent = "space-between";
+
+    document.getElementById("close").addEventListener("click", () => { messageBox.remove(); });
+    document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
+    window.addEventListener("click", (event) => { if (event.target === messageBox) messageBox.remove(); });
+}

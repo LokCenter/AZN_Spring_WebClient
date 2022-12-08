@@ -92,31 +92,17 @@ td {
     line-height: 100%;
 }
 
-#azn-status[data-status="0"] {
-    text-decoration: underline;
-}
-
-#azn-status[data-status="0"]:hover {
+#azn-status {
     text-decoration: none;
-    cursor: pointer;
+    cursor: default;
 }
 
-#azn-status[data-status="0"] span {
-    font-weight: 600;
-    color: red;
-    font-size: 1.5rem;
+#azn-status:hover {
+    text-decoration: none;
 }
 
-#azn-status[data-status="1"] span {
+#azn-status span {
     font-weight: 600;
-    color: green;
-    font-size: 1.5rem;
-}
-
-#azn-status[data-status="2"] span {
-    font-weight: 600;
-    color: blue;
-    font-size: 1.5rem;
 }
 
 #submit-azn,
@@ -162,7 +148,6 @@ td {
 
 .message-box-content {
     width: 30em;
-    height: 22em;
     margin: 5em auto;
     background-color: var(--clr-light);
     border-radius: 2em;
@@ -177,11 +162,16 @@ td {
     margin-bottom: 2em;
 }
 
-.message-box-content__header h2 {
+.message-box-content__header h2,
+.message-box-content__header span {
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0.2em;
     color: var(--clr-light);
+}
+
+.message-box-content__header span:hover {
+    cursor: pointer;
 }
 
 .message-box-content__body {
@@ -194,26 +184,40 @@ td {
     flex-direction: column;
 }
 
-#recipient {
+#recipient,
+#sender {
     font-size: 1.1rem;
     margin-bottom: 1em;
     border-bottom: 1px solid var(--clr-accent);
 }
 
-#recipient-name {
+#recipient-name,
+#sender-name {
     font-weight: 500;
 }
 
-label[for="denial-message"] {
+label[for="denial-message"],
+.message-label {
     font-size: 0.8rem;
 }
 
 #denial-message {
     resize: none;
     margin-bottom: 1em;
+    padding: 0.2em;
 }
 
-#send-message-button {
+#message-for-user {
+    margin-bottom: 1em;
+    width: 40ch;
+    height: 6em;
+    overflow-y: scroll;
+    border: 1px solid black;
+    padding: 0.2em;
+}
+
+#send-message-button,
+#acknowledge-message {
     font-size: 1.1rem;
     font-weight: 600;
     padding: 0.2em;
@@ -221,9 +225,11 @@ label[for="denial-message"] {
     background-color: var(--clr-accent);
     border: 3px solid var(--clr-accent);
     border-radius: 0.8rem;
+    margin-bottom: 2em;
 }
 
-#send-message-button:hover {
+#send-message-button:hover,
+#acknowledge-message:hover {
     cursor: pointer;
     background-color: var(--clr-light);
     color: var(--clr-accent);

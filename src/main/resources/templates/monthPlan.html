@@ -39,7 +39,7 @@
         <tbody></tbody>
       </table>
       <div class="azn-submit-container">
-        <p id="azn-status" data-status="unknown"></p>
+        <p id="azn-status"></p>
         <button id="submit-azn">Arbeitszeitnachweis abgeben</button>
       </div>
     </div>
@@ -62,12 +62,18 @@
       }else if (status.accepted) {
         aznStatus.innerHTML = "Angenommen <span>&check;</span>";
         submitButtonC.disabled = true;
+        aznStatus.getElementsByTagName("span")[0].style.color = "green";
       } else if (status.submitted) {
         aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
         submitButtonC.disabled = true;
+        aznStatus.getElementsByTagName("span")[0].style.color = "blue";
       } else if (!status.accepted && !status.submitted) {
         aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
         submitButtonC.disabled = false;
+        aznStatus.style.textDecoration = "underline";
+        aznStatus.style.cursor = "pointer";
+        aznStatus.getElementsByTagName("span")[0].style.color = "red";
+        aznStatus.addEventListener("click", showMessage);
       }
 
 
