@@ -141,4 +141,61 @@ public class AdminControllerTest {
                         .with(oauth2Client("userwebapp")))
                 .andExpect(status().isForbidden());
     }
+
+    /*
+     * GET admin/requests
+     */
+
+    /**
+     * Admin get should work
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminRequestGetShouldWork() throws Exception {
+        mvc.perform(get("/admin/requests?userId=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("junit")));
+    }
+
+    /**
+     * Admin requests should not work as user
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void adminRequestGetShouldNotWorkAsUser() throws Exception {
+        mvc.perform(get("/admin/requests?userId=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Admin get requests should not work without userid
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminGetRequestsShouldNotWorkWithoutUserid() throws Exception {
+        mvc.perform(get("/admin/requests")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isBadRequest());
+    }
+
+    /**
+     * Admin Get requests should not work with wrong origin
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminGetRequestShouldNotWorkWithWrongOrigin() throws Exception {
+        mvc.perform(get("/admin/requests?userId=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/test")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
 }
