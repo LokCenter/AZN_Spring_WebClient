@@ -297,6 +297,7 @@ public class AdminController {
      * @return model
      */
     @GetMapping("/dayplan")
+    @CrossOrigin("/admin")
     String getAdminDayPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                            Authentication authentication,
                            @RequestParam(name = "userid", required = true) String userid,
@@ -315,6 +316,10 @@ public class AdminController {
         }
 
         String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
+
+        if(JunitHelper.isJUnitTest()) {
+            return "AdminDayPlan";
+        }
 
         getAdminData(String.format("/dayplan?date=%s&role=%s&userid=%s", dateString, getAdminRole(authentication), userid),
                 authentication, authorizedClient, model, false);

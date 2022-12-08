@@ -404,4 +404,60 @@ public class AdminControllerTest {
                         .with(oauth2Client("userwebapp")))
                 .andExpect(status().isForbidden());
     }
+
+    /*
+     * GET admin/dayplan
+     */
+
+    /**
+     * Admin get dayplan should work
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminGetDayPlanShouldWork() throws Exception {
+        mvc.perform(get("/admin/dayplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Admin get dayplan should not work as user
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void adminGetDayPlanShouldNotAsUser() throws Exception {
+        mvc.perform(get("/admin/dayplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Admin Get should not work with wrong origin
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminGetDayPlanShouldNotWorkWithWrongOrigin() throws Exception {
+        mvc.perform(get("/admin/dayplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/df")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Admin get dayplan should not work without userid
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminGetDayPlanShouldNotWorkWithoutUserid() throws Exception {
+        mvc.perform(get("/admin/dayplan")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isBadRequest());
+    }
 }
