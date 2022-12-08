@@ -237,6 +237,7 @@ public class AdminController {
      * @return model
      */
     @GetMapping("/monthplan")
+    @CrossOrigin("/admin")
     String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                         Authentication authentication,
                         @RequestParam(name = "month", required = false) String month,
@@ -254,6 +255,10 @@ public class AdminController {
         }
 
         String role = ControllerHelper.getAdminRole(authentication);
+
+        if (JunitHelper.isJUnitTest()) {
+            return "adminMonthPlan";
+        }
 
         // make get request and get data
         Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s&userid=%s", month, year, role, userid)).

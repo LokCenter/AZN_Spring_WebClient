@@ -348,4 +348,60 @@ public class AdminControllerTest {
                                 .with(oauth2Client("userwebapp")).with(csrf()))
                 .andExpect(status().isForbidden());
     }
+
+    /*
+     * GET admin/monthplan
+     */
+
+    /**
+     * Admin Get monthplan
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminShouldGetMonthplan() throws Exception {
+        mvc.perform(get("/admin/monthplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * user should not be allowed to access monthplan
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void userShouldNotBeAllowToAccessAdminMonthPlan() throws Exception {
+        mvc.perform(get("/admin/monthplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * monthplan request should not work without userid
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminMonthPlanShouldNotWorkWithoutUserId() throws Exception {
+        mvc.perform(get("/admin/monthplan")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isBadRequest());
+    }
+
+    /**
+     * Admin Monthplan request should not work with wrong origin
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminMonthplanShouldNotWorkWithWrongOrigin() throws Exception {
+        mvc.perform(get("/admin/monthplan?userid=4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "/df")
+                        .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
 }
