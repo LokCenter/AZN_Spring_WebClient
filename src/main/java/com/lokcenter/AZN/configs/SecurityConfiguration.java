@@ -53,16 +53,16 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
                     try {
                                 authorize
                                         // set permissions
-                                        .antMatchers(HttpMethod.GET, "/").permitAll()
+                                        .antMatchers( "/").permitAll()
                                         // set AAD roles
-                                        .mvcMatchers(HttpMethod.GET, "/dayplan").hasRole("User")
-                                        .mvcMatchers(HttpMethod.GET, "/overview").hasRole("User")
-                                        .mvcMatchers(HttpMethod.GET, "/admin/**").hasRole("Admin")
-                                        .mvcMatchers(HttpMethod.GET, "/yearplan/**").hasRole("User")
-                                        .mvcMatchers(HttpMethod.GET, "/monthplan").hasRole("User")
+                                        .mvcMatchers( "/dayplan").hasRole("User")
+                                        .mvcMatchers( "/overview").hasRole("User")
+                                        .mvcMatchers( "/admin/**").hasRole("Admin")
+                                        .mvcMatchers( "/yearplan/**").hasRole("User")
+                                        .mvcMatchers( "/monthplan").hasRole("User")
                                         .mvcMatchers("/logout").denyAll()
                                         // allow resources
-                                        .mvcMatchers(HttpMethod.GET,"/js/***", "/css/**").permitAll()
+                                        .mvcMatchers("/js/***", "/css/**").permitAll()
                                         // set authentication
                                         .anyRequest().authenticated().and().oauth2Login()
                                         // configure custom oid user service

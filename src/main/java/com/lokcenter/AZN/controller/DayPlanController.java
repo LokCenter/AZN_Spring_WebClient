@@ -59,6 +59,7 @@ public class DayPlanController {
      * @param model add stuff to the frond-end
      * @return Html page
      */
+    @CrossOrigin("/dayplan")
     @GetMapping
     String getDayPlan(Model model, @RequestParam(name = "date", required = false) String date,
                       @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
