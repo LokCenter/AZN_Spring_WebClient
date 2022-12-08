@@ -9,8 +9,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Client;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -196,6 +198,154 @@ public class AdminControllerTest {
                         .header("Access-Control-Request-Method", "GET")
                         .header("Origin", "/test")
                         .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /*
+     * GET admin/requests/delete
+     */
+
+    /**
+     * Admin should delete request
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminShouldDeleteRequest() throws Exception {
+        mvc.perform(
+                put("/admin/requests/delete?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                        .header("Access-Control-Request-Method", "PUT")
+                        .header("Origin", "/admin")
+                        .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * user should not be allowed to delete a request
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void userShouldNotDeleteRequest() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/delete?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * User without role should not be allowed to delete any requests
+     */
+    @Test
+    @WithMockUser()
+    public void userWithoutRoleShouldNotDeleteRequest() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/delete?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Put request without csrf should not be allowed
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void requestsDeleteWithoutCsrfShouldNotBeAllowed() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/delete?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Put request delete should not be allowed with wrong origin
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void requestsDeleteShouldNotBeAllowedWithWrongOrigin() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/delete?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/sdf")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    /*
+     * GET admin/requests/accept
+     */
+
+    /**
+     * Admin should accept request
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void adminShouldAcceptRequest() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/accept?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * user should not be allowed to accept a request
+     */
+    @Test
+    @WithMockUser(roles = {"User"})
+    public void userShouldNotAcceptRequest() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/accept?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * User without role should not be allowed to delete any requests
+     */
+    @Test
+    @WithMockUser()
+    public void userWithoutRoleShouldNotAcceptRequest() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/accept?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Put request without csrf should not be allowed
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void requestsAcceptWithoutCsrfShouldNotBeAllowed() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/accept?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/admin")
+                                .with(oauth2Client("userwebapp")))
+                .andExpect(status().isForbidden());
+    }
+
+    /**
+     * Put request accept should not be allowed with wrong origin
+     */
+    @Test
+    @WithMockUser(roles = {"Admin"})
+    public void requestsAcceptShouldNotBeAllowedWithWrongOrigin() throws Exception {
+        mvc.perform(
+                        put("/admin/requests/accept?startDate=01-12-2022&endDate=01-12-2022&userid=23")
+                                .header("Access-Control-Request-Method", "PUT")
+                                .header("Origin", "/sdf")
+                                .with(oauth2Client("userwebapp")).with(csrf()))
                 .andExpect(status().isForbidden());
     }
 }
