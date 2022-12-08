@@ -153,8 +153,9 @@ function addDefault() {
     const defaultPause = document.getElementById("standard-pause");
     const defaultVacation = document.getElementById("standard-vacation");
     const defaultModalMessage = document.getElementById("default-modal-message");
+    let currentDate = new Date()
     if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value &&
-        defaultPause.value && defaultVacation.value) {
+        defaultPause.value && defaultVacation.value && !(defaultStartDate.valueAsDate < currentDate) && validateDefaultTimeInput(defaultStartTime, defaultEndTime, defaultPause)) {
 
         // make backend request
         // Get CSRF token
@@ -193,7 +194,15 @@ function addDefault() {
         defaultModalMessage.innerText = "Daten konnten nicht gespeichert werden. Eingabe überprüfen.";
         defaultModalMessage.style.display = "block";
     }
-;
+}
+
+function validateDefaultTimeInput(start, end, pause) {
+    start = Number(start.value.split(":")[0]) * 60 + Number(start.value.split(":")[1]);
+    end = Number(end.value.split(":")[0]) * 60 + Number(end.value.split(":")[1]);
+    pause = Number(pause.value.split(":")[0]) * 60 + Number(pause.value.split(":")[1]);
+    if (end < start) return false;
+    if (end - start - pause < 0) return false;
+    return true;
 }
 
 /**
