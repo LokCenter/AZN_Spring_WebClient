@@ -150,3 +150,81 @@ td {
     background-color: #dedede;
     border-color: #8e8e8e;
 }
+
+#message-box {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: hsl(0, 0%, 0%, 0.5);
+}
+
+.message-box-content {
+    width: 30em;
+    height: 22em;
+    margin: 5em auto;
+    background-color: var(--clr-light);
+    border-radius: 2em;
+    box-shadow: 0 0 1em 0 var(--clr-dark);
+}
+
+.message-box-content__header {
+    background-color: var(--clr-accent);
+    padding: 0.4em 1.4em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    margin-bottom: 2em;
+}
+
+.message-box-content__header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.2em;
+    color: var(--clr-light);
+}
+
+.message-box-content__body {
+    display: flex;
+    justify-content: center;
+}
+
+.message-box-content__body > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#recipient {
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+    border-bottom: 1px solid var(--clr-accent);
+}
+
+#recipient-name {
+    font-weight: 500;
+}
+
+label[for="denial-message"] {
+    font-size: 0.8rem;
+}
+
+#denial-message {
+    resize: none;
+    margin-bottom: 1em;
+}
+
+#send-message-button {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.2em;
+    color: var(--clr-light);
+    background-color: var(--clr-accent);
+    border: 3px solid var(--clr-accent);
+    border-radius: 0.8rem;
+}
+
+#send-message-button:hover {
+    cursor: pointer;
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+}

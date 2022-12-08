@@ -105,6 +105,7 @@
            document.getElementById("deny-azn").disabled = true;
            document.getElementById("accept-azn").disabled = true;
            aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
+           denialMessage();
          }
        }).catch((error) => {
          console.log(error)
@@ -123,6 +124,36 @@
         document.getElementById("deny-azn").disabled = true;
         document.getElementById("accept-azn").disabled = true;
         aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde angenommen";
+      }
+
+      /**
+       * Prompts the admin to send a message to the user as to why the azn was denied.
+       */
+      function denialMessage() {
+        const messageBox = document.body.appendChild(document.createElement("div"));
+        messageBox.id = "message-box";
+
+        messageBox.innerHTML =
+                "<div class='message-box-content'>" +
+                  "<div class='message-box-content__header'>" +
+                    "<h2>Ablehnungsgrund</h2>" +
+                  "</div>" +
+                  "<div class='message-box-content__body'>" +
+                    "<div>" +
+                      "<p id='recipient'>An: <span id='recipient-name'>USER</span></p>" +
+                      "<label for='denial-message'>Ihre Nachricht:</label>" +
+                      "<textarea name='denial-message' id='denial-message' rows='6' cols='40'></textarea>" +
+                      "<button id='send-message-button'>Absenden</button>" +
+                    "</div>" +
+                  "</div>" +
+                "</div>"
+
+        document.getElementById("send-message-button").addEventListener("click", () => {
+          // Save message
+
+          // Close popup
+          document.getElementById("message-box").remove();
+        })
       }
 
 
