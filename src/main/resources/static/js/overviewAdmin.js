@@ -10,15 +10,16 @@ const dp = new DayPilot.Month("dp", {
         args.preventDefault();
         const modal = document.body.appendChild(document.createElement("div"));
         modal.classList.add("modal");
-//todo Erik bitte style das richtig
+        //todo Erik bitte style das richtig
         modal.innerHTML =
             "<div class='modal__content'>" +
             "<div class='modal__header'>" +
-            "<h2>Wollen Sie dises Event wirklich loeschen?</h2>" +
+            "<h2>Wirklich löschen?</h2>" +
+            "<span id='close'>&times;</span>" +
             "</div>" +
             "<div class='modal__body'>" +
-            "<p id='reminder' style='visibility: visible'>Placeholer Erik</p>" +
-            "</div>" +
+            "<form name='add-new-entry' action='' method=''>" +
+            "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
             "<div class='button-container'>" +
             "<button type='button' id='save-button'>Speichern</button>" +
             "<button type='button' id='cancel-button'>Abbrechen</button>" +
