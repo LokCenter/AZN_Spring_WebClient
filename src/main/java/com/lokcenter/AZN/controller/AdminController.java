@@ -332,6 +332,7 @@ public class AdminController {
      */
     @CrossOrigin("/admin")
     @PutMapping("/overview")
+    @ResponseBody
     Boolean deleteCalendarItem(@RegisteredOAuth2AuthorizedClient("userwebapp")
                                OAuth2AuthorizedClient authorizedClient, Authentication authentication,
                                @RequestBody Map<String, Object> payload) throws Exception {
