@@ -161,8 +161,8 @@ public class AdminController {
 
     /**
      * Delete request from user
-
      * @return true or false
+     *
      */
     @PutMapping("/requests/delete")
     @CrossOrigin("/admin")
@@ -329,6 +329,9 @@ public class AdminController {
 
     /**
      * Delete Calendar item from admin overview
+     *
+     * @implSpec Tag and id must be sent to remove calendar item
+     * Tag should be of type String, Id should be of type String
      */
     @CrossOrigin("/admin")
     @PutMapping("/overview")
@@ -358,6 +361,8 @@ public class AdminController {
      * Get user calendar by id
 
      * @return model
+     *
+     * @implNote request should only be made if firstday, lastday, month and year are added.
      */
     @GetMapping("/overview")
     String getAdminOverview(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
@@ -397,6 +402,8 @@ public class AdminController {
 
     /**
      * Show users
+     *
+     * @implSpec get username and userid from user.
      */
     @ResponseBody
     @GetMapping("/usernameList")
@@ -426,6 +433,11 @@ public class AdminController {
 
     /**
      * Accept AZN Submit
+     *
+     * @implSpec userid, year and month are required
+     * userid should be of type String
+     * year should be of type String
+     * month should be of type Integer
      */
     @ResponseBody
     @PutMapping("/azn/accept")
@@ -454,6 +466,11 @@ public class AdminController {
 
     /**
      * Deny AZN Submit
+     *
+     * @implSpec userid, year and month are required
+     * userid should be of type String
+     * year should be of type String
+     * month should be of type Integer
      */
     @ResponseBody
     @PutMapping("/azn/deny")
@@ -481,6 +498,12 @@ public class AdminController {
 
     /**
      *  Add default values for every user
+     * @implSpec start_date, start_time, end_time, pause, vacation are required
+     * start_date should be of type String
+     * start_time should be of type String
+     * end_time should be of type String
+     * pause should be of type String
+     * vacation should be of type String
      */
     @PostMapping("defaults/add")
     @ResponseBody
@@ -528,6 +551,9 @@ public class AdminController {
 
     /**
      * Delete default value
+     *
+     * @implSpec start_date is required
+     * start_date should be of type String
      */
     @PutMapping("/defaults/delete")
     @ResponseBody
@@ -551,6 +577,9 @@ public class AdminController {
         }
     }
 
+    /**
+     * Get admin general vacation data
+     */
     @GetMapping("/generalOverview")
     @CrossOrigin("/admin")
     String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
