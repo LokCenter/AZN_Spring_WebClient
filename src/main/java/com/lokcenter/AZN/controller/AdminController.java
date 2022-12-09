@@ -339,7 +339,7 @@ public class AdminController {
                             @RequestParam(required = false, name = "lastday") String lastDate,
                             @RequestParam(required = false, name = "month") String month,
                             @RequestParam(required = false, name = "year") String year,
-                            @RequestParam(name = "userid", required = true) String userid) {
+                            @RequestParam(name = "userid", required = true) String userid) throws Exception {
         model.addAttribute("title", "Admin Overview");
 
         // check if there are any queries empty
@@ -347,7 +347,25 @@ public class AdminController {
             return "adminOverview";
         }
 
-        return "adminOverview";
+        // User roles
+        String role = ControllerHelper.getUserOrAdminRole(authentication);
+
+        String query =String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s&userid=%s", firstDate, lastDate,month, year, role, userid);
+
+        Mono<String> res = webClient.get().uri("/overview?" + query).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+        if (res.block() != null) {
+            JsonNode jsonData = new ObjectMapper().readTree(res.block());
+
+            model.addAttribute("title", "Calendar");
+            model.addAttribute("data", jsonData);
+
+            return "adminOverview";
+        }
+
+        throw new Exception("Bad request");
     }
 
     /**

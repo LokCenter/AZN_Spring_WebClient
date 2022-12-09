@@ -56,6 +56,97 @@
         <script th:src="@{/js/overviewAdmin.js}"></script>
         <script th:src="@{/js/adminSearchBar.js}"></script>
         <script th:src="@{/js/adminCurrentPage.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
 
+            var rawEvent = /*[[${data}]]*/ 'default';
+
+            events = [];
+            eventCount = rawEvent.length;
+            for (let i = 0; i < eventCount; i++) {
+                event = rawEvent[i];
+                event["end"] = event["end"] + 1
+                if (event["tag"] == "Urlaub") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorVacation,
+                        barColor: colors.colorVacation,
+                        borderColor: colors.colorVacation,
+                    })
+                } else if (event["tag"] == "Krank") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorSick,
+                        barColor: colors.colorSick,
+                        borderColor: colors.colorSick,
+                    })
+                } else if (event["tag"] == "GLAZ") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorGLAZ,
+                        barColor: colors.colorGLAZ,
+                        borderColor: colors.colorGLAZ,
+                    })
+                } else if (event["tag"] == "gUrlaub") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorGeneralVacation,
+                        barColor: colors.colorGeneralVacation,
+                        borderColor: colors.colorGeneralVacation,
+                    })
+                } else if (event["tag"] == "rUrlaub") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorVacationPending,
+                        barColor: colors.colorVacationPending,
+                        borderColor: colors.colorVacationPending,
+                    })
+                } else if (event["tag"] == "rGLAZ") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorGLAZPending,
+                        barColor: colors.colorGLAZPending,
+                        borderColor: colors.colorGLAZPending,
+                    })
+                } else if (event["tag"] == "gFeiertag") {
+                    events.push({
+                        start: new DayPilot.Date(event["start"]),
+                        end: new DayPilot.Date(event["end"]),
+                        text: event["text"],
+                        tag: event["tag"],
+                        id: event["id"],
+                        backColor: colors.colorGeneralHoliday,
+                        barColor: colors.colorGeneralHoliday,
+                        borderColor: colors.colorGeneralHoliday,
+                    })
+                }
+            }
+
+            dp.update({events})
+        </script>
     </body>
 </html>
