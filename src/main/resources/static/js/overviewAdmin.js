@@ -6,8 +6,66 @@ const dp = new DayPilot.Month("dp", {
     showWeekend: true,
     timeRangeSelectedHandling: "Disabled",
     eventDeleteHandling: "Update",
-    onEventDeleted: (args) => {
-        console.log(args.e.id());
+    onEventDelete: (args) => {
+        args.preventDefault();
+        console.log(args.e.tag());
+        const modal = document.body.appendChild(document.createElement("div"));
+        modal.classList.add("modal");
+//todo Erik bitte style das richtig
+        modal.innerHTML =
+            "<div class='modal__content'>" +
+            "<div class='modal__header'>" +
+            "<h2>Wollen Sie dises Event wirklich loeschen?</h2>" +
+            "</div>" +
+            "<div class='modal__body'>" +
+            "<p id='reminder' style='visibility: visible'>Placeholer Erik</p>" +
+            "</div>" +
+            "<div class='button-container'>" +
+            "<button type='button' id='save-button'>Speichern</button>" +
+            "<button type='button' id='cancel-button'>Abbrechen</button>" +
+            "</div>" +
+            "</form>" +
+            "</div>" +
+            "</div>";
+
+        const saveButton = document.getElementById("save-button");
+        saveButton.addEventListener("click", () => {
+            // Get CSRF token
+            const token = $("meta[name='_csrf']").attr("content");
+            const header = $("meta[name='_csrf_header']").attr("content");
+
+            // csrf to header
+            axios.defaults.headers.put[header] = token
+            // data
+            axios.put("/overview", {
+                id: args.e.id()
+            }).then(async (res) => {
+                // Display confirmation message if response is ok
+                if (res.data) {
+                    window.location.reload();
+                } else {
+                    // show message if nothing was selected
+                    reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
+                    reminder.style.visibility = "visible"
+                }
+            }).catch((error) => {
+                console.log(error)
+            })
+        })
+
+        // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+        document.getElementById("close").addEventListener("click", () => {
+            modal.remove();
+        });
+        document.getElementById("cancel-button").addEventListener("click", () => {
+            modal.remove();
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.remove();
+            }
+        });
     },
     eventResizeHandling: "Disabled",
     eventMoveHandling: "Disabled",

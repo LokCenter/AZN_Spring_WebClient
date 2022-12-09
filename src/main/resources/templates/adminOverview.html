@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${title}"></title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/overview.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
@@ -13,6 +14,8 @@
     <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/radio.css}">
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script th:src="@{/js/daypilot-all.js}"></script>
     <script th:src="@{/js/helper/helper.js}"></script>
 </head>
