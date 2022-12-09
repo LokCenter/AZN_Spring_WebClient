@@ -190,3 +190,31 @@ function getNumberFromFullMonth(month) {
 function sleep(milli) {
     return new Promise(resolve => setTimeout(resolve, milli));
 }
+
+/**
+ * When given a date, color the corresponding cell by adding a class.
+ * @param date
+ */
+function colorCell(date) {
+    const cellArray = document.getElementsByClassName("month_default_cell_inner");
+    const cellCoords = dp.getCellFromDate(date);
+    const cellCount = cellArray.length
+    const cellX = cellCoords.x;
+    const cellY = cellCoords.y;
+
+    // Get the index for cellArray from the coordinates.
+    function getIndex(x, y, cells) {
+        switch (cells) {
+            case 28:
+                return x * 4 + y;
+            case 35:
+                return x * 5 + y;
+            case 42:
+                return x * 6 + y;
+        }
+    }
+
+    const cellIndex = getIndex(cellX, cellY, cellCount);
+    const cellToColor = cellArray[cellIndex];
+    cellToColor.classList.add("month_default_cell_inner_colored");
+}

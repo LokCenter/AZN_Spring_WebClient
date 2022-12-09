@@ -335,8 +335,18 @@ public class AdminController {
     @GetMapping("/overview")
     String getAdminOverview(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                             Authentication authentication,
+                            @RequestParam(required = false, name = "firstday") String firstDate,
+                            @RequestParam(required = false, name = "lastday") String lastDate,
+                            @RequestParam(required = false, name = "month") String month,
+                            @RequestParam(required = false, name = "year") String year,
                             @RequestParam(name = "userid", required = true) String userid) {
         model.addAttribute("title", "Admin Overview");
+
+        // check if there are any queries empty
+        if (firstDate == null || lastDate == null || month == null || year == null) {
+            return "adminOverview";
+        }
+
         return "adminOverview";
     }
 
