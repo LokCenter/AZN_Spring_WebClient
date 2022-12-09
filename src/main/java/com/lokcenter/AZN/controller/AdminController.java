@@ -434,6 +434,9 @@ public class AdminController {
         return false;
     }
 
+    /**
+     *  Add default values for every user
+     */
     @PostMapping("defaults/add")
     @ResponseBody
     Boolean addDefaults(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
@@ -457,6 +460,9 @@ public class AdminController {
         return false;
     }
 
+    /**
+     * Request all default values
+     */
     @GetMapping("/defaults/get")
     @ResponseBody
     String getDefaults(@RegisteredOAuth2AuthorizedClient("userwebapp")
@@ -475,6 +481,9 @@ public class AdminController {
         return "";
     }
 
+    /**
+     * Delete default value
+     */
     @PutMapping("/defaults/delete")
     @ResponseBody
     Boolean deleteDefaults(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp")
