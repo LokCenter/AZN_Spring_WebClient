@@ -328,6 +328,31 @@ public class AdminController {
     }
 
     /**
+     * Delete Calendar item from admin overview
+     */
+    @PutMapping("/overview")
+    Boolean deleteCalendarItem(@RegisteredOAuth2AuthorizedClient("userwebapp")
+                               OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+                               @RequestBody Map<String, Object> payload) throws Exception {
+
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
+                    .uri("admin/overview/delete")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
+    /**
      * Get user calendar by id
 
      * @return model
@@ -385,16 +410,6 @@ public class AdminController {
         }
 
         return "";
-    }
-
-    /**
-     * Calendar delete calendar range
-     */
-    @PutMapping("/calendar/delete")
-    @ResponseBody
-    Boolean deleteCalendarRange() {
-        // TODO: delete calendar range with user id
-        return true;
     }
 
     /**
