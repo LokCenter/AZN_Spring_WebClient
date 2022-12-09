@@ -8,7 +8,6 @@ const dp = new DayPilot.Month("dp", {
     eventDeleteHandling: "Update",
     onEventDelete: (args) => {
         args.preventDefault();
-        console.log(args.e.tag());
         const modal = document.body.appendChild(document.createElement("div"));
         modal.classList.add("modal");
 //todo Erik bitte style das richtig
@@ -38,7 +37,8 @@ const dp = new DayPilot.Month("dp", {
             axios.defaults.headers.put[header] = token
             // data
             axios.put("/admin/overview", {
-                id: args.e.id()
+                id: args.e.id(),
+                tag: args.e.tag()
             }).then(async (res) => {
                 // Display confirmation message if response is ok
                 if (res.data) {
