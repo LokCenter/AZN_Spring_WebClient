@@ -330,6 +330,7 @@ public class AdminController {
     /**
      * Delete Calendar item from admin overview
      */
+    @CrossOrigin("/admin")
     @PutMapping("/overview")
     Boolean deleteCalendarItem(@RegisteredOAuth2AuthorizedClient("userwebapp")
                                OAuth2AuthorizedClient authorizedClient, Authentication authentication,

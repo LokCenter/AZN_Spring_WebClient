@@ -37,7 +37,7 @@ const dp = new DayPilot.Month("dp", {
             // csrf to header
             axios.defaults.headers.put[header] = token
             // data
-            axios.put("/overview", {
+            axios.put("/admin/overview", {
                 id: args.e.id()
             }).then(async (res) => {
                 // Display confirmation message if response is ok
