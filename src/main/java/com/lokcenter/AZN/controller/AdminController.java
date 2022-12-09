@@ -505,4 +505,12 @@ public class AdminController {
             return false;
         }
     }
+
+    @GetMapping("/generalOverview")
+    @CrossOrigin("/admin")
+    String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                        Authentication authentication) {
+        return "generalOverview";
+    }
+
 }
