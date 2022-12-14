@@ -523,3 +523,39 @@ form[name="edit-user-data"] {
     padding: 0.2em;
     display: none;
 }
+
+/*
+    Modal for AZN submissions
+ */
+
+.submissions-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.submissions-modal .modal-content {
+    width: 30em;
+}
+
+#submissions-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#submissions-container > div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--clr-accent);
+    padding: 0.5em;
+}
+
+#submissions-container > div:last-of-type {
+    border-bottom: none;
+}
+
+#submissions-container a {
+    padding: 0.2em 0.6em;
+    margin-left: 2em;
+}

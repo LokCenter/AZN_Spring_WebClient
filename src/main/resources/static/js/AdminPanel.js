@@ -254,6 +254,67 @@ const showRequestListByUser = (userid, username, path) => {
     })
 }
 
+function showSubmissions(id) {
+    const modal = document.body.appendChild(document.createElement("div"));
+    modal.classList.add("modal");
+    modal.classList.add("submissions-modal");
+    modal.style.display = "block";
+    disableMainWindowScrolling();
+
+    modal.innerHTML =
+        "<div class='modal-content'>" +
+            "<div class='modal-content__header'>" +
+                "<h2>Arbeitszeitnachweisabgaben</h2>" +
+                "<span class='close' id='close-submissions'>&times;</span>" +
+            "</div>" +
+            "<div class='modal-content__body'>" +
+                "<div id='submissions-container'></div>" +
+            "</div>" +
+        "</div>";
+
+    let months = [3, 7, 8];
+    let years = ["2022", "2022", "2022"]
+    setSubmissionModalContent(months.length, months, years, id);
+
+    document.getElementById("close-submissions").addEventListener("click", () => {
+        modal.remove();
+        enableMainWindowScrolling();
+    })
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.remove();
+            enableMainWindowScrolling();
+        }
+    })
+}
+
+/**
+ * Displays a users' submissions inside the submissions modal.
+ * @param {number} amountOfSubmissions
+ * @param {array} months
+ * @param {array} years
+ * @param {number} id
+ */
+function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
+    const submissionsContainer = document.getElementById("submissions-container");
+    submissionsContainer.innerHTML = "";
+
+    if (amountOfSubmissions === 0) {
+        submissionsContainer.innerHTML = "Kein Arbeitszeitnachweis abgegeben";
+        submissionsContainer.style.display = "flex";
+        submissionsContainer.style.justifyContent = "center";
+    }
+    else {
+        for (let i = 0; i < amountOfSubmissions; i++) {
+            submissionsContainer.innerHTML += `
+                <div>
+                    <p className='submitted-date'>${getFullMonth(months[i])} ${years[i]}</p>
+                    <a href="/admin/monthplan/?month=${months[i]}&year=${years[i]}&userid=${id}" className='go-to-submitted-plan'>Zum Monatsplan</a>
+                </div>`;
+        }
+    }
+}
+
 
 for (let button of editButtons) {
     button.addEventListener("click", () => {

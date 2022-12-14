@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script th:src="@{/js/helper/yearOverviewTable.js}"></script>
+    <script th:src="@{/js/helper/helper.js}"></script>
 </head>
 <body class="unselectable">
 
@@ -219,7 +220,12 @@
                             class="request-btn">
                     </button>
                 </td>
-                <td><button>No Data</button></td>
+                <td>
+                    <button
+                            th:data-id="${user.get('userId').asInt()}"
+                            onclick="showSubmissions(this.getAttribute('data-id'))">No Data
+                    </button>
+                </td>
                 <td>
                     <button th:data-name="${user.get('name').textValue()}"
                             th:data-id="${user.get('userId').asInt()}"
