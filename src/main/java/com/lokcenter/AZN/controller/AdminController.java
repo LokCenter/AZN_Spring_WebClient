@@ -587,4 +587,29 @@ public class AdminController {
         return "generalOverview";
     }
 
+    /**
+     * Save messages send from admin
+     */
+    @PostMapping("/azn/message")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    Boolean postMessage(@RequestBody Map<String, Object> payload, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                        Authentication authentication) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
+                    .uri("admin/azn/messages")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
 }
