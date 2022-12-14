@@ -64,8 +64,7 @@ function filterUserList() {
         if (user.indexOf(filter) > -1) {
             userListContent[i].style.display = "";
             let regex = new RegExp(`(${filter})`, "gi");
-            let textWithBoldedSubstring = userListContent[i].textContent.replace(regex, "<b>$1</b>");
-            userListContent[i].innerHTML = textWithBoldedSubstring;
+            userListContent[i].innerHTML = userListContent[i].textContent.replace(regex, "<b>$1</b>");
         } else {
             userListContent[i].style.display = "none";
         }

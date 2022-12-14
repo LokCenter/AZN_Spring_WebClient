@@ -109,7 +109,6 @@ standardValuesButton.addEventListener("click", () => {
         console.log("cannot request data", e)
     })
 
-
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
@@ -140,7 +139,6 @@ function deleteDefault(row) {
     }).catch((error) => {
         console.log(error)
     })
-
 }
 
 /**
@@ -201,8 +199,7 @@ function validateDefaultTimeInput(start, end, pause) {
     end = Number(end.value.split(":")[0]) * 60 + Number(end.value.split(":")[1]);
     pause = Number(pause.value.split(":")[0]) * 60 + Number(pause.value.split(":")[1]);
     if (end < start) return false;
-    if (end - start - pause < 0) return false;
-    return true;
+    return end - start - pause >= 0;
 }
 
 /**
@@ -399,16 +396,12 @@ const putRequestsChange = (startDate, endDate, userId, path, res_callback) => {
 }
 
 const acceptRequest = (startDate, endDate, userId, path, elem) => {
-    putRequestsChange(startDate, endDate, userId, path,() => {
-
-    });
+    putRequestsChange(startDate, endDate, userId, path,() => {});
     elem.remove();
 }
 
 const deleteRequest = (startDate, endDate, userId, path, elem) => {
-    putRequestsChange(startDate, endDate, userId, path,() => {
-
-    });
+    putRequestsChange(startDate, endDate, userId, path,() => {});
     elem.remove();
 }
 

@@ -138,7 +138,6 @@ function getTime(keyValue) {
  * @param {string} value mapTimeData value
  */
 function onTimeChange(key, value) {
-
     // Generate ist time
     // NOTE: if start_time is >= end_time  then ist will be false or pause is too big
     let istValue = getTime("ist");
@@ -246,14 +245,4 @@ if (disabledCheckboxes.some(isCheckboxChecked) === true) {
     timeInputStart.disabled = false;
     timeInputEnd.disabled = false;
     timeInputPause.disabled = false;
-}
-
-/**
- * Sleep function wih async
- * @param milli milliseconds as int
- *
- * NOTE: async needed inside functions
- */
-function sleep(milli) {
-    return new Promise(resolve => setTimeout(resolve, milli));
 }
