@@ -107,8 +107,10 @@
       }).then(async (res) => {
         // Display confirmation message if response is ok
           if (res.data !== '' && (res.data.constructor === Object || res.data.constructor === Array)) {
-            // TODO: get data
-            showMessage(res.data.message)
+            console.log(res.data)
+            if (res.data.message !== undefined) {
+              showMessage(res.data.message)
+            }
           }
       }).catch((error) => {
         console.log(error)
