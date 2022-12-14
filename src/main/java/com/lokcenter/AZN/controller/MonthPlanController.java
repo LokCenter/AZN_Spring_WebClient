@@ -106,7 +106,7 @@ public class MonthPlanController {
                 attributes(oauth2AuthorizedClient(authorizedClient))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 // send
-                .body(Mono.just(Map.of("year", year, month, "month", "type", type)), Map.class)
+                .body(Mono.just(Map.of("year", year, "month", month, "type", type)), Map.class)
                 .retrieve().bodyToMono(String.class);
 
         // check if there is any data
