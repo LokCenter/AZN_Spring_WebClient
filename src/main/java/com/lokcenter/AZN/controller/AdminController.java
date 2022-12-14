@@ -612,4 +612,30 @@ public class AdminController {
             return false;
         }
     }
+
+    /**
+     * Save admin Requested Date to calendar
+     */
+    @PostMapping("/overview/request")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    boolean saveAdminRequest(@RequestBody Map<String, Object> payload,  @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                             Authentication authentication) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
+                    .uri("/admin/overview/request")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
 }

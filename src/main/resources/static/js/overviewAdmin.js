@@ -215,10 +215,11 @@ createEventButton.addEventListener("click",() => {
             // csrf to header
             axios.defaults.headers.post[header] = token
             // data
-            axios.post("/overview", {
+            axios.post("overview/request", {
                 startDate: startDate,
                 endDate: endDate,
-                tag: tag
+                tag: tag,
+                id: window.localStorage.getItem('id')
             }).then(async (res) => {
                 // Display confirmation message if response is ok
                 if (res.data) {
