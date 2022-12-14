@@ -107,9 +107,32 @@
       }).then(async (res) => {
         // Display confirmation message if response is ok
           if (res.data !== '' && (res.data.constructor === Object || res.data.constructor === Array)) {
-            console.log(res.data)
             if (res.data.message !== undefined) {
               showMessage(res.data.message)
+
+              // set message read true
+              // Get CSRF token
+              const token = $("meta[name='_csrf']").attr("content");
+              const header = $("meta[name='_csrf_header']").attr("content");
+
+              // csrf to header
+              axios.defaults.headers.put[header] = token
+              // data
+              axios.put("/message/true?messageId="+ res.data.messageId, {
+
+              }).then(async (res) => {
+                // Display confirmation message if response is ok
+                if (res.data) {
+                  submitButton.setAttribute("disabled", "")
+                  aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
+                  aznStatus.getElementsByTagName("span")[0].style.color = "blue";
+                  aznStatus.removeEventListener("click", showMessage);
+                  aznStatus.style.textDecoration = "none";
+                  aznStatus.style.cursor = "default";
+                }
+              }).catch((error) => {
+                console.log(error)
+              })
             }
           }
       }).catch((error) => {
