@@ -1,5 +1,6 @@
 package com.lokcenter.AZN.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lokcenter.AZN.helper.ControllerHelper;
@@ -90,5 +91,29 @@ public class MonthPlanController {
                 // res type
                 .bodyToMono(Boolean.class)
                 .block());
+    }
+
+
+    @ResponseBody
+    @GetMapping("/message")
+    String getMessage(@RequestParam(name = "month", required = true) String month,
+                       @RequestParam(name = "year", required = true) String year,
+                       @RequestParam(name = "type", required = true) String type,
+                      @RegisteredOAuth2AuthorizedClient("userwebapp")
+                      OAuth2AuthorizedClient authorizedClient ) throws JsonProcessingException {
+
+        Mono<String> res = webClient.method(HttpMethod.GET).uri("/monthplan/message").
+                attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .body(Mono.just(Map.of("year", year, month, "month", "type", type)), Map.class)
+                .retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+        if (res.block() != null) {
+            return new ObjectMapper().readTree(res.block()).toPrettyString();
+        }
+
+        return "";
     }
 }

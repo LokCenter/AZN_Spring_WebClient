@@ -97,7 +97,24 @@
        displayTable(viewedDate, data);
      }
 
-
+      // get message if denied
+      axios.get("/monthplan/message", {
+        params: {
+          "type": "AZN_MONTH",
+          "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+          "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+        }
+      }).then(async (res) => {
+        // Display confirmation message if response is ok
+        if (res.data) {
+          console.log(typeof res.data)
+          if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+            // TODO: get data
+          }
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
       /*]]>*/
     </script>
   </body>

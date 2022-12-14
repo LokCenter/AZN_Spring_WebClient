@@ -142,7 +142,7 @@ submitButton.addEventListener("click", (e) => {
 
 const aznStatus = document.getElementById("azn-status");
 
-function showMessage() {
+function showMessage(message) {
     const messageBox = document.body.appendChild(document.createElement("div"));
     messageBox.id = "message-box";
 
@@ -156,11 +156,13 @@ function showMessage() {
                 "<div>" +
                     "<p id='sender'>Von: <span id='sender-name'>ADMIN</span></p>" +
                     "<p class='message-label'>Nachricht des Admins:</p>" +
-                    "<p id='message-for-user'>pkfaeop ap fosefe posek we vfdji ps pfskepo eqa. efkpw eedpf0bm bmier.</p>" +
+                    "<p id='message-for-user'></p>" +
                     "<button id='acknowledge-message'>OK</button>" +
                 "</div>" +
             "</div>" +
         "</div>"
+
+    document.getElementById("message-for-user").innerText = message;
 
     const header = document.getElementsByClassName("message-box-content__header")[0];
     header.style.display = "flex";
