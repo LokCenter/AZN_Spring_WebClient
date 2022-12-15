@@ -70,10 +70,7 @@
       } else if (!status.accepted && !status.submitted) {
         aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
         submitButtonC.disabled = false;
-        aznStatus.style.textDecoration = "underline";
-        aznStatus.style.cursor = "pointer";
         aznStatus.getElementsByTagName("span")[0].style.color = "red";
-        aznStatus.addEventListener("click", showMessage);
       }
 
 
@@ -123,12 +120,9 @@
               }).then(async (res) => {
                 // Display confirmation message if response is ok
                 if (res.data) {
-                  submitButton.setAttribute("disabled", "")
-                  aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
-                  aznStatus.getElementsByTagName("span")[0].style.color = "blue";
-                  aznStatus.removeEventListener("click", showMessage);
-                  aznStatus.style.textDecoration = "none";
-                  aznStatus.style.cursor = "default";
+                  aznStatus.innerHTML = "Abgelehnt <span>&times;</span>";
+                  submitButtonC.disabled = false;
+                  aznStatus.getElementsByTagName("span")[0].style.color = "red";
                 }
               }).catch((error) => {
                 console.log(error)

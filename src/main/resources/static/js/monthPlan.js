@@ -150,7 +150,6 @@ function showMessage(message) {
         "<div class='message-box-content'>" +
             "<div class='message-box-content__header'>" +
                 "<h2>Ablehnungsgrund</h2>" +
-                "<span id='close'>&times;</span>" +
             "</div>" +
             "<div class='message-box-content__body'>" +
                 "<div>" +
@@ -163,12 +162,5 @@ function showMessage(message) {
         "</div>"
 
     document.getElementById("message-for-user").innerText = message;
-
-    const header = document.getElementsByClassName("message-box-content__header")[0];
-    header.style.display = "flex";
-    header.style.justifyContent = "space-between";
-
-    document.getElementById("close").addEventListener("click", () => { messageBox.remove(); });
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
-    window.addEventListener("click", (event) => { if (event.target === messageBox) messageBox.remove(); });
 }
