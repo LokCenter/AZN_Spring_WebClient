@@ -184,14 +184,12 @@ td {
     flex-direction: column;
 }
 
-#recipient,
 #sender {
     font-size: 1.1rem;
     margin-bottom: 1em;
     border-bottom: 1px solid var(--clr-accent);
 }
 
-#recipient-name,
 #sender-name {
     font-weight: 500;
 }
