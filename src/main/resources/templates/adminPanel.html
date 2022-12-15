@@ -223,7 +223,8 @@
                 <td>
                     <button
                             th:data-id="${user.get('userId').asInt()}"
-                            onclick="showSubmissions(this.getAttribute('data-id'))">No Data
+                            th:text="${user.get('azn_count')}"
+                            onclick="showSubmissions(this.getAttribute('data-id'))">
                     </button>
                 </td>
                 <td>

@@ -513,6 +513,8 @@ function filterTable() {
     colorFilteredResults();
 }
 
+
+
 /**
  * Filter table by selected department
  */
