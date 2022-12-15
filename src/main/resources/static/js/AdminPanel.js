@@ -73,22 +73,24 @@ standardValuesButton.addEventListener("click", () => {
                             "<div class='standards-input-container'>" +
                                 "<input type='date' name='standard-start-date' id='standard-start-date'>" +
                                 "<label for='standard-start-date'>Startdatumn</label>" +
-                                "<input type='time' name='standard-start-time' id='standard-start-time'>" +
+                                "<input type='time' name='standard-start-time' id='standard-start-time' value='07:15'>" +
                                 "<label for='standard-start-time'>Arbeitsbeginn</label>" +
-                                "<input type='time' name='standard-end-time' id='standard-end-time'>" +
+                                "<input type='time' name='standard-end-time' id='standard-end-time' value='16:00'>" +
                                 "<label for='standard-end-time'>Arbeitsende</label>" +
-                                "<input type='time' name='standard-pause' id='standard-pause'>" +
+                                "<input type='time' name='standard-pause' id='standard-pause' value='01:00'>" +
                                 "<label for='standard-pause'>Pause</label>" +
-                                "<input type='number' min='0' name='standard-vacation' id='standard-vacation'>" +
+                                "<input type='number' min='0' name='standard-vacation' id='standard-vacation' value='30'>" +
                                 "<label for='standard-vacation'>Urlaubstage</label>" +
-                                "<button type='button' id='add-default-values' onclick='addDefault()'>Hinzufügen</button>" +
+                                "<button type='button' id='add-default-values'>Hinzufügen</button>" +
                             "</div>" +
                     "</fieldset>" +
                 "</form>" +
                 "<p id='default-modal-message'></p>" +
             "</div>" +
         "</div>";
-
+    document.getElementById('add-default-values').addEventListener("click", () => {
+        addDefault()
+    })
     // get data
     axios.get("/admin/defaults/get")
         .then((response) => {
@@ -151,9 +153,7 @@ function addDefault() {
     const defaultPause = document.getElementById("standard-pause");
     const defaultVacation = document.getElementById("standard-vacation");
     const defaultModalMessage = document.getElementById("default-modal-message");
-    let currentDate = new Date()
-    if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value &&
-        defaultPause.value && defaultVacation.value && !(defaultStartDate.valueAsDate < currentDate) && validateDefaultTimeInput(defaultStartTime, defaultEndTime, defaultPause)) {
+    if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value && defaultPause.value && defaultVacation.value && (defaultStartTime.value < defaultEndTime.value)) {
 
         // make backend request
         // Get CSRF token
@@ -192,14 +192,6 @@ function addDefault() {
         defaultModalMessage.innerText = "Daten konnten nicht gespeichert werden. Eingabe überprüfen.";
         defaultModalMessage.style.display = "block";
     }
-}
-
-function validateDefaultTimeInput(start, end, pause) {
-    start = Number(start.value.split(":")[0]) * 60 + Number(start.value.split(":")[1]);
-    end = Number(end.value.split(":")[0]) * 60 + Number(end.value.split(":")[1]);
-    pause = Number(pause.value.split(":")[0]) * 60 + Number(pause.value.split(":")[1]);
-    if (end < start) return false;
-    return end - start - pause >= 0;
 }
 
 /**
