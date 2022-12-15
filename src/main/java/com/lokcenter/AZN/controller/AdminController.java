@@ -407,8 +407,7 @@ public class AdminController {
      */
     @ResponseBody
     @GetMapping("/usernameList")
-    String showUserNameList( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
-                             Authentication authentication) throws JsonProcessingException {
+    String showUserNameList( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
         Mono<String> res = webClient.get().uri("admin/userlist").
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
@@ -425,9 +424,17 @@ public class AdminController {
      * Show AZN-Abgaben
      */
     @ResponseBody
+    @CrossOrigin("/admin")
     @GetMapping("azn/get")
-    String getAZNSubmitted() {
-        // TODO: Show submited azn data
+    String getAZNSubmitted(@RequestParam(name = "userId") String userId, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
+        Mono<String> res = webClient.get().uri("/admin/azn/get?userId="+userId).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        if (res.block() != null) {
+            System.out.println(res.block());
+            return res.block();
+        }
+
         return "";
     }
 

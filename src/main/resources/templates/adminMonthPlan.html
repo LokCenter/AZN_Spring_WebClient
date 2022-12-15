@@ -66,6 +66,7 @@
 
         // csrf to header
         axios.defaults.headers.put[header] = token
+        axios.defaults.baseURL = "/admin/"
         // data
         axios.put("azn/accept", {
           "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
@@ -92,6 +93,7 @@
 
        // csrf to header
        axios.defaults.headers.put[header] = token
+       axios.defaults.baseURL = "/admin/"
        // data
        axios.put("azn/deny", {
          "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],

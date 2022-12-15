@@ -107,7 +107,7 @@ standardValuesButton.addEventListener("click", () => {
 
         }).catch((e) => {
         console.log("cannot request data", e)
-    })
+        })
 
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
@@ -269,9 +269,27 @@ function showSubmissions(id) {
             "</div>" +
         "</div>";
 
-    let months = [3, 7, 8];
-    let years = ["2022", "2022", "2022"]
-    setSubmissionModalContent(months.length, months, years, id);
+    // submitted months by userid
+
+
+    axios.get("/admin/azn/get?userId="+ id)
+        .then((response) => {
+            if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+              let months = [];
+              let years = [];
+
+              for (i in response.data) {
+                  months.push(response.data[i].month)
+                  years.push(`${response.data[i].year}`)
+              }
+
+                setSubmissionModalContent(months.length, months, years, id);
+            }
+        }).catch((e) => {
+        console.log("cannot request data", e)
+    })
+
+
 
     document.getElementById("close-submissions").addEventListener("click", () => {
         modal.remove();
@@ -306,7 +324,7 @@ function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
             submissionsContainer.innerHTML += `
                 <div>
                     <p className='submitted-date'>${getFullMonth(months[i])} ${years[i]}</p>
-                    <a href="/admin/monthplan/?month=${months[i]}&year=${years[i]}&userid=${id}" className='go-to-submitted-plan'>Zum Monatsplan</a>
+                    <a href="/admin/monthplan/?month=${months[i]-1}&year=${years[i]}&userid=${id}" className='go-to-submitted-plan'>Zum Monatsplan</a>
                 </div>`;
         }
     }
