@@ -303,7 +303,6 @@ function showSubmissions(id) {
  * @param {number} id
  */
 function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
-    months = months.sort();
     const submissionsContainer = document.getElementById("submissions-container");
     submissionsContainer.innerHTML = "";
 
