@@ -303,6 +303,7 @@ function showSubmissions(id) {
  * @param {number} id
  */
 function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
+    months = months.sort();
     const submissionsContainer = document.getElementById("submissions-container");
     submissionsContainer.innerHTML = "";
 
@@ -315,7 +316,7 @@ function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
         for (let i = 0; i < amountOfSubmissions; i++) {
             submissionsContainer.innerHTML += `
                 <div>
-                    <p className='submitted-date'>${getFullMonth(months[i])} ${years[i]}</p>
+                    <p className='submitted-date'>${getFullMonth(months[i]-1)} ${years[i]}</p>
                     <a href="/admin/monthplan/?month=${months[i]-1}&year=${years[i]}&userid=${id}" className='go-to-submitted-plan'>Zum Monatsplan</a>
                 </div>`;
         }
