@@ -365,6 +365,7 @@ public class AdminController {
      * @implNote request should only be made if firstday, lastday, month and year are added.
      */
     @GetMapping("/overview")
+    @CrossOrigin("/admin")
     String getAdminOverview(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                             Authentication authentication,
                             @RequestParam(required = false, name = "firstday") String firstDate,
@@ -391,7 +392,6 @@ public class AdminController {
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
 
-            model.addAttribute("title", "Calendar");
             model.addAttribute("data", jsonData);
 
             return "adminOverview";
@@ -589,9 +589,36 @@ public class AdminController {
      */
     @GetMapping("/generalOverview")
     @CrossOrigin("/admin")
-    String getMonthPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
-                        Authentication authentication) {
-        return "generalOverview";
+    String getGeneralOverview(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                        Authentication authentication,
+                        @RequestParam(required = false, name = "firstday") String firstDate,
+                        @RequestParam(required = false, name = "lastday") String lastDate,
+                        @RequestParam(required = false, name = "month") String month,
+                        @RequestParam(required = false, name = "year") String year
+                        ) throws Exception {
+        model.addAttribute("title", "Admin Calendar");
+
+        // check if there are any queries empty
+        if (firstDate == null || lastDate == null || month == null || year == null) {
+            return "generalOverview";
+        }
+        // User roles
+        String role = ControllerHelper.getUserOrAdminRole(authentication);
+
+        String query = String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s", firstDate, lastDate,month, year, role);
+        Mono<String> res = webClient.get().uri("/admin/generalOverview?" + query).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        // check if there is any data
+        if (res.block() != null) {
+            JsonNode jsonData = new ObjectMapper().readTree(res.block());
+
+            model.addAttribute("data", jsonData);
+
+            return "generalOverview";
+        }
+
+        throw new Exception("Bad request");
     }
 
     /**

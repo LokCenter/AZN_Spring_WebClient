@@ -1,13 +1,100 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>General Calendar</title>
-    <link rel="stylesheet" th:href="@{/css/generalOverview.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}"></title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/overview.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/overviewModal.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/radio.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script th:src="@{/js/daypilot-all.js}"></script>
+    <script th:src="@{/js/helper/helper.js}"></script>
 </head>
 <body>
-    Text
-    <script th:src="@{/js/colors.js}"></script>
-    <script th:src="@{/js/generalOverview.js}"></script>
+
+<div th:replace="fragments/AdminToggle :: toggle"></div>
+<div th:replace="fragments/dateSwitchMonth :: dateSwitch "></div>
+
+<div class="dp-container">
+    <div class="dp-wrapper">
+        <div id="dp"></div>
+    </div>
+    <div class="overview-wrapper">
+        <p>Guthaben/Schuld:</p>
+        <p>00h 00min</p>
+        <p>Freie Urlaubstage:</p>
+        <p>0 Tage</p>
+        <p>Freie Urlaubstage nach Urlaubsantragannahme:</p>
+        <p>0 Tage</p>
+    </div>
+    <button id="create-event-button">Eintrag einfügen</button>
+    <div class="legend-wrapper">
+        <div class="color-box" id="colorVacationPending"></div>
+        <span>Urlaub (wartend)</span>
+        <div class="color-box" id="colorVacation"></div>
+        <span>Urlaub (genehmigt)</span>
+        <div class="color-box" id="colorGeneralVacation"></div>
+        <span>Urlaub (universal)</span>
+        <div class="color-box" id="colorGeneralHoliday"></div>
+        <span>Feiertag</span>
+        <div class="color-box" id="colorGLAZPending"></div>
+        <span>GLAZ (wartend)</span>
+        <div class="color-box" id="colorGLAZ"></div>
+        <span>GLAZ (genehmigt)</span>
+        <div class="color-box" id="colorSick"></div>
+        <span>Krank</span>
+    </div>
+</div>
+
+<script th:src="@{/js/colors.js}"></script>
+<script th:src="@{/js/generalOverview.js}"></script>
+<script th:src="@{/js/adminSearchBar.js}"></script>
+<script th:src="@{/js/adminCurrentPage.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var rawEvent = /*[[${data}]]*/ 'default';
+
+    events = [];
+    eventCount = rawEvent.length;
+    for (let i = 0; i < eventCount; i++) {
+        event = rawEvent[i];
+        event["end"] = event["end"] + 1
+        if (event["tag"] == "gUrlaub") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: colors.colorGeneralVacation,
+                barColor: colors.colorGeneralVacation,
+                borderColor: colors.colorGeneralVacation,
+            })
+        } else if (event["tag"] == "gFeiertag") {
+            events.push({
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
+                text: event["text"],
+                tag: event["tag"],
+                id: event["id"],
+                backColor: colors.colorGeneralHoliday,
+                barColor: colors.colorGeneralHoliday,
+                borderColor: colors.colorGeneralHoliday,
+            })
+        }
+    }
+
+    dp.update({events})
+</script>
 </body>
 </html>
