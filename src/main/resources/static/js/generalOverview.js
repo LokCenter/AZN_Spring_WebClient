@@ -208,7 +208,6 @@ createEventButton.addEventListener("click",() => {
                 startDate: startDate,
                 endDate: endDate,
                 tag: tag,
-                id: window.localStorage.getItem('id')
             }).then(async (res) => {
                 // Display confirmation message if response is ok
                 if (res.data) {

@@ -622,6 +622,33 @@ public class AdminController {
     }
 
     /**
+     * Post general data
+     */
+   @PostMapping("/generalOverview/request")
+   @CrossOrigin("/admin")
+   @ResponseBody
+   Boolean postGeneralOverview(@RequestBody Map<String, Object> payload,
+                               @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                               Authentication authentication) throws Exception {
+       if (isAdmin(authentication.getAuthorities())) {
+           String query = String.format("startDate=%s&endDate=%s&tag=%s", payload.get("startDate"),
+                   payload.get("endDate"),
+                   payload.get("tag"));
+           return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
+                   .uri("/admin/generalOverview/request?"+query)
+                   .attributes(oauth2AuthorizedClient(authorizedClient))
+                   // send
+                   .retrieve()
+                   // res type
+                   .bodyToMono(Boolean.class)
+                   .block());
+
+       } else {
+           return false;
+       }
+   }
+
+    /**
      * Save messages send from admin
      */
     @PostMapping("/azn/message")

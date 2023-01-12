@@ -145,7 +145,7 @@ function deleteDefault(row) {
 
 /**
  * Add new default values
- */
+ // */
 function addDefault() {
     const defaultStartDate = document.getElementById("standard-start-date");
     const defaultStartTime = document.getElementById("standard-start-time");
