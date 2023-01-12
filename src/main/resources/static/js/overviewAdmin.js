@@ -10,7 +10,6 @@ const dp = new DayPilot.Month("dp", {
         args.preventDefault();
         const modal = document.body.appendChild(document.createElement("div"));
         modal.classList.add("modal");
-        //todo Erik bitte style das richtig
         modal.innerHTML =
             "<div class='modal__content'>" +
             "<div class='modal__header'>" +

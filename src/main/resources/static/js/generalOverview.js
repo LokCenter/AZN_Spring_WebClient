@@ -10,7 +10,6 @@ const dp = new DayPilot.Month("dp", {
         args.preventDefault();
         const modal = document.body.appendChild(document.createElement("div"));
         modal.classList.add("modal");
-        //todo Erik bitte style das richtig
         modal.innerHTML =
             "<div class='modal__content'>" +
             "<div class='modal__header'>" +
@@ -134,18 +133,8 @@ updateTimeDisplay()
 // Set color for legend
 const legendColorGeneralHoliday = document.getElementById("colorGeneralHoliday");
 legendColorGeneralHoliday.style.backgroundColor = colors.colorGeneralHoliday;
-const legendColorVacationPending = document.getElementById("colorVacationPending");
-legendColorVacationPending.style.backgroundColor = colors.colorVacationPending;
-const legendColorVacation = document.getElementById("colorVacation");
-legendColorVacation.style.backgroundColor = colors.colorVacation;
 const legendColorGeneralVacation = document.getElementById("colorGeneralVacation");
 legendColorGeneralVacation.style.backgroundColor = colors.colorGeneralVacation;
-const legendColorGLAZPending = document.getElementById("colorGLAZPending");
-legendColorGLAZPending.style.backgroundColor = colors.colorGLAZPending;
-const legendColorGLAZ = document.getElementById("colorGLAZ");
-legendColorGLAZ.style.backgroundColor = colors.colorGLAZ;
-const legendColorSick = document.getElementById("colorSick");
-legendColorSick.style.backgroundColor = colors.colorSick;
 
 const createEventButton = document.getElementById("create-event-button");
 createEventButton.addEventListener("click",() => {
@@ -165,10 +154,10 @@ createEventButton.addEventListener("click",() => {
         "<fieldset>" +
         "<legend>Art des Eintrags</legend>" +
         "<div class='choice-container'>" +
-        "<input type='radio' name='radio-choice' id='radio-vacation' value='rUrlaub' required>" +
+        "<input type='radio' name='radio-choice' id='radio-vacation' value='gUrlaub' required>" +
         "<label for='radio-vacation'>Urlaub</label>" +
-        "<input type='radio' name='radio-choice' id='radio-overtime' value='rGLAZ' required>" +
-        "<label for='radio-overtime'>GLAZ</label>" +
+        "<input type='radio' name='radio-choice' id='radio-overtime' value='gFeiertag' required>" +
+        "<label for='radio-overtime'>Feiertag</label>" +
         "</div>" +
         "</fieldset>" +
         "</div>" +
@@ -215,7 +204,7 @@ createEventButton.addEventListener("click",() => {
             // csrf to header
             axios.defaults.headers.post[header] = token
             // data
-            axios.post("generalOverview/request", {
+            axios.post("/admin/generalOverview/request", {
                 startDate: startDate,
                 endDate: endDate,
                 tag: tag,
