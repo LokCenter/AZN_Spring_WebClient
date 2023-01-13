@@ -648,6 +648,34 @@ public class AdminController {
        }
    }
 
+
+    /**
+     * Delete item from calendar
+     * @return
+     */
+    @PutMapping("/generalOverview")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    Boolean deleteCalendarItem(@RequestBody Map<String, Object> payload,  @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                               Authentication authentication) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
+                    .uri("/admin/generalOverview/delete")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Save messages send from admin
      */
@@ -699,4 +727,6 @@ public class AdminController {
             return false;
         }
     }
+
+
 }

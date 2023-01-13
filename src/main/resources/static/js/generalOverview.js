@@ -27,6 +27,7 @@ const dp = new DayPilot.Month("dp", {
             "</div>" +
             "</div>";
 
+        // delete calendar item
         const saveButton = document.getElementById("save-button");
         saveButton.addEventListener("click", () => {
             // Get CSRF token
