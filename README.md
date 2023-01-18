@@ -7,7 +7,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/LokCenter/AZN_Spring_WebClient/graphs/commit-activity)
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open=true>
   <summary>Table of Contents</summary>
   <ol>
     <li>
