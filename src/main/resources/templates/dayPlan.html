@@ -111,7 +111,29 @@
             } else {
                 document.getElementById('comment').value = "";
             }
-            document.getElementById('soll').value = "07:42";
+
+            // set soll
+            if (startTimeTemp && endTimeTemp && pauseTimeTemp) {
+                let startTime = new Date();
+
+                startTime.setHours(parseInt(startTimeTemp.slice(0,2)), parseInt(startTimeTemp.slice(3,5)), 0)
+
+                let endTime = new Date();
+
+                endTime.setHours(parseInt(endTimeTemp.slice(0,2)), parseInt(endTimeTemp.slice(3,5)), 0)
+
+                let pause = new Date();
+
+                pause.setHours(parseInt(pauseTimeTemp.slice(0,2)), parseInt(pauseTimeTemp.slice(3,5)), 0)
+
+                let sollValue = new Date();
+
+                sollValue.setHours(endTime.getHours() - startTime.getHours() - pause.getHours());
+                sollValue.setMinutes(endTime.getMinutes() - startTime.getMinutes() - pause.getMinutes());
+
+                const soll = document.getElementById("soll");
+                soll.value = `${withZero(sollValue.getHours())}:${withZero(sollValue.getMinutes())}`;
+            }
             /*]]>*/
         </script>
         <script th:src="@{/js/dayPlan.js}"></script>
