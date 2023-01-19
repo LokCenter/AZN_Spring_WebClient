@@ -89,6 +89,10 @@ public class DayPlanController {
             Mono<String> res = webClient.get().uri(String.format("/dayplan?date=%s&role=%s", dateString, role)).
                     attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+            // make get request and get data
+            Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s", role)).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
             // check if there is any data
             if (res.block() != null) {
                 JsonNode jsonData = new ObjectMapper().readTree(res.block());
@@ -98,6 +102,12 @@ public class DayPlanController {
 
                 model.addAttribute("title", formatter.format(new Date()));
                 model.addAttribute("data", jsonData);
+
+                if (resSoll.block() != null) {
+                    JsonNode sollData = new ObjectMapper().readTree(resSoll.block());
+
+                    model.addAttribute("dataSoll", sollData);
+                }
 
                 return "dayPlan";
             }

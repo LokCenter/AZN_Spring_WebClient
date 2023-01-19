@@ -112,28 +112,12 @@
                 document.getElementById('comment').value = "";
             }
 
-            // set soll
-            if (startTimeTemp && endTimeTemp && pauseTimeTemp) {
-                let startTime = new Date();
+            let dataSoll = /*[[${dataSoll}]]*/ null;
 
-                startTime.setHours(parseInt(startTimeTemp.slice(0,2)), parseInt(startTimeTemp.slice(3,5)), 0)
-
-                let endTime = new Date();
-
-                endTime.setHours(parseInt(endTimeTemp.slice(0,2)), parseInt(endTimeTemp.slice(3,5)), 0)
-
-                let pause = new Date();
-
-                pause.setHours(parseInt(pauseTimeTemp.slice(0,2)), parseInt(pauseTimeTemp.slice(3,5)), 0)
-
-                let sollValue = new Date();
-
-                sollValue.setHours(endTime.getHours() - startTime.getHours() - pause.getHours());
-                sollValue.setMinutes(endTime.getMinutes() - startTime.getMinutes() - pause.getMinutes());
-
-                const soll = document.getElementById("soll");
-                soll.value = `${withZero(sollValue.getHours())}:${withZero(sollValue.getMinutes())}`;
+            if (dataSoll) {
+                document.getElementById('soll').value = dataSoll.slice(0, -3)
             }
+
             /*]]>*/
         </script>
         <script th:src="@{/js/dayPlan.js}"></script>
