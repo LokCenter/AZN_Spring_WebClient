@@ -264,6 +264,10 @@ public class AdminController {
         Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s&userid=%s", month, year, role, userid)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        // make get request and get data
+        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/soll?&role=%s&userid=%s",role, userid)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
                 attributes(oauth2AuthorizedClient(authorizedClient))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -276,13 +280,15 @@ public class AdminController {
                 .retrieve().bodyToMono(String.class);
 
         // check if there is any data
-        if (res.block() != null) {
+        if (res.block() != null && resSoll.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
             JsonNode jsonDataStatus = new ObjectMapper().readTree(resStatus.block());
+            JsonNode jsonDataSoll = new ObjectMapper().readTree(resSoll.block());
 
             model.addAttribute("data", jsonData);
             model.addAttribute("title", "Monatsübersicht - Admin");
             model.addAttribute("status", jsonDataStatus);
+            model.addAttribute("dataSoll", jsonDataSoll);
 
             return "adminMonthPlan";
         }

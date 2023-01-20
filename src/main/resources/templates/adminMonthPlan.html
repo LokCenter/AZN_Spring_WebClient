@@ -116,6 +116,7 @@
 
       let data = /*[[${data}]]*/ null;
       let statusData = /*[[${status}]]*/ null;
+      let sollData = /*[[${dataSoll}]]*/ null;
 
       if ((statusData.accepted == null && statusData.submitted == null)  || !statusData.submitted) {
         document.getElementById("deny-azn").disabled = true;
@@ -197,7 +198,7 @@
 
       dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 
-      displayTable(viewedDate, data);
+      displayTable(viewedDate, data, sollData);
 
       /*]]>*/
     </script>
