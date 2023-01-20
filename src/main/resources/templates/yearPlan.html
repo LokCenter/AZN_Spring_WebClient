@@ -20,15 +20,16 @@
             </tr>
             <tr>
                 <th scope="row">Wochenarbeitszeit:</th>
-                <td id="person-weekly-time">38,5h</td>
+                <td id="person-weekly-time" th:text="${data.get('weeklyWorkTime').asText()}"></td>
             </tr>
             <tr>
                 <th scope="row">Tagesarbeitszeit:</th>
-                <td id="person-daily-time">7h 42min</td>
+                <td id="person-daily-time" th:text="${data.get('dailyWorkTime').asText().substring(0,5).concat('h')}"></td>
             </tr>
             <tr>
                 <th scope="row">Tagesarbeitszeit seit:</th>
-                <td id="person-daily-time-date">01.09.2022</td>
+                <td id="person-daily-time-date"
+                    th:text="${#dates.format(new java.util.Date(data.get('workTimeDate').asLong()), 'dd.MM.yyyy')}"></td>
             </tr>
         </table>
 
