@@ -34,7 +34,7 @@ nextMonthButton.addEventListener("click", () => {
  * @param date month date
  * @param data month java data
  */
-function displayTable(date, data) {
+function displayTable(date, data, dataSoll) {
     let totalDaysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     let datesOfMonth = [];
     for (let i = 1; i <= totalDaysInMonth; i++) {
@@ -93,6 +93,7 @@ function displayTable(date, data) {
         let istCell = row.insertCell();
         istCell.textContent = ist !== null? `${withZero(ist.getHours())}:${withZero(ist.getMinutes())}` : "";
         let sollCell = row.insertCell();
+        sollCell.textContent = dataSoll.slice(0, -3);
         let glazCell = row.insertCell();
         glazCell.textContent = data[i].glaz === true? 'x': ''
         let sickCell = row.insertCell();
@@ -105,6 +106,7 @@ function displayTable(date, data) {
         schoolCell.textContent = data[i].school === true? 'x': ''
         let commentCell = row.insertCell();
         commentCell.textContent = data[i].comment != null ? data[i].comment: ''
+
     }
 }
 

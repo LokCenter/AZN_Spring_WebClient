@@ -51,6 +51,7 @@
 
       let data = /*[[${data}]]*/ null;
       let status = /*[[${status}]]*/ null;
+      let dataSoll  = /*[[${dataSoll}]]*/ null;
       const submitButtonC = document.getElementById("submit-azn");
 
       aznStatus.innerHTML = "";
@@ -90,8 +91,8 @@
 
       dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
 
-     if (data) {
-       displayTable(viewedDate, data);
+     if (data && dataSoll) {
+       displayTable(viewedDate, data, dataSoll);
      }
 
       // get message if denied

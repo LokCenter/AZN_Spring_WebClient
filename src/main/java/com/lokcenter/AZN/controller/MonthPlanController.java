@@ -57,14 +57,20 @@ public class MonthPlanController {
                 .body(Mono.just(Map.of("month", month, "year", year)), Map.class)
                 .retrieve().bodyToMono(String.class);
 
+        // get soll time
+        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/soll?role=%s", role)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null && resStatus.block() != null) {
+        if (res.block() != null && resStatus.block() != null && resSoll.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
             JsonNode jsonDataStatus = new ObjectMapper().readTree(resStatus.block());
+            JsonNode jsonSoll = new ObjectMapper().readTree(resSoll.block());
 
             model.addAttribute("data", jsonData);
             model.addAttribute("status", jsonDataStatus);
             model.addAttribute("title", "Monatsübersicht");
+            model.addAttribute("dataSoll", jsonSoll);
 
             return "monthPlan";
         }
