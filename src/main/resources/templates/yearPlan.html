@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th scope="row">Urlaubsübertrag Vorjahr:</th>
-                <td id="stat-previous-vacation">0</td>
+                <td th:text="${data.get('vacationFromLastYear').asText().concat(' d')}" id="stat-previous-vacation"></td>
             </tr>
             <tr>
                 <th scope="row">Summe Urlaubstage:</th>
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <th scope="row">Verfügbare Urlaubstage:</th>
-                <td id="stat-available-vacation">0 Tage</td>
+                <td th:text="${data.get('totalVacationDays').asText().concat(' d')}" id="stat-available-vacation"></td>
             </tr>
         </table>
 
@@ -77,6 +77,7 @@
     /*<![CDATA[*/
 
     let years =/*[[${data.get('years')}]]*/ null;
+    let data = /*[[${data}]]*/ null;
 
     // TODO: Use VacationSick!!!
 
@@ -90,7 +91,7 @@
         addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview")
     }
 
-    console.log(years);
+    console.log(data);
 
     /*]]>*/
 </script>
