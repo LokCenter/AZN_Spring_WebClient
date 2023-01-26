@@ -44,11 +44,11 @@
             </tr>
             <tr>
                 <th scope="row">Summe Urlaubstage:</th>
-                <td id="stat-total-vacation">30</td>
+                <td th:text="${data.get('sumVacationDays').asText().concat(' d')}" id="stat-total-vacation"></td>
             </tr>
             <tr>
                 <th scope="row">Verbrauchte Urlaubstage:</th>
-                <td id="stat-used-vacation">30 Tage</td>
+                <td th:text="${data.get('usedVacationDays').asText().concat(' d')}" id="stat-used-vacation"></td>
             </tr>
             <tr>
                 <th scope="row">Verfügbare Urlaubstage:</th>
