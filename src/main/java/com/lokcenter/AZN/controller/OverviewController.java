@@ -74,14 +74,21 @@ public class OverviewController {
         Mono<String> res2 = webClient.get().uri("/overview/dayt?" + query2).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        String queryTwo = String.format("year=%s&role=%s", year, role);
+
+        Mono<String> resStats = webClient.get().uri("/overview/stats?" + queryTwo).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null && res2.block() != null) {
+        if (res.block() != null && res2.block() != null && res2.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
             JsonNode jsonDayDate = new ObjectMapper().readTree(res2.block());
+            JsonNode jsonStats = new ObjectMapper().readTree(resStats.block());
 
             model.addAttribute("title", "Calendar");
             model.addAttribute("data", jsonData);
             model.addAttribute("daydata", jsonDayDate);
+            model.addAttribute("stats", jsonStats);
 
             return "overview";
         }

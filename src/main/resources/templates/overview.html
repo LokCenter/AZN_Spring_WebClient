@@ -31,9 +31,9 @@
             <p>Guthaben/Schuld:</p>
             <p>00h 00min</p>
             <p>Freie Urlaubstage:</p>
-            <p>0 Tage</p>
+            <p th:text="${stats.get('availableVacationWithRequestedCount').asText().concat(' d')}"></p>
             <p>Freie Urlaubstage nach Urlaubsantragsannahme:</p>
-            <p>0 Tage</p>
+            <p th:text="${stats.get('availableVacation').asText().concat(' d')}"></pthL>
         </div>
         <button id="create-event-button">Eintrag einfügen</button>
         <div class="legend-wrapper">
@@ -59,6 +59,7 @@
     /*<![CDATA[*/
 
     var rawEvent = /*[[${data}]]*/ 'default';
+    var stats  = /*[[${stats}]]*/ 'default';
     events = [];
     eventCount = rawEvent.length;
     for (let i = 0; i < eventCount; i++) {
@@ -149,6 +150,7 @@
     if (dealtDayplan !== null) {
         dealtDayplan.forEach(colorCell);
     }
+
     /*]]>*/
 </script>
     <script th:src="@{/js/userCurrentPage.js}"></script>
