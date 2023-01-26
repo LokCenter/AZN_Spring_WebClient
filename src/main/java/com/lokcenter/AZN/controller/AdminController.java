@@ -3,6 +3,7 @@ package com.lokcenter.AZN.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
 import lombok.AllArgsConstructor;
@@ -390,15 +391,21 @@ public class AdminController {
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
         String query =String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s&userid=%s", firstDate, lastDate,month, year, role, userid);
+        String queryTwo = String.format("year=%s&role=%s&userid=%s", year, role, userid);
 
         Mono<String> res = webClient.get().uri("/overview?" + query).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resStats = webClient.get().uri("/overview/stats?" + queryTwo).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null) {
+        if (res.block() != null && resStats.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            JsonNode jsonDataStats = new ObjectMapper().readTree(resStats.block());
 
             model.addAttribute("data", jsonData);
+            model.addAttribute("stats", jsonDataStats);
 
             return "adminOverview";
         }

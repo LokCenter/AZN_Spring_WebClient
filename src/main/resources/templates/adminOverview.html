@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@
                 <p>Guthaben/Schuld:</p>
                 <p>00h 00min</p>
                 <p>Freie Urlaubstage:</p>
-                <p>0 Tage</p>
+                <p th:text="${stats.get('availableVacation').asText().concat(' d')}"></p>
             </div>
             <button id="create-event-button">Eintrag einfügen</button>
             <div class="legend-wrapper">
@@ -61,6 +61,7 @@
             /*<![CDATA[*/
 
             var rawEvent = /*[[${data}]]*/ 'default';
+            var stats = /*[[${stats}]]*/ 'default';
 
             events = [];
             eventCount = rawEvent.length;
@@ -146,7 +147,6 @@
                     })
                 }
             }
-
             dp.update({events})
         </script>
     </body>
