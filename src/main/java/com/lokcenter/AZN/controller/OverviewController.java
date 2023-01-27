@@ -57,6 +57,8 @@ public class OverviewController {
             return "overview";
         }
 
+        // show calendar stats
+
         // User roles
         var roles = authentication.getAuthorities();
 
@@ -80,16 +82,21 @@ public class OverviewController {
         Mono<String> resStats = webClient.get().uri("/overview/stats?" + queryTwo).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resBalance = webClient.get().uri("balance?" + queryTwo).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null && res2.block() != null && res2.block() != null) {
+        if (res.block() != null && res2.block() != null && res2.block() != null && resBalance.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
             JsonNode jsonDayDate = new ObjectMapper().readTree(res2.block());
             JsonNode jsonStats = new ObjectMapper().readTree(resStats.block());
+            JsonNode jsonBalance = new ObjectMapper().readTree(resBalance.block());
 
             model.addAttribute("title", "Calendar");
             model.addAttribute("data", jsonData);
             model.addAttribute("daydata", jsonDayDate);
             model.addAttribute("stats", jsonStats);
+            model.addAttribute("balance", jsonBalance);
 
             return "overview";
         }
