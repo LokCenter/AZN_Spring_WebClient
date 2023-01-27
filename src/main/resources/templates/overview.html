@@ -29,7 +29,7 @@
         </div>
         <div class="overview-wrapper">
             <p>Guthaben/Schuld:</p>
-            <p>00h 00min</p>
+            <p th:if="${balance}" th:text="${balance.asText().substring(0, 2).concat(' h ').concat(balance.asText().substring(3, 5).concat(' mm'))}"></p>
             <p>Freie Urlaubstage:</p>
             <p th:if="${stats}" th:text="${stats.get('availableVacationWithRequestedCount').asText().concat(' d')}"></p>
             <p>Freie Urlaubstage nach Urlaubsantragsannahme:</p>
@@ -59,9 +59,6 @@
     /*<![CDATA[*/
 
     var rawEvent = /*[[${data}]]*/ 'default';
-    var balance = /*[[${balance}]]*/ 'default';
-
-    console.log(balance)
 
     events = [];
     eventCount = rawEvent.length;
