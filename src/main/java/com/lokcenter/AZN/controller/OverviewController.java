@@ -53,6 +53,7 @@ public class OverviewController {
 
         // check if there are any queries empty
         if (firstDate == null || lastDate == null || month == null || year == null) {
+
             return "overview";
         }
 

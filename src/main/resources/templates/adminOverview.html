@@ -32,7 +32,7 @@
                 <p>Guthaben/Schuld:</p>
                 <p>00h 00min</p>
                 <p>Freie Urlaubstage:</p>
-                <p th:text="${stats.get('availableVacation').asText().concat(' d')}"></p>
+                <p th:if="${stats}" th:text="${stats.get('availableVacation').asText().concat(' d')}"></p>
             </div>
             <button id="create-event-button">Eintrag einfügen</button>
             <div class="legend-wrapper">

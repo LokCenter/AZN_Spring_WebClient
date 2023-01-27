@@ -63,6 +63,7 @@ const getDaysAsQuery = () => {
         .split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}&month=${dp.startDate.value.slice(5, 7)}&year=${dp.startDate.value.slice(0, 4)}`
 }
 
+// reload page without query
 if (!window.location.href.includes("?")) {
     getDaysAsQuery();
 }
