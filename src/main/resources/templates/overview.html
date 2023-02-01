@@ -29,7 +29,7 @@
         </div>
         <div class="overview-wrapper">
             <p>Guthaben/Schuld:</p>
-            <p th:if="${balance}" th:text="${balance.asText().substring(0, 2).concat(' h ').concat(balance.asText().substring(3, 5).concat(' mm'))}"></p>
+            <p th:if="${balance}" th:text="${balance.asText().substring(0, balance.asText().length() - 3)}"></p>
             <p>Freie Urlaubstage:</p>
             <p th:if="${stats}" th:text="${stats.get('availableVacationWithRequestedCount').asText().concat(' d')}"></p>
             <p>Freie Urlaubstage nach Urlaubsantragsannahme:</p>
