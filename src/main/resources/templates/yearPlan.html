@@ -87,8 +87,9 @@
         sick = years[year].SickDays !== undefined ? years[year].SickDays : 0;
         vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
         glaz = years[year].glazDays !== undefined ? years[year].glazDays : 0;
+        balance =  years[year].balance !== undefined ? years[year].balance : 0;
 
-        addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview")
+        addYear(year, work, sick, vacation, glaz, balance, "year-overview")
     }
 
     console.log(data);

@@ -399,13 +399,18 @@ public class AdminController {
         Mono<String> resStats = webClient.get().uri("/overview/stats?" + queryTwo).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resBalance = webClient.get().uri("balance?" + queryTwo).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null && resStats.block() != null) {
+        if (res.block() != null && resStats.block() != null && resBalance != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
             JsonNode jsonDataStats = new ObjectMapper().readTree(resStats.block());
+            JsonNode jsonDataBalance = new ObjectMapper().readTree(resBalance.block());
 
             model.addAttribute("data", jsonData);
             model.addAttribute("stats", jsonDataStats);
+            model.addAttribute("balance", jsonDataBalance);
 
             return "adminOverview";
         }
