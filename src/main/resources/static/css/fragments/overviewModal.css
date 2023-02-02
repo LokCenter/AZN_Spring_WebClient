@@ -17,6 +17,10 @@
     position: relative;
 }
 
+.delete-event-modal .modal__content {
+    height: 8em;
+}
+
 .modal__header {
     background-color: var(--clr-accent);
     display: flex;
@@ -105,4 +109,8 @@ fieldset {
     position: absolute;
     bottom: 0;
     margin-bottom: 1em;
+}
+
+.delete-event-modal .button-container button {
+    min-width: 5em;
 }

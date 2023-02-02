@@ -10,6 +10,7 @@ const dp = new DayPilot.Month("dp", {
         args.preventDefault();
         const modal = document.body.appendChild(document.createElement("div"));
         modal.classList.add("modal");
+        modal.classList.add("delete-event-modal");
         modal.innerHTML =
             "<div class='modal__content'>" +
             "<div class='modal__header'>" +
@@ -17,13 +18,10 @@ const dp = new DayPilot.Month("dp", {
             "<span id='close'>&times;</span>" +
             "</div>" +
             "<div class='modal__body'>" +
-            "<form name='add-new-entry' action='' method=''>" +
-            "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
             "<div class='button-container'>" +
-            "<button type='button' id='save-button'>Speichern</button>" +
-            "<button type='button' id='cancel-button'>Abbrechen</button>" +
+            "<button type='button' id='save-button'>Ja</button>" +
+            "<button type='button' id='cancel-button'>Nein</button>" +
             "</div>" +
-            "</form>" +
             "</div>" +
             "</div>";
 
