@@ -195,7 +195,7 @@ function addDefault() {
 }
 
 /**
- *
+ * Creates a popup showing a user's year plan.
  * @param userid id from user
  * @param username
  * @param path backend path
@@ -221,6 +221,12 @@ const showYearPlanByUser = (userid, username, path) => {
     })
 }
 
+/**
+ * Creates a popup showing a user's requests.
+ * @param userid id from user
+ * @param username
+ * @param path backend path
+ */
 const showRequestListByUser = (userid, username, path) => {
     // set username
     document.getElementById("request-modal-username").innerHTML = username;
@@ -243,6 +249,10 @@ const showRequestListByUser = (userid, username, path) => {
     })
 }
 
+/**
+ * Creates a popup showing a user's submissions.
+ * @param id id from user
+ */
 function showSubmissions(id) {
     const modal = document.body.appendChild(document.createElement("div"));
     modal.classList.add("modal");
@@ -296,7 +306,7 @@ function showSubmissions(id) {
 }
 
 /**
- * Displays a users' submissions inside the submissions modal.
+ * Displays a list of a user's submissions.
  * @param {number} amountOfSubmissions
  * @param {array} months
  * @param {array} years

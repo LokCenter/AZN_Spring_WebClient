@@ -144,6 +144,10 @@ submitButton.addEventListener("click", (e) => {
 
 const aznStatus = document.getElementById("azn-status");
 
+/**
+ * Displays the message from the admin with their reason for denial.
+ * @param message
+ */
 function showMessage(message) {
     const messageBox = document.body.appendChild(document.createElement("div"));
     messageBox.id = "message-box";
