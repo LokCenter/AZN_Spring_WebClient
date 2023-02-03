@@ -1,0 +1,98 @@
+/*  --------------------------------------------------
+        Header
+    -------------------------------------------------- */
+
+#general-overview-header {
+    background-color: var(--clr-accent);
+    padding: 0.4em;
+    margin-bottom: 4em;
+    position: relative;
+    overflow: hidden;
+}
+
+#general-overview-header nav {
+    display: flex;
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+#general-overview-header nav a {
+    margin-left: 1em;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 0.25em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: none;
+    color: var(--clr-light);
+    text-decoration: none;
+}
+
+#general-overview-header nav a:hover {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+    box-shadow: 0 -3em 2em 0.5em hsl(0deg 0% 0% / 30%);
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--clr-light);
+    text-align: center;
+}
+
+/*  --------------------------------------------------
+        Logout button
+    -------------------------------------------------- */
+
+.logout-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    margin-right: 2rem;
+
+}
+
+.svg-container {
+    position: relative;
+    font-size: 1.8rem;
+    width: 3.2rem
+}
+
+.svg-container svg {
+    fill: var(--clr-light);
+    position: absolute;
+    width: 3.2rem;
+    padding: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.svg-container svg:hover,
+.svg-container svg:focus {
+    fill: var(--clr-accent);
+    background-color: var(--clr-light);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
+}
+
+/*  --------------------------------------------------
+        Calendar & sidebar
+    -------------------------------------------------- */
+
+.dp-container {
+    grid-template: repeat(2, 1fr) / 3fr 1fr;
+}
+
+.legend-wrapper {
+    grid-template: repeat(2, 1fr) / 2em 1fr;
+    height: 4em;
+}
