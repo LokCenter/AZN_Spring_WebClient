@@ -12,25 +12,14 @@
     box-sizing: border-box;
 }
 
-#set-standard-values {
-    position: absolute;
-    top: 0.4rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 0.3em;
-    border: 2px solid var(--clr-light);
-}
-
-#set-standard-values:hover,
-#set-standard-values:focus {
-    background-color: var(--clr-light);
-    color: var(--clr-accent);
-    cursor: pointer;
-}
-
 main {
     display: grid;
     justify-content: center;
+}
+
+.top-of-table {
+    display: flex;
+    justify-content: space-between;
 }
 
 .filter-container {
@@ -38,6 +27,21 @@ main {
     display: flex;
     align-items: center;
     margin-bottom: 0.25em;
+}
+
+#set-standard-values {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.1em 0.5em;
+    border: 2px solid var(--clr-accent);
+    margin-bottom: 0.2em;
+}
+
+#set-standard-values:hover,
+#set-standard-values:focus {
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+    cursor: pointer;
 }
 
 .filter-container svg {
@@ -71,6 +75,31 @@ main {
     margin-bottom: 4em;
     position: relative;
     overflow: hidden;
+}
+
+.APheader nav {
+    display: flex;
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.APheader nav a {
+    margin-left: 1em;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 0.25em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.APheader nav a:hover {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--clr-light);
+    color: var(--clr-accent);
+    box-shadow: 0 -3em 2em 0.5em hsl(0deg 0% 0% / 30%);
 }
 
 h1 {
