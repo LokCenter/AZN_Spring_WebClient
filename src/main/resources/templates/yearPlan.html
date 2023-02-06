@@ -36,7 +36,7 @@
         <table class="current-stats">
             <tr>
                 <th scope="row">Aktuelles Zeitkonto:</th>
-                <td id="stat-overtime">00h 00min</td>
+                <td th:if="${balance}" th:text="${balance.asText().substring(0, balance.asText().length() - 3)}" id="stat-overtime"></td>
             </tr>
             <tr>
                 <th scope="row">Urlaubsübertrag Vorjahr:</th>

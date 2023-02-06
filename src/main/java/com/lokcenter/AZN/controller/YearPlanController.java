@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lokcenter.AZN.helper.JunitHelper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
@@ -26,7 +28,7 @@ public class YearPlanController {
     @GetMapping
     String GetYearPlan(Model model,
                        @RegisteredOAuth2AuthorizedClient("userwebapp")
-                       OAuth2AuthorizedClient authorizedClient) throws Exception {
+                       OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
 
         if (JunitHelper.isJUnitTest()) {
             return "yearPlan";
@@ -35,12 +37,29 @@ public class YearPlanController {
         Mono<String> res = webClient.get().uri("/yearplan").
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        // User roles
+        var roles = authentication.getAuthorities();
+
+        if (roles.isEmpty()) {
+            throw new Exception("No Role");
+        }
+
+        String role = roles.toArray()[0].toString();
+
+        String queryTwo = String.format("year=%s&role=%s", Calendar.getInstance().get(Calendar.YEAR), role);
+
+        // get balance
+        Mono<String> resBalance = webClient.get().uri("balance?" + queryTwo).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
-        if (res.block() != null) {
+        if (res.block() != null && resBalance.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            JsonNode jsonNodeBalance = new ObjectMapper().readTree(resBalance.block());
 
             model.addAttribute("title", "Jahresübersicht");
             model.addAttribute("data", jsonData);
+            model.addAttribute("balance", jsonNodeBalance);
 
             return "yearPlan";
 
