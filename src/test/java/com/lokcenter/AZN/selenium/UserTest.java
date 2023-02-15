@@ -25,6 +25,7 @@ public class UserTest {
     @Before
     public void setUp() throws MalformedURLException {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setHeadless(true);
         driver = new RemoteWebDriver(new URL("http://192.168.55.49:4444"), firefoxOptions);
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
