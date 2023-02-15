@@ -28,8 +28,6 @@ public class UserTest {
     JavascriptExecutor js;
     @Before
     public void setUp() throws MalformedURLException {
-        //System.setProperty("webdriver.chrome.driver", "src/test/java/com/lokcenter/AZN/selenium/driver/chromedriver");
-        //driver = new ChromeDriver();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         driver = new RemoteWebDriver(new URL("http://192.168.55.49:4444"), firefoxOptions);
         js = (JavascriptExecutor) driver;
