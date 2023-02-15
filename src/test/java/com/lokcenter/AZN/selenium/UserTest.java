@@ -10,10 +10,14 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.*;
 
@@ -23,9 +27,11 @@ public class UserTest {
     private Map<String, Object> vars;
     JavascriptExecutor js;
     @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/java/com/lokcenter/AZN/selenium/driver/chromedriver");
-        driver = new ChromeDriver();
+    public void setUp() throws MalformedURLException {
+        //System.setProperty("webdriver.chrome.driver", "src/test/java/com/lokcenter/AZN/selenium/driver/chromedriver");
+        //driver = new ChromeDriver();
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        driver = new RemoteWebDriver(new URL("http://192.168.55.49:4444"), firefoxOptions);
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
         driver.get("http://localhost:8880");
@@ -51,10 +57,16 @@ public class UserTest {
         driver.findElement(By.name("passwd")).click();
         driver.findElement(By.name("passwd")).sendKeys("SSW,Gr\"V)7Pa(r{qe5!,");
         driver.findElement(By.id("idSIButton9")).click();
+        {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("idBtn_Back")));
+        }
         driver.findElement(By.id("idBtn_Back")).click();
-        String actualUrl = "http://localhost:8880/dayplan";
-        String expectedUrl = driver.getCurrentUrl();
-        Assert.assertEquals(expectedUrl,actualUrl);
+        {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8880/dayplan"));
+            wait.until(ExpectedConditions.elementToBeClickable(By.className("dayPlanInput-container")));
+        }
         String actual = String.valueOf(driver.findElement(By.className("dayPlanInput-container")));
         Boolean actualBool = false;
         if (actual.length() > 0) {actualBool = true;}
