@@ -114,7 +114,11 @@
 
             let dataSoll = /*[[${dataSoll}]]*/ null;
 
-            if (dataSoll) {
+            var date = getQueryByName("date")
+
+            var dt = moment(date, 'DD-MM-yyyy').toDate();
+
+            if (dataSoll && (dt.getDay() % 6) !== 0) {
                 document.getElementById('soll').value = dataSoll.slice(0, -3)
             }
 
