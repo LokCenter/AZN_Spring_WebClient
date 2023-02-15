@@ -92,8 +92,19 @@ function displayTable(date, data, dataSoll) {
         pauseCell.textContent = pause !== null? `${withZero(pause.getHours())}:${withZero(pause.getMinutes())}` : "";
         let istCell = row.insertCell();
         istCell.textContent = ist !== null? `${withZero(ist.getHours())}:${withZero(ist.getMinutes())}` : "";
-        let sollCell = row.insertCell();
-        sollCell.textContent = dataSoll.slice(0, -3);
+
+        // set soll time only on week days not on the weekend
+        var dt = moment(datesOfMonth[i], "DD.MM.YYYY").toDate()
+
+        console.log(dt.getDay())
+
+        if ((dt.getDay() % 6) === 0) {
+            let sollCell = row.insertCell();
+            sollCell.textContent = ""
+        } else {
+            let sollCell = row.insertCell();
+            sollCell.textContent = dataSoll.slice(0, -3);
+        }
         let glazCell = row.insertCell();
         glazCell.textContent = data[i].glaz === true? 'x': ''
         let sickCell = row.insertCell();
