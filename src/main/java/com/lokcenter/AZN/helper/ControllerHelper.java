@@ -1,10 +1,10 @@
 package com.lokcenter.AZN.helper;
 
-import com.lokcenter.AZN.helper.ds.Search;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,8 +20,8 @@ public class ControllerHelper {
         if (roles.isEmpty()) {
             throw new Exception("No Role");
 
-        } else if (Search.binarySearch(roles.stream()
-                .toList().stream().map(Objects::toString).toList(), "ROLE_Admin") == -1) {
+        } else if (Collections.binarySearch(roles.stream()
+                .toList().stream().map(Objects::toString).toList().stream().sorted().toList(), "ROLE_Admin") == -1) {
             throw new Exception("Not Authorized");
         }
 
