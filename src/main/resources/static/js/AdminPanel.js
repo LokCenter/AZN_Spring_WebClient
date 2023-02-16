@@ -583,3 +583,9 @@ function adminRedirect(id, name) {
         window.location.href = `/admin/dayplan?userid=${id}`
     }
 }
+
+const adminEdit = (userid, name) => {
+    document.getElementById('user-name-modal-edit').innerText = name;
+
+    // todo: get worktimelist
+}

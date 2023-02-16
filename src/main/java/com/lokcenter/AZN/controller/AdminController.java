@@ -756,5 +756,21 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/worktimeList")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    String getWorkTimeListByUser(@RequestParam(name = "userId") String userId, Authentication authentication,
+                                 OAuth2AuthorizedClient authorizedClient) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri("/worktimeList?userId="+userId).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
+        }
+
+        return null;
+    }
 }

@@ -34,7 +34,7 @@
     <div class="modal" id="prev-year-modal">
         <div class="modal-content modal-content-prev-year">
             <div class="modal-content__header">
-                <h2 id="user-name-modal">NO DATA</h2>
+                <h2 id="user-name-modal"></h2>
                 <span class="close close-prev-year-modal">&times;</span>
             </div>
             <div class="modal-content__body">
@@ -60,7 +60,7 @@
     <div class="modal" id="edit-modal">
         <div class="modal-content modal-content-edit">
             <div class="modal-content__header">
-                <h2 id="user-name-modal-edit">No Data</h2>
+                <h2 id="user-name-modal-edit"></h2>
                 <span class="close close-edit-modal">&times;</span>
             </div>
             <div class="modal-content__body">
@@ -240,7 +240,11 @@
                         Anzeigen
                     </button>
                 </td>
-                <td><button class="edit-btn">Bearbeiten</button></td>
+                <td><button
+                        th:data-name="${user.get('name').textValue()}"
+                        th:data-id="${user.get('userId').asInt()}"
+                        onclick="adminEdit(this.getAttribute('data-id'), this.getAttribute('data-name'))"
+                        class="edit-btn">Bearbeiten</button></td>
             </tr>
             </tbody>
         </table>
