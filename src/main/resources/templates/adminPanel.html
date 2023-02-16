@@ -211,7 +211,8 @@
             <tr th:each="user: ${data}">
                 <td th:text="${user.get('name').textValue()}"
                     th:data-id="${user.get('userId').asInt()}"
-                    onclick="adminRedirect(this.getAttribute('data-id'))"></td>
+                    th:data-name="${user.get('name').textValue()}"
+                    onclick="adminRedirect(this.getAttribute('data-id'), this.getAttribute('data-name'))"></td>
                 <td th:text="${user.get('department').textValue()}"></td>
                 <td>No Data</td>
                 <td th:text="${user.get('sick')}"></td>

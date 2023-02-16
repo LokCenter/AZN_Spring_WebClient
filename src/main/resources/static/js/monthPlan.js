@@ -96,15 +96,9 @@ function displayTable(date, data, dataSoll) {
         // set soll time only on week days not on the weekend
         var dt = moment(datesOfMonth[i], "DD.MM.YYYY").toDate()
 
-        console.log(dt.getDay())
+        let sollCell = row.insertCell();
+        sollCell.textContent = ""
 
-        if ((dt.getDay() % 6) === 0) {
-            let sollCell = row.insertCell();
-            sollCell.textContent = ""
-        } else {
-            let sollCell = row.insertCell();
-            sollCell.textContent = dataSoll.slice(0, -3);
-        }
         let glazCell = row.insertCell();
         glazCell.textContent = data[i].glaz === true? 'x': ''
         let sickCell = row.insertCell();
@@ -117,6 +111,14 @@ function displayTable(date, data, dataSoll) {
         schoolCell.textContent = data[i].school === true? 'x': ''
         let commentCell = row.insertCell();
         commentCell.textContent = data[i].comment != null ? data[i].comment: ''
+        if (glazCell.textContent == 'x' || sickCell.textContent == 'x' || vacationCell.textContent == 'x' || holidayCell.textContent == 'x' || schoolCell.textContent == 'x' || commentCell.textContent == 'x') {
+            continue;
+        }
+        if ((dt.getDay() % 6) === 0) {
+            sollCell.textContent = ""
+        } else {
+            sollCell.textContent = dataSoll.slice(0, -3);
+        }
 
     }
 }

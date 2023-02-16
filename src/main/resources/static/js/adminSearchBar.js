@@ -9,7 +9,7 @@ const userList = document.getElementById("user-list");
 function createUserList(users) {
     let datalistContent = "";
     for (let i = 0; i < users.length; i++) {
-        datalistContent += `<li data-userid="${users[i].id}">${users[i].username}</li>`;
+        datalistContent += `<li data-userid="${users[i].id}" data-username="${users[i].username}">${users[i].username}</li>`;
     }
     userList.innerHTML = datalistContent;
 
@@ -23,6 +23,7 @@ function createUserList(users) {
             window.location.href = window.location.href.split('?')[0] + '?userid=' + user.dataset.userid
             // set userid to use it on all pages
             localStorage.setItem("id", user.dataset.userid)
+            localStorage.setItem("name", user.dataset.username)
         })
     }
 }
