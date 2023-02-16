@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title th:text="${title}"></title>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -15,7 +14,6 @@
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBar.css}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <script th:src="@{/js/helper/helper.js}"></script>
   </head>
   <body>
