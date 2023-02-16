@@ -331,6 +331,16 @@ public class AdminController {
         getAdminData(String.format("/dayplan?date=%s&role=%s&userid=%s", dateString, getAdminRole(authentication), userid),
                 authentication, authorizedClient, model, false);
 
+        // get soll time
+        Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s&userid=%s", getAdminRole(authentication), userid)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        if (resSoll.block() != null) {
+            JsonNode sollData = new ObjectMapper().readTree(resSoll.block());
+
+            model.addAttribute("dataSoll", sollData);
+        }
+
         return "AdminDayPlan";
     }
 
