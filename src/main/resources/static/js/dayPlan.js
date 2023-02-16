@@ -204,13 +204,17 @@ saveButton.addEventListener('click', (e) => {
 
     }).then(async (res) => {
         // Display confirmation message if response is ok
+        const saveConfirmation = document.getElementById("save-confirmation");
         if (res.data) {
-            const saveConfirmation = document.getElementById("save-confirmation");
             saveConfirmation.innerText = "Änderungen wurden gespeichert";
-            // non-blocking sleep
-            await sleep(2000);
-            saveConfirmation.innerText = "";
+
+        }else {
+            saveConfirmation.innerText = "Änderungen wurden nicht gespeichert"
         }
+
+        // non-blocking sleep
+        await sleep(2000);
+        saveConfirmation.innerText = "";
     }).catch((error) => {
         console.log(error)
     })
