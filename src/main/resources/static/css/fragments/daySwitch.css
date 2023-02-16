@@ -1,3 +1,7 @@
+/*  --------------------------------------------------
+        Day (and date) switch
+    -------------------------------------------------- */
+
 .daySwitch-container {
     display: flex;
     justify-content: center;

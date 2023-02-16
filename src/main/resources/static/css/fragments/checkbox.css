@@ -1,3 +1,7 @@
+/*  --------------------------------------------------
+        Checkboxes
+    -------------------------------------------------- */
+
 input[type="checkbox"] {
     appearance: none;
     position: relative;

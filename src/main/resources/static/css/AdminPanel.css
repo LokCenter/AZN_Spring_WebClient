@@ -17,6 +17,10 @@ main {
     justify-content: center;
 }
 
+/*  --------------------------------------------------
+        Table filter
+    -------------------------------------------------- */
+
 .top-of-table {
     display: flex;
     justify-content: space-between;
@@ -68,6 +72,10 @@ main {
 .department-choice input {
     margin-left: 1em;
 }
+
+/*  --------------------------------------------------
+        Header
+    -------------------------------------------------- */
 
 .APheader {
     background-color: var(--clr-accent);
@@ -145,6 +153,10 @@ h1 {
     box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
 }
 
+/*  --------------------------------------------------
+        User table
+    -------------------------------------------------- */
+
 .APTable {
     border-collapse: collapse;
     table-layout: fixed;
@@ -200,6 +212,10 @@ button:hover {
     background-color: var(--clr-light);
     color: var(--clr-accent);
 }
+
+/*  --------------------------------------------------
+        Modal
+    -------------------------------------------------- */
 
 .modal {
     display: none;
@@ -447,9 +463,7 @@ form[name="edit-user-data"] {
     color: var(--clr-accent);
 }
 
-/*
-    Modal for setting default values
- */
+/*  Default values modal   */
 
 .standard-values-modal {
     position: absolute;
@@ -553,9 +567,7 @@ form[name="edit-user-data"] {
     display: none;
 }
 
-/*
-    Modal for AZN submissions
- */
+/*  Submissions modal   */
 
 .submissions-modal {
     position: absolute;

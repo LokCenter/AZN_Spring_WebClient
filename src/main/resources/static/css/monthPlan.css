@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+/*  --------------------------------------------------
+        Table
+    -------------------------------------------------- */
+
 .container {
     display: grid;
     justify-content: center;
@@ -70,9 +74,9 @@ td {
     border-right: 1px solid var(--clr-dark);
 }
 
-/*
-    Submitting/Accepting/Denying AZN
- */
+/*  --------------------------------------------------
+        Submitting/Accepting/Denying AZN
+    -------------------------------------------------- */
 
 .azn-submit-container,
 .azn-response-container {
@@ -136,6 +140,10 @@ td {
     background-color: #dedede;
     border-color: #8e8e8e;
 }
+
+/*  --------------------------------------------------
+        AZN denial message
+    -------------------------------------------------- */
 
 #message-box {
     width: 100vw;

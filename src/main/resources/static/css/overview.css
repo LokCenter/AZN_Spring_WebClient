@@ -13,17 +13,26 @@
     margin-top: 5em;
 }
 
+/*  --------------------------------------------------
+        Calendar
+    -------------------------------------------------- */
+
 .dp-wrapper {
     width: 100%;
     max-width: 100rem;
     grid-row: span 3;
 }
 
+/*  --------------------------------------------------
+        Sidebar
+    -------------------------------------------------- */
+
 .overview-wrapper {
     display: grid;
     grid-template: 2em 2em 3em / 25ch 10ch;
     align-items: center;
 }
+
 button {
     font-weight: 600;
     padding: 0.4em;
@@ -58,9 +67,10 @@ button:hover {
     border: 1px solid black;
 }
 
-/*
- Adjust sizing when using laptop screen
-*/
+/*  --------------------------------------------------
+        Adjust sizing when using laptop screen
+    -------------------------------------------------- */
+
 @media screen and (max-width: 1536px) {
     .dp-container {
         margin-top: 3em;

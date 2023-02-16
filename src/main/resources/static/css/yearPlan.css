@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+/*  --------------------------------------------------
+        Tables
+    -------------------------------------------------- */
+
 .container {
     display: grid;
     grid-auto-flow: column;
