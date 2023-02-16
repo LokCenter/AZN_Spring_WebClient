@@ -584,6 +584,11 @@ function adminRedirect(id, name) {
     }
 }
 
+/**
+ * Show admin edit data
+ * @param userid
+ * @param name
+ */
 const adminEdit = (userid, name) => {
     document.getElementById('user-name-modal-edit').innerText = name;
 
@@ -605,4 +610,11 @@ const adminEdit = (userid, name) => {
         }).catch((e) => {
         console.log("cannot request data", e)
     })
+}
+
+/**
+ * Clear edit data
+ */
+const clearEditData = () => {
+    $("#time-history-table tr:has(td)").remove();
 }
