@@ -209,11 +209,12 @@ const showYearPlanByUser = (userid, username, path) => {
 
         for (let year in years) {
             work = years[year].workDay !== undefined ? years[year].workDay : 0;
-            sick = years[year].SickDays !== undefined ? years[year].SickDays : 0;
+            sick = years[year].sickDay !== undefined ? years[year].sickDay : 0;
             vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
-            glaz = years[year].glazDays !== undefined ? years[year].glazDays : 0;
+            glaz = years[year].glazDay !== undefined ? years[year].glazDay : 0;
+            balance =  years[year].balance !== undefined ? years[year].balance : 0;
 
-            addYear(year, work, sick, vacation, glaz, "No Data yet!", "year-overview-table")
+            addYear(year, work, sick, vacation, glaz, balance, "year-overview-table")
         }
 
         prevYearModal.style.display = "block";
