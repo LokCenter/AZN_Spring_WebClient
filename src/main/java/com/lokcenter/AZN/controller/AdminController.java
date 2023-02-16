@@ -760,9 +760,9 @@ public class AdminController {
     @CrossOrigin("/admin")
     @ResponseBody
     String getWorkTimeListByUser(@RequestParam(name = "userId") String userId, Authentication authentication,
-                                 OAuth2AuthorizedClient authorizedClient) throws Exception {
+                                 @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
         if (isAdmin(authentication.getAuthorities())) {
-            Mono<String> res = webClient.get().uri("/worktimeList?userId="+userId).
+            Mono<String> res = webClient.get().uri("admin/worktimeList?userId="+userId).
                     attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
             // check if there is any data

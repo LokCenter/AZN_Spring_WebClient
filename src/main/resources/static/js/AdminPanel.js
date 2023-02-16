@@ -587,5 +587,22 @@ function adminRedirect(id, name) {
 const adminEdit = (userid, name) => {
     document.getElementById('user-name-modal-edit').innerText = name;
 
-    // todo: get worktimelist
+   // worktime list
+    axios.get("admin/worktimeList?userId="+ userid)
+        .then((response) => {
+            if (response.data !== '' && response.data != null) {
+                let table = document.getElementById("time-history-table");
+
+              for (const item in response.data) {
+                  const row = table.insertRow();
+
+                  row.insertCell().innerText = new Date(response.data[item].date).toLocaleDateString('de-DE')
+                  row.insertCell().innerText = response.data[item].workTime['start'];
+                  row.insertCell().innerText = response.data[item].workTime['end'];
+                  row.insertCell().innerText = response.data[item].workTime['pause'];
+              }
+            }
+        }).catch((e) => {
+        console.log("cannot request data", e)
+    })
 }
