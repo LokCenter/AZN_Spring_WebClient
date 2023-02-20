@@ -159,9 +159,10 @@ const aznStatus = document.getElementById("azn-status");
 
 /**
  * Displays the message from the admin with their reason for denial.
- * @param message
+ * @param messages
+ * @param {number} amount
  */
-function showMessage(message) {
+function showMessage(messages, amount) {
     const messageBox = document.body.appendChild(document.createElement("div"));
     messageBox.id = "message-box";
 
@@ -172,14 +173,30 @@ function showMessage(message) {
             "</div>" +
             "<div class='message-box-content__body'>" +
                 "<div>" +
-                    "<p id='sender'>Von: <span id='sender-name'>ADMIN</span></p>" +
-                    "<p class='message-label'>Nachricht des Admins:</p>" +
-                    "<p id='message-for-user'></p>" +
+                    "<table id='message-history'>" +
+                        "<thead>" +
+                            "<tr>" +
+                                "<th scope='col'>Absender</th>" +
+                                "<th scope='col'>Nachricht</th>" +
+                                "<th scope='col'>Löschen</th>" +
+                            "</tr>" +
+                        "</thead>" +
+                        "<tbody></tbody>" +
+                    "</table>" +
                     "<button id='acknowledge-message'>OK</button>" +
                 "</div>" +
             "</div>" +
         "</div>"
 
-    document.getElementById("message-for-user").innerText = message;
+    const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
+
+    // Rewrite this to account for multiple messages (and embolden the first/latest message to make it stand out)
+    // Make each message (+ all at once) deletable
+    const newRow = messageTableBody.insertRow();
+    newRow.insertCell().textContent = "Admin";
+    newRow.insertCell().textContent = messages;
+    newRow.insertCell().textContent = "\u00D7";
+
+    // document.getElementById("message-for-user").innerText = message;
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
 }

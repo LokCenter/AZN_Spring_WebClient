@@ -155,7 +155,7 @@ td {
 }
 
 .message-box-content {
-    width: 30em;
+    width: fit-content;
     margin: 5em auto;
     background-color: var(--clr-light);
     border-radius: 2em;
@@ -190,21 +190,39 @@ td {
 .message-box-content__body > div {
     display: flex;
     flex-direction: column;
+    margin: 0 2em;
+    align-items: center;
 }
 
-#sender {
-    font-size: 1.1rem;
-    margin-bottom: 1em;
-    border-bottom: 1px solid var(--clr-accent);
+#message-history {
+    margin-bottom: 2em;
 }
 
-#sender-name {
-    font-weight: 500;
+#message-history th {
+    width: auto;
+}
+
+#message-history th:nth-of-type(2) {
+    min-width: 30ch;
+    max-width: 60ch;
+}
+
+#message-history tbody tr td:nth-of-type(2) {
+    text-align: left;
+}
+
+#message-history tbody tr td:nth-of-type(3) {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: red;
+    cursor: pointer;
 }
 
 label[for="denial-message"],
 .message-label {
     font-size: 0.8rem;
+    align-self: flex-start;
+    margin-left: 0.5em;
 }
 
 #denial-message {
@@ -213,19 +231,11 @@ label[for="denial-message"],
     padding: 0.2em;
 }
 
-#message-for-user {
-    margin-bottom: 1em;
-    width: 40ch;
-    height: 6em;
-    overflow-y: scroll;
-    border: 1px solid black;
-    padding: 0.2em;
-}
-
 #send-message-button,
 #acknowledge-message {
     font-size: 1.1rem;
     font-weight: 600;
+    width: 8em;
     padding: 0.2em;
     color: var(--clr-light);
     background-color: var(--clr-accent);
