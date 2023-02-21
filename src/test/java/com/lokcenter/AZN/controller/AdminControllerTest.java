@@ -404,8 +404,4 @@ public class AdminControllerTest {
                         .with(oauth2Client("userwebapp")))
                 .andExpect(status().isForbidden());
     }
-
-    /*
-     * GET admin/dayplan
-     */
 }
