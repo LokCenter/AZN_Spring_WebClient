@@ -8,62 +8,89 @@ const dp = new DayPilot.Month("dp", {
     eventDeleteHandling: "Update",
     onEventDelete: (args) => {
         args.preventDefault();
-        const modal = document.body.appendChild(document.createElement("div"));
-        modal.classList.add("modal");
-        modal.classList.add("delete-event-modal");
-        modal.innerHTML =
-            "<div class='modal__content'>" +
-            "<div class='modal__header'>" +
-            "<h2>Wirklich löschen?</h2>" +
-            "<span id='close'>&times;</span>" +
-            "</div>" +
-            "<div class='modal__body'>" +
-            "<div class='button-container'>" +
-            "<button type='button' id='save-button'>Ja</button>" +
-            "<button type='button' id='cancel-button'>Nein</button>" +
-            "</div>" +
-            "</div>" +
-            "</div>";
-
-        const saveButton = document.getElementById("save-button");
-        saveButton.addEventListener("click", () => {
-            // Get CSRF token
-            const token = $("meta[name='_csrf']").attr("content");
-            const header = $("meta[name='_csrf_header']").attr("content");
-
-            // csrf to header
-            axios.defaults.headers.put[header] = token
-            // data
-            axios.put("/admin/overview", {
-                id: args.e.id(),
-                tag: args.e.tag()
-            }).then(async (res) => {
-                // Display confirmation message if response is ok
-                if (res.data) {
-                    window.location.reload();
-                } else {
-                    // show message if nothing was selected
-                    reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
-                    reminder.style.visibility = "visible"
-                }
-            }).catch((error) => {
-                console.log(error)
-            })
-        })
-
-        // Close/Remove modal when clicking close/abbrechen/outside of modal__content
-        document.getElementById("close").addEventListener("click", () => {
-            modal.remove();
-        });
-        document.getElementById("cancel-button").addEventListener("click", () => {
-            modal.remove();
-        });
-
-        window.addEventListener("click", (event) => {
-            if (event.target === modal) {
+        if (args.e.tag() === "gUrlaub" || args.e.tag() === "gFeiertag") {
+            const modal = document.body.appendChild(document.createElement("div"));
+            modal.classList.add("modal");
+            modal.classList.add("delete-event-modal");
+            modal.innerHTML =
+                "<div class='modal__content'>" +
+                "<div class='modal__header'>" +
+                "<h2>Info</h2>" +
+                "<span id='close'>&times;</span>" +
+                "</div>" +
+                "<div class='modal__body'>" +
+                "<div class='button-container'>" +
+                "<div>Universelle Urlaube oder Feiertage können hier nicht gelöscht werden!</div>" +
+                "</div>" +
+                "</div>" +
+                "</div>";
+            // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+            document.getElementById("close").addEventListener("click", () => {
                 modal.remove();
-            }
-        });
+            });
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.remove();
+                }
+            });
+        } else {
+            const modal = document.body.appendChild(document.createElement("div"));
+            modal.classList.add("modal");
+            modal.classList.add("delete-event-modal");
+            modal.innerHTML =
+                "<div class='modal__content'>" +
+                "<div class='modal__header'>" +
+                "<h2>Wirklich löschen?</h2>" +
+                "<span id='close'>&times;</span>" +
+                "</div>" +
+                "<div class='modal__body'>" +
+                "<div class='button-container'>" +
+                "<button type='button' id='save-button'>Ja</button>" +
+                "<button type='button' id='cancel-button'>Nein</button>" +
+                "</div>" +
+                "</div>" +
+                "</div>";
+
+            const saveButton = document.getElementById("save-button");
+            saveButton.addEventListener("click", () => {
+                // Get CSRF token
+                const token = $("meta[name='_csrf']").attr("content");
+                const header = $("meta[name='_csrf_header']").attr("content");
+
+                // csrf to header
+                axios.defaults.headers.put[header] = token
+                // data
+                axios.put("/admin/overview", {
+                    id: args.e.id(),
+                    tag: args.e.tag()
+                }).then(async (res) => {
+                    // Display confirmation message if response is ok
+                    if (res.data) {
+                        window.location.reload();
+                    } else {
+                        // show message if nothing was selected
+                        reminder.innerText = "Anfrage konnte nicht gespeichert werden!"
+                        reminder.style.visibility = "visible"
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                })
+            })
+
+            // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+            document.getElementById("close").addEventListener("click", () => {
+                modal.remove();
+            });
+            document.getElementById("cancel-button").addEventListener("click", () => {
+                modal.remove();
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
     },
     eventResizeHandling: "Disabled",
     eventMoveHandling: "Disabled",
