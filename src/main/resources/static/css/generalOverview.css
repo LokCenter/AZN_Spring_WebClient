@@ -96,3 +96,27 @@ h1 {
     grid-template: repeat(2, 1fr) / 2em 1fr;
     height: 4em;
 }
+
+/*  --------------------------------------------------
+        General vacation modal
+    -------------------------------------------------- */
+
+.general-vacation-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.general-vacation-modal .fieldset-container {
+    margin-bottom: 1.5em;
+}
+
+.general-vacation-modal #entry-name {
+    font-size: 1.1em;
+    min-width: 18em;
+    margin-bottom: 1.5em;
+}
+
+.general-vacation-modal #entry-name::placeholder {
+    text-align: left;
+}

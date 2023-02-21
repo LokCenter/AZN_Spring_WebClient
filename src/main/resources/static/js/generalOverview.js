@@ -13,16 +13,16 @@ const dp = new DayPilot.Month("dp", {
         modal.classList.add("delete-event-modal");
         modal.innerHTML =
             "<div class='modal__content'>" +
-            "<div class='modal__header'>" +
-            "<h2>Wirklich löschen?</h2>" +
-            "<span id='close'>&times;</span>" +
-            "</div>" +
-            "<div class='modal__body'>" +
-            "<div class='button-container'>" +
-            "<button type='button' id='save-button'>Ja</button>" +
-            "<button type='button' id='cancel-button'>Nein</button>" +
-            "</div>" +
-            "</div>" +
+                "<div class='modal__header'>" +
+                    "<h2>Wirklich löschen?</h2>" +
+                    "<span id='close'>&times;</span>" +
+                "</div>" +
+                "<div class='modal__body'>" +
+                    "<div class='button-container'>" +
+                        "<button type='button' id='save-button'>Ja</button>" +
+                        "<button type='button' id='cancel-button'>Nein</button>" +
+                    "</div>" +
+                "</div>" +
             "</div>";
 
         // delete calendar item
@@ -139,39 +139,41 @@ const createEventButton = document.getElementById("create-event-button");
 createEventButton.addEventListener("click",() => {
     const modal = document.body.appendChild(document.createElement("div"));
     modal.classList.add("modal");
+    modal.classList.add("general-vacation-modal");
 
     modal.innerHTML =
         "<div class='modal__content'>" +
-        "<div class='modal__header'>" +
-        "<h2>Eintrag einfügen</h2>" +
-        "<span id='close'>&times;</span>" +
-        "</div>" +
-        "<div class='modal__body'>" +
-        "<form name='add-new-entry' action='' method=''>" +
-        "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
-        "<div class='fieldset-container'>" +
-        "<fieldset>" +
-        "<legend>Art des Eintrags</legend>" +
-        "<div class='choice-container'>" +
-        "<input type='radio' name='radio-choice' id='radio-vacation' value='gUrlaub' required>" +
-        "<label for='radio-vacation'>Urlaub</label>" +
-        "<input type='radio' name='radio-choice' id='radio-overtime' value='gFeiertag' required>" +
-        "<label for='radio-overtime'>Feiertag</label>" +
-        "</div>" +
-        "</fieldset>" +
-        "</div>" +
-        "<div class='date-container'>" +
-        "<input type='date' id='date-start' name='date-start' required>" +
-        "<label for='date-start'>Startdatum</label>" +
-        "<input type='date' id='date-end' name='date-end' required>" +
-        "<label for='date-end'>Enddatum</label>" +
-        "</div>" +
-        "<div class='button-container'>" +
-        "<button type='button' id='save-button'>Speichern</button>" +
-        "<button type='button' id='cancel-button'>Abbrechen</button>" +
-        "</div>" +
-        "</form>" +
-        "</div>" +
+            "<div class='modal__header'>" +
+                "<h2>Eintrag einfügen</h2>" +
+                "<span id='close'>&times;</span>" +
+            "</div>" +
+            "<div class='modal__body'>" +
+                "<form name='add-new-entry' action='' method=''>" +
+                    "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
+                    "<div class='fieldset-container'>" +
+                        "<fieldset>" +
+                            "<legend>Art des Eintrags</legend>" +
+                            "<div class='choice-container'>" +
+                                "<input type='radio' name='radio-choice' id='radio-vacation' value='gUrlaub' required>" +
+                                "<label for='radio-vacation'>Urlaub</label>" +
+                                "<input type='radio' name='radio-choice' id='radio-holiday' value='gFeiertag' required>" +
+                                "<label for='radio-holiday'>Feiertag</label>" +
+                            "</div>" +
+                        "</fieldset>" +
+                    "</div>" +
+                    "<input type='text' id='entry-name' placeholder='Name des Eintrags (optional)'>" +
+                    "<div class='date-container'>" +
+                        "<input type='date' id='date-start' name='date-start' required>" +
+                        "<label for='date-start'>Startdatum</label>" +
+                        "<input type='date' id='date-end' name='date-end' required>" +
+                        "<label for='date-end'>Enddatum</label>" +
+                    "</div>" +
+                    "<div class='button-container'>" +
+                        "<button type='button' id='save-button'>Speichern</button>" +
+                        "<button type='button' id='cancel-button'>Abbrechen</button>" +
+                    "</div>" +
+                "</form>" +
+            "</div>" +
         "</div>";
 
     // Set the starting values for the date picker to the date currently being viewed in the calendar
@@ -184,6 +186,7 @@ createEventButton.addEventListener("click",() => {
     saveButton.addEventListener("click", () => {
         const reminder = document.getElementById("reminder");
         if (startDateElement.valueAsNumber <= endDateElement.valueAsNumber) {
+            const entryName = document.getElementById("entry-name").value;
             const startDate = startDateElement.value;
             const endDate = endDateElement.value;
             const radioButtons = document.querySelectorAll("input[name='radio-choice']");
