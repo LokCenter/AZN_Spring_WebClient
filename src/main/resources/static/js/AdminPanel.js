@@ -630,10 +630,13 @@ const adminEdit = (userid, name) => {
             console.log("cannot request data", e)
         });
 
+        // get vacation data
         axios.get("admin/yearsList?userId="+ userid)
             .then((response) => {
                 if (response.data !== '' && response.data != null) {
                     let year  = 1;
+
+                    // create rows and columns
                     for (let i in response.data) {
                         let table  = document.getElementById('vacation-info')
                         const row = table.insertRow();
@@ -642,6 +645,9 @@ const adminEdit = (userid, name) => {
                         row.insertCell().innerText = i;
                         row.insertCell().innerText = response.data[i];
                     }
+
+                    // set list size from object
+                    document.getElementById("duration").value = Object.keys(response.data).length
                 }
         }).catch((e) => {
 
