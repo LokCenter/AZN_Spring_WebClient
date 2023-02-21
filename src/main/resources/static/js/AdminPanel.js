@@ -580,7 +580,7 @@ function adminRedirect(id, name) {
     if (id.length > 0) {
         localStorage.setItem('id', id);
         localStorage.setItem('name', name)
-        window.location.href = `/admin/dayplan?userid=${id}`
+        window.location.href = `/admin/monthplan?userid=${id}`
     }
 }
 

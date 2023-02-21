@@ -299,52 +299,6 @@ public class AdminController {
     }
 
     /**
-     * Get User dayplan by userid
-
-     * @return model
-     */
-    @GetMapping("/dayplan")
-    @CrossOrigin("/admin")
-    String getAdminDayPlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
-                           Authentication authentication,
-                           @RequestParam(name = "userid", required = true) String userid,
-                           @RequestParam(name = "date", required = false) String date) throws Exception {
-        model.addAttribute("title", "Admin Day Plan");
-
-        Optional<Date> requestedDate = Optional.empty();
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
-        if (date != null) {
-            try {
-                requestedDate = Optional.of(df.parse(date));
-            } catch (ParseException ignore) {
-                throw new Exception("Bad Request");
-            }
-        }
-
-        String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
-
-        if(JunitHelper.isJUnitTest()) {
-            return "AdminDayPlan";
-        }
-
-        getAdminData(String.format("/dayplan?date=%s&role=%s&userid=%s", dateString, getAdminRole(authentication), userid),
-                authentication, authorizedClient, model, false);
-
-        // get soll time
-        Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s&userid=%s", getAdminRole(authentication), userid)).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
-
-        if (resSoll.block() != null) {
-            JsonNode sollData = new ObjectMapper().readTree(resSoll.block());
-
-            model.addAttribute("dataSoll", sollData);
-        }
-
-        return "AdminDayPlan";
-    }
-
-    /**
      * Delete Calendar item from admin overview
      *
      * @implSpec Tag and id must be sent to remove calendar item
