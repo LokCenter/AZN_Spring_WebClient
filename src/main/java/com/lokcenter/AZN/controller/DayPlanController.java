@@ -90,7 +90,7 @@ public class DayPlanController {
                     attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
             // make get request and get data
-            Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s", role)).
+            Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s&date=%s", role, dateString)).
                     attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
             // check if there is any data

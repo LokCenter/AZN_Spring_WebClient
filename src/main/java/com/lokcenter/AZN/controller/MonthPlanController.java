@@ -58,7 +58,7 @@ public class MonthPlanController {
                 .retrieve().bodyToMono(String.class);
 
         // get soll time
-        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/soll?role=%s", role)).
+        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s", role, month)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // check if there is any data
