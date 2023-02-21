@@ -593,6 +593,7 @@ function adminRedirect(id, name) {
  */
 const adminEdit = (userid, name) => {
     document.getElementById('user-name-modal-edit').innerText = name;
+    document.getElementById('user-name-modal-edit').setAttribute('tag', userid)
 
    // worktime list
     axios.get("admin/worktimeList?userId="+ userid)
@@ -625,8 +626,56 @@ const adminEdit = (userid, name) => {
               }
             }
         }).catch((e) => {
-        console.log("cannot request data", e)
-    })
+            console.log("cannot request data", e)
+        });
+
+        axios.get("admin/yearsList?userId="+ userid)
+            .then((response) => {
+                if (response.data !== '' && response.data != null) {
+                    let year  = 1;
+                    for (let i in response.data) {
+                        let table  = document.getElementById('vacation-info')
+                        const row = table.insertRow();
+
+                        row.insertCell().innerText = `${year++}. Jahr`
+                        row.insertCell().innerText = i;
+                        row.insertCell().innerText = response.data[i];
+                    }
+                }
+        }).catch((e) => {
+
+        });
+}
+
+/**
+ * Axios edit data request
+ */
+const sendEditData = () => {
+   // get id from user
+    let userId = document.getElementById('user-name-modal-edit').getAttribute('tag');
+
+    // check userId
+    if (userId) {
+        // make backend request
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        // csrf to header
+        axios.defaults.headers.post[header] = token
+        // data
+        axios.post("admin/edit?userId="+userId, {
+            "start_time": 'blahhh',
+
+        }).then(async (res) => {
+            // Display confirmation message if response is ok
+            if (res.data) {
+
+            }
+        }).catch((error) => {
+
+        })
+    }
 }
 
 /**
@@ -634,4 +683,5 @@ const adminEdit = (userid, name) => {
  */
 const clearEditData = () => {
     $("#time-history-table tr:has(td)").remove();
+    $("#vacation-info tr:has(td)").remove();
 }

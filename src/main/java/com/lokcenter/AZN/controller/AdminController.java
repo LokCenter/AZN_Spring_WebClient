@@ -730,6 +730,30 @@ public class AdminController {
     }
 
     /**
+     * Get a list of all years and vacation by user
+     * @param userId userid
+     *
+     * @return json string
+     */
+    @CrossOrigin("/admin")
+    @GetMapping("/yearsList")
+    @ResponseBody
+    String getVacationByUser(@RequestParam(name = "userId") String userId, Authentication authentication,
+                             @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri("admin/yearsList?userId="+userId).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Post edit by user
      * @param payload user data to change
      * @param userId userid from user
