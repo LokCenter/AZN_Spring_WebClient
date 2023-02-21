@@ -598,6 +598,21 @@ const adminEdit = (userid, name) => {
             if (response.data !== '' && response.data != null) {
                 let table = document.getElementById("time-history-table");
 
+                // set time change values
+                if (response.data.length) {
+                    document.getElementById('work-start').value = response.data[0].workTime['start']
+                    document.getElementById('work-end').value = response.data[0].workTime['end']
+                    document.getElementById('pause').value = response.data[0].workTime['pause']
+
+                    // format to the right date syntax for input=date
+                    let d = new Date(response.data[0].date);
+                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+                    let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+
+                    document.getElementById("work-time-date").value = `${ye}-${mo}-${da}`
+                }
+
               for (const item in response.data) {
                   const row = table.insertRow();
 
