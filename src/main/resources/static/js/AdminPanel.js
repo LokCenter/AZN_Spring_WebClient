@@ -383,6 +383,7 @@ window.addEventListener("click", (event) => {
     } else if (event.target === editModal) {
         editModal.style.display = "none";
         enableMainWindowScrolling();
+        clearEditData();
     } else if (event.target === requestModal) {
         requestModal.style.display = "none";
         enableMainWindowScrolling();
