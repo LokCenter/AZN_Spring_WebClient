@@ -117,7 +117,7 @@ function displayTable(date, data, dataSoll) {
         if ((dt.getDay() % 6) === 0) {
             sollCell.textContent = ""
         } else {
-            sollCell.textContent = dataSoll.slice(0, -3);
+            sollCell.textContent = dataSoll[i].slice(0, -3);
         }
 
     }

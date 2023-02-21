@@ -266,7 +266,8 @@ public class AdminController {
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // make get request and get data
-        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s", role, month)).
+        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s&year=%s&userid=%s",
+                        role, month, year, userid)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
