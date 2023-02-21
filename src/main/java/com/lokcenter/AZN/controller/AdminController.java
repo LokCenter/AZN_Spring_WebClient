@@ -266,7 +266,7 @@ public class AdminController {
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // make get request and get data
-        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/soll?&role=%s&userid=%s",role, userid)).
+        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s", role, month)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
@@ -726,5 +726,34 @@ public class AdminController {
         }
 
         return null;
+    }
+
+    /**
+     * Post edit by user
+     * @param payload user data to change
+     * @param userId userid from user
+     * @return true or false
+     */
+    @GetMapping("/edit")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    Boolean postAdminEditData(@RequestBody Map<String, Object> payload, @RequestParam(name = "userId") String userId, Authentication authentication,
+                              @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
+                    .uri("/edit?userId=" + userId)
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
     }
 }
