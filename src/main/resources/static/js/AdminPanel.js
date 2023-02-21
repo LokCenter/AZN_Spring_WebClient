@@ -467,9 +467,11 @@ function addVacationYearsToTable() {
     if (duration > 5) duration = 5;
     for (let i = 0; i <= duration; i++) {
         const newRow = vacationTableBody.insertRow();
+        const newYearCount = newRow.insertCell();
         const newYear = newRow.insertCell();
         const newVacation = newRow.insertCell();
-        newYear.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
+        newYearCount.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
+        newYear.innerHTML = `JAHR`;
         newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
     }
 }

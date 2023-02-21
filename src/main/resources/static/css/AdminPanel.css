@@ -240,7 +240,7 @@ button:hover {
 }
 
 .modal-content-edit {
-    min-width: 64em;
+    min-width: 74em;
 }
 
 .modal-content__header {
@@ -338,7 +338,7 @@ h2,
 
 form[name="edit-user-data"] {
     display: grid;
-    grid-template: 2em 2fr 3fr / 2fr 2fr;
+    grid-template: 2em 2fr 3fr 3em/ 2fr 2fr;
     align-items: start;
 }
 
@@ -378,7 +378,8 @@ form[name="edit-user-data"] {
 }
 
 #time-history {
-    grid-row-start: 3;
+    /*grid-row-start: 3;*/
+    grid-row-start: span 2;
     margin-left: 1em;
 }
 
@@ -452,10 +453,12 @@ form[name="edit-user-data"] {
 
 #save-user-data-button {
     padding: 0.3em 0.9em;
-    position: absolute;
-    right: 1.5em;
-    bottom: 0;
-    margin-bottom: 1em;
+    margin-right: 1.5em;
+    grid-row-start: 4;
+    grid-column-start: 2;
+    width: fit-content;
+    justify-self: end;
+    align-self: center;
 }
 
 #save-user-data-button:hover {
