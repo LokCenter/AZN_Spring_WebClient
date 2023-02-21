@@ -119,6 +119,20 @@
                 document.getElementById('soll').value = dataSoll.slice(0, -3)
             }
 
+            if (data.school != null && data.school) {
+                document.getElementById('soll').value = '00:00'
+            }
+
+            let school = document.getElementById("radio-school")
+            function target_time() {
+                if (school.checked === false) {
+                    document.getElementById('soll').value = dataSoll.slice(0, -3)
+                } else {
+                    document.getElementById('soll').value = '00:00'
+                }
+            }
+            school.addEventListener("click", target_time)
+
             /*]]>*/
         </script>
         <script th:src="@{/js/dayPlan.js}"></script>

@@ -65,10 +65,17 @@
     for (let i = 0; i < eventCount; i++) {
         event = rawEvent[i];
         event["end"] = event["end"] + 1
+        event["start"] = event["start"] + 1
+        console.log(event)
+        var enddate = new DayPilot.Date(event["end"]);
+        var startdate = new DayPilot.Date(event["start"])
+        enddate = new DayPilot.Date(`${enddate.toString()}-01:00`).toString(0)
+        startdate = new DayPilot.Date(`${startdate.toString()}-01:00`).toString(0)
+        
         if (event["tag"] == "Urlaub") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -78,8 +85,8 @@
             })
         } else if (event["tag"] == "Krank") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -89,8 +96,8 @@
             })
         } else if (event["tag"] == "GLAZ") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -100,8 +107,8 @@
             })
         } else if (event["tag"] == "gUrlaub") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -111,8 +118,8 @@
             })
         } else if (event["tag"] == "rUrlaub") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -122,8 +129,8 @@
             })
         } else if (event["tag"] == "rGLAZ") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -133,8 +140,8 @@
             })
         } else if (event["tag"] == "gFeiertag") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(startdate, true),
+                end: new DayPilot.Date(enddate, true),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
