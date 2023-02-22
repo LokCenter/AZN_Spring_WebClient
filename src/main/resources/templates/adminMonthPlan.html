@@ -92,24 +92,79 @@
        // csrf to header
        axios.defaults.headers.put[header] = token
        axios.defaults.baseURL = "/admin/"
-       // data
-       axios.put("azn/deny", {
-         "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-         "month": getNumberFromFullMonth(document.
-         getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
-         "userid": getQueryByName("userid").toString()
 
-       }).then(async (res) => {
-         // Display confirmation message if response is ok
-         if (res.data) {
-           document.getElementById("deny-azn").disabled = true;
-           document.getElementById("accept-azn").disabled = true;
-           aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
-           denialMessage();
-         }
-       }).catch((error) => {
-         console.log(error)
-       })
+       /**
+        * Prompts the admin to send a message to the user as to why the azn was denied.
+        */
+       function denialMessageAndDeny() {
+         const messageBox = document.body.appendChild(document.createElement("div"));
+         messageBox.id = "message-box";
+
+         messageBox.innerHTML =
+                 "<div class='message-box-content'>" +
+                 "<div class='message-box-content__header'>" +
+                 "<h2>Ablehnungsgrund</h2>" +
+                 "</div>" +
+                 "<div class='message-box-content__body'>" +
+                 "<div>" +
+                 "<label for='denial-message'>Ihre Nachricht:</label>" +
+                 "<textarea name='denial-message' id='denial-message' rows='4' cols='50'></textarea>" +
+                 "<button id='send-message-button'>Absenden</button>" +
+                 "</div>" +
+                 "</div>" +
+                 "</div>"
+
+         document.getElementById("send-message-button").addEventListener("click", () => {
+           if (document.getElementById("denial-message").value.length >= 3) {
+             // Save message
+
+             // Get CSRF token
+             const token = $("meta[name='_csrf']").attr("content");
+             const header = $("meta[name='_csrf_header']").attr("content");
+
+             // csrf to header
+             axios.defaults.headers.post[header] = token
+             // data
+             axios.post("azn/message", {
+               "message": document.getElementById("denial-message").value,
+               "userid": getQueryByName("userid").toString(),
+               "type": "AZN_MONTH",
+               "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+               "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+
+             }).then(async (res) => {
+               // Display confirmation message if response is ok
+               if (res.data) {
+                 // close popup
+                 document.getElementById("message-box").remove();
+
+                 // send deny if message was send
+                 axios.put("azn/deny", {
+                   "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+                   "month": getNumberFromFullMonth(document.
+                   getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+                   "userid": getQueryByName("userid").toString()
+
+                 }).then(async (res) => {
+                   // Display confirmation message if response is ok
+                   if (res.data) {
+                     document.getElementById("deny-azn").disabled = true;
+                     document.getElementById("accept-azn").disabled = true;
+                     aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
+                   }
+                 }).catch((error) => {
+                   console.log(error)
+                 })
+               }
+             }).catch((error) => {
+               console.log(error)
+             })
+           }
+         })
+       }
+
+       // run function
+        denialMessageAndDeny();
      })
 
       let data = /*[[${data}]]*/ null;
@@ -127,57 +182,7 @@
         aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde angenommen";
       }
 
-      /**
-       * Prompts the admin to send a message to the user as to why the azn was denied.
-       */
-      function denialMessage() {
-        const messageBox = document.body.appendChild(document.createElement("div"));
-        messageBox.id = "message-box";
 
-        messageBox.innerHTML =
-                "<div class='message-box-content'>" +
-                  "<div class='message-box-content__header'>" +
-                    "<h2>Ablehnungsgrund</h2>" +
-                  "</div>" +
-                  "<div class='message-box-content__body'>" +
-                    "<div>" +
-                      "<label for='denial-message'>Ihre Nachricht:</label>" +
-                      "<textarea name='denial-message' id='denial-message' rows='4' cols='50'></textarea>" +
-                      "<button id='send-message-button'>Absenden</button>" +
-                    "</div>" +
-                  "</div>" +
-                "</div>"
-
-        document.getElementById("send-message-button").addEventListener("click", () => {
-          if (document.getElementById("denial-message").value.length >= 3) {
-            // Save message
-
-            // Get CSRF token
-            const token = $("meta[name='_csrf']").attr("content");
-            const header = $("meta[name='_csrf_header']").attr("content");
-
-            // csrf to header
-            axios.defaults.headers.post[header] = token
-            // data
-            axios.post("azn/message", {
-              "message": document.getElementById("denial-message").value,
-              "userid": getQueryByName("userid").toString(),
-              "type": "AZN_MONTH",
-              "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-              "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
-
-            }).then(async (res) => {
-              // Display confirmation message if response is ok
-              if (res.data) {
-                // close popup
-                document.getElementById("message-box").remove();
-              }
-            }).catch((error) => {
-              console.log(error)
-            })
-          }
-        })
-      }
 
 
       // Initially set viewedDate to the current date
