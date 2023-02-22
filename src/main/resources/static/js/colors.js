@@ -4,9 +4,9 @@
 let colors = {
     "colorVacationPending": "#92EFEF",
     "colorVacation": "#35ACB7",
-    "colorGeneralVacation": "#7951E0",
-    "colorGeneralHoliday": "#ED7CEF",
-    "colorGLAZPending": "#A9EB95",
-    "colorGLAZ": "#47B523",
-    "colorSick": "#FF7BA2",
+    "colorGeneralVacation": "#BCA6F2",
+    "colorGeneralHoliday": "#927EC6",
+    "colorGLAZPending": "#B3F69E",
+    "colorGLAZ": "#6CBD53",
+    "colorSick": "#FF6C82",
 }
