@@ -2,11 +2,11 @@
  * import colors from json file
  */
 let colors = {
-    "colorVacationPending": "#a5c5ff",
-    "colorSick": "#ff7597",
-    "colorGLAZPending": "#a4ff9d",
-    "colorVacation": "#80aeff",
-    "colorGLAZ": "#9aff8d",
-    "colorGeneralVacation": "#c600ff",
-    "colorGeneralHoliday": "#dc7eff",
+    "colorVacationPending": "#92EFEF",
+    "colorVacation": "#35ACB7",
+    "colorGeneralVacation": "#7951E0",
+    "colorGeneralHoliday": "#ED7CEF",
+    "colorGLAZPending": "#A9EB95",
+    "colorGLAZ": "#47B523",
+    "colorSick": "#FF7BA2",
 }
