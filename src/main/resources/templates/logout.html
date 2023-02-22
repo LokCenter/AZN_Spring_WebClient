@@ -7,11 +7,19 @@
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
+<h2 class="form-signin-heading">Sind Sie sicher, dass Sie sich abmelden wollen?</h2>
+<button id="cancel-button" class="btn btn-lg btn-primary btn-block" type="submit"></button>
+
 <form th:action="@{/mclogout}" method="post">
-    <h2 class="form-signin-heading">Sind Sie sicher, dass Sie sich abmelden wollen?</h2>
     <input th:name="_csrf" type="hidden" th:value="${_csrf.token}">
-    <button class="btn btn-lg btn-primary btn-block" type="submit"></button>
+    <button id="logout-button" class="btn btn-lg btn-primary btn-block" type="submit"></button>
 </form>
+
+<script>
+    document.getElementById('cancel-button').addEventListener('click', (e) => {
+        window.location.href = "/"
+    })
+</script>
 <style>
     body {
         text-align: center;
@@ -31,12 +39,20 @@
         letter-spacing: 2px;
     }
 
-    button::after {
+    #logout-button::after {
         content: "Log Out";
     }
 
-    button:hover::after {
+    #cancel-button::after {
+        content: "Abbrechen";
+    }
+
+    #logout-button:hover::after {
         content: "Bye";
+    }
+
+    button:hover {
+        cursor: pointer;
     }
 
     form {
