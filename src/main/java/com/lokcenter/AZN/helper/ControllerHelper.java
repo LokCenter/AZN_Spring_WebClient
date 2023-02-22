@@ -86,6 +86,7 @@ public class ControllerHelper {
         // try to get admin role
         try {
            role = Optional.ofNullable(getAdminRole(authentication));
+           return role.get();
         }catch (Exception ignore) {}
 
         // try to get user role

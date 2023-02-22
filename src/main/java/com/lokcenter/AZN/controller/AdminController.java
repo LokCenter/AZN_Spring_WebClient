@@ -355,6 +355,8 @@ public class AdminController {
         // User roles
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
+        System.out.println(role);
+
         String query =String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s&userid=%s", firstDate, lastDate,month, year, role, userid);
         String queryTwo = String.format("year=%s&role=%s&userid=%s", year, role, userid);
 
