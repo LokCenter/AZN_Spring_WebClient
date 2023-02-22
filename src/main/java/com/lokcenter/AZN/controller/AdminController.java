@@ -616,9 +616,10 @@ public class AdminController {
                                @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
                                Authentication authentication) throws Exception {
        if (isAdmin(authentication.getAuthorities())) {
-           String query = String.format("startDate=%s&endDate=%s&tag=%s", payload.get("startDate"),
+           String query = String.format("startDate=%s&endDate=%s&tag=%s&comment=%s", payload.get("startDate"),
                    payload.get("endDate"),
-                   payload.get("tag"));
+                   payload.get("tag"),
+                   payload.get("comment"));
            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
                    .uri("/admin/generalOverview/request?"+query)
                    .attributes(oauth2AuthorizedClient(authorizedClient))

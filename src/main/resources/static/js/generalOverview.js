@@ -199,6 +199,8 @@ createEventButton.addEventListener("click",() => {
                 }
             }
 
+            let comment = document.getElementById('entry-name').value;
+
             // Get CSRF token
             const token = $("meta[name='_csrf']").attr("content");
             const header = $("meta[name='_csrf_header']").attr("content");
@@ -210,6 +212,7 @@ createEventButton.addEventListener("click",() => {
                 startDate: startDate,
                 endDate: endDate,
                 tag: tag,
+                comment: comment
             }).then(async (res) => {
                 // Display confirmation message if response is ok
                 if (res.data) {
