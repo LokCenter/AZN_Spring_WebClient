@@ -33,6 +33,31 @@ const dp = new DayPilot.Month("dp", {
                     modal.remove();
                 }
             });
+        } if (args.e.tag() === "Krank") {
+            const modal = document.body.appendChild(document.createElement("div"));
+            modal.classList.add("modal");
+            modal.classList.add("delete-event-modal");
+            modal.innerHTML =
+                "<div class='modal__content'>" +
+                "<div class='modal__header'>" +
+                "<h2>Info</h2>" +
+                "<span id='close'>&times;</span>" +
+                "</div>" +
+                "<div class='modal__body'>" +
+                "<div class='button-container'>" +
+                "<div>Krankheit kann nur der User löschen!</div>" +
+                "</div>" +
+                "</div>" +
+                "</div>";
+            // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+            document.getElementById("close").addEventListener("click", () => {
+                modal.remove();
+            });
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.remove();
+                }
+            });
         } else {
             const modal = document.body.appendChild(document.createElement("div"));
             modal.classList.add("modal");
