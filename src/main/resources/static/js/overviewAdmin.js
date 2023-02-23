@@ -19,8 +19,8 @@ const dp = new DayPilot.Month("dp", {
                 "<span id='close'>&times;</span>" +
                 "</div>" +
                 "<div class='modal__body'>" +
-                "<div class='button-container'>" +
-                "<div>Universelle Urlaube oder Feiertage können hier nicht gelöscht werden!</div>" +
+                "<div class='text-container'>" +
+                "<p>Universelle Urlaube oder Feiertage können hier nicht gelöscht werden!</p>" +
                 "</div>" +
                 "</div>" +
                 "</div>";
