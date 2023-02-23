@@ -37,12 +37,24 @@ nextMonthButton.addEventListener("click", () => {
 function displayTable(date, data, dataSoll) {
     let totalDaysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     let datesOfMonth = [];
+    // Split date; 0 = day, 1 = month, 2 = year
+    let splitLocalDate = date.toLocaleDateString("de-de").split(".");
     for (let i = 1; i <= totalDaysInMonth; i++) {
         date.setDate(i);
-        let dateToPush = `${getWeekdayString(date.getDay())}, ${date.toLocaleDateString('de-de')}`;
-        // Add leading zero if date is in single digits
-        if (i < 10) {
-            dateToPush = `${getWeekdayString(date.getDay())}, 0${date.toLocaleDateString('de-de')}`;
+        let dateToPush = "";
+        // Add leading zero if day and/or month are in single digits
+        // i = day, splitLocalDate[1] = month
+        if (i < 10 && splitLocalDate[1] < 10) {
+            dateToPush = `${getWeekdayString(date.getDay())}, 0${i}.0${splitLocalDate[1]}.${splitLocalDate[2]}`;
+        }
+        else if (i < 10) {
+            dateToPush = `${getWeekdayString(date.getDay())}, 0${i}.${splitLocalDate[1]}.${splitLocalDate[2]}`;
+        }
+        else if (splitLocalDate[1] < 10) {
+            dateToPush = `${getWeekdayString(date.getDay())}, ${i}.0${splitLocalDate[1]}.${splitLocalDate[2]}`;
+        }
+        else {
+            dateToPush = `${getWeekdayString(date.getDay())}, ${date.toLocaleDateString('de-de')}`;
         }
         datesOfMonth.push(dateToPush);
     }
