@@ -14,6 +14,10 @@ const closeEditModal = document.getElementsByClassName("close-edit-modal")[0];
 const saveButton = document.getElementById("save-user-data-button");
 // Rows of APTable
 const tableRows = document.getElementById("APTable").tBodies[0].rows;
+const durationInput = document.getElementById("duration");
+const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
+
+let durationInputValue = 0;
 
 /**
  * Make Request
@@ -459,34 +463,35 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate, us
     }
 }
 
-const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
-/**
- * Adds rows to the table allowing the editing of yearly vacation days depending on length of the apprenticeship.
- */
-function addVacationYearsToTable() {
-    if (duration > 5) duration = 5;
-    for (let i = 0; i <= duration; i++) {
-        const newRow = vacationTableBody.insertRow();
-        const newYearCount = newRow.insertCell();
-        const newYear = newRow.insertCell();
-        const newVacation = newRow.insertCell();
-        newYearCount.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
-        newYear.innerHTML = `JAHR`;
-        newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
-    }
-}
-
-const durationInput = document.getElementById("duration");
-let duration = 0;
 durationInput.addEventListener("change", () => {
-    // Empty tbody
-    vacationTableBody.innerHTML = "";
+    let duration = 0;
     // Get the amount of years a user is present
     if (durationInput.value !== "") {
         duration = durationInput.valueAsNumber;
     }
-    addVacationYearsToTable();
+
+    if (duration > 5) duration = 5;
+
+    // add
+    for (let i = durationInputValue; i < duration && vacationTableBody.rows.length < duration; i++) {
+        const newRow = vacationTableBody.insertRow();
+        const newYearCount = newRow.insertCell();
+        const newYear = newRow.insertCell();
+        const newVacation = newRow.insertCell();
+        newYearCount.innerHTML = `<label for="vacation-${i}">${i + 1}. Jahr</label>`;
+        newYear.innerHTML = `JAHR`;
+        newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
+    }
+
+    durationInputValue = vacationTableBody.rows.length
+
+    // remove
+    for (let i = durationInputValue; i > duration; i--) {
+       vacationTableBody.deleteRow(vacationTableBody.rows.length -1);
+    }
+
+    durationInputValue = vacationTableBody.rows.length;
 })
 
 const searchBar = document.getElementById("filter-input");
@@ -635,11 +640,12 @@ const adminEdit = (userid, name) => {
             .then((response) => {
                 if (response.data !== '' && response.data != null) {
                     let year  = 1;
+                    const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0]
 
                     // create rows and columns
                     for (let i in response.data) {
-                        let table  = document.getElementById('vacation-info')
-                        const row = table.insertRow();
+
+                        const row = vacationTableBody.insertRow();
 
                         row.insertCell().innerText = `${year++}. Jahr`
                         row.insertCell().innerText = i;
@@ -647,7 +653,12 @@ const adminEdit = (userid, name) => {
                     }
 
                     // set list size from object
-                    document.getElementById("duration").value = Object.keys(response.data).length
+                    let durationInput = document.getElementById("duration");
+                    durationInputValue = Object.keys(response.data).length
+
+                    durationInput.value = Object.keys(response.data).length
+
+                    durationInput.disabled = false;
                 }
         }).catch((e) => {
 
