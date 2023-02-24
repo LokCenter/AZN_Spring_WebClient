@@ -186,7 +186,6 @@ createEventButton.addEventListener("click",() => {
     saveButton.addEventListener("click", () => {
         const reminder = document.getElementById("reminder");
         if (startDateElement.valueAsNumber <= endDateElement.valueAsNumber) {
-            const entryName = document.getElementById("entry-name").value;
             const startDate = startDateElement.value;
             const endDate = endDateElement.value;
             const radioButtons = document.querySelectorAll("input[name='radio-choice']");
