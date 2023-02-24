@@ -572,10 +572,6 @@ function colorFilteredResults() {
     }
 }
 
-saveButton.addEventListener("click", () => {
-    // Save data
-})
-
 function adminRedirect(id, name) {
     if (id.length > 0) {
         localStorage.setItem('id', id);
