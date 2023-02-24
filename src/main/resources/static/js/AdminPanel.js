@@ -643,7 +643,7 @@ const adminEdit = (userid, name) => {
 
                         row.insertCell().innerText = `${year++}. Jahr`
                         row.insertCell().innerText = i;
-                        row.insertCell().innerText = response.data[i];
+                        row.insertCell().innerHTML = `<input type="text" max="2" value="${response.data[i]}">`
                     }
 
                     // set list size from object
