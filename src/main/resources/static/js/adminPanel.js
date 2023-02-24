@@ -444,10 +444,8 @@ durationInput.addEventListener("click", () => {
     for (let i = durationInputValue; i < duration && vacationTableBody.rows.length -1 < duration; i++) {
         durationInputYear++;
         const newRow = vacationTableBody.insertRow();
-        const newYearCount = newRow.insertCell();
         const newYear = newRow.insertCell();
         const newVacation = newRow.insertCell();
-        newYearCount.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
         newYear.innerHTML = `${durationInputYear}`;
         newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
     }
@@ -596,7 +594,6 @@ const adminEdit = (userid, name) => {
                     // create rows and columns
                     for (let i in response.data) {
                         const row = vacationTableBody.insertRow();
-                        row.insertCell().innerText = `${year++}. Jahr`
                         row.insertCell().innerText = i;
                         row.insertCell().innerHTML = `<input type="text" max="2" value="${response.data[i]}">`
                     }
