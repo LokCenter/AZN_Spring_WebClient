@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
@@ -48,13 +45,13 @@ public class OverviewController {
             throws Exception {
 
         if (JunitHelper.isJUnitTest()) {
-            return "overview";
+            return "userOverview";
         }
 
         // check if there are any queries empty
         if (firstDate == null || lastDate == null || month == null || year == null) {
 
-            return "overview";
+            return "userOverview";
         }
 
         // show calendar stats
@@ -98,7 +95,7 @@ public class OverviewController {
             model.addAttribute("stats", jsonStats);
             model.addAttribute("balance", jsonBalance);
 
-            return "overview";
+            return "userOverview";
         }
 
         throw new Exception("Bad request");
