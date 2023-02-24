@@ -509,15 +509,11 @@ form[name="edit-user-data"] {
     background-color: var(--clr-light);
 }
 
-.svg-delete-container {
-    display: flex;
-    overflow: hidden;
+.delete-container {
+    color: red;
+    font-weight: 600;
     cursor: pointer;
-}
-
-.svg-delete {
-    transform: scale(2);
-    fill: red;
+    padding: 0;
 }
 
 .standard-values-modal fieldset {
