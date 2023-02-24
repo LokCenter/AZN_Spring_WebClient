@@ -30,13 +30,11 @@ let durationInputYear = 0;
 const makeRequest = (path, userid, res_callback) => {
     // User Session cookie
     axios.defaults.withCredentials = true;
-
     axios.get(path + "?userId=" + userid)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
                 res_callback(response.data);
             }
-
         }).catch((e) => {
         console.log("cannot request data", e)
     })
@@ -51,7 +49,6 @@ standardValuesButton.addEventListener("click", () => {
     modal.classList.add("modal");
     modal.classList.add("standard-values-modal");
     modal.style.display = "block";
-
     modal.innerHTML =
         "<div class='modal-content'>" +
             "<div class='modal-content__header'>" +
@@ -111,30 +108,25 @@ standardValuesButton.addEventListener("click", () => {
                     newDefaultRow.insertCell().innerHTML = "<div class='delete-container' onclick='deleteDefault(this.parentNode.parentNode)'>&#x2716;</div>";
                 }
             }
-
         }).catch((e) => {
         console.log("cannot request data", e)
         })
-
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.remove();
         }
     });
-
 })
 
 /**
  * Delete default value row
  */
-
 function deleteDefault(row) {
     let deleteDate = row.children[0].innerText;
     // Get CSRF token
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
-
     // csrf to header
     axios.defaults.headers.put[header] = token
     // data
@@ -164,7 +156,6 @@ function addDefault() {
         // Get CSRF token
         const token = $("meta[name='_csrf']").attr("content");
         const header = $("meta[name='_csrf_header']").attr("content");
-
         // csrf to header
         axios.defaults.headers.post[header] = token
         // data
@@ -208,20 +199,16 @@ function addDefault() {
 const showYearPlanByUser = (userid, username, path) => {
     // set username
     document.getElementById("user-name-modal").innerHTML = username;
-
     makeRequest(path, userid, (data) => {
         let years = data;
-
         for (let year in years) {
             work = years[year].workDay !== undefined ? years[year].workDay : 0;
             sick = years[year].sickDay !== undefined ? years[year].sickDay : 0;
             vacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
             glaz = years[year].glazDay !== undefined ? years[year].glazDay : 0;
             balance =  years[year].balance !== undefined ? years[year].balance : 0;
-
             addYear(year, work, sick, vacation, glaz, balance, "year-overview-table")
         }
-
         prevYearModal.style.display = "block";
         disableMainWindowScrolling();
     })
@@ -236,19 +223,16 @@ const showYearPlanByUser = (userid, username, path) => {
 const showRequestListByUser = (userid, username, path) => {
     // set username
     document.getElementById("request-modal-username").innerHTML = username;
-
     makeRequest(path, userid, (data) => {
         let typeArray = [];
         let startArray = [];
         let endArray = [];
-
         for (let request in data) {
             // tag should start with 'r'
             typeArray.push(data[request].tag.substring(1))
             startArray.push(data[request].startdate)
             endArray.push(data[request].enddate)
         }
-
         setRequestModalContent(typeArray.length, typeArray, startArray, endArray, userid);
         requestModal.style.display = "block";
         disableMainWindowScrolling();
@@ -265,7 +249,6 @@ function showSubmissions(id) {
     modal.classList.add("submissions-modal");
     modal.style.display = "block";
     disableMainWindowScrolling();
-
     modal.innerHTML =
         "<div class='modal-content'>" +
             "<div class='modal-content__header'>" +
@@ -276,14 +259,12 @@ function showSubmissions(id) {
                 "<div id='submissions-container'></div>" +
             "</div>" +
         "</div>";
-
     // submitted months by userid
     axios.get("/admin/azn/get?userId="+ id)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
               let months = [];
               let years = [];
-
               for (i in response.data) {
                   months.push(response.data[i].month)
                   years.push(`${response.data[i].year}`)
@@ -293,7 +274,6 @@ function showSubmissions(id) {
         }).catch((e) => {
         console.log("cannot request data", e)
     })
-
     document.getElementById("close-submissions").addEventListener("click", () => {
         modal.remove();
         enableMainWindowScrolling();
@@ -316,7 +296,6 @@ function showSubmissions(id) {
 function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
     const submissionsContainer = document.getElementById("submissions-container");
     submissionsContainer.innerHTML = "";
-
     if (amountOfSubmissions === 0) {
         submissionsContainer.innerHTML = "Kein Arbeitszeitnachweis abgegeben";
         submissionsContainer.style.display = "flex";
@@ -355,7 +334,6 @@ closeRequestModal.addEventListener("click", () => {
 closePrevYearModal.addEventListener("click", () => {
     prevYearModal.style.display = "none";
     enableMainWindowScrolling();
-
     // clear table
     const tbody = document.getElementById("year-overview-table-body")
     tbody.innerHTML = "";
@@ -402,13 +380,10 @@ function enableMainWindowScrolling() {
 
 const putRequestsChange = (startDate, endDate, userId, path, res_callback) => {
     axios.defaults.withCredentials = true;
-
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
-
     // csrf to header
     axios.defaults.headers.put[header] = token
-
     axios.put(`${path}?startDate=${startDate}&endDate=${endDate}&userid=${userId}`)
         .then(res => {})
         .catch(e => {
@@ -464,9 +439,7 @@ durationInput.addEventListener("click", () => {
     if (durationInput.value !== "") {
         duration = durationInput.valueAsNumber;
     }
-
     if (duration > 5) duration = 5;
-
     // add
     for (let i = durationInputValue; i < duration && vacationTableBody.rows.length -1 < duration; i++) {
         durationInputYear++;
@@ -480,13 +453,11 @@ durationInput.addEventListener("click", () => {
     }
 
     durationInputValue = vacationTableBody.rows.length -1
-
     // remove
     for (let i = durationInputValue; i > duration; i--) {
         durationInputYear--;
        vacationTableBody.deleteRow(vacationTableBody.rows.length -1);
     }
-
     durationInputValue = vacationTableBody.rows.length -1;
 })
 
@@ -503,7 +474,6 @@ searchBar.addEventListener("search", () => {
  */
 function filterTable() {
     const filter = document.getElementById("filter-input").value.toUpperCase();
-
     // Loop through table rows and hide those that don't match the filter
     for (let i = 0; i < tableRows.length; i++) {
         let tableData = tableRows[i].getElementsByTagName("td")[0];
@@ -516,7 +486,6 @@ function filterTable() {
             }
         }
     }
-
     colorFilteredResults();
 }
 
@@ -538,7 +507,6 @@ const APTableRows = APTableBody.rows;
 let switching = true;
 let shouldSwitch = false;
 let i;
-
 while (switching) {
     switching = false;
     for (i = 0; i < APTableRows.length - 1; i++) {
@@ -589,25 +557,21 @@ function adminRedirect(id, name) {
 const adminEdit = (userid, name) => {
     document.getElementById('user-name-modal-edit').innerText = name;
     document.getElementById('user-name-modal-edit').setAttribute('tag', userid)
-
    // worktime list
     axios.get("admin/worktimeList?userId="+ userid)
         .then((response) => {
             if (response.data !== '' && response.data != null) {
                 let table = document.getElementById("time-history-table");
-
                 // set time change values
                 if (response.data.length) {
                     document.getElementById('work-start').value = response.data[0].workTime['start']
                     document.getElementById('work-end').value = response.data[0].workTime['end']
                     document.getElementById('pause').value = response.data[0].workTime['pause']
-
                     // format to the right date syntax for input=date
                     let d = new Date(response.data[0].date);
                     let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
                     let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
                     let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-
                     document.getElementById("work-time-date").value = `${ye}-${mo}-${da}`
                 }
 
@@ -623,36 +587,27 @@ const adminEdit = (userid, name) => {
         }).catch((e) => {
             console.log("cannot request data", e)
         });
-
         // get vacation data
         axios.get("admin/yearsList?userId="+ userid)
             .then((response) => {
                 if (response.data !== '' && response.data != null) {
                     let year  = 1;
                     const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0]
-
                     // create rows and columns
                     for (let i in response.data) {
-
                         const row = vacationTableBody.insertRow();
-
                         row.insertCell().innerText = `${year++}. Jahr`
                         row.insertCell().innerText = i;
                         row.insertCell().innerHTML = `<input type="text" max="2" value="${response.data[i]}">`
                     }
-
                     // set list size from object
                     let durationInput = document.getElementById("duration");
                     durationInputValue = Object.keys(response.data).length -1;
-
                     durationInput.value = Object.keys(response.data).length -1
-
                    durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
-
                     durationInput.disabled = false;
                 }
         }).catch((e) => {
-
         });
 }
 
@@ -662,27 +617,22 @@ const adminEdit = (userid, name) => {
 const sendEditData = () => {
    // get id from user
     let userId = document.getElementById('user-name-modal-edit').getAttribute('tag');
-
     // check userId
     if (userId) {
         // make backend request
         // Get CSRF token
         const token = $("meta[name='_csrf']").attr("content");
         const header = $("meta[name='_csrf_header']").attr("content");
-
         // csrf to header
         axios.defaults.headers.post[header] = token
         // data
         axios.post("admin/edit?userId="+userId, {
             "start_time": 'blahhh',
-
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
-
             }
         }).catch((error) => {
-
         })
     }
 }
