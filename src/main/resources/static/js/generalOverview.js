@@ -1,5 +1,13 @@
-// URL with no queries should not be allowed
-
+/**
+ * Set color for legend
+ */
+const legendColorGeneralHoliday = document.getElementById("colorGeneralHoliday");
+legendColorGeneralHoliday.style.backgroundColor = colors.colorGeneralHoliday;
+const legendColorGeneralVacation = document.getElementById("colorGeneralVacation");
+legendColorGeneralVacation.style.backgroundColor = colors.colorGeneralVacation;
+/**
+ * Create Calendar
+ */
 const dp = new DayPilot.Month("dp", {
     locale: "de-de",
     viewType: "Month",
@@ -52,7 +60,7 @@ const dp = new DayPilot.Month("dp", {
             })
         })
 
-        // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+        // Close modal on events
         document.getElementById("close").addEventListener("click", () => {
             modal.remove();
         });
@@ -87,14 +95,9 @@ const rightDaySwitch = document.getElementById("right-dayPlan-switch");
  * Display the previous month
  */
 leftDaySwitch.addEventListener("click", (e) => {
-    /**
-     * remove a month to the startDate of the currently displayed calendar -> previous month will be displayed
-     */
-
     dp.startDate = dp.startDate.addMonths(-1)
     updateTimeDisplay()
     dp.update();
-
     getDaysAsQuery();
 })
 
@@ -102,23 +105,17 @@ leftDaySwitch.addEventListener("click", (e) => {
  * Display the next month
  */
 rightDaySwitch.addEventListener("click", (e) => {
-
     dp.startDate = dp.startDate.addMonths(1)
     updateTimeDisplay()
     dp.update();
-
     getDaysAsQuery();
 });
 
 const getDaysAsQuery = () => {
     let cells  = document.getElementsByClassName("month_default_cell_inner");
-
     let firstDay = cells[0].childNodes[0].innerText.replace( /^\D+/g, '');
     let lastDay = cells[cells.length - 1].childNodes[0].innerText.replace( /^\D+/g, '');
-
-
     localStorage.setItem('startDate', dp.startDate);
-
     window.location.href =  window.location.href
         .split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}&month=${dp.startDate.value.slice(5, 7)}&year=${dp.startDate.value.slice(0, 4)}`
 }
@@ -129,12 +126,9 @@ if (!window.location.href.includes("firstday")) {
 
 updateTimeDisplay()
 
-// Set color for legend
-const legendColorGeneralHoliday = document.getElementById("colorGeneralHoliday");
-legendColorGeneralHoliday.style.backgroundColor = colors.colorGeneralHoliday;
-const legendColorGeneralVacation = document.getElementById("colorGeneralVacation");
-legendColorGeneralVacation.style.backgroundColor = colors.colorGeneralVacation;
-
+/**
+ * Create new Event for Calendar
+ */
 const createEventButton = document.getElementById("create-event-button");
 createEventButton.addEventListener("click",() => {
     const modal = document.body.appendChild(document.createElement("div"));
@@ -181,7 +175,6 @@ createEventButton.addEventListener("click",() => {
     startDateElement.value = dp.startDate.value.split("T")[0];
     const endDateElement = document.getElementById("date-end");
     endDateElement.value = dp.startDate.value.split("T")[0];
-
     const saveButton = document.getElementById("save-button");
     saveButton.addEventListener("click", () => {
         const reminder = document.getElementById("reminder");
@@ -197,13 +190,10 @@ createEventButton.addEventListener("click",() => {
                     break;
                 }
             }
-
             let comment = document.getElementById('entry-name').value;
-
             // Get CSRF token
             const token = $("meta[name='_csrf']").attr("content");
             const header = $("meta[name='_csrf_header']").attr("content");
-
             // csrf to header
             axios.defaults.headers.post[header] = token
             // data
@@ -230,10 +220,9 @@ createEventButton.addEventListener("click",() => {
         }
     })
 
-    // Close/Remove modal when clicking close/abbrechen/outside of modal__content
+    // Close modal on events
     document.getElementById("close").addEventListener("click", () => {modal.remove();});
     document.getElementById("cancel-button").addEventListener("click", () => {modal.remove();});
-
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.remove();

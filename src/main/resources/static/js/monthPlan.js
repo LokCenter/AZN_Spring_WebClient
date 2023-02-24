@@ -4,27 +4,21 @@ const nextMonthButton = document.getElementById("right-monthPlan-switch");
 
 prevMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() - 1);
-
     url = new URL(window.location.href);
-
     if (url.searchParams.has('userid')) {
         window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
         return;
     }
-
     // go one month left
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 nextMonthButton.addEventListener("click", () => {
     viewedDate.setMonth(viewedDate.getMonth() + 1);
-
     url = new URL(window.location.href);
-
     if (url.searchParams.has('userid')) {
         window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
         return;
     }
-
     // go one month right
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
@@ -68,21 +62,17 @@ function displayTable(date, data, dataSoll) {
         let end = null
         let pause = null
         let ist = null;
-
         let starttime = data[i].start;
         let endtime =   data[i].end;
         let pausetime =  data[i].pause;
-
         if (starttime && endtime && pausetime) {
             start = new Date();
             end = new Date();
             pause = new Date();
-
             ist = new Date();
             start.setHours(parseInt(starttime.slice(0, 2)), parseInt(starttime.slice(3, 5)), 0)
             end.setHours(parseInt(endtime.slice(0, 2)), parseInt(endtime.slice(3, 5)), 0)
             pause.setHours(parseInt(pausetime.slice(0, 2)), parseInt(pausetime.slice(3, 5)), 0)
-
             ist.setHours(
                 end.getHours() - start.getHours() - pause.getHours()
             );
@@ -94,7 +84,6 @@ function displayTable(date, data, dataSoll) {
         let row = tableBody.insertRow();
         let dateCell = row.insertCell();
         dateCell.textContent = datesOfMonth[i];
-
         // Creating the other cells
         let startCell = row.insertCell();
         startCell.textContent = start !== null? `${withZero(start.getHours())}:${withZero(start.getMinutes())}` : "";
@@ -104,13 +93,10 @@ function displayTable(date, data, dataSoll) {
         pauseCell.textContent = pause !== null? `${withZero(pause.getHours())}:${withZero(pause.getMinutes())}` : "";
         let istCell = row.insertCell();
         istCell.textContent = ist !== null? `${withZero(ist.getHours())}:${withZero(ist.getMinutes())}` : "";
-
         // set soll time only on week days not on the weekend
         var dt = moment(datesOfMonth[i], "DD.MM.YYYY").toDate()
-
         let sollCell = row.insertCell();
         sollCell.textContent = ""
-
         let glazCell = row.insertCell();
         glazCell.textContent = data[i].glaz === true? 'x': ''
         let sickCell = row.insertCell();
@@ -131,7 +117,6 @@ function displayTable(date, data, dataSoll) {
         } else {
             sollCell.textContent = dataSoll[i].slice(0, -3);
         }
-
     }
 }
 
@@ -143,7 +128,6 @@ submitButton.addEventListener("click", (e) => {
     // Get CSRF token
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
-
     // csrf to header
     axios.defaults.headers.put[header] = token
     // data
@@ -151,7 +135,6 @@ submitButton.addEventListener("click", (e) => {
         "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
         "month": getNumberFromFullMonth(document.
         getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
-
     }).then(async (res) => {
         // Display confirmation message if response is ok
         if (res.data) {
@@ -177,7 +160,6 @@ const aznStatus = document.getElementById("azn-status");
 function showMessage(messages, amount) {
     const messageBox = document.body.appendChild(document.createElement("div"));
     messageBox.id = "message-box";
-
     messageBox.innerHTML =
         "<div class='message-box-content'>" +
             "<div class='message-box-content__header'>" +
@@ -201,14 +183,12 @@ function showMessage(messages, amount) {
         "</div>"
 
     const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
-
     // Rewrite this to account for multiple messages (and embolden the first/latest message to make it stand out)
     // Make each message (+ all at once) deletable
     const newRow = messageTableBody.insertRow();
     newRow.insertCell().textContent = "Admin";
     newRow.insertCell().textContent = messages;
     newRow.insertCell().textContent = "\u00D7";
-
     // document.getElementById("message-for-user").innerText = message;
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
 }

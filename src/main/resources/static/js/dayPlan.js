@@ -77,9 +77,7 @@ let currDate = moment(dateInput.value, "YYYY-MM-DD")
  */
 leftDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.subtract(1, "day");
-
     let url = new URL(window.location.href);
-
     // go to the left date
     if (url.searchParams.has('userid')) {
         window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}&userid=${getQueryByName("userid")}`
@@ -93,9 +91,7 @@ leftDaySwitch.addEventListener("click", (e) => {
  */
 rightDaySwitch.addEventListener("click", (e) => {
     currDate = currDate.add(1, "day");
-
     let url = new URL(window.location.href);
-
     // go to the left date
     if (url.searchParams.has('userid')) {
         window.location.href =  window.location.href.split('?')[0] + `?date=${currDate.format("DD-MM-YYYY")}&userid=${getQueryByName("userid")}`
@@ -166,14 +162,12 @@ pause.addEventListener("change", () => {
     onTimeChange("pause", pause.value);
 });
 
-// Save button
-let saveButton = document.getElementById("save-button");
-
 /**
  * Save Button
  *
  * @description Data will be sent to the Spring Controller (Client Side)
  */
+let saveButton = document.getElementById("save-button");
 saveButton.addEventListener('click', (e) => {
     // user comment or empty
     let userComment = document.getElementById("comment").value;

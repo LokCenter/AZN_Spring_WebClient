@@ -1,8 +1,6 @@
 /**
  * Year Overview Functions
- */
-/**
- * Adds data to the year overview table in the modal.
+ * Adds data to the year overview table.
  * @param year
  * @param work
  * @param sick

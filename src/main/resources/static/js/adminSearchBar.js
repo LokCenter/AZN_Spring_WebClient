@@ -12,9 +12,7 @@ function createUserList(users) {
         datalistContent += `<li data-userid="${users[i].id}" data-username="${users[i].username}">${users[i].username}</li>`;
     }
     userList.innerHTML = datalistContent;
-
     const userListItems = userList.getElementsByTagName("li");
-
     for (let user of userListItems) {
         user.addEventListener("click", () => {
             searchBar.value = user.textContent;
@@ -36,11 +34,9 @@ searchBar.addEventListener("focus", () => {
 })
 
 /**
- * Roundabout way of making the user list invisible, but needed that way to make the user list's event work
+ * Makes the user list invisible if the search input loses focus
  */
 window.addEventListener("click", (event) => {
-    // Makes the user list invisible if the search input loses focus, but only if you aren't targeting a list item.
-    // Checks for "B" tag as well to account for the filter
     if (document.activeElement !== searchBar && (event.target.tagName !== "LI" || event.target.tagName !== "B")) {
         userList.style.display = "none";
     }
