@@ -762,14 +762,14 @@ public class AdminController {
      * @param userId userid from user
      * @return true or false
      */
-    @GetMapping("/edit")
+    @PostMapping("/edit")
     @CrossOrigin("/admin")
     @ResponseBody
     Boolean postAdminEditData(@RequestBody Map<String, Object> payload, @RequestParam(name = "userId") String userId, Authentication authentication,
                               @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
         if (isAdmin(authentication.getAuthorities())) {
             return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
-                    .uri("/edit?userId=" + userId)
+                    .uri("admin/edit?userId=" + userId)
                     .attributes(oauth2AuthorizedClient(authorizedClient))
                     // send
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
