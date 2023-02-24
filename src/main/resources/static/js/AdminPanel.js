@@ -18,6 +18,7 @@ const durationInput = document.getElementById("duration");
 const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0];
 
 let durationInputValue = 0;
+let durationInputYear = 0;
 
 /**
  * Make Request
@@ -158,7 +159,6 @@ function addDefault() {
     const defaultVacation = document.getElementById("standard-vacation");
     const defaultModalMessage = document.getElementById("default-modal-message");
     if (defaultStartDate.value && defaultStartTime.value && defaultEndTime.value && defaultPause.value && defaultVacation.value && (defaultStartTime.value < defaultEndTime.value)) {
-
         // make backend request
         // Get CSRF token
         const token = $("meta[name='_csrf']").attr("content");
@@ -277,8 +277,6 @@ function showSubmissions(id) {
         "</div>";
 
     // submitted months by userid
-
-
     axios.get("/admin/azn/get?userId="+ id)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
@@ -289,14 +287,11 @@ function showSubmissions(id) {
                   months.push(response.data[i].month)
                   years.push(`${response.data[i].year}`)
               }
-
                 setSubmissionModalContent(months.length, months, years, id);
             }
         }).catch((e) => {
         console.log("cannot request data", e)
     })
-
-
 
     document.getElementById("close-submissions").addEventListener("click", () => {
         modal.remove();
@@ -336,7 +331,6 @@ function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
         }
     }
 }
-
 
 for (let button of editButtons) {
     button.addEventListener("click", () => {
@@ -463,8 +457,7 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate, us
     }
 }
 
-
-durationInput.addEventListener("change", () => {
+durationInput.addEventListener("click", () => {
     let duration = 0;
     // Get the amount of years a user is present
     if (durationInput.value !== "") {
@@ -474,24 +467,26 @@ durationInput.addEventListener("change", () => {
     if (duration > 5) duration = 5;
 
     // add
-    for (let i = durationInputValue; i < duration && vacationTableBody.rows.length < duration; i++) {
+    for (let i = durationInputValue; i < duration && vacationTableBody.rows.length -1 < duration; i++) {
+        durationInputYear++;
         const newRow = vacationTableBody.insertRow();
         const newYearCount = newRow.insertCell();
         const newYear = newRow.insertCell();
         const newVacation = newRow.insertCell();
-        newYearCount.innerHTML = `<label for="vacation-${i}">${i + 1}. Jahr</label>`;
-        newYear.innerHTML = `JAHR`;
+        newYearCount.innerHTML = `<label for="vacation-${i}">${i+1}. Jahr</label>`;
+        newYear.innerHTML = `${durationInputYear}`;
         newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
     }
 
-    durationInputValue = vacationTableBody.rows.length
+    durationInputValue = vacationTableBody.rows.length -1
 
     // remove
     for (let i = durationInputValue; i > duration; i--) {
+        durationInputYear--;
        vacationTableBody.deleteRow(vacationTableBody.rows.length -1);
     }
 
-    durationInputValue = vacationTableBody.rows.length;
+    durationInputValue = vacationTableBody.rows.length -1;
 })
 
 const searchBar = document.getElementById("filter-input");
@@ -523,8 +518,6 @@ function filterTable() {
 
     colorFilteredResults();
 }
-
-
 
 /**
  * Filter table by selected department
@@ -578,7 +571,6 @@ function colorFilteredResults() {
         counter++;
     }
 }
-
 
 saveButton.addEventListener("click", () => {
     // Save data
@@ -654,9 +646,11 @@ const adminEdit = (userid, name) => {
 
                     // set list size from object
                     let durationInput = document.getElementById("duration");
-                    durationInputValue = Object.keys(response.data).length
+                    durationInputValue = Object.keys(response.data).length -1;
 
-                    durationInput.value = Object.keys(response.data).length
+                    durationInput.value = Object.keys(response.data).length -1
+
+                   durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
 
                     durationInput.disabled = false;
                 }
