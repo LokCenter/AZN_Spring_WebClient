@@ -633,8 +633,12 @@ const sendEditData = () => {
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
+                window.location.reload();
+            } else {
+                // todo: show 'could not be saved' message
             }
         }).catch((error) => {
+            // todo: show 'could not be saved' message
         })
     }
 }
