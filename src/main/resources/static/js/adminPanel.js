@@ -595,7 +595,7 @@ const adminEdit = (userid, name) => {
                     for (let i in response.data) {
                         const row = vacationTableBody.insertRow();
                         row.insertCell().innerText = i;
-                        row.insertCell().innerHTML = `<input type="text" max="2" value="${response.data[i]}">`
+                        row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='');" value="${response.data[i]}">`
                     }
                     // set list size from object
                     let durationInput = document.getElementById("duration");
