@@ -102,14 +102,14 @@ public class MonthPlanController {
 
 
     @ResponseBody
-    @GetMapping("/message")
+    @GetMapping("/messages")
     String getMessage(@RequestParam(name = "month", required = true) String month,
                        @RequestParam(name = "year", required = true) String year,
                        @RequestParam(name = "type", required = true) String type,
                       @RegisteredOAuth2AuthorizedClient("userwebapp")
                       OAuth2AuthorizedClient authorizedClient ) throws JsonProcessingException {
 
-        Mono<String> res = webClient.method(HttpMethod.GET).uri("/monthplan/message").
+        Mono<String> res = webClient.method(HttpMethod.GET).uri("/monthplan/messages").
                 attributes(oauth2AuthorizedClient(authorizedClient))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 // send
