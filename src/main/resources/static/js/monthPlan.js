@@ -192,3 +192,8 @@ function showMessage(messages, amount) {
     // document.getElementById("message-for-user").innerText = message;
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
 }
+
+// Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
+for (let elem of document.querySelectorAll("a, button")) {
+    elem.tabIndex = "-1";
+}

@@ -176,3 +176,8 @@ createEventButton.addEventListener("click",() => {
         }
     });
 });
+
+// Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
+for (let elem of document.querySelectorAll("a, button")) {
+    elem.tabIndex = "-1";
+}

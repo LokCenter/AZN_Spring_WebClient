@@ -650,3 +650,8 @@ const clearEditData = () => {
     $("#time-history-table tr:has(td)").remove();
     $("#vacation-info tr:has(td)").remove();
 }
+
+// Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
+for (let elem of document.querySelectorAll("a, button")) {
+    elem.tabIndex = "-1";
+}
