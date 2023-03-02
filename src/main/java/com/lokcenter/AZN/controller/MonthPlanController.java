@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
@@ -37,15 +39,17 @@ public class MonthPlanController {
         var month2 = month;
         // generate date if no date
         if (year == null || month == null) {
-            LocalDate currDate = LocalDate.now();
+            Calendar calendar = Calendar.getInstance();
 
-            month = String.valueOf(currDate.getMonthValue());
+            month = String.valueOf(calendar.get(Calendar.MONTH));
             month2 = month;
-            year = String.valueOf(currDate.getYear());
-        } else {
-            month = String.valueOf(Integer.parseInt(month) + 1);
-            month2 =  String.valueOf(Integer.parseInt(month) -1);
+            year = String.valueOf(calendar.get(Calendar.YEAR));
         }
+
+        month =  String.valueOf(Integer.parseInt(month) +1);
+
+        System.out.println("month:" + month);
+        System.out.println("month2: " + month2);
 
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
