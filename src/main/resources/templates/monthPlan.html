@@ -106,8 +106,10 @@
       }).then(async (res) => {
         // Display confirmation message if response is ok
           if (res.data !== '' && (res.data.constructor === Object || res.data.constructor === Array)) {
-              console.log(res.data);
-              // TODO: show messages
+            console.log(res.data);
+            aznStatus.addEventListener("click", () => {showMessages(res.data)})
+            aznStatus.style.textDecoration = "underline";
+            aznStatus.style.cursor = "pointer";
           }
       }).catch((error) => {
         console.log(error)

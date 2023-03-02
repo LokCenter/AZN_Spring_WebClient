@@ -196,6 +196,8 @@ td {
 
 #message-history {
     margin-bottom: 2em;
+    overflow-y: scroll;
+    max-height: 14em;
 }
 
 #message-history th {

@@ -141,7 +141,7 @@ submitButton.addEventListener("click", (e) => {
             submitButton.setAttribute("disabled", "")
             aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
             aznStatus.getElementsByTagName("span")[0].style.color = "blue";
-            aznStatus.removeEventListener("click", showMessage);
+            aznStatus.removeEventListener("click", () => {showMessages(res.data)});
             aznStatus.style.textDecoration = "none";
             aznStatus.style.cursor = "default";
         }
@@ -153,11 +153,10 @@ submitButton.addEventListener("click", (e) => {
 const aznStatus = document.getElementById("azn-status");
 
 /**
- * Displays the message from the admin with their reason for denial.
+ * Displays the messages from the admin with their reason for denial.
  * @param messages
- * @param {number} amount
  */
-function showMessage(messages, amount) {
+function showMessages(messages) {
     const messageBox = document.body.appendChild(document.createElement("div"));
     messageBox.id = "message-box";
     messageBox.innerHTML =
@@ -183,13 +182,16 @@ function showMessage(messages, amount) {
         "</div>"
 
     const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
-    // Rewrite this to account for multiple messages (and embolden the first/latest message to make it stand out)
+    for (let i = 0; i < messages.length; i++) {
+        const newRow = messageTableBody.insertRow();
+        newRow.insertCell().textContent = "Admin";
+        newRow.insertCell().textContent = messages[i].message;
+        newRow.insertCell().textContent = "\u00D7";
+        if (i === 0) { // set a higher font weight for the latest message
+            newRow.style.fontWeight = "900";
+        }
     // Make each message (+ all at once) deletable
-    const newRow = messageTableBody.insertRow();
-    newRow.insertCell().textContent = "Admin";
-    newRow.insertCell().textContent = messages;
-    newRow.insertCell().textContent = "\u00D7";
-    // document.getElementById("message-for-user").innerText = message;
+    }
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
 }
 
