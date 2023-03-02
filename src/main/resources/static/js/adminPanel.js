@@ -69,7 +69,7 @@ standardValuesButton.addEventListener("click", () => {
                     "</thead>" +
                     "<tbody></tbody>" +
                 "</table>" +
-                "<form action='' id='standard-values-form'>" +
+                "<div id='standard-values-form'>" +
                     "<fieldset>" +
                         "<legend>Standardwerte hinzufügen</legend>" +
                             "<div class='standards-input-container'>" +
@@ -86,7 +86,7 @@ standardValuesButton.addEventListener("click", () => {
                                 "<button type='button' id='add-default-values'>Hinzufügen</button>" +
                             "</div>" +
                     "</fieldset>" +
-                "</form>" +
+                "</div>" +
                 "<p id='default-modal-message'></p>" +
             "</div>" +
         "</div>";

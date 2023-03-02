@@ -92,7 +92,7 @@ createEventButton.addEventListener("click",() => {
                 "<span id='close'>&times;</span>" +
             "</div>" +
             "<div class='modal__body'>" +
-                "<form name='add-new-entry' action='' method=''>" +
+                "<div id='add-new-entry'>" +
                     "<p id='reminder'>Bitte Art des Eintrags auswählen!</p>" +
                     "<div class='fieldset-container'>" +
                         "<fieldset>" +
@@ -115,7 +115,7 @@ createEventButton.addEventListener("click",() => {
                         "<button type='button' id='save-button'>Speichern</button>" +
                         "<button type='button' id='cancel-button'>Abbrechen</button>" +
                     "</div>" +
-                "</form>" +
+                "</div>" +
             "</div>" +
         "</div>";
 

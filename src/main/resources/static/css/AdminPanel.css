@@ -336,7 +336,7 @@ h2,
     fill: red;
 }
 
-form[name="edit-user-data"] {
+#edit-user-data {
     display: grid;
     grid-template: 2em 2fr 3fr 3em/ 2fr 2fr;
     align-items: start;

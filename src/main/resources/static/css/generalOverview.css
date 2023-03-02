@@ -101,7 +101,7 @@ h1 {
         General vacation modal
     -------------------------------------------------- */
 
-.general-vacation-modal form {
+#add-new-entry {
     display: flex;
     flex-direction: column;
     align-items: center;
