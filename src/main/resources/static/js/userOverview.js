@@ -118,7 +118,7 @@ createEventButton.addEventListener("click",() => {
                 "</div>" +
             "</div>" +
         "</div>";
-
+    document.getElementById("radio-vacation").focus()
     // Set the starting values for the date picker to the date currently being viewed in the calendar
     const startDateElement = document.getElementById("date-start");
     startDateElement.value = dp.startDate.value.split("T")[0];

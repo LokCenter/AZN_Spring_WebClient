@@ -197,6 +197,7 @@ function addDefault() {
  * @param path backend path
  */
 const showYearPlanByUser = (userid, username, path) => {
+    document.getElementById("dept-both").focus()
     // set username
     document.getElementById("user-name-modal").innerHTML = username;
     makeRequest(path, userid, (data) => {
@@ -221,6 +222,7 @@ const showYearPlanByUser = (userid, username, path) => {
  * @param path backend path
  */
 const showRequestListByUser = (userid, username, path) => {
+    document.getElementById("dept-both").focus()
     // set username
     document.getElementById("request-modal-username").innerHTML = username;
     makeRequest(path, userid, (data) => {
@@ -244,6 +246,7 @@ const showRequestListByUser = (userid, username, path) => {
  * @param id id from user
  */
 function showSubmissions(id) {
+    document.getElementById("dept-both").focus()
     const modal = document.body.appendChild(document.createElement("div"));
     modal.classList.add("modal");
     modal.classList.add("submissions-modal");
@@ -553,6 +556,7 @@ function adminRedirect(id, name) {
  * @param name
  */
 const adminEdit = (userid, name) => {
+    document.getElementById("dept-both").focus()
     document.getElementById('user-name-modal-edit').innerText = name;
     document.getElementById('user-name-modal-edit').setAttribute('tag', userid)
    // worktime list
