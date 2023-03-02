@@ -34,14 +34,17 @@ public class MonthPlanController {
                         @RegisteredOAuth2AuthorizedClient("userwebapp")
                         OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
 
+        var month2 = month;
         // generate date if no date
         if (year == null || month == null) {
             LocalDate currDate = LocalDate.now();
 
             month = String.valueOf(currDate.getMonthValue());
+            month2 = month;
             year = String.valueOf(currDate.getYear());
         } else {
             month = String.valueOf(Integer.parseInt(month) + 1);
+            month2 =  String.valueOf(Integer.parseInt(month) -1);
         }
 
         String role = ControllerHelper.getUserOrAdminRole(authentication);
@@ -59,7 +62,7 @@ public class MonthPlanController {
 
         // get soll time
         Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s&year=%s",
-                        role, month, year)).
+                        role, month2, year)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         // check if there is any data
