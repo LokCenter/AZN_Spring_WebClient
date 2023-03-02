@@ -8,16 +8,26 @@ if (location.href.includes("dayplan")) {
     nav.children[0].style.color = "var(--clr-accent)"
 } else if (location.href.includes("monthplan")) {
     setNavItemsInactive();
-    nav.children[1].className = "nav-active";
-    nav.children[1].style.color = "var(--clr-accent)"
+    if (nav.children.length === 3) {
+        nav.children[0].className = "nav-active";
+        nav.children[0].style.color = "var(--clr-accent)"
+    } else {
+        nav.children[1].className = "nav-active";
+        nav.children[1].style.color = "var(--clr-accent)"
+    }
 } else if (location.href.includes("yearplan")) {
     setNavItemsInactive();
     nav.children[2].className = "nav-active";
     nav.children[2].style.color = "var(--clr-accent)"
 } else if (location.href.includes("overview")) {
     setNavItemsInactive();
-    nav.children[3].className = "nav-active";
-    nav.children[3].style.color = "var(--clr-accent)"
+    if (nav.children.length === 3) {
+        nav.children[1].className = "nav-active";
+        nav.children[1].style.color = "var(--clr-accent)"
+    } else {
+        nav.children[3].className = "nav-active";
+        nav.children[3].style.color = "var(--clr-accent)"
+    }
 }
 
 /**

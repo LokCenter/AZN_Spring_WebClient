@@ -595,13 +595,13 @@ const adminEdit = (userid, name) => {
                     for (let i in response.data) {
                         const row = vacationTableBody.insertRow();
                         row.insertCell().innerText = i;
-                        row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='');" value="${response.data[i]}">`
+                        row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='0');" value="${response.data[i]}">`
                     }
                     // set list size from object
                     let durationInput = document.getElementById("duration");
                     durationInputValue = Object.keys(response.data).length -1;
-                    durationInput.value = Object.keys(response.data).length -1
-                   durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
+                    durationInput.value = Object.keys(response.data).length -1;
+                    durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
                     durationInput.disabled = false;
                 }
         }).catch((e) => {
