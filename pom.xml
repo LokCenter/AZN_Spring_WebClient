@@ -183,6 +183,12 @@
 								<cssSourceInclude>fragments/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 
+							<jsSourceDir>js</jsSourceDir>
+							<jsSourceIncludes>
+								<jsSourceInclude>*js</jsSourceInclude>
+								<jsSourceInclude>helper/*.js</jsSourceInclude>
+							</jsSourceIncludes>
+
 							<jsEngine>CLOSURE</jsEngine>
                             <skipMerge>true</skipMerge>
                             <nosuffix>true</nosuffix>
