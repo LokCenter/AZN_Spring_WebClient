@@ -163,6 +163,8 @@ td {
 }
 
 .message-box-content__header {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--clr-accent);
     padding: 0.4em 1.4em;
     border-top-left-radius: 2em;

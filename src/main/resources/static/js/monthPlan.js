@@ -163,6 +163,7 @@ function showMessages(messages) {
         "<div class='message-box-content'>" +
             "<div class='message-box-content__header'>" +
                 "<h2>Ablehnungsgrund</h2>" +
+                "<span class='close' id='close-messages'>&times;</span>" +
             "</div>" +
             "<div class='message-box-content__body'>" +
                 "<div>" +
@@ -193,6 +194,13 @@ function showMessages(messages) {
     // Make each message (+ all at once) deletable
     }
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
+    document.getElementById("close-messages").addEventListener("click", () => { messageBox.remove(); });
+    window.addEventListener("click", (event) => {
+        if (event.target === messageBox) {
+            messageBox.remove();
+        }
+    });
+
 }
 
 // Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals

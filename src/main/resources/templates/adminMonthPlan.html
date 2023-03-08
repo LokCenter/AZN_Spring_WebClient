@@ -104,6 +104,7 @@
                  "<div class='message-box-content'>" +
                  "<div class='message-box-content__header'>" +
                  "<h2>Ablehnungsgrund</h2>" +
+                 "<span class='close' id='close-messages'>&times;</span>" +
                  "</div>" +
                  "<div class='message-box-content__body'>" +
                  "<div>" +
@@ -161,6 +162,19 @@
              })
            }
          })
+         // Close message box
+         document.getElementById("close-messages").addEventListener("click", () => {
+           if (window.confirm("Wollen Sie das Fenster wirklich schließen?\nDie Nachricht wird nicht gespeichert.")) {
+             messageBox.remove();
+           }
+         });
+         window.addEventListener("click", (event) => {
+           if (event.target === messageBox) {
+             if (window.confirm("Wollen Sie das Fenster wirklich schließen?\nDie Nachricht wird nicht gespeichert.")) {
+              messageBox.remove();
+             }
+           }
+         });
        }
 
        // run function
