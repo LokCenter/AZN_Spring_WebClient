@@ -187,7 +187,9 @@ function showMessages(messages) {
         const newRow = messageTableBody.insertRow();
         newRow.insertCell().textContent = "Admin";
         newRow.insertCell().textContent = messages[i].message;
-        newRow.insertCell().textContent = "\u00D7";
+        let deleteCell = newRow.insertCell();
+        deleteCell.textContent = "\u00D7";
+        deleteCell.setAttribute("message-id", messages[i].messageId)
         if (i === 0) { // set a higher font weight for the latest message
             newRow.style.fontWeight = "900";
         }
