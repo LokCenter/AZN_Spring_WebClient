@@ -48,8 +48,6 @@ public class MonthPlanController {
 
         month =  String.valueOf(Integer.parseInt(month) +1);
 
-        System.out.println("month:" + month);
-        System.out.println("month2: " + month2);
 
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 

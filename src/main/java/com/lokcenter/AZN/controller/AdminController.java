@@ -355,7 +355,7 @@ public class AdminController {
         // User roles
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
-        System.out.println(role);
+
 
         String query =String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s&userid=%s", firstDate, lastDate,month, year, role, userid);
         String queryTwo = String.format("year=%s&role=%s&userid=%s", year, role, userid);
@@ -398,7 +398,6 @@ public class AdminController {
 
 
         if (res.block() != null) {
-            System.out.println(res.block());
             return res.block();
         }
 
@@ -416,7 +415,6 @@ public class AdminController {
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         if (res.block() != null) {
-            System.out.println(res.block());
             return res.block();
         }
 

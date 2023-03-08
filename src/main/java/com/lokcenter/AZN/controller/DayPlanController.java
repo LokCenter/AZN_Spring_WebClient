@@ -126,7 +126,6 @@ public class DayPlanController {
     @ResponseBody
     boolean postDayPlan(@RequestBody Map<String, Object> payload,
                         @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
-        System.out.println(payload.toString());
 
         // junit can't push data to the resource server
         if (JunitHelper.isJUnitTest()) {
