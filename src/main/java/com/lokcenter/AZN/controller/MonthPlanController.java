@@ -148,4 +148,27 @@ public class MonthPlanController {
                 .bodyToMono(Boolean.class)
                 .block());
     }
+
+    /**
+     * Delete all messages by user, month, year
+     * @return true or false
+     */
+    @PutMapping("/messages/delete")
+    @ResponseBody
+    Boolean deleteAllMessagesByMonthAndYear(Map<String, String> payload,
+                                     @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient  ) {
+
+        System.out.println(payload);
+        return Boolean.TRUE.equals(this.webClient
+                .method(HttpMethod.DELETE)
+                .uri("/monthplan/messages/delete")
+                .attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(payload), payload.getClass())
+                // send
+                .retrieve()
+                // res type
+                .bodyToMono(Boolean.class)
+                .block());
+    }
 }

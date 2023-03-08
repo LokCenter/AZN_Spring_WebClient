@@ -167,7 +167,7 @@ function showMessages(messages) {
             "</div>" +
             "<div class='message-box-content__body'>" +
                 "<div>" +
-                    "<button id='delete-all-messages'>Alle Nachrichten löschen</button>" +
+                    "<button onclick='deleteAllMessages()' id='delete-all-messages'>Alle Nachrichten löschen</button>" +
                     "<table id='message-history'>" +
                         "<thead>" +
                             "<tr>" +
@@ -199,7 +199,6 @@ function showMessages(messages) {
             // data
             axios.put("/monthplan/message?messageId="+messages[i].messageId, {}).then(async (res) => {
                 // Display confirmation message if response is ok
-                console.log(res)
                 if (res.data) {
                 } else {
                     // todo: display message
@@ -227,4 +226,31 @@ function showMessages(messages) {
 // Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
 for (let elem of document.querySelectorAll("a, button")) {
     elem.tabIndex = "-1";
+}
+
+/**
+ * Delete all messages
+ */
+const deleteAllMessages = () => {
+    // Get CSRF token
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+    // csrf to header
+    axios.defaults.headers.put[header] = token
+    // data
+    axios.put("monthplan/messages/delete", {
+        "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+        "month": getNumberFromFullMonth(document.
+        getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+    }).then(async (res) => {
+        // Display confirmation message if response is ok
+        if (res.data) {
+            // Todo: refresh modal
+        } else {
+            // Todo: show error message
+        }
+    }).catch((error) => {
+        console.log(error)
+        // Todo: show error message
+    })
 }
