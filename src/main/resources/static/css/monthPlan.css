@@ -189,11 +189,15 @@ td {
     justify-content: center;
 }
 
-.message-box-content__body > div {
+#message-container {
     display: flex;
     flex-direction: column;
     margin: 0 2em;
     align-items: center;
+}
+
+#message-container p {
+    margin: 1em 2em 2em;
 }
 
 #message-history {
@@ -209,6 +213,10 @@ td {
 #message-history th:nth-of-type(2) {
     min-width: 30ch;
     max-width: 60ch;
+}
+
+#message-history tbody tr:first-of-type {
+    font-weight: 900;
 }
 
 #message-history tbody tr td:nth-of-type(2) {

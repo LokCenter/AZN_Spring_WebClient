@@ -166,7 +166,7 @@ function showMessages(messages) {
                 "<span class='close' id='close-messages'>&times;</span>" +
             "</div>" +
             "<div class='message-box-content__body'>" +
-                "<div>" +
+                "<div id='message-container'>" +
                     "<button onclick='deleteAllMessages()' id='delete-all-messages'>Alle Nachrichten löschen</button>" +
                     "<table id='message-history'>" +
                         "<thead>" +
@@ -183,44 +183,62 @@ function showMessages(messages) {
             "</div>" +
         "</div>"
 
-    const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
-    for (let i = 0; i < messages.length; i++) {
-        const newRow = messageTableBody.insertRow();
-        newRow.insertCell().textContent = "Admin";
-        newRow.insertCell().textContent = messages[i].message;
-        let deleteCell = newRow.insertCell();
-        deleteCell.textContent = "\u00D7";
-        deleteCell.addEventListener('click', (e) => {
-            const token = $("meta[name='_csrf']").attr("content");
-            const header = $("meta[name='_csrf_header']").attr("content");
+    if (messages.length === 0) {
+        document.getElementsByClassName("message-box-content__body")[0].outerHTML = "<div id='message-container'><p>Momentan liegen keine Nachrichten vor.</p><button id='acknowledge-message'>OK</button></div>"
+    } else {
+        const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
+        for (let i = 0; i < messages.length; i++) {
+            const newRow = messageTableBody.insertRow();
+            newRow.insertCell().textContent = "Admin";
+            newRow.insertCell().textContent = messages[i].message;
+            let deleteCell = newRow.insertCell();
+            deleteCell.textContent = "\u00D7";
+            deleteCell.classList.add("delete-message");
+            deleteCell.addEventListener('click', (e) => {
+                if (window.confirm("Diese Nachricht wirklich löschen?")) {
+                    const token = $("meta[name='_csrf']").attr("content");
+                    const header = $("meta[name='_csrf_header']").attr("content");
 
-            // csrf to header
-            axios.defaults.headers.put[header] = token
-            // data
-            axios.put("/monthplan/message?messageId="+messages[i].messageId, {}).then(async (res) => {
-                // Display confirmation message if response is ok
-                if (res.data) {
-                } else {
-                    // todo: display message
+                    // csrf to header
+                    axios.defaults.headers.put[header] = token
+                    // data
+                    axios.put("/monthplan/message?messageId="+messages[i].messageId, {}).then(async (res) => {
+                        // Display confirmation message if response is ok
+                        console.log(res)
+                        if (res.data) {
+                            e.target.parentNode.remove();
+                            if (messageTableBody.getElementsByTagName("tr").length === 0) {
+                                document.getElementsByClassName("message-box-content__body")[0].outerHTML = "<div id='message-container'><p>Momentan liegen keine Nachrichten vor.</p><button id='acknowledge-message'>OK</button></div>"
+                                document.getElementById("acknowledge-message").addEventListener("click", () => {
+                                    messageBox.remove();
+                                    window.location.reload();
+                                });
+                            }
+                        } else {
+                            window.alert("Das hat leider nicht funktioniert.");
+                        }
+                    }).catch((error) => {
+                        console.log(error)
+                        window.alert("Das hat leider nicht funktioniert.");
+                    })
                 }
-            }).catch((error) => {
-                console.log(error)
-                // todo: display message
             })
-        })
-        if (i === 0) { // set a higher font weight for the latest message
-            newRow.style.fontWeight = "900";
         }
-    // Make each message (+ all at once) deletable
     }
-    document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
-    document.getElementById("close-messages").addEventListener("click", () => { messageBox.remove(); });
+    document.getElementById("acknowledge-message").addEventListener("click", () => {
+        messageBox.remove();
+        window.location.reload();
+    });
+    document.getElementById("close-messages").addEventListener("click", () => {
+        messageBox.remove();
+        window.location.reload();
+    });
     window.addEventListener("click", (event) => {
         if (event.target === messageBox) {
             messageBox.remove();
+            window.location.reload();
         }
     });
-
 }
 
 // Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
@@ -232,25 +250,40 @@ for (let elem of document.querySelectorAll("a, button")) {
  * Delete all messages
  */
 const deleteAllMessages = () => {
-    // Get CSRF token
-    const token = $("meta[name='_csrf']").attr("content");
-    const header = $("meta[name='_csrf_header']").attr("content");
-    // csrf to header
-    axios.defaults.headers.put[header] = token
-    // data
-    axios.put("monthplan/messages/delete", {
-        "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-        "month": getNumberFromFullMonth(document.
-        getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
-    }).then(async (res) => {
-        // Display confirmation message if response is ok
-        if (res.data) {
-            // Todo: refresh modal
-        } else {
+    const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
+    const messageBox = document.getElementById("message-box");
+    if (window.confirm("Wirklich alle Nachrichten köschen?")) {
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        // csrf to header
+        axios.defaults.headers.put[header] = token
+        // data
+        axios.put("monthplan/messages/delete", {
+            "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+            "month": getNumberFromFullMonth(document.
+            getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+        }).then(async (res) => {
+            // Display confirmation message if response is ok
+            if (res.data) {
+                for (let i = messageTableBody.getElementsByTagName("tr").length - 1; i >= 0; i--) {
+                    messageTableBody.getElementsByTagName("tr")[i].remove();
+                }
+                if (messageTableBody.getElementsByTagName("tr").length === 0) {
+                    document.getElementsByClassName("message-box-content__body")[0].outerHTML = "<div id='message-container'><p>Momentan liegen keine Nachrichten vor.</p><button id='acknowledge-message'>OK</button></div>"
+                    document.getElementById("acknowledge-message").addEventListener("click", () => {
+                        messageBox.remove();
+                        window.location.reload();
+                    });
+                }
+            } else {
+                // Todo: show error message
+                window.alert("Das hat leider nicht funktioniert.");
+            }
+        }).catch((error) => {
+            console.log(error)
             // Todo: show error message
-        }
-    }).catch((error) => {
-        console.log(error)
-        // Todo: show error message
-    })
+            window.alert("Das hat leider nicht funktioniert.");
+        })
+    }
 }
