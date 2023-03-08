@@ -188,31 +188,32 @@ function showMessages(messages) {
         const newRow = messageTableBody.insertRow();
         newRow.insertCell().textContent = "Admin";
         newRow.insertCell().textContent = messages[i].message;
-        newRow.insertCell().innerHTML = "\u00D7";
-        // delete single message by clicking the "x"
-        newRow.getElementsByTagName("td")[2].classList.add("delete-message");
-        newRow.getElementsByTagName("td")[2].addEventListener("click", (event) => {
-            if (window.confirm("Diese Nachricht wirklich löschen?")) {
-                event.target.parentNode.remove();
-                messageTableBody.rows[0].style.fontWeight = "900";
-                // delete message
+        let deleteCell = newRow.insertCell();
+        deleteCell.textContent = "\u00D7";
+        deleteCell.addEventListener('click', (e) => {
+            const token = $("meta[name='_csrf']").attr("content");
+            const header = $("meta[name='_csrf_header']").attr("content");
 
-            }
+            // csrf to header
+            axios.defaults.headers.put[header] = token
+            // data
+            axios.put("/monthplan/message?messageId="+messages[i].messageId, {}).then(async (res) => {
+                // Display confirmation message if response is ok
+                console.log(res)
+                if (res.data) {
+                } else {
+                    // todo: display message
+                }
+            }).catch((error) => {
+                console.log(error)
+                // todo: display message
+            })
         })
-    }
-    // set a higher font weight for the latest message to highlight it
-    messageTableBody.rows[0].style.fontWeight = "900";
-    // Delete all messages
-    document.getElementById("delete-all-messages").addEventListener("click", () => {
-        if (window.confirm("Wirklich alle Nachrichten löschen?")) {
-            for (let i = messageTableBody.getElementsByTagName("tr").length - 1; i >= 0; i--) {
-                messageTableBody.getElementsByTagName("tr")[i].remove();
-                // delete all messages
-
-                messageBox.remove();
-            }
+        if (i === 0) { // set a higher font weight for the latest message
+            newRow.style.fontWeight = "900";
         }
-    })
+    // Make each message (+ all at once) deletable
+    }
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
     document.getElementById("close-messages").addEventListener("click", () => { messageBox.remove(); });
     window.addEventListener("click", (event) => {

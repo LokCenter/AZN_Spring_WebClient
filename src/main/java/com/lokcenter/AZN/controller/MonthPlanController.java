@@ -105,7 +105,11 @@ public class MonthPlanController {
                 .block());
     }
 
-
+    /**
+     * get all messages by user
+     * @param month
+     * @throws JsonProcessingException
+     */
     @ResponseBody
     @GetMapping("/messages")
     String getMessage(@RequestParam(name = "month", required = true) String month,
@@ -127,5 +131,21 @@ public class MonthPlanController {
         }
 
         return "";
+    }
+
+    @PutMapping("/message")
+    @ResponseBody
+    Boolean deleteMessageByMessageId(@RequestParam(name = "messageId") String messageId,
+                                     @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient  ) {
+        return Boolean.TRUE.equals(this.webClient
+                .delete()
+                .uri(String.format("/monthplan/message?messageId=%s", messageId))
+                .attributes(oauth2AuthorizedClient(authorizedClient))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                // send
+                .retrieve()
+                // res type
+                .bodyToMono(Boolean.class)
+                .block());
     }
 }
