@@ -235,6 +235,7 @@ label[for="denial-message"],
     padding: 0.2em;
 }
 
+#delete-all-messages,
 #send-message-button,
 #acknowledge-message {
     font-size: 1.1rem;
@@ -248,9 +249,18 @@ label[for="denial-message"],
     margin-bottom: 2em;
 }
 
+#delete-all-messages:hover,
 #send-message-button:hover,
 #acknowledge-message:hover {
     cursor: pointer;
     background-color: var(--clr-light);
     color: var(--clr-accent);
+}
+
+#delete-all-messages {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    width: auto;
+    padding: 0.2em 0.4em;
+    margin-bottom: 0.2em;
 }

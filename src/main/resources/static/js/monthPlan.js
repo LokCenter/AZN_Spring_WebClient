@@ -167,6 +167,7 @@ function showMessages(messages) {
             "</div>" +
             "<div class='message-box-content__body'>" +
                 "<div>" +
+                    "<button id='delete-all-messages'>Alle Nachrichten löschen</button>" +
                     "<table id='message-history'>" +
                         "<thead>" +
                             "<tr>" +
@@ -187,14 +188,31 @@ function showMessages(messages) {
         const newRow = messageTableBody.insertRow();
         newRow.insertCell().textContent = "Admin";
         newRow.insertCell().textContent = messages[i].message;
-        let deleteCell = newRow.insertCell();
-        deleteCell.textContent = "\u00D7";
-        deleteCell.setAttribute("message-id", messages[i].messageId)
-        if (i === 0) { // set a higher font weight for the latest message
-            newRow.style.fontWeight = "900";
-        }
-    // Make each message (+ all at once) deletable
+        newRow.insertCell().innerHTML = "\u00D7";
+        // delete single message by clicking the "x"
+        newRow.getElementsByTagName("td")[2].classList.add("delete-message");
+        newRow.getElementsByTagName("td")[2].addEventListener("click", (event) => {
+            if (window.confirm("Diese Nachricht wirklich löschen?")) {
+                event.target.parentNode.remove();
+                messageTableBody.rows[0].style.fontWeight = "900";
+                // delete message
+
+            }
+        })
     }
+    // set a higher font weight for the latest message to highlight it
+    messageTableBody.rows[0].style.fontWeight = "900";
+    // Delete all messages
+    document.getElementById("delete-all-messages").addEventListener("click", () => {
+        if (window.confirm("Wirklich alle Nachrichten löschen?")) {
+            for (let i = messageTableBody.getElementsByTagName("tr").length - 1; i >= 0; i--) {
+                messageTableBody.getElementsByTagName("tr")[i].remove();
+                // delete all messages
+
+                messageBox.remove();
+            }
+        }
+    })
     document.getElementById("acknowledge-message").addEventListener("click", () => { messageBox.remove(); });
     document.getElementById("close-messages").addEventListener("click", () => { messageBox.remove(); });
     window.addEventListener("click", (event) => {
