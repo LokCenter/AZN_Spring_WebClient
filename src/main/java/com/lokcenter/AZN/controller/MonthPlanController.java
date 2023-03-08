@@ -155,7 +155,7 @@ public class MonthPlanController {
      */
     @PutMapping("/messages/delete")
     @ResponseBody
-    Boolean deleteAllMessagesByMonthAndYear(Map<String, String> payload,
+    Boolean deleteAllMessagesByMonthAndYear(@RequestBody Map<String, String> payload,
                                      @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient  ) {
 
         System.out.println(payload);
