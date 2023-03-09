@@ -639,10 +639,11 @@ const sendEditData = () => {
             if (res.data) {
                 window.location.reload();
             } else {
-                // todo: show 'could not be saved' message
+                window.alert("Dies konnte leider nicht gespeichert werden.");
             }
         }).catch((error) => {
-            // todo: show 'could not be saved' message
+            console.log(error);
+            window.alert("Dies konnte leider nicht gespeichert werden.");
         })
     }
 }
