@@ -125,26 +125,28 @@ const submitButton = document.getElementById("submit-azn");
  * Submit month
  */
 submitButton.addEventListener("click", (e) => {
-    // Get CSRF token
-    const token = $("meta[name='_csrf']").attr("content");
-    const header = $("meta[name='_csrf_header']").attr("content");
-    // csrf to header
-    axios.defaults.headers.put[header] = token
-    // data
-    axios.put("monthplan/submit", {
-        "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-        "month": getNumberFromFullMonth(document.
-        getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
-    }).then(async (res) => {
-        // Display confirmation message if response is ok
-        if (res.data) {
-            submitButton.setAttribute("disabled", "")
-            aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
-            aznStatus.getElementsByTagName("span")[0].style.color = "blue";
-        }
-    }).catch((error) => {
-        console.log(error)
-    })
+    if (window.confirm("Sind Sie sicher, dass der Arbeitszeitnachweis abgegeben werden soll?")) {
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        // csrf to header
+        axios.defaults.headers.put[header] = token
+        // data
+        axios.put("monthplan/submit", {
+            "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+            "month": getNumberFromFullMonth(document.
+            getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+        }).then(async (res) => {
+            // Display confirmation message if response is ok
+            if (res.data) {
+                submitButton.setAttribute("disabled", "")
+                aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
+                aznStatus.getElementsByTagName("span")[0].style.color = "blue";
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
 })
 
 const aznStatus = document.getElementById("azn-status");
