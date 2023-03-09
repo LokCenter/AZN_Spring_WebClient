@@ -252,7 +252,7 @@ for (let elem of document.querySelectorAll("a, button")) {
 const deleteAllMessages = () => {
     const messageTableBody = document.getElementById("message-history").getElementsByTagName("tbody")[0];
     const messageBox = document.getElementById("message-box");
-    if (window.confirm("Wirklich alle Nachrichten köschen?")) {
+    if (window.confirm("Wirklich alle Nachrichten löschen?")) {
         // Get CSRF token
         const token = $("meta[name='_csrf']").attr("content");
         const header = $("meta[name='_csrf_header']").attr("content");
