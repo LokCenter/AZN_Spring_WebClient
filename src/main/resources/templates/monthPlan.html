@@ -42,6 +42,7 @@
       <div class="azn-submit-container">
         <p id="azn-status"></p>
         <button id="submit-azn">Arbeitszeitnachweis abgeben</button>
+        <div id="open-messages"><span>&#x2709;</span></div>
       </div>
     </div>
     <script th:src="@{/js/monthPlan.js}"></script>
@@ -107,9 +108,7 @@
         // Display confirmation message if response is ok
           if (res.data !== '' && (res.data.constructor === Object || res.data.constructor === Array)) {
             console.log(res.data);
-            aznStatus.addEventListener("click", () => {showMessages(res.data)})
-            aznStatus.style.textDecoration = "underline";
-            aznStatus.style.cursor = "pointer";
+            document.getElementById("open-messages").addEventListener("click", () => { showMessages(res.data) });
           }
       }).catch((error) => {
         console.log(error)

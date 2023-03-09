@@ -141,9 +141,6 @@ submitButton.addEventListener("click", (e) => {
             submitButton.setAttribute("disabled", "")
             aznStatus.innerHTML = "Abgegeben <span>&olarr;</span>";
             aznStatus.getElementsByTagName("span")[0].style.color = "blue";
-            aznStatus.removeEventListener("click", () => {showMessages(res.data)});
-            aznStatus.style.textDecoration = "none";
-            aznStatus.style.cursor = "default";
         }
     }).catch((error) => {
         console.log(error)
