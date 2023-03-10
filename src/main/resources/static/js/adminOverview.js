@@ -28,6 +28,7 @@ const dp = new DayPilot.Month("dp", {
     onEventDelete: (args) => {
         args.preventDefault();
         if (args.e.tag() === "gUrlaub" || args.e.tag() === "gFeiertag") {
+            console.log("Urlaub")
             const modal = document.body.appendChild(document.createElement("div"));
             modal.classList.add("modal");
             modal.classList.add("delete-event-modal");
@@ -52,7 +53,7 @@ const dp = new DayPilot.Month("dp", {
                     modal.remove();
                 }
             });
-        } if (args.e.tag() === "Krank") {
+        } else if (args.e.tag() === "Krank") {
             const modal = document.body.appendChild(document.createElement("div"));
             modal.classList.add("modal");
             modal.classList.add("delete-event-modal");
@@ -78,6 +79,7 @@ const dp = new DayPilot.Month("dp", {
                 }
             });
         } else {
+            console.log("testx")
             const modal = document.body.appendChild(document.createElement("div"));
             modal.classList.add("modal");
             modal.classList.add("delete-event-modal");
