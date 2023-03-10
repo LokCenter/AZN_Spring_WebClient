@@ -34,7 +34,7 @@
     border-radius: 1rem 1rem 0 0;
     background-color: var(--clr-light);
     color: var(--clr-accent);
-    box-shadow: 0 -3em 2em 0.5em hsl(0deg 0% 0% / 30%);
+    box-shadow: 0 -3em 2em 0.5em hsl(0 1% 1% / 30%);
 }
 
 h1 {
@@ -81,7 +81,7 @@ h1 {
     background-color: var(--clr-light);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    box-shadow: 0 0 2em 0.5em hsl(0deg 0% 0% / 30%);
+    box-shadow: 0 0 2em 0.5em hsl(0 1% 1% / 30%);
 }
 
 /*  --------------------------------------------------

@@ -36,10 +36,10 @@
   --dl-space-space-threeunits: 48px;
   --dl-space-space-oneandhalfunits: 24px;
 
-  --clr-accent: #911d36;
-  --clr-light: #fff;
-  --clr-mid: #dee0ed;
-  --clr-dark: #21222c;
+  --clr-accent: hsl(347, 67%, 34%);
+  --clr-light: hsl(0, 1%, 100%);
+  --clr-mid: hsl(232,29.4%,90%);
+  --clr-dark: hsl(230, 15%, 15%);
 }
 
 /*HTML Base style*/
