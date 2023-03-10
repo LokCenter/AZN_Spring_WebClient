@@ -164,42 +164,6 @@
 					</statelessTestsetInfoReporter>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.samaxes.maven</groupId>
-				<artifactId>minify-maven-plugin</artifactId>
-				<version> 1.7.6</version>
-				<executions>
-					<execution>
-						<id>default-minify</id>
-						<phase>prepare-package</phase>
-						<configuration>
-							<charset>UTF-8</charset>
-							<webappSourceDir>${basedir}/src/main/resources/static</webappSourceDir>
-							<webappTargetDir>${project.build.outputDirectory}/static</webappTargetDir>
-
-							<cssSourceDir>css</cssSourceDir>
-							<cssSourceIncludes>
-								<cssSourceInclude>*.css</cssSourceInclude>
-								<cssSourceInclude>fragments/*.css</cssSourceInclude>
-							</cssSourceIncludes>
-
-							<jsSourceDir>js</jsSourceDir>
-							<jsSourceIncludes>
-								<jsSourceInclude>*js</jsSourceInclude>
-								<jsSourceInclude>helper/*.js</jsSourceInclude>
-							</jsSourceIncludes>
-
-							<jsEngine>CLOSURE</jsEngine>
-                            <skipMerge>true</skipMerge>
-                            <nosuffix>true</nosuffix>
-                            <verbose>true</verbose>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
