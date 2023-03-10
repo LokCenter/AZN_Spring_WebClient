@@ -259,8 +259,15 @@ label[for="denial-message"],
     padding: 0.2em;
 }
 
+#send-cancel-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 #delete-all-messages,
 #send-message-button,
+#cancel-message-button,
 #acknowledge-message {
     font-size: 1.1rem;
     font-weight: 600;
@@ -275,6 +282,7 @@ label[for="denial-message"],
 
 #delete-all-messages:hover,
 #send-message-button:hover,
+#cancel-message-button:hover,
 #acknowledge-message:hover {
     cursor: pointer;
     background-color: var(--clr-light);

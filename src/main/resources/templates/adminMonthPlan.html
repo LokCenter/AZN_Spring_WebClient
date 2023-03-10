@@ -112,7 +112,10 @@
                  "<div id='message-container'>" +
                  "<label for='denial-message'>Ihre Nachricht:</label>" +
                  "<textarea name='denial-message' id='denial-message' rows='4' cols='50'></textarea>" +
-                 "<button id='send-message-button'>Absenden</button>" +
+                 "<div id='send-cancel-container'>" +
+                 "<button id='cancel-message-button'>Abbrechen</button>" +
+                 "<button id='send-message-button'>OK</button>" +
+                 "</div>" +
                  "</div>" +
                  "</div>" +
                  "</div>"
@@ -120,67 +123,81 @@
          document.getElementById("denial-message").focus();
          document.getElementById("send-message-button").addEventListener("click", () => {
            if (document.getElementById("denial-message").value.length >= 3) {
-             if (window.confirm("Sind Sie sicher, dass der Arbeitszeitnachweis abgelehnt werden soll?")) {
-               // Save message
+             // Save message
 
-               // Get CSRF token
-               const token = $("meta[name='_csrf']").attr("content");
-               const header = $("meta[name='_csrf_header']").attr("content");
+             // Get CSRF token
+             const token = $("meta[name='_csrf']").attr("content");
+             const header = $("meta[name='_csrf_header']").attr("content");
 
-               // csrf to header
-               axios.defaults.headers.post[header] = token
-               // data
-               axios.post("azn/message", {
-                 "message": document.getElementById("denial-message").value,
-                 "userid": getQueryByName("userid").toString(),
-                 "type": "AZN_MONTH",
-                 "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-                 "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+             // csrf to header
+             axios.defaults.headers.post[header] = token
+             // data
+             axios.post("azn/message", {
+               "message": document.getElementById("denial-message").value,
+               "userid": getQueryByName("userid").toString(),
+               "type": "AZN_MONTH",
+               "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+               "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
 
-               }).then(async (res) => {
-                 // Display confirmation message if response is ok
-                 if (res.data) {
-                   // close popup
-                   document.getElementById("message-box").remove();
+             }).then(async (res) => {
+               // Display confirmation message if response is ok
+               if (res.data) {
+                 // close popup
+                 document.getElementById("message-box").remove();
 
-                   // send deny if message was send
-                   axios.put("azn/deny", {
-                     "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-                     "month": getNumberFromFullMonth(document.
-                     getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
-                     "userid": getQueryByName("userid").toString()
+                 // send deny if message was send
+                 axios.put("azn/deny", {
+                   "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
+                   "month": getNumberFromFullMonth(document.
+                   getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+                   "userid": getQueryByName("userid").toString()
 
-                   }).then(async (res) => {
-                     // Display confirmation message if response is ok
-                     if (res.data) {
-                       document.getElementById("deny-azn").disabled = true;
-                       document.getElementById("accept-azn").disabled = true;
-                       aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
-                     }
-                   }).catch((error) => {
-                     console.log(error)
-                   })
-                 }
-               }).catch((error) => {
-                 console.log(error)
-               })
-             }
-
+                 }).then(async (res) => {
+                   // Display confirmation message if response is ok
+                   if (res.data) {
+                     document.getElementById("deny-azn").disabled = true;
+                     document.getElementById("accept-azn").disabled = true;
+                     aznStatusAdmin.innerText = "Arbeitszeitnachweis wurde noch nicht abgegeben";
+                   }
+                 }).catch((error) => {
+                   console.log(error)
+                 })
+               }
+             }).catch((error) => {
+               console.log(error)
+             })
            }
          })
          // Close message box
          document.getElementById("close-messages").addEventListener("click", () => {
-           if (window.confirm("Wollen Sie das Fenster wirklich schließen?\nDie Nachricht wird nicht gespeichert.")) {
-             messageBox.remove();
+           if (document.getElementById("denial-message").value.length > 0) {
+             if (window.confirm("Wollen Sie das Fenster wirklich schließen? Die Nachricht wird nicht gespeichert.")) {
+               messageBox.remove();
+             }
+           } else {
+            messageBox.remove();
            }
          });
          window.addEventListener("click", (event) => {
            if (event.target === messageBox) {
-             if (window.confirm("Wollen Sie das Fenster wirklich schließen?\nDie Nachricht wird nicht gespeichert.")) {
-              messageBox.remove();
+             if (document.getElementById("denial-message").value.length > 0) {
+               if (window.confirm("Wollen Sie das Fenster wirklich schließen? Die Nachricht wird nicht gespeichert.")) {
+                 messageBox.remove();
+               }
+             } else {
+               messageBox.remove();
              }
            }
          });
+         document.getElementById("cancel-message-button").addEventListener("click", () => {
+           if (document.getElementById("denial-message").value.length > 0) {
+             if (window.confirm("Wollen Sie das Fenster wirklich schließen? Die Nachricht wird nicht gespeichert.")) {
+               messageBox.remove();
+             }
+           } else {
+             messageBox.remove();
+           }
+         })
        }
 
        // run function
