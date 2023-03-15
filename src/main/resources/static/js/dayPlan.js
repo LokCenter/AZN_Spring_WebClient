@@ -233,7 +233,7 @@ const timeInputPause = document.querySelector("input[name='pause']");
 /**
  * Disable inputs of type "time" when any disabled checkbox is checked.
  */
-if (disabledCheckboxes.some(isCheckboxChecked) === true) {
+if (disabledCheckboxes.some(isCheckboxChecked)) {
     timeInputStart.disabled = true;
     timeInputEnd.disabled = true;
     timeInputPause.disabled = true;
@@ -242,3 +242,19 @@ if (disabledCheckboxes.some(isCheckboxChecked) === true) {
     timeInputEnd.disabled = false;
     timeInputPause.disabled = false;
 }
+
+const sickCheckbox = document.getElementById("radio-sick");
+/**
+ * Disable inputs of type "time" when the "krank" checkbox is checked.
+ */
+sickCheckbox.addEventListener("change", () => {
+    if (sickCheckbox.checked) {
+        timeInputStart.disabled = true;
+        timeInputEnd.disabled = true;
+        timeInputPause.disabled = true;
+    } else {
+        timeInputStart.disabled = false;
+        timeInputEnd.disabled = false;
+        timeInputPause.disabled = false;
+    }
+})
