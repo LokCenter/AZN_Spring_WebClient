@@ -225,15 +225,17 @@ function onlyOneCheckBox(checkbox) {
 }
 
 const disabledCheckboxes = Array.from(document.querySelectorAll("input[type='checkbox']:disabled"));
+const sickCheckbox = document.getElementById("radio-sick");
 let isCheckboxChecked = (checkbox) => checkbox.checked;
 const timeInputStart = document.querySelector("input[name='start_time']");
 const timeInputEnd = document.querySelector("input[name='end_time']");
 const timeInputPause = document.querySelector("input[name='pause']");
 
 /**
- * Disable inputs of type "time" when any disabled checkbox is checked.
+ * Disable inputs of type "time" when any disabled checkbox or the "krank" checkbox is checked.
+ * Checks on page load.
  */
-if (disabledCheckboxes.some(isCheckboxChecked)) {
+if (disabledCheckboxes.some(isCheckboxChecked) || (sickCheckbox.checked)) {
     timeInputStart.disabled = true;
     timeInputEnd.disabled = true;
     timeInputPause.disabled = true;
@@ -243,9 +245,9 @@ if (disabledCheckboxes.some(isCheckboxChecked)) {
     timeInputPause.disabled = false;
 }
 
-const sickCheckbox = document.getElementById("radio-sick");
 /**
  * Disable inputs of type "time" when the "krank" checkbox is checked.
+ * Checks on change.
  */
 sickCheckbox.addEventListener("change", () => {
     if (sickCheckbox.checked) {
