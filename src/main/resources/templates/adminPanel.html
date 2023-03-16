@@ -190,8 +190,9 @@
                 <td>
                     <button
                             th:data-id="${user.get('userId').asInt()}"
+                            th:data-name="${user.get('name').textValue()}"
                             th:text="${user.get('azn_count')}"
-                            onclick="showSubmissions(this.getAttribute('data-id'))">
+                            onclick="showSubmissions(this.getAttribute('data-id'), this.getAttribute('data-name'))">
                     </button>
                 </td>
                 <td>

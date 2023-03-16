@@ -244,9 +244,11 @@ const showRequestListByUser = (userid, username, path) => {
 /**
  * Creates a popup showing a user's submissions.
  * @param id id from user
+ * @param name
  */
-function showSubmissions(id) {
+function showSubmissions(id, name) {
     document.getElementById("dept-both").focus()
+    localStorage.setItem('name', name)
     const modal = document.body.appendChild(document.createElement("div"));
     modal.classList.add("modal");
     modal.classList.add("submissions-modal");
