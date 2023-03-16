@@ -175,6 +175,14 @@ createEventButton.addEventListener("click",() => {
             modal.remove();
         }
     });
+    /**
+     * Set end date to equal start date when start date > end date
+     */
+    startDateElement.addEventListener("change", () => {
+        if (new Date(startDateElement.value) > new Date(endDateElement.value)) {
+            endDateElement.value = startDateElement.value;
+        }
+    })
 });
 
 // Make anchors, buttons unselectable via keyboard to prevent being able to open multiple modals
