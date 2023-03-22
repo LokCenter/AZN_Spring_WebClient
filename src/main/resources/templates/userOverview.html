@@ -31,9 +31,9 @@
             <p>Guthaben/Schuld:</p>
             <p th:if="${balance}" th:text="${balance.asText().substring(0, balance.asText().length() - 3)}"></p>
             <p>Freie Urlaubstage:</p>
-            <p th:if="${stats}" th:text="${stats.get('availableVacationWithRequestedCount').asText().concat(' d')}"></p>
-            <p>Freie Urlaubstage nach Urlaubsantragsannahme:</p>
             <p th:if="${stats}" th:text="${stats.get('availableVacation').asText().concat(' d')}"></p>
+            <p>Freie Urlaubstage nach Urlaubsantragsannahme:</p>
+            <p th:if="${stats}" th:text="${stats.get('availableVacationWithRequestedCount').asText().concat(' d')}"></p>
         </div>
         <button id="create-event-button">Eintrag einfügen</button>
         <div class="legend-wrapper">
