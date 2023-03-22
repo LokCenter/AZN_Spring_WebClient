@@ -61,3 +61,7 @@ td {
 .year-overview tr :last-child {
     min-width: 12em;
 }
+
+#year-overview th:nth-of-type(4) {
+    max-width: 11ch;
+}

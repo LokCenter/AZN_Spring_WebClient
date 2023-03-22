@@ -284,6 +284,10 @@ h2,
     padding: 0.3em 0.9em;
 }
 
+#year-overview-table th:nth-of-type(4) {
+    max-width: 11ch;
+}
+
 .modal-content th {
     background-color: var(--clr-accent);
     color: var(--clr-light);
