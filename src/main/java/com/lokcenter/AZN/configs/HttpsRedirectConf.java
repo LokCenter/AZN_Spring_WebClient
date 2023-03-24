@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+/**
+ * redirect http to https if server is in production
+ *
+ * @implNote use 443 for https and 80 for http in production
+ */
 @Configuration
 @Profile("prod")
 public class HttpsRedirectConf {
