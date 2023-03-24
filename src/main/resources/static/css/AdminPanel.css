@@ -300,9 +300,10 @@ h2,
 }
 
 #request-overview {
-
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    max-height: 24em;
+    overflow-y: scroll;
 }
 
 .event-container {
@@ -586,6 +587,7 @@ h2,
     margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
+    max-height: 24em;
 }
 
 #submissions-container > div {

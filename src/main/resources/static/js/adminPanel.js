@@ -305,6 +305,7 @@ function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
         submissionsContainer.innerHTML = "Kein Arbeitszeitnachweis abgegeben";
         submissionsContainer.style.display = "flex";
         submissionsContainer.style.justifyContent = "center";
+        submissionsContainer.style.overflowY = "auto";
     }
     else {
         for (let i = 0; i < amountOfSubmissions; i++) {
@@ -314,6 +315,7 @@ function setSubmissionModalContent(amountOfSubmissions, months, years, id) {
                     <a href="/admin/monthplan/?month=${months[i]-1}&year=${years[i]}&userid=${id}" className='go-to-submitted-plan'>Zum Monatsplan</a>
                 </div>`;
         }
+        submissionsContainer.style.overflowY = "scroll";
     }
 }
 
@@ -421,8 +423,10 @@ function setRequestModalContent(numOfRequests, eventType, startDate, endDate, us
         requestOverview.innerHTML = "Keine Anfragen vorhanden";
         requestOverview.style.display = "flex";
         requestOverview.style.justifyContent = "center";
+        requestOverview.style.overflowY = "auto";
     } else {
         requestOverview.style.display = "grid";
+        requestOverview.style.overflowY = "scroll";
         for (let i = 0; i < numOfRequests; i++) {
             requestOverview.innerHTML += `
                 <div class="event-container">
