@@ -3,6 +3,8 @@ package com.lokcenter.AZN.configs;
 
 import com.azure.spring.aad.webapp.AADWebSecurityConfigurerAdapter;
 import com.nimbusds.jose.shaded.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,9 +34,9 @@ public class SecurityConfiguration extends AADWebSecurityConfigurerAdapter {
      * HTTP Security configuration with OAuth 2.0 and Microsoft AAD
      * @param http http security instance
      */
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //super.configure(http);
         // allow cors
         http.csrf();
 
