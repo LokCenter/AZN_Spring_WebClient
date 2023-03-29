@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Read only files
+/src/main/resources/application.properties
+/src/main/java/com/lokcenter/AZN/configs/WebClientConfiguration.java
+/src/main/java/com/lokcenter/AZN/configs/SecurityConfiguration.java
+/src/main/java/com/lokcenter/AZN/configs/HttpsRedirectConf.java
