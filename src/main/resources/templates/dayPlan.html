@@ -120,7 +120,7 @@
             }
 
             if (data.school != null && data.school) {
-                document.getElementById('soll').value = '00:00'
+                document.getElementById('soll').value = document.getElementById('ist').value;
             }
 
             let school = document.getElementById("radio-school")
@@ -128,7 +128,7 @@
                 if (school.checked === false) {
                     document.getElementById('soll').value = dataSoll.slice(0, -3)
                 } else {
-                    document.getElementById('soll').value = '00:00'
+                    document.getElementById('soll').value = document.getElementById('ist').value;
                 }
             }
             school.addEventListener("click", target_time)
