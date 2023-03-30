@@ -241,6 +241,19 @@ button:hover {
 
 .modal-content-edit {
     min-width: 66em;
+    position: relative;
+}
+
+.modal-content-edit input {
+    font-size: 1.1rem;
+    border: none;
+    border-bottom: 2px solid var(--clr-accent);
+    min-width: 7em;
+}
+
+.modal-content-edit input:focus {
+    outline: none;
+    background-color: var(--clr-mid);
 }
 
 .modal-content__header {
@@ -343,7 +356,7 @@ h2,
 
 #edit-user-data {
     display: grid;
-    grid-template: 2em 2fr 3fr 3em/ 2fr 2fr;
+    grid-template: 5em 2fr 3fr 3em/ 2fr 2fr;
     align-items: start;
 }
 
@@ -354,6 +367,23 @@ h2,
 
 .duration-container {
     margin-left: 3em;
+}
+
+.duration-container input {
+    min-width: 3em;
+    width: 3em;
+    text-align: center;
+}
+
+.start-end-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template: 1fr 1em / 1fr 1fr;
+    margin-top: 0.5em;
+}
+
+.start-end-container input {
+    width: 8em;
 }
 
 .modal-content-edit .time-info {
@@ -410,32 +440,14 @@ h2,
     min-width: 8rem;
 }
 
-.modal-content-edit {
-    position: relative;
-}
-
-.modal-content-edit input {
-    font-size: 1.1rem;
-    border: none;
-    border-bottom: 2px solid var(--clr-accent);
-    min-width: 7em;
-}
-
-.modal-content-edit .duration-container input {
-    min-width: 3em;
-    width: 3em;
-    text-align: center;
-}
-
-.modal-content-edit input:focus {
-    outline: none;
-    background-color: var(--clr-mid);
-}
-
 .modal-content-edit .duration-container label,
 .modal-content-edit fieldset label {
     font-size: 0.8rem;
     opacity: 0.8;
+}
+
+.duration-container .start-end-container label {
+    margin-left: 0.4em;
 }
 
 .modal-content-edit fieldset label {
