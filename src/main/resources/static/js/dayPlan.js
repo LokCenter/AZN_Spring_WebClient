@@ -230,6 +230,7 @@ let isCheckboxChecked = (checkbox) => checkbox.checked;
 const timeInputStart = document.querySelector("input[name='start_time']");
 const timeInputEnd = document.querySelector("input[name='end_time']");
 const timeInputPause = document.querySelector("input[name='pause']");
+const commentInput = document.getElementById("comment");
 
 /**
  * Disable inputs of type "time" when any disabled checkbox or the "krank" checkbox is checked.
@@ -239,10 +240,12 @@ if (disabledCheckboxes.some(isCheckboxChecked) || (sickCheckbox.checked)) {
     timeInputStart.disabled = true;
     timeInputEnd.disabled = true;
     timeInputPause.disabled = true;
+    commentInput.disabled = true;
 } else {
     timeInputStart.disabled = false;
     timeInputEnd.disabled = false;
     timeInputPause.disabled = false;
+    commentInput.disabled = false;
 }
 
 /**
@@ -254,9 +257,11 @@ sickCheckbox.addEventListener("change", () => {
         timeInputStart.disabled = true;
         timeInputEnd.disabled = true;
         timeInputPause.disabled = true;
+        commentInput.disabled = true;
     } else {
         timeInputStart.disabled = false;
         timeInputEnd.disabled = false;
         timeInputPause.disabled = false;
+        commentInput.disabled = false;
     }
 })
