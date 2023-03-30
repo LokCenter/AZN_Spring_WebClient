@@ -2,11 +2,13 @@ package com.lokcenter.AZN.helper;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Helper methods used in multiple controller
@@ -99,5 +101,12 @@ public class ControllerHelper {
         }
 
         return role.get();
+    }
+
+    /**
+     * Make async request
+     */
+    public static <T> CompletableFuture<Mono<T>> makeRequest(java.util.function.Supplier<Mono<T>> supplier) {
+        return CompletableFuture.supplyAsync(supplier);
     }
 }

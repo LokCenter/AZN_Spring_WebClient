@@ -2,6 +2,7 @@ package com.lokcenter.AZN.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,8 @@ public class OverviewController {
      * @param model The model
      * @return Html page
      */
+
+
     @GetMapping
     String getOverviewPage(Model model,
                            @RequestParam(required = false, name = "firstday") String firstDate,
@@ -68,19 +71,35 @@ public class OverviewController {
         String query =String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s", firstDate, lastDate,month, year, role);
         String query2 = String.format("firstday=%s&lastday=%s&month=%s&year=%s", firstDate, lastDate, month, year);
 
-        Mono<String> res = webClient.get().uri("/overview?" + query).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        var monoCompletableFuture = ControllerHelper.makeRequest(() ->
+            webClient.get().uri("/overview?" + query).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)
+        );
 
-        Mono<String> res2 = webClient.get().uri("/overview/dayt?" + query2).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        Mono<String> res =  monoCompletableFuture.get();
+
+        var monoCompletableFuture2 = ControllerHelper.makeRequest(() ->
+                webClient.get().uri("/overview/dayt?" + query2).
+                        attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)
+        );
+
+        Mono<String> res2 = monoCompletableFuture2.get();
 
         String queryTwo = String.format("year=%s&role=%s", year, role);
 
-        Mono<String> resStats = webClient.get().uri("/overview/stats?" + queryTwo).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        var monoCompletableFuture3 = ControllerHelper.makeRequest(() ->
+                webClient.get().uri("/overview/stats?" + queryTwo).
+                        attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)
+        );
 
-        Mono<String> resBalance = webClient.get().uri("balance?" + queryTwo).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        Mono<String> resStats =  monoCompletableFuture3.get();
+
+        var monoCompletableFuture4 = ControllerHelper.makeRequest(() ->
+                webClient.get().uri("balance?" + queryTwo).
+                        attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)
+        );
+
+        Mono<String> resBalance = monoCompletableFuture4.get();
 
         // check if there is any data
         if (res.block() != null && res2.block() != null && res2.block() != null && resBalance.block() != null) {
