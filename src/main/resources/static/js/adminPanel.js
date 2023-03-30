@@ -27,18 +27,31 @@ let durationInputYear = 0;
  * @param userid requested user id
  * @param res_callback callback func to work with response data
  */
-const makeRequest = (path, userid, res_callback) => {
+axios.interceptors.response.use(
+    response => {
+        if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+            return response.data;
+        }
+    },
+    error => {
+        console.log("cannot request data", error)
+        return Promise.reject(error);
+    }
+);
+
+const makeRequest = async (path, userid, res_callback) => {
     // User Session cookie
     axios.defaults.withCredentials = true;
-    axios.get(path + "?userId=" + userid)
-        .then((response) => {
-            if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
-                res_callback(response.data);
-            }
-        }).catch((e) => {
-        console.log("cannot request data", e)
-    })
-}
+    try {
+        const response = await axios.get(`${path}?userId=${userid}`);
+        const data = response.data;
+        if (data) {
+            res_callback(data);
+        }
+    } catch (error) {
+        console.log("cannot request data", error);
+    }
+};
 
 /**
  * Show default value modal
@@ -562,60 +575,70 @@ function adminRedirect(id, name) {
  * @param name
  */
 const adminEdit = (userid, name) => {
-    document.getElementById("dept-both").focus()
-    document.getElementById('user-name-modal-edit').innerText = name;
-    document.getElementById('user-name-modal-edit').setAttribute('tag', userid)
-   // worktime list
-    axios.get("admin/worktimeList?userId="+ userid)
-        .then((response) => {
-            if (response.data !== '' && response.data != null) {
-                let table = document.getElementById("time-history-table");
-                // set time change values
-                if (response.data.length) {
-                    document.getElementById('work-start').value = response.data[0].workTime['start']
-                    document.getElementById('work-end').value = response.data[0].workTime['end']
-                    document.getElementById('pause').value = response.data[0].workTime['pause']
-                    // format to the right date syntax for input=date
-                    let d = new Date(response.data[0].date);
-                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-                    let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-                    document.getElementById("work-time-date").value = `${ye}-${mo}-${da}`
+    const userNameModalEdit = document.getElementById('user-name-modal-edit');
+
+// Set user name and tag
+    userNameModalEdit.innerText = name;
+    userNameModalEdit.setAttribute('tag', userid);
+
+// Get work time list
+    axios.get(`admin/worktimeList?userId=${userid}`)
+        .then(response => {
+            const { data } = response;
+            if (data) {
+                const table = document.getElementById('time-history-table');
+
+                // Set time change values
+                if (data.length) {
+                    const { workTime, date } = data[0];
+                    document.getElementById('work-start').value = workTime.start;
+                    document.getElementById('work-end').value = workTime.end;
+                    document.getElementById('pause').value = workTime.pause;
+
+                    // Format date
+                    const d = new Date(date);
+                    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+                    const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+                    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+                    document.getElementById('work-time-date').value = `${ye}-${mo}-${da}`;
                 }
 
-              for (const item in response.data) {
-                  const row = table.insertRow();
-
-                  row.insertCell().innerText = new Date(response.data[item].date).toLocaleDateString('de-DE')
-                  row.insertCell().innerText = response.data[item].workTime['start'];
-                  row.insertCell().innerText = response.data[item].workTime['end'];
-                  row.insertCell().innerText = response.data[item].workTime['pause'];
-              }
+                // Add rows to table
+                for (const item of data) {
+                    const { date, workTime } = item;
+                    const row = table.insertRow();
+                    row.insertCell().innerText = new Date(date).toLocaleDateString('de-DE');
+                    row.insertCell().innerText = workTime.start;
+                    row.insertCell().innerText = workTime.end;
+                    row.insertCell().innerText = workTime.pause;
+                }
             }
-        }).catch((e) => {
-            console.log("cannot request data", e)
-        });
-        // get vacation data
-        axios.get("admin/yearsList?userId="+ userid)
-            .then((response) => {
-                if (response.data !== '' && response.data != null) {
-                    let year  = 1;
-                    const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0]
-                    // create rows and columns
-                    for (let i in response.data) {
-                        const row = vacationTableBody.insertRow();
-                        row.insertCell().innerText = i;
-                        row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='0');" value="${response.data[i]}">`
-                    }
-                    // set list size from object
-                    let durationInput = document.getElementById("duration");
-                    durationInputValue = Object.keys(response.data).length -1;
-                    durationInput.value = Object.keys(response.data).length -1;
-                    durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
-                    durationInput.disabled = false;
+        })
+        .catch(e => console.log('cannot request data', e));
+
+// Get vacation data
+    axios.get(`admin/yearsList?userId=${userid}`)
+        .then(response => {
+            const { data } = response;
+            if (data) {
+                const vacationTableBody = document.getElementById('vacation-info').getElementsByTagName('tbody')[0];
+
+                // Create rows and columns
+                for (let i in data) {
+                    const row = vacationTableBody.insertRow();
+                    row.insertCell().innerText = i;
+                    row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='0');" value="${data[i]}">`;
                 }
-        }).catch((e) => {
-        });
+
+                // Set list size from object
+                const durationInput = document.getElementById('duration');
+                const numYears = Object.keys(data).length - 1;
+                durationInput.value = numYears;
+                durationInputYear = Object.keys(data)[numYears];
+                durationInput.disabled = false;
+            }
+        })
+        .catch(e => {});
 
     axios.get("admin/startend?userId="+ userid)
         .then((response) => {

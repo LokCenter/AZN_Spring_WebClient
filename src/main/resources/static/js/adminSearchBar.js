@@ -50,15 +50,71 @@ searchBar.addEventListener("keyup", () => {
 })
 
 /**
- * Filters the user list according to the entered search term
+ * Trie data structure from the user list and returns it.
+ * @param users
+ * @returns Trie
+ */
+function buildUserTrie(users) {
+    const root = {};
+    for (const { username } of users) {
+        let currentNode = root;
+        for (const letter of username) {
+            if (!currentNode[letter]) {
+                currentNode[letter] = {};
+            }
+            currentNode = currentNode[letter];
+        }
+        currentNode.isWord = true;
+    }
+    return root;
+}
+
+
+let userTrie = buildUserTrie([]);
+
+/**
+ * Filters the user list according to the entered search term using trie search
  */
 function filterUserList() {
-    let filter = document.getElementById("search-user").value.toUpperCase();
+    let filter = searchBar.value.toUpperCase();
     let userListContent = userList.getElementsByTagName("li");
+    let currentNode = userTrie;
+
+    for (let i = 0; i < filter.length; i++) {
+        const letter = filter.charAt(i);
+        if (!currentNode[letter]) {
+            for (let j = i; j < filter.length; j++) {
+                for (let k = 0; k < userListContent.length; k++) {
+                    if (userListContent[k].textContent.toUpperCase().startsWith(filter.substring(0, j + 1))) {
+                        userListContent[k].style.display = "";
+                    } else {
+                        userListContent[k].style.display = "none";
+                    }
+                }
+            }
+            return;
+        }
+        currentNode = currentNode[letter];
+    }
+
+    const matchingWords = [];
+
+    function getWords(node, word) {
+        if (node.isWord) {
+            matchingWords.push(word);
+        }
+        for (let letter in node) {
+            if (letter !== "isWord") {
+                getWords(node[letter], word + letter);
+            }
+        }
+    }
+
+    getWords(currentNode, filter);
 
     for (let i = 0; i < userListContent.length; i++) {
-        let user = userListContent[i].textContent.toUpperCase();
-        if (user.indexOf(filter) > -1) {
+        const username = userListContent[i].textContent.toUpperCase();
+        if (matchingWords.length > 0 && matchingWords.includes(username)) {
             userListContent[i].style.display = "";
             let regex = new RegExp(`(${filter})`, "gi");
             userListContent[i].innerHTML = userListContent[i].textContent.replace(regex, "<b>$1</b>");
@@ -72,17 +128,18 @@ function filterUserList() {
  * Trigger filterTable() when clearing the input by clicking the "x" in those browsers that support it.
  */
 searchBar.addEventListener("search", () => {
-    if (document.getElementById("filter-input").value === "") filterTable();
+    if (searchBar.value === "") filterUserList();
 })
 
 /**
- * Request all user names and id's
+ * Request all usernames and id's and build the trie
  */
 axios.get("/admin/usernameList")
     .then((response) => {
         if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
             if (response.data.length > 0) {
                 let users = response.data;
+                userTrie = buildUserTrie(users);
                 createUserList(users);
             }
         } else {
