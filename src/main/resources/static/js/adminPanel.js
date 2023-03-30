@@ -456,7 +456,7 @@ durationInput.addEventListener("click", () => {
         const newYear = newRow.insertCell();
         const newVacation = newRow.insertCell();
         newYear.innerHTML = `${durationInputYear}`;
-        newVacation.innerHTML = `<input type="text" name="vacation-${i}" id="vacation-${i}" max="2">`;
+        newVacation.innerHTML = `<input type="number" name="vacation-${i}" id="vacation-${i}" min="0" max="99">`;
     }
 
     durationInputValue = vacationTableBody.rows.length -1
