@@ -782,4 +782,30 @@ public class AdminController {
             return false;
         }
     }
+
+    /**
+     * Get start date and end date by user
+     * @param userId
+     * @param authentication
+     * @param authorizedClient
+     * @return
+     * @throws Exception
+     */
+    @CrossOrigin("/admin")
+    @GetMapping("/startend")
+    @ResponseBody
+    String getStartEndDateByUser(@RequestParam(name = "userId") String userId, Authentication authentication,
+                             @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            Mono<String> res = webClient.get().uri("admin/startend?userId="+userId).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+            // check if there is any data
+            if (res.block() != null) {
+                return new ObjectMapper().readTree(res.block()).toPrettyString();
+            }
+        }
+
+        return null;
+    }
 }

@@ -616,6 +616,15 @@ const adminEdit = (userid, name) => {
                 }
         }).catch((e) => {
         });
+
+    axios.get("admin/startend?userId="+ userid)
+        .then((response) => {
+            if (response.data !== '' && response.data != null) {
+                document.getElementById("workdate-start").value = unixToDate(response.data.start);
+                document.getElementById("workdate-end").value = unixToDate(response.data.last);
+            }
+        }).catch((e) => {
+    });
 }
 
 /**
