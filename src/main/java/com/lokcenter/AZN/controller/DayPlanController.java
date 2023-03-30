@@ -80,18 +80,22 @@ public class DayPlanController {
 
             String dateString = df.format(requestedDate.orElse(Calendar.getInstance().getTime()));
 
-
             // User roles
-           String role = ControllerHelper.getUserOrAdminRole(authentication);
-
-
-            // make get request and get data
-            Mono<String> res = webClient.get().uri(String.format("/dayplan?date=%s&role=%s", dateString, role)).
-                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+            String role = ControllerHelper.getUserOrAdminRole(authentication);
 
             // make get request and get data
-            Mono<String> resSoll = webClient.get().uri(String.format("worktime/soll?role=%s&date=%s", role, dateString)).
-                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+            var resRequest = ControllerHelper.makeRequest(() ->
+                    webClient.get().uri(String.format("/dayplan?date=%s&role=%s", dateString, role)).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class));
+
+            Mono<String> res = resRequest.get();
+
+            // make get request and get data
+            var resSollRequest = ControllerHelper.makeRequest(() ->
+                    webClient.get().uri(String.format("worktime/soll?role=%s&date=%s", role, dateString)).
+                    attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class));
+
+            Mono<String> resSoll = resSollRequest.get();
 
             // check if there is any data
             if (res.block() != null) {
