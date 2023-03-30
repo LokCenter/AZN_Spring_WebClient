@@ -27,31 +27,18 @@ let durationInputYear = 0;
  * @param userid requested user id
  * @param res_callback callback func to work with response data
  */
-axios.interceptors.response.use(
-    response => {
-        if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
-            return response.data;
-        }
-    },
-    error => {
-        console.log("cannot request data", error)
-        return Promise.reject(error);
-    }
-);
-
-const makeRequest = async (path, userid, res_callback) => {
+const makeRequest = (path, userid, res_callback) => {
     // User Session cookie
     axios.defaults.withCredentials = true;
-    try {
-        const response = await axios.get(`${path}?userId=${userid}`);
-        const data = response.data;
-        if (data) {
-            res_callback(data);
-        }
-    } catch (error) {
-        console.log("cannot request data", error);
-    }
-};
+    axios.get(path + "?userId=" + userid)
+        .then((response) => {
+            if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
+                res_callback(response.data);
+            }
+        }).catch((e) => {
+        console.log("cannot request data", e)
+    })
+}
 
 /**
  * Show default value modal
@@ -64,44 +51,44 @@ standardValuesButton.addEventListener("click", () => {
     modal.style.display = "block";
     modal.innerHTML =
         "<div class='modal-content'>" +
-            "<div class='modal-content__header'>" +
-                "<h2>Standardwerte für neue Benutzer</h2>" +
-                "<span class='close' id='close-standard-values'>&times;</span>" +
-            "</div>" +
-            "<div class='modal-content__body'>" +
-                "<table id='default-values-table'>" +
-                    "<thead>" +
-                        "<tr>" +
-                            "<th>Startdatum</th>" +
-                            "<th>Arbeitsbeginn</th>" +
-                            "<th>Arbeitsende</th>" +
-                            "<th>Pause</th>" +
-                            "<th>Urlaubstage</th>" +
-                            "<th>Löschen</th>" +
-                        "</tr>" +
-                    "</thead>" +
-                    "<tbody></tbody>" +
-                "</table>" +
-                "<div id='standard-values-form'>" +
-                    "<fieldset>" +
-                        "<legend>Standardwerte hinzufügen</legend>" +
-                            "<div class='standards-input-container'>" +
-                                "<input type='date' name='standard-start-date' id='standard-start-date'>" +
-                                "<label for='standard-start-date'>Startdatumn</label>" +
-                                "<input type='time' name='standard-start-time' id='standard-start-time' value='07:15'>" +
-                                "<label for='standard-start-time'>Arbeitsbeginn</label>" +
-                                "<input type='time' name='standard-end-time' id='standard-end-time' value='16:00'>" +
-                                "<label for='standard-end-time'>Arbeitsende</label>" +
-                                "<input type='time' name='standard-pause' id='standard-pause' value='01:00'>" +
-                                "<label for='standard-pause'>Pause</label>" +
-                                "<input type='number' min='0' name='standard-vacation' id='standard-vacation' value='30'>" +
-                                "<label for='standard-vacation'>Urlaubstage</label>" +
-                                "<button type='button' id='add-default-values'>Hinzufügen</button>" +
-                            "</div>" +
-                    "</fieldset>" +
-                "</div>" +
-                "<p id='default-modal-message'></p>" +
-            "</div>" +
+        "<div class='modal-content__header'>" +
+        "<h2>Standardwerte für neue Benutzer</h2>" +
+        "<span class='close' id='close-standard-values'>&times;</span>" +
+        "</div>" +
+        "<div class='modal-content__body'>" +
+        "<table id='default-values-table'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>Startdatum</th>" +
+        "<th>Arbeitsbeginn</th>" +
+        "<th>Arbeitsende</th>" +
+        "<th>Pause</th>" +
+        "<th>Urlaubstage</th>" +
+        "<th>Löschen</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody></tbody>" +
+        "</table>" +
+        "<div id='standard-values-form'>" +
+        "<fieldset>" +
+        "<legend>Standardwerte hinzufügen</legend>" +
+        "<div class='standards-input-container'>" +
+        "<input type='date' name='standard-start-date' id='standard-start-date'>" +
+        "<label for='standard-start-date'>Startdatumn</label>" +
+        "<input type='time' name='standard-start-time' id='standard-start-time' value='07:15'>" +
+        "<label for='standard-start-time'>Arbeitsbeginn</label>" +
+        "<input type='time' name='standard-end-time' id='standard-end-time' value='16:00'>" +
+        "<label for='standard-end-time'>Arbeitsende</label>" +
+        "<input type='time' name='standard-pause' id='standard-pause' value='01:00'>" +
+        "<label for='standard-pause'>Pause</label>" +
+        "<input type='number' min='0' name='standard-vacation' id='standard-vacation' value='30'>" +
+        "<label for='standard-vacation'>Urlaubstage</label>" +
+        "<button type='button' id='add-default-values'>Hinzufügen</button>" +
+        "</div>" +
+        "</fieldset>" +
+        "</div>" +
+        "<p id='default-modal-message'></p>" +
+        "</div>" +
         "</div>";
     document.getElementById('add-default-values').addEventListener("click", () => {
         addDefault()
@@ -123,7 +110,7 @@ standardValuesButton.addEventListener("click", () => {
             }
         }).catch((e) => {
         console.log("cannot request data", e)
-        })
+    })
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
@@ -269,24 +256,24 @@ function showSubmissions(id, name) {
     disableMainWindowScrolling();
     modal.innerHTML =
         "<div class='modal-content'>" +
-            "<div class='modal-content__header'>" +
-                "<h2>Arbeitszeitnachweisabgaben</h2>" +
-                "<span class='close' id='close-submissions'>&times;</span>" +
-            "</div>" +
-            "<div class='modal-content__body'>" +
-                "<div id='submissions-container'></div>" +
-            "</div>" +
+        "<div class='modal-content__header'>" +
+        "<h2>Arbeitszeitnachweisabgaben</h2>" +
+        "<span class='close' id='close-submissions'>&times;</span>" +
+        "</div>" +
+        "<div class='modal-content__body'>" +
+        "<div id='submissions-container'></div>" +
+        "</div>" +
         "</div>";
     // submitted months by userid
     axios.get("/admin/azn/get?userId="+ id)
         .then((response) => {
             if (response.data !== '' && (response.data.constructor === Object || response.data.constructor === Array)) {
-              let months = [];
-              let years = [];
-              for (i in response.data) {
-                  months.push(response.data[i].month)
-                  years.push(`${response.data[i].year}`)
-              }
+                let months = [];
+                let years = [];
+                for (i in response.data) {
+                    months.push(response.data[i].month)
+                    years.push(`${response.data[i].year}`)
+                }
                 setSubmissionModalContent(months.length, months, years, id);
             }
         }).catch((e) => {
@@ -476,7 +463,7 @@ durationInput.addEventListener("click", () => {
     // remove
     for (let i = durationInputValue; i > duration; i--) {
         durationInputYear--;
-       vacationTableBody.deleteRow(vacationTableBody.rows.length -1);
+        vacationTableBody.deleteRow(vacationTableBody.rows.length -1);
     }
     durationInputValue = vacationTableBody.rows.length -1;
 })
@@ -575,70 +562,60 @@ function adminRedirect(id, name) {
  * @param name
  */
 const adminEdit = (userid, name) => {
-    const userNameModalEdit = document.getElementById('user-name-modal-edit');
-
-// Set user name and tag
-    userNameModalEdit.innerText = name;
-    userNameModalEdit.setAttribute('tag', userid);
-
-// Get work time list
-    axios.get(`admin/worktimeList?userId=${userid}`)
-        .then(response => {
-            const { data } = response;
-            if (data) {
-                const table = document.getElementById('time-history-table');
-
-                // Set time change values
-                if (data.length) {
-                    const { workTime, date } = data[0];
-                    document.getElementById('work-start').value = workTime.start;
-                    document.getElementById('work-end').value = workTime.end;
-                    document.getElementById('pause').value = workTime.pause;
-
-                    // Format date
-                    const d = new Date(date);
-                    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-                    const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-                    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-                    document.getElementById('work-time-date').value = `${ye}-${mo}-${da}`;
+    document.getElementById("dept-both").focus()
+    document.getElementById('user-name-modal-edit').innerText = name;
+    document.getElementById('user-name-modal-edit').setAttribute('tag', userid)
+    // worktime list
+    axios.get("admin/worktimeList?userId="+ userid)
+        .then((response) => {
+            if (response.data !== '' && response.data != null) {
+                let table = document.getElementById("time-history-table");
+                // set time change values
+                if (response.data.length) {
+                    document.getElementById('work-start').value = response.data[0].workTime['start']
+                    document.getElementById('work-end').value = response.data[0].workTime['end']
+                    document.getElementById('pause').value = response.data[0].workTime['pause']
+                    // format to the right date syntax for input=date
+                    let d = new Date(response.data[0].date);
+                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+                    let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+                    document.getElementById("work-time-date").value = `${ye}-${mo}-${da}`
                 }
 
-                // Add rows to table
-                for (const item of data) {
-                    const { date, workTime } = item;
+                for (const item in response.data) {
                     const row = table.insertRow();
-                    row.insertCell().innerText = new Date(date).toLocaleDateString('de-DE');
-                    row.insertCell().innerText = workTime.start;
-                    row.insertCell().innerText = workTime.end;
-                    row.insertCell().innerText = workTime.pause;
+
+                    row.insertCell().innerText = new Date(response.data[item].date).toLocaleDateString('de-DE')
+                    row.insertCell().innerText = response.data[item].workTime['start'];
+                    row.insertCell().innerText = response.data[item].workTime['end'];
+                    row.insertCell().innerText = response.data[item].workTime['pause'];
                 }
             }
-        })
-        .catch(e => console.log('cannot request data', e));
-
-// Get vacation data
-    axios.get(`admin/yearsList?userId=${userid}`)
-        .then(response => {
-            const { data } = response;
-            if (data) {
-                const vacationTableBody = document.getElementById('vacation-info').getElementsByTagName('tbody')[0];
-
-                // Create rows and columns
-                for (let i in data) {
+        }).catch((e) => {
+        console.log("cannot request data", e)
+    });
+    // get vacation data
+    axios.get("admin/yearsList?userId="+ userid)
+        .then((response) => {
+            if (response.data !== '' && response.data != null) {
+                let year  = 1;
+                const vacationTableBody = document.getElementById("vacation-info").getElementsByTagName("tbody")[0]
+                // create rows and columns
+                for (let i in response.data) {
                     const row = vacationTableBody.insertRow();
                     row.insertCell().innerText = i;
-                    row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='0');" value="${data[i]}">`;
+                    row.insertCell().innerHTML = `<input type="number" min="0" oninput="validity.valid||(value='0');" value="${response.data[i]}">`
                 }
-
-                // Set list size from object
-                const durationInput = document.getElementById('duration');
-                const numYears = Object.keys(data).length - 1;
-                durationInput.value = numYears;
-                durationInputYear = Object.keys(data)[numYears];
+                // set list size from object
+                let durationInput = document.getElementById("duration");
+                durationInputValue = Object.keys(response.data).length -1;
+                durationInput.value = Object.keys(response.data).length -1;
+                durationInputYear = Object.keys(response.data)[ Object.keys(response.data).length -1];
                 durationInput.disabled = false;
             }
-        })
-        .catch(e => {});
+        }).catch((e) => {
+    });
 
     axios.get("admin/startend?userId="+ userid)
         .then((response) => {
@@ -654,7 +631,7 @@ const adminEdit = (userid, name) => {
  * Axios edit data request
  */
 const sendEditData = () => {
-   // get id from user
+    // get id from user
     let userId = document.getElementById('user-name-modal-edit').getAttribute('tag');
     // check userId
     if (userId) {
