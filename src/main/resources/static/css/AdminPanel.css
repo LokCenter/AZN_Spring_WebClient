@@ -270,6 +270,10 @@ button:hover {
     margin-bottom: 4em;
 }
 
+#edit-modal table {
+    margin-bottom: 0;
+}
+
 h2,
 .close {
     font-size: 1.5rem;
@@ -356,7 +360,7 @@ h2,
 
 #edit-user-data {
     display: grid;
-    grid-template: 5em 2fr 3fr 3em/ 2fr 2fr;
+    grid-template: 5em 5em 3fr 3em/ 2fr 2fr;
     align-items: start;
 }
 
@@ -379,7 +383,7 @@ h2,
     display: grid;
     grid-auto-flow: column;
     grid-template: 1fr 1em / 1fr 1fr;
-    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .start-end-container input {
@@ -413,9 +417,10 @@ h2,
 }
 
 #time-history {
-    /*grid-row-start: 3;*/
     grid-row-start: span 2;
     margin-left: 1em;
+    height: 100%;
+    padding-bottom: 3em;
 }
 
 #time-history p {
@@ -428,7 +433,7 @@ h2,
 #time-history table {
     display: block;
     overflow-y: scroll;
-    max-height: 9em;
+    height: 9em;
 }
 
 #time-history thead {
