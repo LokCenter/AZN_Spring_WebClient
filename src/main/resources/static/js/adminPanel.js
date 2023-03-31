@@ -693,9 +693,25 @@ const adminDelete = (userId, username) => {
     const confirmButton = document.getElementById("confirm-delete-user-button");
     confirmButton.addEventListener("click", () => {
         // Delete user here
-        console.log(`User: ${userId}`)
-        // Close modal
-        modal.style.display = "none";
+        axios.defaults.withCredentials = true;
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        // csrf to header
+        axios.defaults.headers.put[header] = token
+        axios.put("admin/deleteUser?userId="+userId)
+            .then(res => {
+                if (res.data) {
+                    // Close modal
+                    modal.style.display = "none";
+                    window.location.reload();
+                } else {
+                    // TODO: show error message
+                }
+            })
+            .catch(e => {
+                // Todo: show error message
+            });
+
     });
     const cancelButton = document.getElementById("cancel-delete-user-button");
     cancelButton.addEventListener("click", () => {

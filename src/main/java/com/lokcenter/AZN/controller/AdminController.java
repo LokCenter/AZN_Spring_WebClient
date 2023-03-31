@@ -808,4 +808,25 @@ public class AdminController {
 
         return null;
     }
+
+    @PutMapping("/deleteUser")
+    @ResponseBody
+    Boolean deleteUserById(@RequestParam(name = "userId") String userId,Authentication authentication,
+                           @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient ) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
+                    .uri("/admin/deleteUser?userId="+ userId)
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
 }
