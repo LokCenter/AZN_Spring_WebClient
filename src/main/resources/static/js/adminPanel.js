@@ -113,9 +113,7 @@ standardValuesButton.addEventListener("click", () => {
     })
     document.getElementById("close-standard-values").addEventListener("click", () => {modal.remove();});
     window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.remove();
-        }
+        (event.target === modal) && modal.remove();
     });
 })
 
@@ -133,9 +131,7 @@ function deleteDefault(row) {
     axios.put("admin/defaults/delete", {
         "start_date": deleteDate
     }).then(async (res) => {
-        if (res.data) {
-            row.remove();
-        }
+        (res.data) && row.remove();
     }).catch((error) => {
         console.log(error)
     })
@@ -179,7 +175,6 @@ function addDefault() {
                 defaultModalMessage.style.display = "none";
             }
         }).catch((error) => {
-            console.log(error)
             defaultModalMessage.innerText = "Daten konnten nicht gespeichert werden. Eingabe überprüfen.";
             defaultModalMessage.style.display = "block";
         })
@@ -644,25 +639,29 @@ const sendEditData = () => {
         // data
         let yearVacationList = [...vacationTableBody.rows].map(row => [...row.cells]).map(tds => [...[tds[0].innerText,
             tds[1].children[0].value]]);
-        axios.post("admin/edit?userId="+userId, {
-            "start_time": document.getElementById('work-start').value,
-            "end_time":document.getElementById('work-end').value,
-            "pause": document.getElementById('pause').value,
-            "date": document.getElementById('work-time-date').value,
+
+        const workStartInput = document.getElementById('work-start');
+        const workEndInput = document.getElementById('work-end');
+        const pauseInput = document.getElementById('pause');
+        const workTimeDateInput = document.getElementById('work-time-date');
+        const workdateStartInput = document.getElementById('workdate-start');
+        const workdateEndInput = document.getElementById('workdate-end');
+
+        axios.post(`admin/edit?userId=${userId}`, {
+            "start_time": workStartInput.value,
+            "end_time": workEndInput.value,
+            "pause": pauseInput.value,
+            "date": workTimeDateInput.value,
             "yearsVacationList": yearVacationList,
-            "start": document.getElementById("workdate-start").value,
-            "last": document.getElementById("workdate-end").value
+            "start": workdateStartInput.value,
+            "last": workdateEndInput.value
         }).then(async (res) => {
             // Display confirmation message if response is ok
-            if (res.data) {
-                window.location.reload();
-            } else {
+            res.data ? window.location.reload() :
                 window.alert("Dies konnte leider nicht gespeichert werden.");
-            }
-        }).catch((error) => {
-            console.log(error);
+        }).catch(() => {
             window.alert("Dies konnte leider nicht gespeichert werden.");
-        })
+        });
     }
 }
 
