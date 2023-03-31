@@ -677,3 +677,29 @@ const clearEditData = () => {
 for (let elem of document.querySelectorAll("a, button")) {
     elem.tabIndex = "-1";
 }
+
+/**
+ * Delete user
+ * @param userId
+ */
+const adminDelete = (userId, username) => {
+    // Open modal
+    const modal = document.getElementById("delete-user-modal");
+    modal.style.display = "block";
+
+    // Set message and buttons
+    const modalMessage = document.getElementById("delete-user-message");
+    modalMessage.innerText = `Sind sie sicher, dass sie den Nutzer ${username} löschen wollen?`;
+    const confirmButton = document.getElementById("confirm-delete-user-button");
+    confirmButton.addEventListener("click", () => {
+        // Delete user here
+        console.log(`User: ${userId}`)
+        // Close modal
+        modal.style.display = "none";
+    });
+    const cancelButton = document.getElementById("cancel-delete-user-button");
+    cancelButton.addEventListener("click", () => {
+        // Close modal
+        modal.style.display = "none";
+    });
+}

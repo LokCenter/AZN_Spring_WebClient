@@ -322,6 +322,25 @@ h2,
     border-radius: 1em;
 }
 
+#cancel-delete-user-button,
+#confirm-delete-user-button{
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 8em;
+    padding: 0.2em;
+    color: var(--clr-light);
+    background-color: var(--clr-accent);
+    border: 3px solid var(--clr-accent);
+    border-radius: 0.8rem;
+    margin-bottom: 2em;
+}
+
+#delete-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 #request-overview {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;

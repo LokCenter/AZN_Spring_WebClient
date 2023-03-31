@@ -32,6 +32,22 @@
         </div>
     </div>
 
+    <div id="delete-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-content__header">
+                <h2 id="delete-user-modal-header">Bestätigung des Löschvorgangs</h2>
+            </div>
+            <div class="modal-content__body">
+                <p id="delete-user-message"></p>
+            </div>
+            <div id="delete-button-container">
+                <button id="confirm-delete-user-button">Confirm</button>
+                <button id="cancel-delete-user-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal" id="prev-year-modal">
         <div class="modal-content modal-content-prev-year">
             <div class="modal-content__header">
@@ -173,6 +189,7 @@
                     <th scope="col">AZN-Abgaben</th>
                     <th scope="col">Jahresübersicht</th>
                     <th scope="col">Bearbeiten</th>
+                    <th scope="col">Löschen</th>
                 </tr>
             </thead>
             <tbody >
@@ -214,6 +231,12 @@
                         th:data-id="${user.get('userId').asInt()}"
                         onclick="adminEdit(this.getAttribute('data-id'), this.getAttribute('data-name'))"
                         class="edit-btn">Bearbeiten</button></td>
+                <td><button
+                        th:data-id="${user.get('userId').asInt()}"
+                        th:data-name="${user.get('name').textValue()}"
+                        class="delete-btn"
+                        onclick="adminDelete(this.getAttribute('data-id'), this.getAttribute('data-name'))"
+                >&#x1F5D1;</button></td>
             </tr>
             </tbody>
         </table>
