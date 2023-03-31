@@ -143,7 +143,12 @@ axios.get("/admin/usernameList")
                 createUserList(users);
             }
         } else {
-            // TODO: show error message
+            userList.innerHTML = "Es ist ein Fehler aufgetreten.";
+            userList.style.padding = "0.2em 0.5em";
+            userList.style.fontWeight = "700";
+            userList.style.color = "red";
+            userList.style.backgroundColor = "var(--clr-mid)";
+
         }
 
     }).catch((e) => {
