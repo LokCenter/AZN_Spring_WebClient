@@ -69,7 +69,6 @@ function buildUserTrie(users) {
     return root;
 }
 
-
 let userTrie = buildUserTrie([]);
 
 /**
@@ -77,7 +76,7 @@ let userTrie = buildUserTrie([]);
  */
 function filterUserList() {
     let filter = searchBar.value.toUpperCase();
-    let userListContent = userList.getElementsByTagName("li");
+    let userListContent = Array.from(document.querySelectorAll(" li"));
     let currentNode = userTrie;
 
     for (let i = 0; i < filter.length; i++) {
@@ -85,7 +84,7 @@ function filterUserList() {
         if (!currentNode[letter]) {
             for (let j = i; j < filter.length; j++) {
                 for (let k = 0; k < userListContent.length; k++) {
-                    if (userListContent[k].textContent.toUpperCase().startsWith(filter.substring(0, j + 1))) {
+                    if (userListContent[k].textContent.toUpperCase().includes(filter.substring(0, j + 1))) {
                         userListContent[k].style.display = "";
                     } else {
                         userListContent[k].style.display = "none";
@@ -123,6 +122,7 @@ function filterUserList() {
         }
     }
 }
+
 
 /**
  * Trigger filterTable() when clearing the input by clicking the "x" in those browsers that support it.
