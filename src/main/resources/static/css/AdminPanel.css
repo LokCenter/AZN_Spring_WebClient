@@ -185,6 +185,12 @@ h1 {
     min-width: 20ch;
 }
 
+.APTable tbody tr:hover {
+    font-weight: 600;
+    border-top: 2px solid var(--clr-accent);
+    border-bottom: 2px solid var(--clr-accent);
+}
+
 .APTable tbody tr td:first-of-type {
     text-align: left;
 }
