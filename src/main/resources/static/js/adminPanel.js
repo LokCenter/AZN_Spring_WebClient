@@ -642,13 +642,16 @@ const sendEditData = () => {
         // csrf to header
         axios.defaults.headers.post[header] = token
         // data
-        let yearVacationList = [...vacationTableBody.rows].map(row => [...row.cells]).map(tds => [...[tds[0].innerText, tds[1].children[0].value]]);
+        let yearVacationList = [...vacationTableBody.rows].map(row => [...row.cells]).map(tds => [...[tds[0].innerText,
+            tds[1].children[0].value]]);
         axios.post("admin/edit?userId="+userId, {
             "start_time": document.getElementById('work-start').value,
             "end_time":document.getElementById('work-end').value,
             "pause": document.getElementById('pause').value,
             "date": document.getElementById('work-time-date').value,
-            "yearsVacationList": yearVacationList
+            "yearsVacationList": yearVacationList,
+            "start": document.getElementById("workdate-start").value,
+            "last": document.getElementById("workdate-end").value
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
