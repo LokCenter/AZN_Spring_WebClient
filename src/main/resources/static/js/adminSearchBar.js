@@ -76,7 +76,7 @@ let userTrie = buildUserTrie([]);
  */
 function filterUserList() {
     let filter = searchBar.value.toUpperCase();
-    let userListContent = Array.from(document.querySelectorAll(" li"));
+    let userListContent = Array.from(document.querySelectorAll("li"));
     let currentNode = userTrie;
 
     for (let i = 0; i < filter.length; i++) {
@@ -113,16 +113,11 @@ function filterUserList() {
 
     for (let i = 0; i < userListContent.length; i++) {
         const username = userListContent[i].textContent.toUpperCase();
-        if (matchingWords.length > 0 && matchingWords.includes(username)) {
-            userListContent[i].style.display = "";
-            let regex = new RegExp(`(${filter})`, "gi");
-            userListContent[i].innerHTML = userListContent[i].textContent.replace(regex, "<b>$1</b>");
-        } else {
+        if (!(matchingWords.length > 0 && matchingWords.includes(username))) {
             userListContent[i].style.display = "none";
         }
     }
 }
-
 
 /**
  * Trigger filterTable() when clearing the input by clicking the "x" in those browsers that support it.
