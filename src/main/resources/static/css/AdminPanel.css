@@ -339,6 +339,17 @@ h2,
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    margin-top: 1em;
+}
+
+.delete-btn {
+    font-size: 1.8em;
+    font-weight: 600;
+    padding: 0;
+    background: none;
+    color: var(--clr-accent);
+    border: none;
+    border-radius: 0;
 }
 
 #request-overview {
