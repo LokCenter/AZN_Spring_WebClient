@@ -589,11 +589,13 @@ public class AdminController {
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
         String query = String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s", firstDate, lastDate,month, year, role);
-        Mono<String> res = webClient.get().uri("/admin/generalOverview?" + query).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        Mono<String> res = ControllerHelper.makeRequest(() ->
+                webClient.get().uri("/admin/generalOverview?" + query).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
 
-        Mono<String> resStats = webClient.get().uri("/admin/generalOverview/stats?year=" + year).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        Mono<String> resStats = ControllerHelper.makeRequest(() ->
+                webClient.get().uri("/admin/generalOverview/stats?year=" + year).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
 
         // check if there is any data
         if (res.block() != null) {
