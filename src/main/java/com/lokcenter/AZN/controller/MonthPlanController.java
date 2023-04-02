@@ -36,7 +36,7 @@ public class MonthPlanController {
                         @RegisteredOAuth2AuthorizedClient("userwebapp")
                         OAuth2AuthorizedClient authorizedClient, Authentication authentication) throws Exception {
 
-        var month2 = month;
+        String month2;
         // generate date if no date
         if (year == null || month == null) {
             Calendar calendar = Calendar.getInstance();
@@ -44,6 +44,8 @@ public class MonthPlanController {
             month = String.valueOf(calendar.get(Calendar.MONTH));
             month2 = month;
             year = String.valueOf(calendar.get(Calendar.YEAR));
+        } else {
+            month2 = month;
         }
 
         month =  String.valueOf(Integer.parseInt(month) +1);
@@ -52,20 +54,24 @@ public class MonthPlanController {
         String role = ControllerHelper.getUserOrAdminRole(authentication);
 
         // make get request and get data
-        Mono<String> res = webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s", month, year, role)).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        String finalMonth = month;
+        String finalYear = year;
+        Mono<String> res = ControllerHelper.makeRequest(() ->
+                webClient.get().uri(String.format("/monthplan?month=%s&year=%s&role=%s", finalMonth, finalYear, role)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
 
-        Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
+        Mono<String> resStatus = ControllerHelper.makeRequest(() ->webClient.method(HttpMethod.GET).uri("monthplan/status").
                 attributes(oauth2AuthorizedClient(authorizedClient))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 // send
-                .body(Mono.just(Map.of("month", month, "year", year)), Map.class)
-                .retrieve().bodyToMono(String.class);
+                .body(Mono.just(Map.of("month", finalMonth, "year", finalYear)), Map.class)
+                .retrieve().bodyToMono(String.class)).get();
 
         // get soll time
-        Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s&year=%s",
-                        role, month2, year)).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+        Mono<String> resSoll = ControllerHelper.makeRequest(()
+                -> webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s&year=%s",
+                        role, month2, finalYear)).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
 
         // check if there is any data
         if (res.block() != null && resStatus.block() != null && resSoll.block() != null) {
