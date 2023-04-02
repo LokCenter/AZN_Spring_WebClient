@@ -592,11 +592,16 @@ public class AdminController {
         Mono<String> res = webClient.get().uri("/admin/generalOverview?" + query).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
+        Mono<String> resStats = webClient.get().uri("/admin/generalOverview/stats?year=" + year).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
         // check if there is any data
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            JsonNode jsonStats = new ObjectMapper().readTree(resStats.block());
 
             model.addAttribute("data", jsonData);
+            model.addAttribute("stats", jsonStats);
 
             return "generalOverview";
         }
