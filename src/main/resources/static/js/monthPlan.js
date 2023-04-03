@@ -160,7 +160,7 @@ submitButton.addEventListener("click", (e) => {
         // data
         axios.put("monthplan/submit", {
             "year": document.getElementById("month-input").value.split('-')[0],
-            "month": document.getElementById("month-input").value.split('-')[1]
+            "month": Number(document.getElementById("month-input").value.split('-')[1])
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
@@ -285,7 +285,7 @@ const deleteAllMessages = () => {
         // data
         axios.put("monthplan/messages/delete", {
             "year": document.getElementById("month-input").value.split('-')[0],
-            "month": document.getElementById("month-input").value.split('-')[1]
+            "month": Number(document.getElementById("month-input").value.split('-')[1])
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
