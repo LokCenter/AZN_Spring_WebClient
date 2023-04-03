@@ -322,16 +322,29 @@ h2,
     border-radius: 1em;
 }
 
+#delete-user-modal .modal-content__body {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#delete-user-modal .delete-error {
+    color: red;
+    font-weight: 600;
+    margin-top: 0.5em;
+}
+
+.highlight-user {
+    font-weight: 600;
+}
+
 #cancel-delete-user-button,
 #confirm-delete-user-button{
     font-size: 1.1rem;
     font-weight: 600;
     width: 8em;
     padding: 0.2em;
-    color: var(--clr-light);
-    background-color: var(--clr-accent);
     border: 3px solid var(--clr-accent);
-    border-radius: 0.8rem;
     margin-bottom: 2em;
 }
 

@@ -689,7 +689,7 @@ const adminDelete = (userId, username) => {
 
     // Set message and buttons
     const modalMessage = document.getElementById("delete-user-message");
-    modalMessage.innerText = `Sind sie sicher, dass sie den Nutzer ${username} löschen wollen?`;
+    modalMessage.innerHTML = `Sind Sie sicher, dass Sie den Nutzer <span class="highlight-user">${username}</span> löschen wollen?`;
     const confirmButton = document.getElementById("confirm-delete-user-button");
     confirmButton.addEventListener("click", () => {
         // Delete user here
@@ -705,11 +705,17 @@ const adminDelete = (userId, username) => {
                     modal.style.display = "none";
                     window.location.reload();
                 } else {
-                    // TODO: show error message
+                    const errorMessage = document.createElement("p");
+                    errorMessage.classList.add("delete-error");
+                    errorMessage.textContent = "Leider trat bei diesem Vorgang ein Fehler auf."
+                    modal.getElementsByClassName("modal-content__body")[0].append(errorMessage);
                 }
             })
             .catch(e => {
-                // Todo: show error message
+                const errorMessage = document.createElement("p");
+                errorMessage.classList.add("delete-error");
+                errorMessage.textContent = "Leider trat bei diesem Vorgang ein Fehler auf."
+                modal.getElementsByClassName("modal-content__body")[0].append(errorMessage);
             });
 
     });
