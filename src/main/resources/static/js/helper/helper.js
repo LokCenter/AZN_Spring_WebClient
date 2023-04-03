@@ -112,40 +112,6 @@ function getFullMonth(month) {
 }
 
 /**
- * Get month as number from month string
- * @param {string} month
- * @returns {number} month
- */
-function getNumberFromFullMonth(month) {
-    switch (month) {
-        case "Januar":
-            return 1;
-        case "Februar":
-            return 2;
-        case "März":
-            return 3;
-        case "April":
-            return 4;
-        case "Mai":
-            return 5;
-        case "Juni":
-            return 6;
-        case "Juli":
-            return 7;
-        case "August":
-            return 8;
-        case "September":
-            return 9;
-        case "Oktober":
-            return 10;
-        case "November":
-            return 11;
-        case "Dezember":
-            return 12;
-    }
-}
-
-/**
  * Sleep function wih async
  * @param milli milliseconds as int
  *
