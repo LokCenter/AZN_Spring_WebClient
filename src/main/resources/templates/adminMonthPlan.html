@@ -233,7 +233,7 @@
         viewedDate = new Date(Number(year), Number(month), 1);
       }
 
-      dateSwitchDate.textContent = `${getFullMonth(viewedDate.getMonth())} ${viewedDate.getFullYear()}`;
+      monthInput.value = `${viewedDate.getFullYear()}-${withZero(viewedDate.getMonth() + 1)}`;
 
       displayTable(viewedDate, data, sollData);
 

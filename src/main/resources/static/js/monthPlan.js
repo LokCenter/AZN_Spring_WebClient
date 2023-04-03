@@ -23,9 +23,15 @@ nextMonthButton.addEventListener("click", () => {
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 
-// Date picker
+// Date navigation via month picker
 monthInput.addEventListener("change", () => {
-    // switch month
+    viewedDate.setFullYear(Number(monthInput.value.split('-')[0]));
+    viewedDate.setMonth(Number(monthInput.value.split('-')[1]) - 1);
+    if (url.searchParams.has('userid')) {
+        window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
+        return;
+    }
+    window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
 })
 
 /**
