@@ -68,9 +68,8 @@
           axios.defaults.baseURL = "/admin/"
           // data
           axios.put("azn/accept", {
-            "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-            "month": getNumberFromFullMonth(document.
-            getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+            "year": document.getElementById("month-input").value.split('-')[0],
+            "month": document.getElementById("month-input").value.split('-')[1],
             "userid": getQueryByName("userid").toString()
 
           }).then(async (res) => {
@@ -136,8 +135,8 @@
                "message": document.getElementById("denial-message").value,
                "userid": getQueryByName("userid").toString(),
                "type": "AZN_MONTH",
-               "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-               "month": getNumberFromFullMonth(document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+               "year": document.getElementById("month-input").value.split('-')[0],
+               "month": document.getElementById("month-input").value.split('-')[1]
 
              }).then(async (res) => {
                // Display confirmation message if response is ok
@@ -147,9 +146,8 @@
 
                  // send deny if message was send
                  axios.put("azn/deny", {
-                   "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-                   "month": getNumberFromFullMonth(document.
-                   getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0]),
+                   "year": document.getElementById("month-input").value.split('-')[0],
+                   "month": document.getElementById("month-input").value.split('-')[1],
                    "userid": getQueryByName("userid").toString()
 
                  }).then(async (res) => {
