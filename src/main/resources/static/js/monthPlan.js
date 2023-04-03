@@ -24,7 +24,7 @@ nextMonthButton.addEventListener("click", () => {
 })
 
 // Date navigation via month picker
-monthInput.addEventListener("change", () => {
+monthInput.addEventListener("focusout", (e) => {
     viewedDate.setFullYear(Number(monthInput.value.split('-')[0]));
     viewedDate.setMonth(Number(monthInput.value.split('-')[1]) - 1);
     if (url.searchParams.has('userid')) {
@@ -32,6 +32,17 @@ monthInput.addEventListener("change", () => {
         return;
     }
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
+})
+monthInput.addEventListener("keyup", event => {
+    if (event.key === "Enter") {
+        viewedDate.setFullYear(Number(monthInput.value.split('-')[0]));
+        viewedDate.setMonth(Number(monthInput.value.split('-')[1]) - 1);
+        if (url.searchParams.has('userid')) {
+            window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}&userid=${getQueryByName("userid")}`
+            return;
+        }
+        window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
+    }
 })
 
 /**
