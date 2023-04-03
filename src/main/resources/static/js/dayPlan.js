@@ -145,6 +145,9 @@ function onTimeChange(key, value) {
     // Set ist
     const ist = document.getElementById("ist");
     ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
+    if (document.getElementById("radio-school").checked) {
+        document.getElementById("soll").value = ist.value;
+    }
 }
 onTimeChange();
 
