@@ -109,7 +109,11 @@ function displayTable(date, data, dataSoll) {
         schoolCell.textContent = data[i].school === true? 'x': ''
         let commentCell = row.insertCell();
         commentCell.textContent = data[i].comment != null ? data[i].comment: ''
-        if (glazCell.textContent == 'x' || sickCell.textContent == 'x' || vacationCell.textContent == 'x' || holidayCell.textContent == 'x' || schoolCell.textContent == 'x' || commentCell.textContent == 'x') {
+        if (glazCell.textContent == 'x' || sickCell.textContent == 'x' || vacationCell.textContent == 'x' || holidayCell.textContent == 'x' || commentCell.textContent == 'x') {
+            continue;
+        }
+        if (schoolCell.textContent == 'x') {
+            sollCell.textContent = istCell.textContent
             continue;
         }
         if ((dt.getDay() % 6) === 0) {
