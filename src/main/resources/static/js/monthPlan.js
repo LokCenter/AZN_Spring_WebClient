@@ -1,4 +1,4 @@
-const dateSwitchDate = document.getElementById("dateSwitchDateMonthPlan");
+const monthInput = document.getElementById("month-input");
 const prevMonthButton = document.getElementById("left-monthPlan-switch");
 const nextMonthButton = document.getElementById("right-monthPlan-switch");
 
@@ -21,6 +21,11 @@ nextMonthButton.addEventListener("click", () => {
     }
     // go one month right
     window.location = window.location.href.split('?')[0] + `?month=${viewedDate.getMonth()}&year=${viewedDate.getFullYear()}`
+})
+
+// Date picker
+monthInput.addEventListener("change", () => {
+    // switch month
 })
 
 /**
@@ -137,9 +142,8 @@ submitButton.addEventListener("click", (e) => {
         axios.defaults.headers.put[header] = token
         // data
         axios.put("monthplan/submit", {
-            "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-            "month": getNumberFromFullMonth(document.
-            getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+            "year": document.getElementById("month-input").value.split('-')[0],
+            "month": document.getElementById("month-input").value.split('-')[1]
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {
@@ -263,9 +267,8 @@ const deleteAllMessages = () => {
         axios.defaults.headers.put[header] = token
         // data
         axios.put("monthplan/messages/delete", {
-            "year": document.getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[1],
-            "month": getNumberFromFullMonth(document.
-            getElementById("dateSwitchDateMonthPlan").innerHTML.split(' ')[0])
+            "year": document.getElementById("month-input").value.split('-')[0],
+            "month": document.getElementById("month-input").value.split('-')[1]
         }).then(async (res) => {
             // Display confirmation message if response is ok
             if (res.data) {

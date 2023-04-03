@@ -12,6 +12,7 @@
 
 .daySwitch-container button,
 .daySwitch-container p,
+.daySwitch-container input[type="month"],
 .daySwitch-container input[type="date"] {
     font-size: 1.1rem;
     font-weight: 600;
@@ -29,6 +30,7 @@
     justify-content: space-evenly;
 }
 
+.daySwitch-container input[type="month"],
 .daySwitch-container input[type="date"] {
     border: 2px solid var(--clr-light);
 }
