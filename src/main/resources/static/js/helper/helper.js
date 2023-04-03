@@ -6,10 +6,12 @@
  * gets the startDateValue of the current visible month and assigns it the correct label with full month name and year
  */
 function updateTimeDisplay() {
-    let timeDisplay = dp.startDate.value;
-    let year = timeDisplay.slice(0, 4);
-    let month = timeDisplay.slice(5, 7);
-    document.getElementById("month-input").value = `${year}-${month}`;
+    const params = new URLSearchParams(window.location.search)
+    let year = params.get('year');
+    let month = params.get('month');
+    document.getElementById("month-input").value = year + '-' + month;
+    dp.startDate = year + '-' + month + '-01T00:00:00';
+    dp.update();
 }
 
 /**

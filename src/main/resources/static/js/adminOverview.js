@@ -152,14 +152,13 @@ if (window.location.href.indexOf('?' + "firstday" + '=') !== -1) {
 
 const leftDaySwitch = document.getElementById("left-dayPlan-switch");
 const rightDaySwitch = document.getElementById("right-dayPlan-switch");
+const monthInput = document.getElementById('month-input');
 
 /**
  * Display the previous month
  */
 leftDaySwitch.addEventListener("click", (e) => {
     dp.startDate = dp.startDate.addMonths(-1)
-    updateTimeDisplay()
-    dp.update();
     getDaysAsQuery();
 })
 
@@ -168,12 +167,29 @@ leftDaySwitch.addEventListener("click", (e) => {
  */
 rightDaySwitch.addEventListener("click", (e) => {
     dp.startDate = dp.startDate.addMonths(1)
-    updateTimeDisplay()
-    dp.update();
     getDaysAsQuery();
 });
 
+/**
+ * Display selected month
+ */
+monthInput.addEventListener("focusout", (e) => {
+    let year = monthInput.value.slice(0,4);
+    let month = monthInput.value.slice(5);
+    dp.startDate = year + '-' + month + '-01T00:00:00';
+    getDaysAsQuery()
+})
+monthInput.addEventListener("keyup", event => {
+    if (event.key === "Enter") {
+        let year = monthInput.value.slice(0,4);
+        let month = monthInput.value.slice(5);
+        dp.startDate = year + '-' + month + '-01T00:00:00';
+        getDaysAsQuery()
+    }
+})
+
 const getDaysAsQuery = () => {
+    dp.update()
     let cells  = document.getElementsByClassName("month_default_cell_inner");
     let firstDay = cells[0].childNodes[0].innerText.replace( /^\D+/g, '');
     let lastDay = cells[cells.length - 1].childNodes[0].innerText.replace( /^\D+/g, '');
