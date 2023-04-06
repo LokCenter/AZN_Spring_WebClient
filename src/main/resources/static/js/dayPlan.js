@@ -141,10 +141,14 @@ function onTimeChange(key, value) {
     istValue.setMinutes(
         getTime("end_time").getMinutes() - getTime("start_time").getMinutes() - getTime("pause").getMinutes()
     );
-
-    // Set ist
-    const ist = document.getElementById("ist");
-    ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
+    if (endTime.value === "00:00") {
+        document.getElementById("ist").value = "00:00";
+        console.log("test")
+    } else {
+        // Set ist
+        const ist = document.getElementById("ist");
+        ist.value = `${withZero(istValue.getHours())}:${withZero(istValue.getMinutes())}`;
+    }
     if (document.getElementById("radio-school").checked) {
         document.getElementById("soll").value = ist.value;
     }
