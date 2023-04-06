@@ -74,12 +74,18 @@
                 // 1. Krank 2. Schule 3. Urlaub 4. Glaz
                 if (data.sick != null && data.sick) {
                     document.getElementById("radio-sick").checked = true;
-                } else if (data.school != null && data.school) {
+                }
+                if (data.school != null && data.school) {
                     document.getElementById("radio-school").checked = true;
-                } else if (data.vacation != null && data.vacation) {
+                }
+                if (data.vacation != null && data.vacation) {
                     document.getElementById("radio-vacation").checked = true;
-                } else if (data.glaz != null && data.glaz) {
+                }
+                if (data.glaz != null && data.glaz) {
                     document.getElementById("radio-glaz").checked = true;
+                }
+                if (data.holiday != null && data.holiday) {
+                    document.getElementById("radio-holiday").checked = true;
                 }
             }
 
