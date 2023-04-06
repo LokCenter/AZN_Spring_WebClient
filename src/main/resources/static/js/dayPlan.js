@@ -233,6 +233,9 @@ function onlyOneCheckBox(checkbox) {
 
 const disabledCheckboxes = Array.from(document.querySelectorAll("input[type='checkbox']:disabled"));
 const sickCheckbox = document.getElementById("radio-sick");
+const glazCheckbox = document.getElementById("radio-glaz");
+const vacationCheckbox = document.getElementById("radio-vacation");
+const holidayCheckbox = document.getElementById("radio-holiday");
 let isCheckboxChecked = (checkbox) => checkbox.checked;
 const timeInputStart = document.querySelector("input[name='start_time']");
 const timeInputEnd = document.querySelector("input[name='end_time']");
@@ -260,7 +263,7 @@ if (disabledCheckboxes.some(isCheckboxChecked) || (sickCheckbox.checked)) {
  * Checks on change.
  */
 sickCheckbox.addEventListener("change", () => {
-    if (sickCheckbox.checked) {
+    if (sickCheckbox.checked || glazCheckbox.checked || vacationCheckbox.checked || holidayCheckbox.checked) {
         timeInputStart.disabled = true;
         timeInputEnd.disabled = true;
         timeInputPause.disabled = true;
