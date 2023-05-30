@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/toggle.css}"/>
     <link rel="stylesheet" th:href="@{/css/yearPlan.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}"/>
     <script th:src="@{/js/helper/yearOverviewTable.js}"></script>
 </head>
 <body>
@@ -72,6 +73,7 @@
             </tbody>
         </table>
     </div>
+    <div th:replace="fragments/footer :: footer"></div>
 <!--    <script th:src="@{/js/yearPlan.js}"></script>-->
 <script th:inline="javascript">
     /*<![CDATA[*/

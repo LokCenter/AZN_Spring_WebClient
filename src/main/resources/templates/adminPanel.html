@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/AdminPanel.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/radio.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}"/>
     <link rel="icon" type="image/x-icon" th:href="@{/images/fav/admin.ico}">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
@@ -241,6 +242,7 @@
             </tbody>
         </table>
     </main>
+    <div th:replace="fragments/footer :: footer"></div>
 
     <script th:src="@{/js/adminPanel.js}"></script>
 </body>

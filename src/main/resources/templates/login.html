@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>AZN - Login</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
 </head>
 <body>
 
@@ -15,5 +17,6 @@
             Sign in with Microsoft</button>
     </div>
 </form>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -1,0 +1,24 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background-color: var(--clr-accent);
+    padding: 0.3em 0;
+}
+
+footer span {
+    color: var(--clr-light);
+}
+
+footer a {
+    color: var(--clr-light);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+}
