@@ -172,6 +172,11 @@ h1 {
     padding: 0.3em 0.9em;
 }
 
+.APTable thead {
+    position: sticky;
+    top: 0;
+}
+
 .APTable thead tr {
     background-color: var(--clr-accent);
     color: var(--clr-light);
