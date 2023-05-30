@@ -8,13 +8,16 @@
     <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
 </head>
 <body>
-
+<h1>Arbeitszeitnachweis</h1>
 <form th:action="@{/loginUser}">
-    <h2 id="login-tile">Login</h2>
-    <div class="block">
-        <button class="btn-absolute bsk-btn bsk-btn-default">
-            <object type="image/svg+xml" data="https://s3-eu-west-1.amazonaws.com/cdn-testing.web.bas.ac.uk/scratch/bas-style-kit/ms-pictogram/ms-pictogram.svg" class="x-icon"></object>
-            Sign in with Microsoft</button>
+    <div id="login-container">
+        <span id="login-tile">Login</span>
+        <div class="button-container">
+            <button class="btn-absolute bsk-btn bsk-btn-default">
+                <object type="image/svg+xml" data="https://s3-eu-west-1.amazonaws.com/cdn-testing.web.bas.ac.uk/scratch/bas-style-kit/ms-pictogram/ms-pictogram.svg" class="x-icon"></object>
+                Sign in with Microsoft</button>
+        </div>
+
     </div>
 </form>
     <div th:replace="fragments/footer :: footer"></div>

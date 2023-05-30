@@ -2,30 +2,35 @@
 Login Page
  */
 
-#login-tile {
-    text-align: center;
-    margin-top: -160px;
-}
-
-html {
-    background-color: white;
-}
-
 body {
-    height: 70vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
-.block {
-    position: relative;
-    width: 400px;
-    height: 50px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    margin: 1.5em;
+}
+
+#login-container {
+    width: 300px;
+    height: 175px;
+    box-shadow: 1px 1px 6px 6px var(--clr-mid);
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-tile {
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1em 0 1.2em;
+    padding: 0.1em;
 }
 
 .btn-absolute {
@@ -43,6 +48,7 @@ body {
     top: .125em;
     position: relative;
 }
+
 .x-alt {
     color: #fff;
 }
