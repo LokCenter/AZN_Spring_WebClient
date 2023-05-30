@@ -170,6 +170,38 @@ pause.addEventListener("change", () => {
 });
 
 /**
+ * Delete button
+ *
+ * @description Data will be deleted
+ */
+let deleteButton = document.getElementById("delete-button");
+
+deleteButton.addEventListener('click', (e) => {
+    // Get CSRF token
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    // csrf to header
+    axios.defaults.headers.post[header] = token
+    // data
+    axios.post("/dayplan/delete?date="+ currDate.format("DD-MM-YYYY")).then(async (res) => {
+        // Display confirmation message if response is ok
+        if (res.data) {
+            window.location.reload();
+
+        }else {
+             // TODO: show message
+        }
+
+        // non-blocking sleep
+        await sleep(2000);
+        // TODO: clear message
+    }).catch((error) => {
+        console.log(error)
+    })
+})
+
+/**
  * Save Button
  *
  * @description Data will be sent to the Spring Controller (Client Side)

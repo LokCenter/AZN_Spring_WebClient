@@ -2,23 +2,14 @@ package com.lokcenter.AZN.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
 import lombok.AllArgsConstructor;
-
-import lombok.NonNull;
-import mjson.Json;
-import net.minidev.json.writer.JsonReader;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -27,15 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-
-import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -53,6 +38,7 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @AllArgsConstructor
 @RequestMapping("/dayplan")
 public class DayPlanController {
+
     private final WebClient webClient;
     /**
      * Show "Tagesübersicht"
@@ -118,6 +104,27 @@ public class DayPlanController {
 
             throw new Exception("Bad request");
         }
+    }
+
+    @PostMapping("/delete")
+    @CrossOrigin("/dayplan")
+    @ResponseBody
+    boolean deleteDayPlanData(@RequestParam(name = "date") String date,
+                        @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
+
+        // junit can't push data to the resource server
+        if (JunitHelper.isJUnitTest()) {
+            return true;
+        }
+        // post to backend
+        return Boolean.TRUE.equals(this.webClient
+                .delete()
+                .uri("/dayplan/delete?date="+date)
+                .attributes(oauth2AuthorizedClient(authorizedClient))
+                .retrieve()
+                // res type
+                .bodyToMono(Boolean.class)
+                .block());
     }
 
     /**
