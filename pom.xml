@@ -113,6 +113,24 @@
 			<artifactId>minify-maven-plugin</artifactId>
 			<version>1.7.6</version>
 		</dependency>
+		<!-- https://mvnrepositorcom.nimbusds.oauth2.sdk.http.CommonContentTypesy.com/artifact/com.azure/azure-identity -->
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-identity</artifactId>
+			<version>1.9.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.graph</groupId>
+			<artifactId>microsoft-graph</artifactId>
+			<version>5.59.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>msal4j</artifactId>
+			<version>1.14.0-beta</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

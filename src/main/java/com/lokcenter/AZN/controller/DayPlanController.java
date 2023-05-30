@@ -1,14 +1,16 @@
 package com.lokcenter.AZN.controller;
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lokcenter.AZN.configs.SpringOAuth2AuthProvider;
 import com.lokcenter.AZN.helper.ControllerHelper;
+import com.lokcenter.AZN.helper.GraphClientHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
+import com.microsoft.graph.requests.GraphServiceClient;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -21,10 +23,7 @@ import reactor.core.publisher.Mono;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
@@ -40,6 +39,7 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 public class DayPlanController {
 
     private final WebClient webClient;
+
     /**
      * Show "Tagesübersicht"
      * @param model add stuff to the frond-end
@@ -49,7 +49,21 @@ public class DayPlanController {
     @GetMapping
     String getDayPlan(Model model, @RequestParam(name = "date", required = false) String date,
                       @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                      @RegisteredOAuth2AuthorizedClient("graph") OAuth2AuthorizedClient authorizedClientGraph,
                       Authentication authentication) throws Exception {
+
+//        try {
+//            var client = GraphClientHelper.getGraphClient(authorizedClientGraph);
+//
+//            System.out.println(client.me().buildRequest().get());
+//
+//        } catch (Exception e)
+//        {
+//            System.out.println("Error initializing Graph for user auth");
+//            System.out.println(e.getMessage());
+//        }
+
+
         if (JunitHelper.isJUnitTest()) {
             return "dayPlan";
         } else {
