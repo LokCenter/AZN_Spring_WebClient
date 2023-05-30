@@ -42,14 +42,15 @@
 .save-button-wrapper {
     width: 90%;
     display: flex;
+    gap: 3em;
     justify-content: center;
     border-top: 2px solid var(--clr-accent);
 }
 
-.save-button-wrapper button {
+#save-button {
     font-size: 1.4rem;
     font-weight: 700;;
-    margin-top: 2em;
+    margin-top: 3rem;
     padding: 0.5em;
     color: var(--clr-light);
     background-color: var(--clr-accent);
@@ -57,10 +58,24 @@
     border-radius: 0.8rem;
 }
 
-.save-button-wrapper button:hover {
+#delete-button {
+    font-size: 1.1rem;
+    background-color: var(--clr-light);
+    margin-top: 3rem;
+    padding: 0.5em;
+    border: 3px solid var(--clr-mid);
+    border-radius: 0.8rem;
+}
+
+#save-button:hover {
     cursor: pointer;
     background-color: var(--clr-light);
     color: var(--clr-accent);
+}
+
+#delete-button:hover {
+    background-color: var(--clr-mid);
+    cursor: pointer;
 }
 
 .save-confirmation-container {
