@@ -186,16 +186,17 @@ deleteButton.addEventListener('click', (e) => {
     // data
     axios.post("/dayplan/delete?date="+ currDate.format("DD-MM-YYYY")).then(async (res) => {
         // Display confirmation message if response is ok
+        const deletionMessage = document.getElementById("save-confirmation");
         if (res.data) {
+            deletionMessage.innerText = "Eintrag wurde gelöscht";
             window.location.reload();
-
         }else {
-             // TODO: show message
+            deletionMessage.innerText = "Eintrag konnte nicht gelöscht werden";
         }
 
         // non-blocking sleep
         await sleep(2000);
-        // TODO: clear message
+        deletionMessage.innerText = "";
     }).catch((error) => {
         console.log(error)
     })
