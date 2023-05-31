@@ -283,12 +283,19 @@ if (disabledCheckboxes.some(isCheckboxChecked) || (sickCheckbox.checked)) {
     timeInputEnd.disabled = true;
     timeInputPause.disabled = true;
     commentInput.disabled = true;
+    // disable other checkboxes if holiday is checked
+    if (holidayCheckbox.checked) {
+        sickCheckbox.disabled = true;
+        document.getElementById("radio-school").disabled = true;
+    }
 } else {
     timeInputStart.disabled = false;
     timeInputEnd.disabled = false;
     timeInputPause.disabled = false;
     commentInput.disabled = false;
 }
+
+
 
 /**
  * Disable inputs of type "time" when the "krank" checkbox is checked.
