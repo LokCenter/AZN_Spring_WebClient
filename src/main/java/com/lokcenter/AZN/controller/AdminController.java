@@ -248,15 +248,19 @@ public class AdminController {
                         @RequestParam(name = "year", required = false) String year,
                         @RequestParam(name = "userid", required = true) String userid) throws Exception {
 
+        String month2;
         // generate date if no date
         if (year == null || month == null) {
-            LocalDate currDate = LocalDate.now();
+            Calendar calendar = Calendar.getInstance();
 
-            month = String.valueOf(currDate.getMonthValue());
-            year = String.valueOf(currDate.getYear());
+            month = String.valueOf(calendar.get(Calendar.MONTH));
+            month2 = month;
+            year = String.valueOf(calendar.get(Calendar.YEAR));
         } else {
-            month = String.valueOf(Integer.parseInt(month) + 1);
+            month2 = month;
         }
+
+        month =  String.valueOf(Integer.parseInt(month) +1);
 
         String role = ControllerHelper.getAdminRole(authentication);
 
@@ -270,7 +274,7 @@ public class AdminController {
 
         // make get request and get data
         Mono<String> resSoll = webClient.get().uri(String.format("/worktime/sollMonth?role=%s&month=%s&year=%s&userid=%s",
-                        role, month, year, userid)).
+                        role, month2, year, userid)).
                 attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
 
         Mono<String> resStatus = webClient.method(HttpMethod.GET).uri("monthplan/status").
