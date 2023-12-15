@@ -5,11 +5,13 @@
  * @param work
  * @param sick
  * @param availableVacation
+ * @param approvedVacation
+ * @param elapsedVacation
  * @param glaz
  * @param overtime
  * @param tableBodyName
  */
-function addYear(year, work, sick, availableVacation, glaz, overtime, tableBodyName) {
+function addYear(year, work, sick, availableVacation,  approvedVacation, elapsedVacation, glaz, overtime, tableBodyName) {
     const yearOverviewTableBody = document.getElementById(tableBodyName).getElementsByTagName("tbody")[0];
     let newRow = yearOverviewTableBody.insertRow();
     let newYear = newRow.insertCell();
@@ -24,8 +26,8 @@ function addYear(year, work, sick, availableVacation, glaz, overtime, tableBodyN
     newWork.innerText = work;
     newSick.innerText = sick;
     newAvailableVacation.innerText = availableVacation;
-    newApprovedVacation.innerText = availableVacation;
-    newElapsedVacation.innerText = availableVacation;
+    newApprovedVacation.innerText = approvedVacation;
+    newElapsedVacation.innerText = elapsedVacation;
     newGLAZ.innerText = glaz;
     newOvertime.innerText = overtime;
 }
