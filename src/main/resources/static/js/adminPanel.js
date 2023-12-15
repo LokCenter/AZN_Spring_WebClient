@@ -197,6 +197,7 @@ const showYearPlanByUser = (userid, username, path) => {
     document.getElementById("user-name-modal").innerHTML = username;
     makeRequest(path, userid, (data) => {
         let years = data;
+        console.log(years);
         for (let year in years) {
             work = years[year].workDay !== undefined ? years[year].workDay : 0;
             sick = years[year].sickDay !== undefined ? years[year].sickDay : 0;
