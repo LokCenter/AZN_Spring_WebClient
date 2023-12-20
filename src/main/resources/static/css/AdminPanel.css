@@ -238,7 +238,7 @@ button:hover {
 }
 
 .modal-content {
-    width: 50em;
+    width: 67em;
     min-height: 8em;
     margin: 5em auto;
     background-color: var(--clr-light);
