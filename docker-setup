@@ -7,6 +7,9 @@
 #   Run with sudo if your user is not part of the docker group, run without otherwise.
 #   Enter the names of the containers as arguments to the script in the order that you want them to be set up.
 #   If you don't want a container to be set up, just omit it from the arguments.
+#
+# IMPORTANT: Creating the hstore extension automatically will likely fail (not sure why),
+#            so you may need to enter the command manually in psql.
 ##############################################################################################################
 
 # create network for containers
