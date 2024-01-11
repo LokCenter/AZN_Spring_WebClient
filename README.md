@@ -110,6 +110,7 @@ Current status:
   <li><a href="https://github.com/chfle">chfle</a> - <a href="mailto:christian.lehnert.home@protonmail.com">christian.lehnert.home@protonmail.com</a></li> 
   <li><a href="https://github.com/lszillat">lszillat</a> - <a href="mailto:leonard.szillat@gmail.com">leonard.szillat@gmail.com</a></li>
   <li><a href="https://github.com/leirk">Leirk</a></li>
+  <li><a href="https://github.com/pkerschbaumer">pkerschbaumer</a> - <a href="mailto:psyccvx42kits@proton.me">psyccvx42kits@proton.me</a></li>
 </ul>
 
 <!-- CONTACT -->
