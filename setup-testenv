@@ -1,20 +1,25 @@
 #!/bin/bash
 
 ##############################################################################################################
-# A simple script to run and set up postgres, memcached, aznrserver and aznwserver docker containers.
+# A simple script to run and set up postgres, memcached, aznrserver and aznwserver docker containers
+# in an http configuration.
+# Intended to improve developer experience and ease configuration management,
+# NOT intended to set up a production environment.
 #
 # Usage:
 #   Run with sudo if your user is not part of the docker group, run without otherwise.
 #   Enter the names of the containers as arguments to the script in the order that you want them to be set up.
-#   If you don't want a container to be set up, just omit it from the arguments.
+#   If you don't want a container to be set up again or at all, just omit it from the arguments.
 #
 # IMPORTANT: Creating the hstore extension automatically will likely fail (not sure why),
 #            so you may need to enter the command manually in psql.
 ##############################################################################################################
 
-# create network for containers
+# An alias for running commands inside the postgres container
 
 alias psql-run='docker exec -it postgres psql -U postgres -c'
+
+# Create network for containers
 
 docker network create azn
 
@@ -24,15 +29,15 @@ do
 
         postgres)
 
-            # remove postgres data directory
+            # Remove postgres data directory
 
             rm -rf /postgres
 
-            # kill and remove containers
+            # Kill and remove containers
 
             docker rm --force postgres
 
-            # set up postgres
+            # Set up postgres container with backup directory
 
             docker pull postgres
 
@@ -48,11 +53,11 @@ do
               -v /postgres/basebackup:/basebackup \
               -d postgres
 
-            # wait until database has started
+            # Wait until database has started
 
             sleep 20
 
-            # inside postgres container
+            # Inside postgres container
 
             psql-run "CREATE USER azn WITH PASSWORD '615465489156';" \
                       "CREATE DATABASE azn;" \
@@ -61,7 +66,7 @@ do
 
             psql-run "\c azn"
 
-			# this might be executed manually,
+			# This might be executed manually,
 			# as psql will only add the extension for db postgres for some reason
 
             psql-run "CREATE EXTENSION hstore;"
@@ -72,7 +77,7 @@ do
 
             docker rm --force memcached
 
-            # set up memcached
+            # Set up memcached container
 
             docker pull memcached
 
@@ -86,7 +91,7 @@ do
         
         aznrserver)
 
-            # log into github through docker 
+            # Log into github through docker 
             
             echo 'Logging into ghcr.io...'
 
@@ -96,7 +101,7 @@ do
 
             docker rm --force aznrserver
 
-            # set up azn resource server
+            # Set up container with resource server app
 
             docker pull ghcr.io/lokcenter/azn_spring_resourceserver:main
 
@@ -123,7 +128,7 @@ do
 
             docker rm --force aznwserver
 
-            # set up azn web server
+            # Set up container with web server app
 
             docker pull ghcr.io/lokcenter/azn_spring_webclient:main
 
