@@ -14,7 +14,7 @@
     grid-template: 1fr 1fr / 2fr 3fr;
     align-items: start;
     text-align: left;
-    margin-top: 7em;
+    margin: 7em 10em 0 0;
 }
 
 .personal-information,

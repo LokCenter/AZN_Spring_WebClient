@@ -195,18 +195,10 @@ const showYearPlanByUser = (userid, username, path) => {
     document.getElementById("dept-both").focus()
     // set username
     document.getElementById("user-name-modal").innerHTML = username;
+
     makeRequest(path, userid, (data) => {
-        let years = data;
-        for (let year in years) {
-            work = years[year].workDay !== undefined ? years[year].workDay : 0;
-            sick = years[year].sickDay !== undefined ? years[year].sickDay : 0;
-            availableVacation = years[year].availableVacation !== undefined ? years[year].availableVacation : 0;
-            approvedVacation = years[year].approvedVacation !== undefined ? years[year].approvedVacation : 0;
-            elapsedVacation = years[year].elapsedVacation !== undefined ? years[year].elapsedVacation : 0;
-            glaz = years[year].glazDay !== undefined ? years[year].glazDay : 0;
-            balance =  years[year].balance !== undefined ? years[year].balance : 0;
-            addYear(year, work, sick, availableVacation, approvedVacation, elapsedVacation, glaz, balance, "year-overview-table")
-        }
+        // render year overview data
+        addAllYears("year-overview-table", data);
         prevYearModal.style.display = "block";
         disableMainWindowScrolling();
     })
