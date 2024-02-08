@@ -5,10 +5,13 @@
 </head>
 <body>
 <footer th:fragment="footer">
-    <span>2023 -</span>
-    <a href="https://github.com/chfle">Christian Lehnert,</a>
-    <a href="https://github.com/lszillat">Leonard Szillat,</a>
-    <a href="https://github.com/Leirk">Erik Lichius</a>
+    <span th:text="|${#dates.year(#dates.createNow())} -|">2024 -</span>
+    <span>
+        <a href="https://github.com/chfle">Christian Lehnert</a>,
+        <a href="https://github.com/lszillat">Leonard Szillat</a>,
+        <a href="https://github.com/Leirk">Erik Lichius</a>,
+        <a href="https://github.com/pkerschbaumer">Paul Kerschbaumer</a>
+    </span>
 </footer>
 </body>
 </html>
