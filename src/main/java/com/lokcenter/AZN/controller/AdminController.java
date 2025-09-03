@@ -411,6 +411,22 @@ public class AdminController {
         return "";
     }
 
+    //Get username from a userid
+    @GetMapping("/usernamefromid")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    String getUsernameFromID( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+    @RequestParam(name = "user_id") Long userid) {
+        Mono<String> res = webClient.get().uri("/admin/usernamefromid?user_id="+userid).
+                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
+
+        if (res.block() != null) {
+            return res.block();
+        }
+
+        return "";
+    }
+
     /**
      * Show AZN-Abgaben
      */
@@ -559,6 +575,104 @@ public class AdminController {
         if (isAdmin(authentication.getAuthorities())) {
             return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
                     .uri("admin/defaults/delete")
+                    .attributes(oauth2AuthorizedClient(authorizedClient))
+                    // send
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    // send
+                    .body(Mono.just(payload), payload.getClass())
+                    .retrieve()
+                    // res type
+                    .bodyToMono(Boolean.class)
+                    .block());
+
+        } else {
+            return false;
+        }
+    }
+
+    //Redirects to admin/MonthTimePlan
+    @GetMapping("/MonthTimePlan")
+    @CrossOrigin("/admin")
+    String getMonthTimePlan(Model model, @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+            Authentication authentication,
+            @RequestParam(required = false, name = "firstday") String firstDate,
+            @RequestParam(required = false, name = "lastday") String lastDate,
+            @RequestParam(required = false, name = "month") String month,
+            @RequestParam(required = false, name = "year") String year,
+            @RequestParam(required = false, name = "userid") String userid
+            ) throws Exception {
+        model.addAttribute("title", "Zeit Festlegen");
+
+        // check if there are any queries empty
+        if (firstDate == null || lastDate == null || month == null || year == null || userid == null) {
+            return "MonthTimePlan";
+        }
+        // User roles
+        String role = ControllerHelper.getUserOrAdminRole(authentication);
+        String query = String.format("firstday=%s&lastday=%s&month=%s&year=%s&role=%s&userid=%s", firstDate, lastDate,month, year, role,userid);
+        Mono<String> res = ControllerHelper.makeRequest(() ->
+               webClient.get().uri("/admin/MonthTimePlan?" + query).
+               attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
+
+        // Mono<String> resStats = ControllerHelper.makeRequest(() ->
+        //         webClient.get().uri("/admin/MonthTimePlan/stats?year=" + year).
+        //         attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
+        
+        //check if there is any data
+        if (res.block() != null) {
+            JsonNode jsonData = new ObjectMapper().readTree(res.block());
+            //JsonNode jsonStats = new ObjectMapper().readTree(resStats.block());
+
+            model.addAttribute("data", jsonData);
+            //model.addAttribute("stats", jsonStats);
+
+            return "MonthTimePlan";
+        }
+
+        throw new Exception("Bad request");
+        }
+
+   
+    @PostMapping("/MonthTimePlan/request")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    Boolean postMonthTimePlan(@RequestBody Map<String, Object> payload,
+                               @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                               Authentication authentication) throws Exception {
+        
+       if (isAdmin(authentication.getAuthorities())) {
+           String query = String.format("startDate=%s&endDate=%s&requiredtime_start=%s&requiredtime_pause=%s&requiredtime_end=%s&user_id=%s", payload.get("startDate"),
+                   payload.get("endDate"),
+                   payload.get("requiredtime_start"),
+                   payload.get("requiredtime_pause"),
+                   payload.get("requiredtime_end"),
+                   payload.get("user_id"));
+           return Boolean.TRUE.equals(this.webClient.method(HttpMethod.POST)
+                   .uri("/admin/MonthTimePlan/request?"+query)
+                   .attributes(oauth2AuthorizedClient(authorizedClient))
+                   // send
+                   .retrieve()
+                   // res type
+                   .bodyToMono(Boolean.class)
+                   .block());
+
+       } else {
+           return false;
+       }
+        }
+
+    /**
+     * Delete item from calendar
+     * @return
+     */
+    @PutMapping("/MonthTimePlan")
+    @CrossOrigin("/admin")
+    @ResponseBody
+    Boolean deleteMonthTime(@RequestBody Map<String, Object> payload,  @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient,
+                               Authentication authentication) throws Exception {
+        if (isAdmin(authentication.getAuthorities())) {
+            return Boolean.TRUE.equals(this.webClient.method(HttpMethod.DELETE)
+                    .uri("/admin/MonthTimePlan/delete")
                     .attributes(oauth2AuthorizedClient(authorizedClient))
                     // send
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

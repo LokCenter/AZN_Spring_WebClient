@@ -191,6 +191,7 @@
                     <th scope="col">Anfragen</th>
                     <th scope="col">AZN-Abgaben</th>
                     <th scope="col">Jahresübersicht</th>
+                    <th scope="col">Zeit Festlegen</th>
                     <th scope="col">Bearbeiten</th>
                     <th scope="col">Löschen</th>
                 </tr>
@@ -229,6 +230,10 @@
                         Anzeigen
                     </button>
                 </td>
+                <td><button th:data-name="${user.get('name').textValue()}" th:data-id="${user.get('userId').asInt()}"
+                    onclick="monthTimePlanRedirect(this.getAttribute('data-id'),this.getAttribute('data-name'))">
+                        Festlegen
+                </button></td>
                 <td><button
                         th:data-name="${user.get('name').textValue()}"
                         th:data-id="${user.get('userId').asInt()}"

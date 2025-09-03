@@ -9,4 +9,5 @@ let colors = {
     "colorGLAZPending": "#B3F69E",
     "colorGLAZ": "#6CBD53",
     "colorSick": "#FF6C82",
+    "colorRequiredTime":"#7F62b1"
 }

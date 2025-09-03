@@ -545,6 +545,13 @@ function adminRedirect(id, name) {
     }
 }
 
+//Assigning data to the redirect link
+function monthTimePlanRedirect (userid,name) {
+
+    localStorage.setItem("userid",userid);
+    window.location.href = "/admin/MonthTimePlan"
+}
+
 /**
  * Show admin edit data
  * @param userid

@@ -6,6 +6,8 @@ const userList = document.getElementById("user-list");
  * Adds event listeners for displaying the selected user's name and redirecting to their page.
  * @param users
  */
+userList.style.display = "none";
+
 function createUserList(users) {
     let datalistContent = "";
     for (let i = 0; i < users.length; i++) {
@@ -18,7 +20,7 @@ function createUserList(users) {
             searchBar.value = user.textContent;
             userList.style.display = "none";
             // Redirect to selected user's page
-            window.location.href = window.location.href.split('?')[0] + '?userid=' + user.dataset.userid
+            window.location.href = window.location.href.split('userid')[0] + 'userid=' + user.dataset.userid
             // set userid to use it on all pages
             localStorage.setItem("id", user.dataset.userid)
             localStorage.setItem("name", user.dataset.username)
