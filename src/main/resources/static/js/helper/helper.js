@@ -160,3 +160,7 @@ const unixToDate = (unixString) => {
 
     return `${year}-${month}-${day}`;
 }
+
+function getUserID() {
+    return new URLSearchParams(window.location.search).get("userid");
+}

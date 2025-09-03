@@ -70,8 +70,8 @@
         event["end"] = event["end"] + 1
         if (event["tag"] == "gUrlaub") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(event["start"]).addDays(1),
+                end: new DayPilot.Date(event["end"]).addDays(1),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
@@ -81,8 +81,8 @@
             })
         } else if (event["tag"] == "gFeiertag") {
             events.push({
-                start: new DayPilot.Date(event["start"]),
-                end: new DayPilot.Date(event["end"]),
+                start: new DayPilot.Date(event["start"]).addDays(1),
+                end: new DayPilot.Date(event["end"]).addDays(1),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}"></title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/overview.css}">
+    <link rel="stylesheet" th:href="@{/css/generalOverview.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/daySwitch.css}">
+    <link rel="stylesheet" th:href="@{/css/AdminMonthTimePlan.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/overviewModal.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/radio.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragments/adminSearchBarTimePlan.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/fav/calendar.ico}">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script th:src="@{/js/daypilot-all.js}"></script>
+    <script th:src="@{/js/helper/helper.js}"></script>
+</head>
+<body>
+    <header id="general-overview-header">
+    <h1>Festlegung der Zeit</h1>
+    <nav>
+        <a id="admin-link" href="/admin">Admin Panel</a>
+    </nav>
+    <div class="logout-container">
+        <a href="/mclogout" class="svg-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                <path d="M160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128V384c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32h64zM504.5 273.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32H320v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z"/>
+            </svg>
+        </a>
+    </div>
+</header>
+
+<div th:replace="fragments/dateSwitchMonth :: dateSwitch "></div>
+
+<div class="search-container">
+    <input type="search" name="search-user" id="search-user" placeholder="Teilnehmer auswählen..." spellcheck="false">
+    <ul id="user-list"></ul>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg>
+    <script>
+        // Get CSRF token
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        // csrf to header
+        axios.defaults.headers.get[header] = token
+        // data
+        axios.get("/admin/usernamefromid?user_id="+getUserID()).then((response) => {
+            if(response.data) {
+                document.getElementById("search-user").placeholder = response.data
+            }
+            else {
+                console.log("Response is empty")
+            }
+        }).catch((e) => {
+        console.log("cannot request data", e)});
+    </script>
+</div>
+<script th:src="@{/js/adminSearchBar.js}"></script>
+
+<div class="dp-container">
+    <div class="dp-wrapper">
+        <div id="dp"></div>
+    </div>
+    <button id="create-event-button">Zeit Festlegen</button>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/js/helper/colors.js}"></script>
+<script th:src="@{/js/adminMonthTimePlan.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var rawEvent = /*[[${data}]]*/ 'default';
+
+    events = [];
+    eventCount = rawEvent.length;
+    for (let i = 0; i < eventCount; i++) {
+        event = rawEvent[i];
+        if (event["requiredtime_start"].indexOf(0) == "0") {
+            requiredtime_start = event["requiredtime_start"].slice(1,-3);
+        }
+        else {
+            requiredtime_start = event["requiredtime_start"].slice(0,-3);
+        }
+
+        if (event["requiredtime_pause"].indexOf(0) == "0") {
+            requiredtime_pause = event["requiredtime_pause"].slice(1,-3);
+        }
+        else {
+            requiredtime_pause = event["requiredtime_pause"].slice(0,-3);
+        }
+
+        if (event["requiredtime_end"].indexOf(0) == "0") {
+            requiredtime_end = event["requiredtime_end"].slice(1,-3);
+        }
+        else {
+            requiredtime_end = event["requiredtime_end"].slice(0,-3);
+        }
+
+        events.push({
+            start: new DayPilot.Date(event["startDate"]).addDays(1),
+            end: new DayPilot.Date(event["endDate"]).addDays(1),
+            text: `${requiredtime_start} - ${requiredtime_end}\nPause: ${requiredtime_pause}`,
+            id: event["id"],
+            backColor: colors.colorGeneralHoliday,
+            barColor: colors.colorRequiredTime,
+            borderColor: colors.colorGeneralHoliday,
+            cssClass:"custom-event"
+        })
+    }
+
+    dp.update({events})
+</script>
+
+</body>
+
+</html>

@@ -92,7 +92,7 @@ public class DayPlanController {
 
             // make get request and get data
             var resSollRequest = ControllerHelper.makeRequest(() ->
-                    webClient.get().uri(String.format("worktime/soll?role=%s&date=%s", role, dateString)).
+                    webClient.get().uri(String.format("MonthTimePlan/soll?role=%s&date=%s", role, dateString)).
                     attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class));
 
             Mono<String> resSoll = resSollRequest.get();

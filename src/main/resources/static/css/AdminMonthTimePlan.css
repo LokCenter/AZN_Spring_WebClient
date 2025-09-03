@@ -1,0 +1,52 @@
+.monthTimePlan-modal .fieldset-container {
+    margin-bottom: 1.5em;
+}
+
+.monthTimePlan-modal #entry-name-start {
+    font-size: 1.1em;
+    min-width: 7em;
+    margin-bottom: 1.5em;
+    margin-right:7px;
+}
+
+.monthTimePlan #entry-name-start::placeholder {
+    text-align: left;
+}
+
+.monthTimePlan-modal #entry-name-pause {
+    font-size: 1.1em;
+    min-width: 7em;
+    margin-bottom: 1.5em;
+    margin-right:7px;
+}
+
+.monthTimePlan #entry-name-pause::placeholder {
+    text-align: center;
+}
+
+.monthTimePlan-modal #entry-name-end {
+    font-size: 1.1em;
+    min-width: 7em;
+    margin-bottom: 1.5em;
+    margin-right:7px;
+}
+
+.monthTimePlan #entry-name-end::placeholder {
+    text-align: right;
+}
+
+.labels #start {
+    margin-right: 2cm;
+}
+
+.labels #pause {
+    margin-left: 1.8cm;
+}
+
+.labels #end {
+    margin-left: 1.9cm;
+}
+
+.custom-event {
+    height: 40px !important;
+}
