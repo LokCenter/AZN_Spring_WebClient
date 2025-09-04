@@ -614,17 +614,11 @@ public class AdminController {
                webClient.get().uri("/admin/MonthTimePlan?" + query).
                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
 
-        // Mono<String> resStats = ControllerHelper.makeRequest(() ->
-        //         webClient.get().uri("/admin/MonthTimePlan/stats?year=" + year).
-        //         attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class)).get();
-        
         //check if there is any data
         if (res.block() != null) {
             JsonNode jsonData = new ObjectMapper().readTree(res.block());
-            //JsonNode jsonStats = new ObjectMapper().readTree(resStats.block());
 
             model.addAttribute("data", jsonData);
-            //model.addAttribute("stats", jsonStats);
 
             return "MonthTimePlan";
         }

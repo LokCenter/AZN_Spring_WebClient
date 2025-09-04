@@ -230,10 +230,9 @@
                         Anzeigen
                     </button>
                 </td>
-                <td><button th:data-name="${user.get('name').textValue()}" th:data-id="${user.get('userId').asInt()}"
-                    onclick="monthTimePlanRedirect(this.getAttribute('data-id'),this.getAttribute('data-name'))">
+                <td><a href="/admin/MonthTimePlan" th:data-name="${user.get('name').textValue()}" th:data-id="${user.get('userId').asInt()}" onclick="localStorage.setItem('id',this.getAttribute('data-id'))">
                         Festlegen
-                </button></td>
+                </a></td>
                 <td><button
                         th:data-name="${user.get('name').textValue()}"
                         th:data-id="${user.get('userId').asInt()}"
