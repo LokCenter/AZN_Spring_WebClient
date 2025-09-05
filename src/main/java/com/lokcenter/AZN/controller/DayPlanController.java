@@ -52,18 +52,6 @@ public class DayPlanController {
                       @RegisteredOAuth2AuthorizedClient("graph") OAuth2AuthorizedClient authorizedClientGraph,
                       Authentication authentication) throws Exception {
 
-//        try {
-//            var client = GraphClientHelper.getGraphClient(authorizedClientGraph);
-//
-//            System.out.println(client.me().buildRequest().get());
-//
-//        } catch (Exception e)
-//        {
-//            System.out.println("Error initializing Graph for user auth");
-//            System.out.println(e.getMessage());
-//        }
-
-
         if (JunitHelper.isJUnitTest()) {
             return "dayPlan";
         } else {

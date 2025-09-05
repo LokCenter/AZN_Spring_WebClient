@@ -123,7 +123,6 @@ const getDaysAsQuery = () => {
     let firstDay = cells[0].childNodes[0].innerText.replace( /^\D+/g, '');
     let lastDay = cells[cells.length - 1].childNodes[0].innerText.replace( /^\D+/g, '');
     localStorage.setItem('startDate', dp.startDate);
-    console.log("F")
     window.location.href =  window.location.href
         .split('?')[0] + `?firstday=${firstDay}&lastday=${lastDay}&month=${dp.startDate.value.slice(5, 7)}&year=${dp.startDate.value.slice(0, 4)}&userid=${localStorage.getItem("id")}`
 }
