@@ -164,7 +164,6 @@ public class MonthPlanController {
     Boolean deleteAllMessagesByMonthAndYear(@RequestBody Map<String, String> payload,
                                      @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient  ) {
 
-        System.out.println(payload);
         return Boolean.TRUE.equals(this.webClient
                 .method(HttpMethod.DELETE)
                 .uri("/monthplan/messages/delete")

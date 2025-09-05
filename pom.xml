@@ -130,13 +130,6 @@
 			<artifactId>msal4j</artifactId>
 			<version>1.14.0-beta</version>
 		</dependency>
-		<!-- Live Update -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>

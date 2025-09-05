@@ -143,7 +143,6 @@ function onTimeChange(key, value) {
     );
     if (endTime.value === "00:00") {
         document.getElementById("ist").value = "00:00";
-        console.log("test")
     } else {
         // Set ist
         const ist = document.getElementById("ist");
