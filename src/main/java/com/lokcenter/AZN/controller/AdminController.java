@@ -6,10 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lokcenter.AZN.helper.ControllerHelper;
 import com.lokcenter.AZN.helper.JunitHelper;
+import com.lokcenter.AZN.helper.UsernamesCaching;
 import lombok.AllArgsConstructor;
+
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -27,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.lokcenter.AZN.helper.ControllerHelper.getAdminRole;
 import static com.lokcenter.AZN.helper.ControllerHelper.isAdmin;
@@ -397,34 +402,19 @@ public class AdminController {
      *
      * @implSpec get username and userid from user.
      */
-    @ResponseBody
+    UsernamesCaching usernamesCaching;
+    //@ResponseBody
     @GetMapping("/usernameList")
-    String showUserNameList( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
-        Mono<String> res = webClient.get().uri("admin/userlist").
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
-
-
-        if (res.block() != null) {
-            return res.block();
-        }
-
-        return "";
+    ResponseEntity<String> showUserNameList( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient) {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS).cachePublic()).body(usernamesCaching.showUserNameList(authorizedClient));
     }
 
     //Get username from a userid
     @GetMapping("/usernamefromid")
     @CrossOrigin("/admin")
-    @ResponseBody
-    String getUsernameFromID( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient, Authentication authentication,
+    ResponseEntity<String> getUsernameFromID( @RegisteredOAuth2AuthorizedClient("userwebapp") OAuth2AuthorizedClient authorizedClient, Authentication authentication,
     @RequestParam(name = "user_id") Long userid) {
-        Mono<String> res = webClient.get().uri("/admin/usernamefromid?user_id="+userid).
-                attributes(oauth2AuthorizedClient(authorizedClient)).retrieve().bodyToMono(String.class);
-
-        if (res.block() != null) {
-            return res.block();
-        }
-
-        return "";
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS).cachePublic()).body(usernamesCaching.getUsernameFromID(authorizedClient,authentication,userid));
     }
 
     /**

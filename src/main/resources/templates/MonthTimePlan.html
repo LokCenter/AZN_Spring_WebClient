@@ -50,7 +50,7 @@
         // csrf to header
         axios.defaults.headers.get[header] = token
         // data
-        axios.get("/admin/usernamefromid?user_id="+getUserID()).then((response) => {
+        axios.get("/admin/usernamefromid?user_id="+(getUserID() != null ? getUserID() : localStorage.getItem("id"))).then((response) => {
             if(response.data) {
                 document.getElementById("search-user").placeholder = response.data
             }
@@ -75,7 +75,7 @@
 <script th:src="@{/js/adminMonthTimePlan.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-
+    
     var rawEvent = /*[[${data}]]*/ 'default';
 
     events = [];
