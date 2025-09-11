@@ -545,6 +545,22 @@ function adminRedirect(id, name) {
     }
 }
 
+const prefetched = new Set();
+const prefetchedUser_id = new Set();
+
+function fetchLink(link,user_id) {
+    const url = link.href;
+
+    if (!prefetchedUser_id.has(user_id)) {
+        fetch("admin/usernamefromid?user_id="+user_id);
+        prefetchedUser_id.add(user_id);
+    }
+
+    if (prefetched.has(url)) return;
+        fetch("admin/usernameList");
+        prefetched.add(url);
+}
+
 /**
  * Show admin edit data
  * @param userid
