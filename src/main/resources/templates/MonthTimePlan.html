@@ -104,8 +104,8 @@
         }
 
         events.push({
-            start: new DayPilot.Date(event["startDate"]).addDays(1),
-            end: new DayPilot.Date(event["endDate"]).addDays(1),
+            start: new DayPilot.Date(event["startDate"]),
+            end: new DayPilot.Date(event["endDate"]),
             text: `${requiredtime_start} - ${requiredtime_end}\nPause: ${requiredtime_pause}`,
             id: event["id"],
             backColor: colors.colorGeneralHoliday,
@@ -117,7 +117,5 @@
 
     dp.update({events})
 </script>
-
 </body>
-
 </html>
