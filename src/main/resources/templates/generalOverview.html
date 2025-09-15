@@ -81,8 +81,8 @@
             })
         } else if (event["tag"] == "gFeiertag") {
             events.push({
-                start: new DayPilot.Date(event["start"]).addDays(1),
-                end: new DayPilot.Date(event["end"]).addDays(1),
+                start: new DayPilot.Date(event["start"]),
+                end: new DayPilot.Date(event["end"]),
                 text: event["text"],
                 tag: event["tag"],
                 id: event["id"],
